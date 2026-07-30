@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
@@ -8,17 +9,27 @@ import { APP_URLS } from '../config/urls';
 
 export const NotFoundPage = () => {
   const { t } = useLanguage();
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   return (
     <div className="relative min-h-screen flex flex-col bg-[#FCFCFB] dark:bg-[#080a09] text-[#0A0C0B] dark:text-white overflow-hidden transition-colors duration-300">
-      {/* Background Video Layer */}
+      {/* Background Gradient & Pattern Layer (Carga Instantánea) */}
+      <div className="absolute inset-0 w-full h-full bg-[#FCFCFB] dark:bg-[#080a09] z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#FCFCFB] via-[#F2F2F0] to-[#FCFCFB] dark:from-[#080a09] dark:via-[#131517] dark:to-[#080a09] opacity-80" />
+        <div className="absolute inset-0 bg-dot-texture opacity-25 dark:opacity-35 animate-dot-pulse" />
+      </div>
+
+      {/* Video Overlay Layer */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
         <video
           autoPlay
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-30 dark:opacity-50 mix-blend-luminosity dark:mix-blend-normal transition-opacity duration-500"
+          onCanPlay={() => setVideoLoaded(true)}
+          className={`absolute inset-0 w-full h-full object-cover mix-blend-luminosity dark:mix-blend-normal transition-opacity duration-700 ${
+            videoLoaded ? 'opacity-30 dark:opacity-55' : 'opacity-0'
+          }`}
         >
           <source
             src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260613_180732_a54afbf6-b30d-470e-861f-669871f09f67.mp4"
@@ -26,8 +37,7 @@ export const NotFoundPage = () => {
           />
         </video>
         {/* Subtle Theme Gradient Mask Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#FCFCFB]/85 via-[#FCFCFB]/70 to-[#FCFCFB] dark:from-[#080a09]/85 dark:via-[#080a09]/70 dark:to-[#080a09] pointer-events-none" />
-        <div className="absolute inset-0 bg-dot-texture opacity-20 dark:opacity-30 pointer-events-none animate-dot-pulse" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#FCFCFB]/80 via-[#FCFCFB]/60 to-[#FCFCFB] dark:from-[#080a09]/80 dark:via-[#080a09]/60 dark:to-[#080a09] pointer-events-none" />
       </div>
 
       {/* Content Wrapper */}

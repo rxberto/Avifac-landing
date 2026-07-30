@@ -27,12 +27,12 @@ export function App() {
     const checkPath = () => {
       const pathname = window.location.pathname.toLowerCase();
       const hash = window.location.hash.toLowerCase();
-      if (
-        pathname === '/404' ||
-        pathname === '/404/' ||
-        hash === '#404' ||
-        (pathname !== '/' && !pathname.startsWith('/en') && !pathname.startsWith('/es'))
-      ) {
+
+      const validLandingPaths = ['/', '/index.html', '/en', '/en/', '/es', '/es/'];
+      const isExplicit404 = pathname === '/404' || pathname === '/404/' || hash === '#404';
+      const isValidRoute = validLandingPaths.includes(pathname) || hash.startsWith('#');
+
+      if (isExplicit404 || !isValidRoute) {
         setIsNotFound(true);
       } else {
         setIsNotFound(false);
