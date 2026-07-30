@@ -354,12 +354,13 @@ export const Navbar = () => {
           {mobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: '100vh' }}
+              animate={{ opacity: 1, height: 'calc(100dvh - 65px)' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="lg:hidden overflow-hidden bg-[#FCFCFB] dark:bg-[#080a09] border-t border-[#D2D2CE] dark:border-[#303131] fixed top-[69px] left-0 right-0 bottom-0 z-40"
+              className="lg:hidden overflow-hidden bg-[#FCFCFB] dark:bg-[#080a09] border-t border-[#D2D2CE] dark:border-[#303131] fixed top-[65px] left-0 right-0 bottom-0 z-40 flex flex-col"
             >
-              <div className="h-full overflow-y-auto pb-24 px-6 pt-6 space-y-8">
+              {/* Scrollable Links Container */}
+              <div className="flex-1 overflow-y-auto px-6 pt-6 pb-8 space-y-8">
                 {Object.keys(megaMenus).map((key) => (
                   <div key={key} className="space-y-4">
                     <h3 className="text-[#0A0C0B] dark:text-white font-bold text-lg mb-2 border-b border-[#D2D2CE] dark:border-[#303131] pb-2">
@@ -418,18 +419,19 @@ export const Navbar = () => {
                     )}
                   </div>
                 ))}
+              </div>
                 
-                <div className="pt-6 border-t border-[#D2D2CE] dark:border-[#303131] flex flex-col gap-3">
-                  <a
-                    href="https://app.avialo.tech/login"
-                    className="w-full text-center text-sm text-[rgba(10,12,11,0.72)] dark:text-white/80 hover:text-[#0A0C0B] dark:hover:text-white font-medium py-3.5 border border-[#D2D2CE] dark:border-[#303131] rounded-xl transition-colors"
-                  >
-                    Iniciar Sesión
-                  </a>
-                  <Button variant="primary" href="https://app.avialo.tech/registro" className="w-full py-3.5 justify-center text-sm">
-                    Prueba 14 días gratis
-                  </Button>
-                </div>
+              {/* Sticky Fixed Bottom Action Bar with Safe Area Padding */}
+              <div className="shrink-0 p-4 pb-12 pt-3 bg-[#FCFCFB]/95 dark:bg-[#080a09]/95 backdrop-blur-md border-t border-[#D2D2CE] dark:border-[#303131] flex flex-col gap-2.5 z-50">
+                <Button variant="primary" href="https://app.avialo.tech/registro" className="w-full py-3.5 justify-center text-sm shadow-md">
+                  Prueba 14 días gratis
+                </Button>
+                <a
+                  href="https://app.avialo.tech/login"
+                  className="w-full text-center text-xs text-[rgba(10,12,11,0.72)] dark:text-white/80 hover:text-[#0A0C0B] dark:hover:text-white font-medium py-2 transition-colors"
+                >
+                  ¿Ya tienes cuenta? <span className="underline font-bold text-[#0A0C0B] dark:text-white">Iniciar Sesión</span>
+                </a>
               </div>
             </motion.div>
           )}
