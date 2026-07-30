@@ -117,13 +117,16 @@ export const IntegrationsSection = () => {
             {[...LOGOS, ...LOGOS, ...LOGOS, ...LOGOS].map((logo, idx) => (
               <div
                 key={`${logo.name}-${idx}`}
-                className="flex items-center justify-center shrink-0 hover:scale-110 transition-all duration-300 cursor-pointer py-2 opacity-80 hover:opacity-100 dark:opacity-85 dark:hover:opacity-100"
+                className="flex items-center justify-center shrink-0 w-[110px] sm:w-[140px] h-9 hover:scale-110 transition-all duration-300 cursor-pointer opacity-80 hover:opacity-100 dark:opacity-85 dark:hover:opacity-100"
               >
                 <img
                   src={logo.svg}
                   alt={logo.name}
-                  className={`${logo.height} ${logo.filterClass} w-auto object-contain max-w-[150px]`}
-                  loading="lazy"
+                  width={140}
+                  height={36}
+                  className={`${logo.height} ${logo.filterClass} w-auto object-contain max-w-full`}
+                  loading={idx < LOGOS.length ? 'eager' : 'lazy'}
+                  decoding="async"
                 />
               </div>
             ))}

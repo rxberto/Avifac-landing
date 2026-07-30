@@ -1,19 +1,122 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Navbar } from './Navbar';
 import { ShinyText } from './ShinyText';
 import { Button } from './Button';
 import { APP_URLS } from '../config/urls';
+import { Search, Plus, Sparkles, Bell, Sun, ArrowUpRight, CheckCircle2, ShieldCheck } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+type InvoiceStatus = 'Emitida' | 'Pendiente';
+interface Invoice {
+  id: string;
+  client: string;
+  date: string;
+  amount: number;
+  status: InvoiceStatus;
+}
+
+const CLIENT_POOL = [
+  'Bright Studio', 'Norte Ingeniería', 'Estudio Creativo BCN', 'Delta Consulting', 'Vela Software', 'Orbit Media',
+];
+
+const INITIAL_INVOICES: Invoice[] = [
+  { id: 'AV-2026-100', client: 'Studio UX Global', date: '29/07/2026', amount: 4500, status: 'Emitida' },
+  { id: 'AV-2026-099', client: 'Nexa Labs Tech Ltd', date: '26/07/2026', amount: 1850, status: 'Emitida' },
+  { id: 'AV-2026-098', client: 'Acme Design Studio', date: '24/07/2026', amount: 3200, status: 'Emitida' },
+  { id: 'AV-2026-097', client: 'Bright Studio', date: '21/07/2026', amount: 2100, status: 'Pendiente' },
+];
+
+const QUARTERS: Record<string, { iva: number; soportado: number; resultado: number; ingresos: number; gastos: number }> = {
+  T1: { iva: 1980.4, soportado: -320.5, resultado: 1659.9, ingresos: 12680, gastos: -1526 },
+  T2: { iva: 2640.2, soportado: -540.1, resultado: 2100.1, ingresos: 16820, gastos: -2571 },
+  T3: { iva: 3215.4, soportado: -682.1, resultado: 2533.3, ingresos: 19935, gastos: -3248 },
+  T4: { iva: 2890.0, soportado: -455.6, resultado: 2434.4, ingresos: 18100, gastos: -2170 },
+};
+
+const MONTHLY = [
+  { m: 'Feb', v: 3120 }, { m: 'Mar', v: 4581 }, { m: 'Abr', v: 3965 },
+  { m: 'May', v: 5123 }, { m: 'Jun', v: 6012 }, { m: 'Jul', v: 1936 },
+];
+
+const TOP_CLIENTS = [
+  { name: 'Studio UX Global', amount: 4500 },
+  { name: 'Acme Design Studio', amount: 3200 },
+  { name: 'Nexa Labs Tech Ltd', amount: 1850 },
+];
+
+const euro = (n: number) => `€${n.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+const VerifactuSeal = () => {
+  const { t } = useLanguage();
+  const [showTip, setShowTip] = useState(false);
+
+  const handleClick = () => {
+    setShowTip(true);
+    window.setTimeout(() => setShowTip(false), 1800);
+  };
+
+  return (
+    <div className="relative shrink-0">
+      <button
+        onClick={handleClick}
+        aria-label={t('Verificado con la AEAT', 'Verified with AEAT')}
+        className="relative w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center cursor-pointer group"
+      >
+        <motion.svg
+          viewBox="0 0 100 100"
+          className="absolute inset-0 w-full h-full"
+          animate={{ rotate: 360 }}
+          transition={{ repeat: Infinity, duration: 22, ease: 'linear' }}
+        >
+          <defs>
+            <path id="seal-circle" d="M 50,50 m -40,0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" />
+          </defs>
+          <circle cx={50} cy={50} r={47} fill="none" strokeWidth={1} strokeDasharray="2 3" className="stroke-[rgb(52,138,46)]/40 dark:stroke-emerald-400/40" />
+          <text className="fill-[rgb(52,138,46)] dark:fill-emerald-400" style={{ fontSize: 8.4, fontWeight: 700, letterSpacing: '0.15em' }}>
+            <textPath href="#seal-circle" startOffset="0%">
+              VERI·FACTU • AEAT • VERI·FACTU • AEAT •
+            </textPath>
+          </text>
+        </motion.svg>
+        <span className="relative z-10 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-500/10 flex items-center justify-center transition-transform duration-200 group-hover:scale-110 group-active:scale-95">
+          <ShieldCheck className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-[rgb(52,138,46)] dark:text-emerald-400" />
+        </span>
+      </button>
+      <AnimatePresence>
+        {showTip && (
+          <motion.span
+            initial={{ opacity: 0, y: 4, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 4, scale: 0.9 }}
+            className="absolute top-full right-0 mt-2 whitespace-nowrap text-[10px] font-medium text-[rgb(52,138,46)] dark:text-emerald-400 bg-[#FCFCFB] dark:bg-[#1a1c1e] border border-emerald-500/30 px-2.5 py-1 rounded-lg shadow-lg z-30 flex items-center gap-1"
+          >
+            <CheckCircle2 className="w-3 h-3" />
+            {t('Verificado con la AEAT', 'Verified with AEAT')}
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
 export const Hero = () => {
   const { t } = useLanguage();
   const heroContainerRef = useRef<HTMLElement>(null);
   const dashboardRef = useRef<HTMLDivElement>(null);
+
+  const [activeTab, setActiveTab] = useState<'resumen' | 'facturas' | 'informes'>('resumen');
+  const [invoices, setInvoices] = useState<Invoice[]>(INITIAL_INVOICES);
+  const [nextNumber, setNextNumber] = useState(101);
+  const [facturadoMes, setFacturadoMes] = useState(24850);
+  const [facturasTotal, setFacturasTotal] = useState(142);
+  const [justAdded, setJustAdded] = useState<string | null>(null);
+  const [filter, setFilter] = useState<'Todas' | InvoiceStatus>('Todas');
+  const [quarter, setQuarter] = useState<'T1' | 'T2' | 'T3' | 'T4'>('T3');
 
   // Smooth 3D Perspective Scroll Animation adaptative for mobile and desktop
   const { scrollYProgress } = useScroll({
@@ -30,6 +133,31 @@ export const Hero = () => {
       ScrollTrigger.refresh();
     }
   }, []);
+
+  const handleNewInvoice = () => {
+    const client = CLIENT_POOL[Math.floor(Math.random() * CLIENT_POOL.length)];
+    const amount = Math.floor(900 + Math.random() * 2300);
+    const id = `AV-2026-${nextNumber}`;
+    const newInvoice: Invoice = { id, client, date: t('Hoy', 'Today'), amount, status: 'Emitida' };
+
+    setInvoices((prev) => [newInvoice, ...prev].slice(0, 6));
+    setNextNumber((n) => n + 1);
+    setFacturasTotal((n) => n + 1);
+    setFacturadoMes((n) => n + amount);
+    setJustAdded(id);
+    window.setTimeout(() => setJustAdded(null), 1500);
+  };
+
+  const filteredInvoices = filter === 'Todas' ? invoices : invoices.filter((inv) => inv.status === filter);
+  const q = QUARTERS[quarter];
+  const NAV_TABS: { key: 'resumen' | 'facturas' | 'informes' | 'inert'; label: string }[] = [
+    { key: 'resumen', label: 'Resumen' },
+    { key: 'facturas', label: 'Facturas' },
+    { key: 'inert', label: 'Cobros' },
+    { key: 'inert', label: 'Gastos' },
+    { key: 'inert', label: 'Clientes' },
+    { key: 'informes', label: 'Informes' },
+  ];
 
   return (
     <section
@@ -62,7 +190,7 @@ export const Hero = () => {
 
       {/* Main Content Area */}
       <div className="relative z-10 w-full max-w-[1140px] mx-auto px-4 sm:px-6 flex flex-col items-center justify-start text-center pt-4 sm:pt-10">
-        
+
         {/* Main Heading & Subtitle */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -95,7 +223,7 @@ export const Hero = () => {
           </Button>
         </motion.div>
 
-        {/* Extended 3D Scroll Dashboard Panel (Compatible con Modo Claro y Modo Oscuro) */}
+        {/* Extended 3D Scroll Dashboard Panel — Interfaz real de Avialo, interactiva (Modo Claro y Oscuro) */}
         <div className="w-full max-w-7xl mt-6 sm:mt-10 [perspective:1000px] relative z-20 px-1 sm:px-0">
           <motion.div
             ref={dashboardRef}
@@ -107,111 +235,388 @@ export const Hero = () => {
               transformStyle: 'preserve-3d',
               willChange: 'transform',
             }}
-            className="relative rounded-[8px] sm:rounded-[12px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-4 sm:p-8 md:p-10 shadow-2xl overflow-hidden transition-colors duration-300 text-[#0A0C0B] dark:text-white min-h-[420px] sm:min-h-[560px] md:min-h-[640px] flex flex-col justify-between"
+            className="relative rounded-[8px] sm:rounded-[12px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] shadow-2xl overflow-hidden transition-colors duration-300 text-[#0A0C0B] dark:text-white min-h-[420px] sm:min-h-[600px] md:min-h-[680px] flex flex-col"
           >
-            {/* Top Bar with window controls */}
-            <div className="flex items-center justify-between pb-3 sm:pb-6 mb-4 sm:mb-6 border-b border-[#D2D2CE] dark:border-[#303131]">
+            {/* Browser Chrome */}
+            <div className="flex items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 border-b border-[#D2D2CE] dark:border-[#303131] shrink-0">
               <div className="flex items-center gap-1.5 sm:gap-2">
-                <span className="w-2.5 sm:w-3.5 h-2.5 sm:h-3.5 rounded-full bg-red-500/80" />
-                <span className="w-2.5 sm:w-3.5 h-2.5 sm:h-3.5 rounded-full bg-amber-500/80" />
-                <span className="w-2.5 sm:w-3.5 h-2.5 sm:h-3.5 rounded-full bg-emerald-500/80" />
-                <span className="ml-2 sm:ml-3 text-[10px] sm:text-sm font-mono text-neutral-600 dark:text-neutral-400 truncate max-w-[140px] sm:max-w-none">
-                  app.avialo.es/dashboard
+                <span className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-red-500/80" />
+                <span className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-amber-500/80" />
+                <span className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-emerald-500/80" />
+                <span className="ml-2 sm:ml-3 text-[10px] sm:text-xs font-mono text-neutral-500 dark:text-neutral-400 truncate max-w-[140px] sm:max-w-none">
+                  app.avialo.es/{activeTab}
                 </span>
               </div>
-              <div className="flex items-center gap-2 sm:gap-3">
-                <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-[10px] sm:text-xs font-medium border border-emerald-500/20 dark:border-emerald-500/30 flex items-center gap-1">
-                  <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-emerald-600 dark:bg-emerald-400 animate-pulse" />
-                  VeriFactu 2026
-                </span>
+              <VerifactuSeal />
+            </div>
+
+            {/* App Navbar (real, con pestañas pulsables) */}
+            <div className="flex flex-col gap-2.5 sm:gap-3 px-4 sm:px-6 pt-3 sm:pt-4 pb-2.5 sm:pb-3 border-b border-[#D2D2CE] dark:border-[#303131] shrink-0">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+                  <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-[10px] sm:text-[11px] font-bold text-white shrink-0">
+                    AV
+                  </div>
+                  <span className="text-xs sm:text-sm font-semibold truncate">Avialo Soluciones SL</span>
+                  <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full bg-[#F2F2F0] dark:bg-[#232326] border border-[#D2D2CE] dark:border-[#303131] text-[10px] text-neutral-500 dark:text-neutral-400 shrink-0">
+                    Empresa
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+                  <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[#D2D2CE] dark:border-[#303131] text-[11px] text-neutral-400 dark:text-neutral-500 w-40 lg:w-48">
+                    <Search className="w-3.5 h-3.5 shrink-0" />
+                    <span className="truncate">Buscar...</span>
+                  </div>
+                  <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#F2F2F0] dark:bg-[#232326] border border-[#D2D2CE] dark:border-[#303131] text-[11px] font-medium">
+                    <Sparkles className="w-3.5 h-3.5 text-violet-500" />
+                    <span>Asistente</span>
+                  </div>
+                  <Bell className="hidden sm:block w-4 h-4 text-neutral-400 dark:text-neutral-500" />
+                  <Sun className="hidden sm:block w-4 h-4 text-neutral-400 dark:text-neutral-500" />
+                  <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-orange-500 flex items-center justify-center text-[10px] sm:text-[11px] font-bold text-white shrink-0">
+                    RO
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 sm:gap-6 text-[11px] sm:text-xs font-medium text-neutral-500 dark:text-neutral-400 overflow-x-auto no-scrollbar">
+                {NAV_TABS.map(({ key, label }) => {
+                  const isClickable = key !== 'inert';
+                  const isActive = key === activeTab;
+                  return (
+                    <button
+                      key={label}
+                      disabled={!isClickable}
+                      onClick={() => isClickable && setActiveTab(key as 'resumen' | 'facturas' | 'informes')}
+                      className={`pb-2 shrink-0 whitespace-nowrap border-b-2 transition-colors duration-200 ${
+                        isActive
+                          ? 'text-[#0A0C0B] dark:text-white border-[#0A0C0B] dark:border-white'
+                          : isClickable
+                          ? 'border-transparent hover:text-[#0A0C0B] dark:hover:text-white cursor-pointer'
+                          : 'border-transparent cursor-default opacity-70'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
-            {/* Mockup Dashboard Body */}
-            <div id="hero-dashboard-panel" className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 text-left flex-1">
-              
-              {/* Sidebar stats & metrics */}
-              <div className="md:col-span-4 bg-[#FCFCFB] dark:bg-[#232326] border border-[#D2D2CE] dark:border-[#303131] rounded-xl sm:rounded-2xl p-4 sm:p-6 space-y-4 sm:space-y-6 flex flex-col justify-between shadow-sm transition-colors duration-300">
-                <div>
-                  <p className="text-xs sm:text-sm text-[rgba(10,12,11,0.6)] dark:text-neutral-400">Ingresos este Mes</p>
-                  <p className="text-2xl sm:text-4xl font-bold text-[#0A0C0B] dark:text-white mt-1 font-mono">
-                    €24,850.00
-                  </p>
-                  <span className="text-[11px] sm:text-xs text-[rgb(52,138,46)] dark:text-emerald-400 font-semibold inline-block mt-1">
-                    +18.4% vs mes anterior
-                  </span>
-                </div>
-
-                <div className="pt-3 sm:pt-4 border-t border-[#E6E6E3] dark:border-[#303131]">
-                  <p className="text-xs sm:text-sm text-[rgba(10,12,11,0.6)] dark:text-neutral-400">Facturas Emitidas</p>
-                  <p className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white mt-1 font-mono">142 / 142 Cobradas</p>
-                </div>
-
-                <div className="pt-3 sm:pt-4 border-t border-[#E6E6E3] dark:border-[#303131]">
-                  <p className="text-xs sm:text-sm text-[rgba(10,12,11,0.6)] dark:text-neutral-400">Impuestos Estimados (IVA/IRPF)</p>
-                  <p className="text-lg sm:text-xl font-bold text-[rgb(20,122,132)] dark:text-[rgb(158,250,255)] mt-1 font-mono">€5,218.50</p>
-                </div>
-              </div>
-
-              {/* Main Table & Automation Activity Preview */}
-              <div className="md:col-span-8 bg-[#FCFCFB] dark:bg-[#1a1c1e] border border-[#D2D2CE] dark:border-[#303131] rounded-xl sm:rounded-2xl p-4 sm:p-6 flex flex-col justify-between shadow-sm transition-colors duration-300">
-                <div>
-                  <div className="flex items-center justify-between mb-3 sm:mb-4">
-                    <h4 className="text-xs sm:text-sm font-bold text-[#0A0C0B] dark:text-white uppercase tracking-wider">
-                      Facturas Automatizadas
-                    </h4>
-                    <span className="text-[10px] sm:text-xs text-[rgb(20,122,132)] bg-[rgb(20,122,132)]/10 dark:text-[rgb(158,250,255)] dark:bg-[rgb(158,250,255)]/10 px-2.5 py-0.5 sm:py-1 rounded-full border border-[rgb(20,122,132)]/20 dark:border-[rgb(158,250,255)]/20 font-mono">
-                      Auto-Sync
-                    </span>
-                  </div>
-
-                  <div className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm">
-                    <div className="flex justify-between items-center bg-[#F2F2F0] dark:bg-[#080a09] p-3 sm:p-3.5 rounded-xl border border-[#D2D2CE] dark:border-[#303131]">
-                      <div>
-                        <p className="font-semibold text-[#0A0C0B] dark:text-white text-xs sm:text-sm">Acme Design Studio</p>
-                        <p className="text-[10px] sm:text-xs text-neutral-500 font-mono">INV-2026-098 • Stripe</p>
+            {/* Mockup Dashboard Body — interactivo */}
+            <div className="flex flex-col gap-3.5 sm:gap-5 px-4 sm:px-6 py-4 sm:py-6 flex-1 text-left overflow-hidden">
+              <AnimatePresence mode="wait">
+                {activeTab === 'resumen' && (
+                  <motion.div
+                    key="resumen"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.25 }}
+                    className="flex flex-col gap-3.5 sm:gap-5 flex-1 min-h-0"
+                  >
+                    {/* Search + Nueva Factura */}
+                    <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 sm:items-center sm:justify-between shrink-0">
+                      <div className="flex-1 max-w-sm flex items-center gap-2 px-3 py-2 rounded-lg border border-[#D2D2CE] dark:border-[#303131] bg-[#FCFCFB] dark:bg-[#1a1c1e] text-xs text-neutral-400 dark:text-neutral-500">
+                        <Search className="w-3.5 h-3.5 shrink-0" />
+                        <span className="truncate">Buscar facturas, clientes...</span>
                       </div>
-                      <div className="text-right">
-                        <p className="font-mono text-[#0A0C0B] dark:text-white font-bold text-xs sm:text-sm">€3,200.00</p>
-                        <span className="text-[10px] sm:text-xs text-[rgb(52,138,46)] dark:text-emerald-400 font-semibold">PAGADA</span>
+                      <motion.button
+                        whileTap={{ scale: 0.96 }}
+                        onClick={handleNewInvoice}
+                        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#0A0C0B] dark:bg-white text-white dark:text-black text-xs font-medium w-fit shrink-0 cursor-pointer hover:opacity-90 transition-opacity"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                        Nueva factura
+                      </motion.button>
+                    </div>
+
+                    {/* Stat Cards */}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 shrink-0">
+                      {[
+                        { label: 'Facturado este mes', value: euro(facturadoMes), sub: `${invoices.length} facturas` },
+                        { label: 'Pendiente de cobro', value: '€5,218.50', sub: '3 facturas' },
+                        { label: 'Facturas emitidas', value: String(facturasTotal), sub: 'histórico total' },
+                        { label: 'Gastos del mes (base)', value: '€3,120.00', sub: 'IVA soportado aparte' },
+                      ].map((stat) => (
+                        <motion.div
+                          key={stat.label}
+                          layout
+                          className="bg-[#FCFCFB] dark:bg-[#1a1c1e] border border-[#D2D2CE] dark:border-[#303131] rounded-lg sm:rounded-xl p-3 sm:p-4 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md"
+                        >
+                          <p className="text-[10px] sm:text-xs text-neutral-500 dark:text-neutral-400 truncate">{stat.label}</p>
+                          <p className="text-base sm:text-2xl font-bold mt-1 truncate">{stat.value}</p>
+                          <p className="text-[10px] sm:text-xs text-neutral-400 dark:text-neutral-500 mt-0.5 truncate">{stat.sub}</p>
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    {/* Facturas recientes */}
+                    <div className="bg-[#FCFCFB] dark:bg-[#1a1c1e] border border-[#D2D2CE] dark:border-[#303131] rounded-lg sm:rounded-xl p-3.5 sm:p-5 flex-1 min-h-0 flex flex-col shadow-sm">
+                      <div className="flex items-center justify-between mb-2.5 sm:mb-4 shrink-0">
+                        <h4 className="text-xs sm:text-sm font-bold">Facturas recientes</h4>
+                        <button
+                          onClick={() => setActiveTab('facturas')}
+                          className="text-[10px] sm:text-xs text-neutral-500 dark:text-neutral-400 flex items-center gap-1 cursor-pointer hover:text-[#0A0C0B] dark:hover:text-white transition-colors"
+                        >
+                          Ver todas <ArrowUpRight className="w-3 h-3" />
+                        </button>
+                      </div>
+                      <div className="hidden sm:grid grid-cols-5 text-[10px] uppercase tracking-wide text-neutral-400 dark:text-neutral-500 pb-2 border-b border-[#E6E6E3] dark:border-[#303131] shrink-0">
+                        <span>Factura</span>
+                        <span>Cliente</span>
+                        <span>Fecha</span>
+                        <span className="text-right">Importe</span>
+                        <span className="text-right">Estado</span>
+                      </div>
+                      <div className="flex flex-col divide-y divide-[#E6E6E3] dark:divide-[#303131] overflow-hidden">
+                        <AnimatePresence initial={false}>
+                          {invoices.slice(0, 4).map((inv) => (
+                            <motion.div
+                              key={inv.id}
+                              layout
+                              initial={{ opacity: 0, y: -12 }}
+                              animate={{
+                                opacity: 1,
+                                y: 0,
+                                backgroundColor: justAdded === inv.id ? 'rgba(52,138,46,0.08)' : 'rgba(0,0,0,0)',
+                              }}
+                              exit={{ opacity: 0, y: 12 }}
+                              transition={{ duration: 0.35 }}
+                              className="grid grid-cols-2 sm:grid-cols-5 items-center py-2 sm:py-2.5 text-[11px] sm:text-xs gap-1 rounded-md px-1.5 -mx-1.5"
+                            >
+                              <span className="font-semibold">{inv.id}</span>
+                              <span className="text-neutral-600 dark:text-neutral-300 truncate">{inv.client}</span>
+                              <span className="hidden sm:inline text-neutral-500 dark:text-neutral-400">{inv.date}</span>
+                              <span className="text-right sm:text-right font-mono">{euro(inv.amount)}</span>
+                              <span className="hidden sm:flex justify-end">
+                                <StatusBadge status={inv.status} />
+                              </span>
+                            </motion.div>
+                          ))}
+                        </AnimatePresence>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {activeTab === 'facturas' && (
+                  <motion.div
+                    key="facturas"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.25 }}
+                    className="flex flex-col gap-3.5 sm:gap-5 flex-1 min-h-0"
+                  >
+                    <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 sm:items-center sm:justify-between shrink-0">
+                      <h4 className="text-sm sm:text-base font-bold">Todas las facturas</h4>
+                      <motion.button
+                        whileTap={{ scale: 0.96 }}
+                        onClick={handleNewInvoice}
+                        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#0A0C0B] dark:bg-white text-white dark:text-black text-xs font-medium w-fit shrink-0 cursor-pointer hover:opacity-90 transition-opacity"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                        Nueva factura
+                      </motion.button>
+                    </div>
+
+                    <div className="flex items-center gap-2 shrink-0">
+                      {(['Todas', 'Emitida', 'Pendiente'] as const).map((f) => (
+                        <button
+                          key={f}
+                          onClick={() => setFilter(f)}
+                          className={`px-3 py-1.5 rounded-full text-[10px] sm:text-[11px] font-medium border transition-colors cursor-pointer ${
+                            filter === f
+                              ? 'bg-[#0A0C0B] dark:bg-white text-white dark:text-black border-[#0A0C0B] dark:border-white'
+                              : 'border-[#D2D2CE] dark:border-[#303131] text-neutral-500 dark:text-neutral-400 hover:text-[#0A0C0B] dark:hover:text-white'
+                          }`}
+                        >
+                          {f === 'Emitida' ? 'Emitidas' : f === 'Pendiente' ? 'Pendientes' : f}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="bg-[#FCFCFB] dark:bg-[#1a1c1e] border border-[#D2D2CE] dark:border-[#303131] rounded-lg sm:rounded-xl p-3.5 sm:p-5 flex-1 min-h-0 flex flex-col shadow-sm">
+                      <div className="hidden sm:grid grid-cols-5 text-[10px] uppercase tracking-wide text-neutral-400 dark:text-neutral-500 pb-2 border-b border-[#E6E6E3] dark:border-[#303131] shrink-0">
+                        <span>Factura</span>
+                        <span>Cliente</span>
+                        <span>Fecha</span>
+                        <span className="text-right">Importe</span>
+                        <span className="text-right">Estado</span>
+                      </div>
+                      <div className="flex flex-col divide-y divide-[#E6E6E3] dark:divide-[#303131]">
+                        <AnimatePresence initial={false}>
+                          {filteredInvoices.length === 0 && (
+                            <motion.p
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              className="text-xs text-neutral-400 py-6 text-center"
+                            >
+                              {t('Sin facturas en este filtro', 'No invoices in this filter')}
+                            </motion.p>
+                          )}
+                          {filteredInvoices.map((inv) => (
+                            <motion.div
+                              key={inv.id}
+                              layout
+                              initial={{ opacity: 0, y: -12 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: 12 }}
+                              transition={{ duration: 0.3 }}
+                              className="grid grid-cols-2 sm:grid-cols-5 items-center py-2 sm:py-2.5 text-[11px] sm:text-xs gap-1"
+                            >
+                              <span className="font-semibold">{inv.id}</span>
+                              <span className="text-neutral-600 dark:text-neutral-300 truncate">{inv.client}</span>
+                              <span className="hidden sm:inline text-neutral-500 dark:text-neutral-400">{inv.date}</span>
+                              <span className="text-right sm:text-right font-mono">{euro(inv.amount)}</span>
+                              <span className="hidden sm:flex justify-end">
+                                <StatusBadge status={inv.status} />
+                              </span>
+                            </motion.div>
+                          ))}
+                        </AnimatePresence>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {activeTab === 'informes' && (
+                  <motion.div
+                    key="informes"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.25 }}
+                    className="flex flex-col gap-3.5 sm:gap-5 flex-1 min-h-0"
+                  >
+                    <div className="flex items-center justify-between shrink-0">
+                      <h4 className="text-sm sm:text-base font-bold">Informes</h4>
+                      <div className="flex items-center gap-1.5">
+                        {(['T1', 'T2', 'T3', 'T4'] as const).map((qk) => (
+                          <button
+                            key={qk}
+                            onClick={() => setQuarter(qk)}
+                            className={`px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium border transition-colors cursor-pointer ${
+                              quarter === qk
+                                ? 'bg-[#0A0C0B] dark:bg-white text-white dark:text-black border-[#0A0C0B] dark:border-white'
+                                : 'border-[#D2D2CE] dark:border-[#303131] text-neutral-500 dark:text-neutral-400 hover:text-[#0A0C0B] dark:hover:text-white'
+                            }`}
+                          >
+                            {qk}
+                          </button>
+                        ))}
                       </div>
                     </div>
 
-                    <div className="flex justify-between items-center bg-[#F2F2F0] dark:bg-[#080a09] p-3 sm:p-3.5 rounded-xl border border-[#D2D2CE] dark:border-[#303131]">
-                      <div>
-                        <p className="font-semibold text-[#0A0C0B] dark:text-white text-xs sm:text-sm">Nexa Labs Tech Ltd</p>
-                        <p className="text-[10px] sm:text-xs text-neutral-500 font-mono">INV-2026-099 • Redsys</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 flex-1 min-h-0">
+                      <div className="bg-[#FCFCFB] dark:bg-[#1a1c1e] border border-[#D2D2CE] dark:border-[#303131] rounded-lg sm:rounded-xl p-3.5 sm:p-4 shadow-sm">
+                        <p className="text-[11px] sm:text-xs font-bold mb-2">Resumen fiscal — {quarter} 2026</p>
+                        <AnimatePresence mode="wait">
+                          <motion.div
+                            key={quarter}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <div className="flex justify-between text-[11px] sm:text-xs py-1">
+                              <span className="text-neutral-500 dark:text-neutral-400">IVA repercutido</span>
+                              <span className="font-semibold">{euro(q.iva)}</span>
+                            </div>
+                            <div className="flex justify-between text-[11px] sm:text-xs py-1">
+                              <span className="text-neutral-500 dark:text-neutral-400">IVA soportado</span>
+                              <span className="font-semibold">{euro(q.soportado)}</span>
+                            </div>
+                            <div className="flex justify-between items-center pt-2 mt-1 border-t border-[#E6E6E3] dark:border-[#303131]">
+                              <span className="text-[11px] sm:text-xs font-bold">Resultado Modelo 303</span>
+                              <span className="text-sm sm:text-base font-bold text-[rgb(154,112,12)] dark:text-[rgb(212,177,68)]">
+                                {euro(q.resultado)}
+                              </span>
+                            </div>
+                          </motion.div>
+                        </AnimatePresence>
                       </div>
-                      <div className="text-right">
-                        <p className="font-mono text-[#0A0C0B] dark:text-white font-bold text-xs sm:text-sm">€1,850.00</p>
-                        <span className="text-[10px] sm:text-xs text-[rgb(52,138,46)] dark:text-emerald-400 font-semibold">PAGADA</span>
+
+                      <div className="bg-[#FCFCFB] dark:bg-[#1a1c1e] border border-[#D2D2CE] dark:border-[#303131] rounded-lg sm:rounded-xl p-3.5 sm:p-4 shadow-sm">
+                        <p className="text-[11px] sm:text-xs font-bold mb-2">Resultado del trimestre</p>
+                        <AnimatePresence mode="wait">
+                          <motion.div
+                            key={quarter}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <div className="flex justify-between text-[11px] sm:text-xs py-1">
+                              <span className="text-neutral-500 dark:text-neutral-400">Ingresos (base)</span>
+                              <span className="font-semibold">{euro(q.ingresos)}</span>
+                            </div>
+                            <div className="flex justify-between text-[11px] sm:text-xs py-1">
+                              <span className="text-neutral-500 dark:text-neutral-400">Gastos (base)</span>
+                              <span className="font-semibold">{euro(q.gastos)}</span>
+                            </div>
+                            <div className="flex justify-between items-center pt-2 mt-1 border-t border-[#E6E6E3] dark:border-[#303131]">
+                              <span className="text-[11px] sm:text-xs font-bold">EBITDA</span>
+                              <span className="text-sm sm:text-base font-bold text-[rgb(52,138,46)] dark:text-emerald-400">
+                                {euro(q.ingresos + q.gastos)}
+                              </span>
+                            </div>
+                          </motion.div>
+                        </AnimatePresence>
+                      </div>
+
+                      <div className="bg-[#FCFCFB] dark:bg-[#1a1c1e] border border-[#D2D2CE] dark:border-[#303131] rounded-lg sm:rounded-xl p-3.5 sm:p-4 shadow-sm flex flex-col">
+                        <p className="text-[11px] sm:text-xs font-bold mb-2">Facturación mensual (base)</p>
+                        <div className="flex items-stretch gap-1.5 sm:gap-2 h-14 sm:h-16">
+                          {MONTHLY.map(({ m, v }, i) => (
+                            <div key={m} className="flex-1 h-full flex flex-col justify-end">
+                              <div
+                                style={{ height: `${(v / 6012) * 100}%` }}
+                                className={`w-full rounded-t transition-all duration-500 ${
+                                  i === MONTHLY.length - 1 ? 'bg-indigo-500/40' : 'bg-indigo-500'
+                                }`}
+                              />
+                            </div>
+                          ))}
+                        </div>
+                        <div className="flex gap-1.5 sm:gap-2 mt-1">
+                          {MONTHLY.map(({ m }) => (
+                            <span key={m} className="flex-1 text-center text-[8px] sm:text-[9px] text-neutral-400">
+                              {m}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="bg-[#FCFCFB] dark:bg-[#1a1c1e] border border-[#D2D2CE] dark:border-[#303131] rounded-lg sm:rounded-xl p-3.5 sm:p-4 shadow-sm">
+                        <p className="text-[11px] sm:text-xs font-bold mb-2.5">Top clientes (histórico)</p>
+                        <div className="flex flex-col gap-2">
+                          {TOP_CLIENTS.map((c) => (
+                            <div key={c.name}>
+                              <div className="flex justify-between text-[10px] sm:text-[11px] mb-1">
+                                <span className="truncate pr-2">{c.name}</span>
+                                <span className="font-semibold shrink-0">{euro(c.amount)}</span>
+                              </div>
+                              <div className="h-1.5 rounded-full bg-[#E6E6E3] dark:bg-[#303131] overflow-hidden">
+                                <div
+                                  style={{ width: `${(c.amount / TOP_CLIENTS[0].amount) * 100}%` }}
+                                  className="h-full rounded-full bg-[#0A0C0B] dark:bg-white transition-all duration-500"
+                                />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
-
-                    <div className="flex justify-between items-center bg-[#F2F2F0] dark:bg-[#080a09] p-3 sm:p-3.5 rounded-xl border border-[#D2D2CE] dark:border-[#303131]">
-                      <div>
-                        <p className="font-semibold text-[#0A0C0B] dark:text-white text-xs sm:text-sm">Studio UX Global</p>
-                        <p className="text-[10px] sm:text-xs text-neutral-500 font-mono">INV-2026-100 • SEPA</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-mono text-[#0A0C0B] dark:text-white font-bold text-xs sm:text-sm">€4,500.00</p>
-                        <span className="text-[10px] sm:text-xs text-[rgb(52,138,46)] dark:text-emerald-400 font-semibold">PAGADA</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-[#E6E6E3] dark:border-[#303131] flex justify-between items-center text-[10px] sm:text-xs font-mono text-neutral-500 dark:text-neutral-400">
-                  <span>Conexión PSD2 Activa</span>
-                  <span>VeriFactu Hash Verified</span>
-                </div>
-              </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* Bottom Overlay Hint */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#FCFCFB]/95 dark:from-[#080a09]/95 via-transparent to-transparent flex items-end justify-center pb-3 sm:pb-5 pointer-events-none transition-colors duration-300">
+            <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#F2F2F0] dark:from-[#131517] via-[#F2F2F0]/80 dark:via-[#131517]/80 to-transparent flex items-end justify-center pb-3 sm:pb-5 pointer-events-none transition-colors duration-300">
               <span className="text-[10px] sm:text-xs text-[#0A0C0B] dark:text-neutral-300 font-medium bg-[#F2F2F0] dark:bg-[#080a09] px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-[#D2D2CE] dark:border-[#303131] shadow-lg text-center mx-2 truncate max-w-[90%]">
-                Panel del Sistema de Facturación Avialo • Modo Demo
+                {t('Interfaz real de Avialo · Pruébala tú mismo', 'Real Avialo interface · Try it yourself')}
               </span>
             </div>
           </motion.div>
@@ -219,5 +624,21 @@ export const Hero = () => {
 
       </div>
     </section>
+  );
+};
+
+const StatusBadge = ({ status }: { status: InvoiceStatus }) => {
+  if (status === 'Pendiente') {
+    return (
+      <span className="inline-flex items-center gap-1 text-[10px] font-medium text-[rgb(154,112,12)] dark:text-[rgb(212,177,68)] bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
+        Pendiente
+      </span>
+    );
+  }
+  return (
+    <span className="inline-flex items-center gap-1 text-[10px] font-medium text-[rgb(52,138,46)] dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+      <CheckCircle2 className="w-3 h-3" />
+      Emitida
+    </span>
   );
 };
