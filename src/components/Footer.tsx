@@ -121,19 +121,7 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
   };
 
   return (
-    <footer data-locale={locale} className="bg-[#FCFCFB] dark:bg-[#080a09] text-[rgba(10,12,11,0.72)] dark:text-white/80 font-sans relative transition-colors duration-300">
-      {/* SEPARADOR ESPECTACULAR CON BACKDROP BLUR & AURORA GLOW */}
-      <div className="relative w-full overflow-hidden pointer-events-none z-30 pt-8 pb-4">
-        {/* Auroras de brillo difuminado */}
-        <div className="absolute top-0 left-1/4 w-[450px] h-[70px] bg-gradient-to-r from-violet-600/30 via-purple-500/20 to-transparent rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute top-0 right-1/4 w-[450px] h-[70px] bg-gradient-to-l from-emerald-500/25 via-teal-400/20 to-transparent rounded-full blur-3xl pointer-events-none" />
-
-        {/* Barra con Cristal Esmerilado (Glassmorphic Backdrop Blur) */}
-        <div className="relative z-10 w-full border-t border-[#D2D2CE] dark:border-[#303131] backdrop-blur-2xl bg-[#FCFCFB]/60 dark:bg-[#080a09]/60">
-          {/* Hilo con gradiente de color brillante */}
-          <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-violet-500 via-emerald-400 via-cyan-400 to-transparent shadow-[0_0_15px_rgba(139,92,246,0.5)]" />
-        </div>
-      </div>
+    <footer data-locale={locale} className="bg-[#FCFCFB] dark:bg-[#080a09] text-[rgba(10,12,11,0.72)] dark:text-white/80 font-sans relative border-t border-[#D2D2CE] dark:border-[#303131] transition-colors duration-300">
 
 
 
