@@ -15,28 +15,28 @@ export const FAQSection = () => {
   const faqs: FAQItem[] = [
     {
       id: 1,
-      q: '¿Cómo protege la plataforma mis datos?',
-      a: 'Aplicamos cifrado de extremo a extremo, controles de acceso y una infraestructura segura para proteger tu información.',
+      q: '¿Cumple Avialo con la normativa VeriFactu y FACe / FacturaE?',
+      a: 'Sí, 100%. Avialo está diseñado desde la primera línea de código para cumplir el RD 1007/2023 (VeriFactu), la integración con FACe (Administración Pública) y la Ley Crea y Crece B2B. Registra alta y anulación con hash encadenado SHA-256 y código QR oficial.',
     },
     {
       id: 2,
-      q: '¿Puedo conectar varias cuentas o bancos?',
-      a: 'Sí. Puedes centralizar varias cuentas y bancos para consultar tu información desde un único lugar.',
+      q: '¿En qué se diferencia Avialo de un ERP complejo tradicional?',
+      a: 'Ganamos por enfoque y velocidad. No somos un ERP pesado con menús que jamás usas. Avialo ofrece el ciclo completo (presupuestos, albaranes, facturas y gastos OCR) en un entorno tipo workspace ágil, estable y limpio.',
     },
     {
       id: 3,
-      q: '¿Cómo funcionan las alertas con IA?',
-      a: 'Analiza patrones, tendencias y facturación pendiente para avisarte de cobros importantes.',
+      q: '¿Cómo funciona el acceso para mi gestoría o asesor?',
+      a: 'Todos los planes incluyen acceso para tu gestor en modo solo lectura de forma 100% gratuita. Además, si eres una gestoría, dispones de un panel multi-empresa consolidado con tu propio logo.',
     },
     {
       id: 4,
-      q: '¿Puedo probar la plataforma gratis?',
-      a: 'Sí. Dispones de 14 días de prueba sin necesidad de tarjeta de crédito.',
+      q: '¿Existen límites en la cantidad de facturas que puedo emitir?',
+      a: 'Ninguno. Mantenemos una política de precio plano y honesto: todos nuestros planes incluyen facturación e ingresos ilimitados con VeriFactu, sin sorpresas ni costes ocultos por volumen.',
     },
     {
       id: 5,
-      q: '¿Qué plan debería elegir?',
-      a: 'Elige según el volumen de facturación y miembros de tu equipo. Puedes cambiar en cualquier momento.',
+      q: '¿Qué tipo de soporte recibo ante cualquier duda?',
+      a: 'Soporte humano real por expertos de nuestro equipo en menos de 24-48 h laborables (o menos de 8 h / 4 h según el plan). Sin bots que te hagan perder el tiempo.',
     },
   ];
 

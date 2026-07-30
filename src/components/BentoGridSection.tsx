@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Bot, Zap, ShieldCheck, PieChart, MessageSquare, ArrowUpRight } from 'lucide-react';
+import { Bot, ShieldCheck, PieChart, MessageSquare, ArrowUpRight } from 'lucide-react';
 import { SectionHeader } from './SectionHeader';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -44,9 +44,9 @@ export const BentoGridSection = () => {
         {/* Section Header */}
         <SectionHeader
           dotColor="var(--accent-green)"
-          tagText="Financial Intelligence"
-          title="A financial platform that drives investing forward"
-          description="Centralise all invoicing, recurring payments, and cash flow intelligence into a single infrastructure built for scale."
+          tagText="Inteligencia Fiscal"
+          title="Tecnología inteligente para tu negocio"
+          description="Centraliza la facturación VeriFactu, presupuestos, gastos con OCR y el cálculo del Modelo 303 en una única plataforma."
         />
 
         {/* Bento Grid Layout */}
@@ -69,7 +69,7 @@ export const BentoGridSection = () => {
               </h3>
 
               <p className="text-[rgba(10,12,11,0.72)] dark:text-white/80 text-sm leading-relaxed tracking-[-0.02em] mb-6 text-left">
-                Cumplimiento garantizado de la Ley Crea y Crece en España. Avialo genera el registro estructurado FacturaE con código QR oficial y envío automático a la Agencia Tributaria.
+                Cumplimiento garantizado del RD 1007/2023 y Ley Crea y Crece en España. Avialo genera el registro con código QR oficial y envío en tiempo real a la Agencia Tributaria.
               </p>
 
               {/* Product Interface Dark Mockup */}
@@ -124,22 +124,22 @@ export const BentoGridSection = () => {
             </div>
           </div>
 
-          {/* Card 3: Multi-Currency */}
+          {/* Card 3: Modelo 303 AEAT */}
           <div className="bento-card lg:col-span-1 rounded-[4px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-6 flex flex-col justify-between hover:border-[#0A0C0B]/30 dark:hover:border-white/30 transition-all text-left">
             <div>
               <div className="p-2.5 rounded-xl bg-[rgb(154,112,12)]/10 text-[rgb(154,112,12)] dark:text-[rgb(212,177,68)] w-fit mb-4 border border-[rgb(154,112,12)]/20">
-                <Zap className="w-5 h-5" />
+                <PieChart className="w-5 h-5" />
               </div>
 
-              <h4 className="text-lg font-medium tracking-[-0.04em] text-[#0A0C0B] dark:text-white mb-1">Cobros Multimoneda</h4>
+              <h4 className="text-lg font-medium tracking-[-0.04em] text-[#0A0C0B] dark:text-white mb-1">Borrador Modelo 303 AEAT</h4>
               <p className="text-xs text-[rgba(10,12,11,0.72)] dark:text-white/80 leading-relaxed tracking-[-0.02em]">
-                Factura en EUR, USD o GBP con conversión automática del tipo de cambio oficial BCE.
+                Calcula automáticamente el IVA devengado y soportado listo para la presentación trimestral ante la Hacienda pública.
               </p>
             </div>
 
             <div className="pt-3 mt-4 border-t border-[#D2D2CE] dark:border-[#303131] flex items-center justify-between text-[11px] font-mono text-[rgba(10,12,11,0.72)] dark:text-white/80">
-              <span>EUR • USD • GBP</span>
-              <span className="text-[rgb(20,122,132)] dark:text-[rgb(158,250,255)]">Auto-Exchange</span>
+              <span>IVA Trimestral</span>
+              <span className="text-[rgb(154,112,12)] dark:text-[rgb(212,177,68)] font-bold">1 Clic a AEAT</span>
             </div>
           </div>
 

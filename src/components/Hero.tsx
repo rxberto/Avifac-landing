@@ -72,9 +72,8 @@ export const Hero = () => {
             <ShinyText text="simple." speed={2.5} className="font-semibold block mt-1 sm:mt-0" />
           </h1>
 
-          {/* Subpárrafo ajustado */}
           <p className="mt-5 sm:mt-6 text-lg sm:text-xl md:text-2xl font-normal leading-relaxed tracking-[-0.01em] text-[rgba(10,12,11,0.72)] dark:text-white/80 max-w-[860px] text-center px-2 sm:px-0">
-            Automatiza facturas, cobros recurrentes y el cumplimiento VeriFactu 2026 en una única plataforma intuitiva diseñada para impulsar tu negocio.
+            Facturación electrónica y cumplimiento fiscal blindado con VeriFactu 2026 y FACe. Simplicidad de uso, soporte humano real y sin límites de facturas.
           </p>
         </motion.div>
 

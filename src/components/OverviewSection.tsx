@@ -19,8 +19,8 @@ export const OverviewSection = () => {
     {
       id: 'card-1',
       step: 'Paso 01',
-      title: 'Crea tu cuenta',
-      desc: 'Configura tu perfil y personaliza la plataforma en 1 minuto.',
+      title: 'Configura tu Entidad',
+      desc: 'Configura tu empresa o perfil de autónomo VeriFactu en menos de 1 minuto.',
       gradient: 'from-[#F8F6FE] to-[#CAC7F5] dark:from-[#1A1829] dark:to-[#2E2854]',
       icon: UserCheck,
       zIndex: 1,
@@ -28,8 +28,8 @@ export const OverviewSection = () => {
     {
       id: 'card-2',
       step: 'Paso 02',
-      title: 'Conecta tus cuentas',
-      desc: 'Vincula bancos y pasarelas de pago con seguridad bancaria.',
+      title: 'Presupuestos a Factura',
+      desc: 'Genera presupuestos o albaranes y conviértelos a factura legal con un solo clic.',
       gradient: 'from-[#FFEEF9] to-[#FFD0EE] dark:from-[#291724] dark:to-[#4D2342]',
       icon: ShieldCheck,
       zIndex: 2,
@@ -37,8 +37,8 @@ export const OverviewSection = () => {
     {
       id: 'card-3',
       step: 'Paso 03',
-      title: 'Automatiza y cobra',
-      desc: 'Genera facturas, gestiona cobros y sincroniza tus datos en tiempo real.',
+      title: 'Emisión & Cumplimiento',
+      desc: 'Generación inmutable con hash SHA-256, código QR y envío automático a Hacienda.',
       gradient: 'from-[#FFEEF9] to-[#FFD9E6] dark:from-[#291724] dark:to-[#4A2033]',
       icon: Zap,
       zIndex: 3,

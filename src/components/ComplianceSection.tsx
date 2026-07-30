@@ -4,11 +4,11 @@ import { ShieldCheck, Lock, Award, FileCheck, Key } from 'lucide-react';
 
 export const ComplianceSection = () => {
   const cards = [
-    { code: 'SOC2', label: 'SOC2 TIPO II', icon: ShieldCheck, delay: 0 },
-    { code: 'CCPA', label: 'NORMATIVA CCPA', icon: Lock, delay: 0.1 },
-    { code: 'ISO 27001', label: 'ISO 27001', icon: Award, delay: 0.2 },
-    { code: 'RGPD', label: 'RGPD UNIÓN EUROPEA', icon: FileCheck, delay: 0.3 },
-    { code: 'CIFRADO', label: 'CIFRADO AES-256', icon: Key, delay: 0.4 },
+    { code: 'VeriFactu', label: 'RD 1007/2023 AEAT', icon: ShieldCheck, delay: 0 },
+    { code: 'FACe B2G', label: 'Facturación Pública', icon: Lock, delay: 0.1 },
+    { code: 'Crea y Crece', label: 'FacturaE B2B 2026', icon: Award, delay: 0.2 },
+    { code: 'SHA-256 & QR', label: 'Registros Inmutables', icon: FileCheck, delay: 0.3 },
+    { code: 'RGPD UE', label: 'Datos Alojados en España', icon: Key, delay: 0.4 },
   ];
 
   return (
@@ -18,9 +18,9 @@ export const ComplianceSection = () => {
         {/* Section Header */}
         <SectionHeader
           dotColor="var(--accent-cyan)"
-          tagText="Cumplimiento"
-          title="Seguro por diseño"
-          description="Infraestructura de seguridad corporativa y protección de datos."
+          tagText="Cumplimiento Fiscal Nacional"
+          title="Motor VeriFactu y FACe"
+          description="Diseñado para cumplir a rajatabla la normativa fiscal de España (AEAT) y la Ley Crea y Crece. Datos 100% alojados en la Unión Europea."
         />
 
         {/* 5 Media Cards Row */}
@@ -35,14 +35,14 @@ export const ComplianceSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: card.delay, ease: [0.12, 0.23, 0.5, 1] }}
-                className="w-full rounded-[4px] bg-[#F2F2F0] dark:bg-[#131517] p-[48px_20px_20px_20px] flex flex-col items-center justify-between text-center gap-8 overflow-hidden border border-transparent hover:border-[#D2D2CE] dark:hover:border-[#303131] transition-colors"
+                className="w-full rounded-[4px] bg-[#F2F2F0] dark:bg-[#131517] p-[36px_16px_20px_16px] flex flex-col items-center justify-between text-center gap-6 overflow-hidden border border-transparent hover:border-[#D2D2CE] dark:hover:border-[#303131] transition-colors"
               >
-                <div className="w-[76px] h-[76px] rounded-full border border-[#0A0C0B]/20 dark:border-white/20 flex items-center justify-center shrink-0 opacity-30">
-                  <Icon className="w-8 h-8 text-[#0A0C0B] dark:text-white" />
+                <div className="w-[64px] h-[64px] rounded-full border border-[#0A0C0B]/20 dark:border-white/20 flex items-center justify-center shrink-0 opacity-40 bg-white/50 dark:bg-black/50">
+                  <Icon className="w-7 h-7 text-[#0A0C0B] dark:text-white" />
                 </div>
 
                 <div className="flex flex-col gap-1">
-                  <span className="text-lg font-medium tracking-[-0.04em] text-[#0A0C0B] dark:text-white font-mono">
+                  <span className="text-base sm:text-lg font-bold tracking-[-0.04em] text-[#0A0C0B] dark:text-white font-mono">
                     {card.code}
                   </span>
                   <span className="text-xs font-normal tracking-[-0.02em] text-[rgba(10,12,11,0.6)] dark:text-white/70">
