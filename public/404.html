@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página no encontrada (404) | Avialo</title>
+    <script>
+      // Preservar la ruta y redirigir al index para renderizado SPA de la página 404
+      const path = window.location.pathname + window.location.search + window.location.hash;
+      window.location.replace('/' + (path.startsWith('/') ? path.substring(1) : path));
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
