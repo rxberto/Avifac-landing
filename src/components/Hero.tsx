@@ -67,13 +67,13 @@ export const Hero = () => {
           transition={{ duration: 0.8 }}
           className="flex flex-col items-center max-w-[960px] px-2 sm:px-0"
         >
-          <h1 className="font-normal tracking-[-0.04em] text-3xl sm:text-6xl md:text-7xl xl:text-8xl leading-[1.15] sm:leading-[1.1] select-none text-center text-[#0A0C0B] dark:text-white">
+          <h1 className="font-normal tracking-[-0.04em] text-5xl sm:text-6xl md:text-7xl xl:text-8xl leading-[1.05] sm:leading-[1.1] select-none text-center text-[#0A0C0B] dark:text-white">
             <span className="block">Tu facturación</span>
-            <ShinyText text="simple." speed={2.5} className="font-semibold block" />
+            <ShinyText text="simple." speed={2.5} className="font-semibold block mt-1 sm:mt-0" />
           </h1>
 
           {/* Subpárrafo ajustado */}
-          <p className="mt-4 sm:mt-5 text-base sm:text-xl md:text-2xl font-normal leading-[1.45] tracking-[-0.02em] text-[rgba(10,12,11,0.72)] dark:text-white/80 max-w-[860px] text-center px-1 sm:px-0">
+          <p className="mt-5 sm:mt-6 text-lg sm:text-xl md:text-2xl font-normal leading-relaxed tracking-[-0.01em] text-[rgba(10,12,11,0.72)] dark:text-white/80 max-w-[860px] text-center px-2 sm:px-0">
             Automatiza facturas, cobros recurrentes y el cumplimiento VeriFactu 2026 en una única plataforma intuitiva diseñada para impulsar tu negocio.
           </p>
         </motion.div>

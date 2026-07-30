@@ -354,23 +354,79 @@ export const Navbar = () => {
           {mobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
+              animate={{ opacity: 1, height: '100vh' }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="lg:hidden overflow-hidden bg-[#FCFCFB] dark:bg-[#080a09] border-t border-[#D2D2CE] dark:border-[#303131]"
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="lg:hidden overflow-hidden bg-[#FCFCFB] dark:bg-[#080a09] border-t border-[#D2D2CE] dark:border-[#303131] fixed top-[69px] left-0 right-0 bottom-0 z-40"
             >
-              <div className="max-w-xl mx-auto px-6 py-6 space-y-4 text-sm">
-                <a href="#features" className="block text-[#0A0C0B] dark:text-white font-medium py-2 border-b border-[#D2D2CE] dark:border-[#303131]">
-                  Producto & Características
-                </a>
-                <a href="#integrations" className="block text-[#0A0C0B] dark:text-white font-medium py-2 border-b border-[#D2D2CE] dark:border-[#303131]">
-                  Integraciones (Redsys, Stripe, Shopify)
-                </a>
-                <a href="#pricing" className="block text-[#0A0C0B] dark:text-white font-medium py-2 border-b border-[#D2D2CE] dark:border-[#303131]">
-                  Precios
-                </a>
-                <div className="pt-4 flex flex-col gap-3">
-                  <Button variant="primary" href="#pricing" className="w-full">
+              <div className="h-full overflow-y-auto pb-24 px-6 pt-6 space-y-8">
+                {Object.keys(megaMenus).map((key) => (
+                  <div key={key} className="space-y-4">
+                    <h3 className="text-[#0A0C0B] dark:text-white font-bold text-lg mb-2 border-b border-[#D2D2CE] dark:border-[#303131] pb-2">
+                      {key}
+                    </h3>
+                    <div className="grid grid-cols-1 gap-3">
+                      {megaMenus[key].items.map((item) => {
+                        const Icon = item.icon;
+                        return (
+                          <a
+                            key={item.title}
+                            href="#features"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="flex items-start gap-3.5 p-3 rounded-2xl bg-[#FCFCFB] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] active:scale-[0.98] transition-transform"
+                          >
+                            <div className="p-2.5 rounded-xl bg-[#E6E6E3] dark:bg-[#232326] text-[#0A0C0B] dark:text-white shrink-0">
+                              <Icon className="w-5 h-5" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <span className="font-semibold text-sm text-[#0A0C0B] dark:text-white leading-tight">
+                                  {item.title}
+                                </span>
+                                {item.badge && (
+                                  <span className="text-[9px] font-bold text-white bg-[#0A0C0B] dark:bg-white dark:text-black px-1.5 py-0.5 rounded uppercase font-mono tracking-wider">
+                                    {item.badge}
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-xs text-[rgba(10,12,11,0.72)] dark:text-white/70 mt-1 leading-snug">
+                                {item.desc}
+                              </p>
+                            </div>
+                          </a>
+                        );
+                      })}
+                    </div>
+
+                    {/* Featured CTA for Mobile */}
+                    {megaMenus[key].featured && (
+                      <div className="mt-4 p-4 rounded-2xl bg-gradient-to-br from-[#E6E6E3] to-[#FCFCFB] dark:from-[#232326] dark:to-[#131517] border border-[#D2D2CE] dark:border-[#303131]">
+                        <h4 className="text-[#0A0C0B] dark:text-white font-bold text-sm mb-1">
+                          {megaMenus[key].featured.title}
+                        </h4>
+                        <p className="text-xs text-[rgba(10,12,11,0.72)] dark:text-white/70 mb-3">
+                          {megaMenus[key].featured.desc}
+                        </p>
+                        <a
+                          href="#demo"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0A0C0B] dark:text-white"
+                        >
+                          {megaMenus[key].featured.cta} <ArrowRight className="w-3.5 h-3.5" />
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                ))}
+                
+                <div className="pt-6 border-t border-[#D2D2CE] dark:border-[#303131] flex flex-col gap-3">
+                  <a
+                    href="https://app.avialo.tech/login"
+                    className="w-full text-center text-sm text-[rgba(10,12,11,0.72)] dark:text-white/80 hover:text-[#0A0C0B] dark:hover:text-white font-medium py-3.5 border border-[#D2D2CE] dark:border-[#303131] rounded-xl transition-colors"
+                  >
+                    Iniciar Sesión
+                  </a>
+                  <Button variant="primary" href="https://app.avialo.tech/registro" className="w-full py-3.5 justify-center text-sm">
                     Prueba 14 días gratis
                   </Button>
                 </div>
