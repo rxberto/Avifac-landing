@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 
 interface SectionHeaderProps {
@@ -8,7 +9,7 @@ interface SectionHeaderProps {
   className?: string;
 }
 
-export const SectionHeader = ({
+export const SectionHeader = React.memo(({
   dotColor = 'rgb(52, 138, 46)',
   tagText,
   title,
@@ -52,4 +53,6 @@ export const SectionHeader = ({
       )}
     </motion.div>
   );
-};
+});
+
+SectionHeader.displayName = 'SectionHeader';

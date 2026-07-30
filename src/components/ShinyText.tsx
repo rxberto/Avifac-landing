@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 
@@ -7,7 +8,7 @@ interface ShinyTextProps {
   speed?: number;
 }
 
-export const ShinyText: React.FC<ShinyTextProps> = ({
+export const ShinyText: React.FC<ShinyTextProps> = React.memo(({
   text,
   className = '',
   speed = 2.5,
@@ -43,4 +44,6 @@ export const ShinyText: React.FC<ShinyTextProps> = ({
       {text}
     </motion.span>
   );
-};
+});
+
+ShinyText.displayName = 'ShinyText';

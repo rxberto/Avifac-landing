@@ -1,19 +1,24 @@
+import React from 'react';
+
 interface ButtonProps {
   variant?: 'primary' | 'secondary';
   children: React.ReactNode;
   href?: string;
+  external?: boolean;
   onClick?: () => void;
   className?: string;
 }
 
-export const Button = ({
+export const Button = React.memo(({
   variant = 'primary',
   children,
   href = '#',
+  external,
   onClick,
   className = '',
 }: ButtonProps) => {
   const isPrimary = variant === 'primary';
+  const isExternal = external ?? (href.startsWith('http://') || href.startsWith('https://'));
 
   const baseStyles =
     'inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-medium leading-[1.2] tracking-[-0.02em] transition-all duration-200 select-none cursor-pointer';
@@ -32,8 +37,8 @@ export const Button = ({
     return (
       <a
         href={href}
-        target={isPrimary ? '_blank' : '_self'}
-        rel={isPrimary ? 'noopener noreferrer' : ''}
+        target={isExternal ? '_blank' : '_self'}
+        rel={isExternal ? 'noopener noreferrer' : undefined}
         className={combinedClasses}
       >
         {children}
@@ -46,4 +51,6 @@ export const Button = ({
       {children}
     </button>
   );
-};
+});
+
+Button.displayName = 'Button';

@@ -2,53 +2,53 @@ import { motion } from 'framer-motion';
 import { Button } from './Button';
 import { useLanguage } from '../context/LanguageContext';
 
+const LOGOS = [
+  {
+    name: 'Stripe',
+    svg: 'https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg',
+    height: 'h-7 sm:h-8',
+    filterClass: '',
+  },
+  {
+    name: 'PayPal',
+    svg: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg',
+    height: 'h-7 sm:h-8',
+    filterClass: '',
+  },
+  {
+    name: 'RedSYS',
+    svg: 'https://raw.githubusercontent.com/mabuenox/RedsysTPV/master/redsys.png',
+    height: 'h-7 sm:h-8',
+    filterClass: '',
+  },
+  {
+    name: 'Agencia Tributaria',
+    svg: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Agencia_Tributaria.svg',
+    height: 'h-8 sm:h-9',
+    filterClass: '',
+  },
+  {
+    name: 'Ministerio Digital',
+    svg: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Logotipo_del_Ministerio_para_la_Transformación_Digital_y_de_la_Función_Pública.svg',
+    height: 'h-8 sm:h-9',
+    filterClass: '',
+  },
+  {
+    name: 'WooCommerce',
+    svg: 'https://upload.wikimedia.org/wikipedia/commons/5/51/WooCommerce_logo_%282015%29.svg',
+    height: 'h-6 sm:h-7',
+    filterClass: '',
+  },
+  {
+    name: 'Shopify',
+    svg: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg',
+    height: 'h-7 sm:h-8',
+    filterClass: 'dark:brightness-0 dark:invert',
+  },
+];
+
 export const IntegrationsSection = () => {
   const { t } = useLanguage();
-
-  const logos = [
-    {
-      name: 'Stripe',
-      svg: 'https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg',
-      height: 'h-7 sm:h-8',
-      filterClass: '',
-    },
-    {
-      name: 'PayPal',
-      svg: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg',
-      height: 'h-7 sm:h-8',
-      filterClass: '',
-    },
-    {
-      name: 'RedSYS',
-      svg: 'https://raw.githubusercontent.com/mabuenox/RedsysTPV/master/redsys.png',
-      height: 'h-7 sm:h-8',
-      filterClass: '',
-    },
-    {
-      name: 'Agencia Tributaria',
-      svg: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Agencia_Tributaria.svg',
-      height: 'h-8 sm:h-9',
-      filterClass: '',
-    },
-    {
-      name: 'Ministerio Digital',
-      svg: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Logotipo_del_Ministerio_para_la_Transformación_Digital_y_de_la_Función_Pública.svg',
-      height: 'h-8 sm:h-9',
-      filterClass: '',
-    },
-    {
-      name: 'WooCommerce',
-      svg: 'https://upload.wikimedia.org/wikipedia/commons/5/51/WooCommerce_logo_%282015%29.svg',
-      height: 'h-6 sm:h-7',
-      filterClass: '',
-    },
-    {
-      name: 'Shopify',
-      svg: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg',
-      height: 'h-7 sm:h-8',
-      filterClass: 'dark:brightness-0 dark:invert',
-    },
-  ];
 
   return (
     <section id="integrations" className="w-full bg-[#FCFCFB] dark:bg-[#080a09] py-[72px] relative z-10 transition-colors duration-300 overflow-hidden">
@@ -114,7 +114,7 @@ export const IntegrationsSection = () => {
 
           {/* Marquee Fast Track */}
           <div className="flex items-center gap-20 sm:gap-32 animate-marquee-fast whitespace-nowrap">
-            {[...logos, ...logos, ...logos, ...logos].map((logo, idx) => (
+            {[...LOGOS, ...LOGOS, ...LOGOS, ...LOGOS].map((logo, idx) => (
               <div
                 key={`${logo.name}-${idx}`}
                 className="flex items-center justify-center shrink-0 hover:scale-110 transition-all duration-300 cursor-pointer py-2 opacity-80 hover:opacity-100 dark:opacity-85 dark:hover:opacity-100"
