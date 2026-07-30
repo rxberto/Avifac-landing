@@ -9,37 +9,44 @@ export const IntegrationsSection = () => {
     {
       name: 'Stripe',
       svg: 'https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg',
-      height: 'h-8 sm:h-9',
+      height: 'h-7 sm:h-8',
+      filterClass: '',
     },
     {
       name: 'PayPal',
       svg: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg',
-      height: 'h-8 sm:h-9',
+      height: 'h-7 sm:h-8',
+      filterClass: '',
     },
     {
       name: 'RedSYS',
-      svg: 'https://cdn.brandfetch.io/idimpIFIlt/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B',
-      height: 'h-8 sm:h-9',
+      svg: 'https://raw.githubusercontent.com/mabuenox/RedsysTPV/master/redsys.png',
+      height: 'h-7 sm:h-8',
+      filterClass: '',
     },
     {
       name: 'Agencia Tributaria',
       svg: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Agencia_Tributaria.svg',
-      height: 'h-10 sm:h-12',
+      height: 'h-8 sm:h-9',
+      filterClass: '',
     },
     {
       name: 'Ministerio Digital',
       svg: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Logotipo_del_Ministerio_para_la_Transformación_Digital_y_de_la_Función_Pública.svg',
-      height: 'h-10 sm:h-12',
+      height: 'h-8 sm:h-9',
+      filterClass: '',
     },
     {
       name: 'WooCommerce',
       svg: 'https://upload.wikimedia.org/wikipedia/commons/5/51/WooCommerce_logo_%282015%29.svg',
-      height: 'h-7 sm:h-8',
+      height: 'h-6 sm:h-7',
+      filterClass: '',
     },
     {
       name: 'Shopify',
       svg: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg',
-      height: 'h-8 sm:h-10',
+      height: 'h-7 sm:h-8',
+      filterClass: 'dark:brightness-0 dark:invert',
     },
   ];
 
@@ -99,23 +106,23 @@ export const IntegrationsSection = () => {
           </motion.div>
         </div>
 
-        {/* Carousel Infinito de Logos Puros en Color Original con Efecto Blur en los Extremos */}
+        {/* Carousel Infinito Rápido y Separado de Logos con Capa de Transparencia Elegante */}
         <div className="w-full h-24 relative overflow-hidden flex items-center">
-          {/* Gradient Blur Fade Edges */}
-          <div className="absolute top-0 bottom-0 left-0 w-28 sm:w-44 bg-gradient-to-r from-[#FCFCFB] dark:from-[#080a09] via-[#FCFCFB]/90 dark:via-[#080a09]/90 to-transparent z-20 pointer-events-none backdrop-blur-[1px]" />
-          <div className="absolute top-0 bottom-0 right-0 w-28 sm:w-44 bg-gradient-to-l from-[#FCFCFB] dark:from-[#080a09] via-[#FCFCFB]/90 dark:via-[#080a09]/90 to-transparent z-20 pointer-events-none backdrop-blur-[1px]" />
+          {/* Edge Gradient Blur Fades */}
+          <div className="absolute top-0 bottom-0 left-0 w-28 sm:w-48 bg-gradient-to-r from-[#FCFCFB] dark:from-[#080a09] via-[#FCFCFB]/90 dark:via-[#080a09]/90 to-transparent z-20 pointer-events-none backdrop-blur-[1px]" />
+          <div className="absolute top-0 bottom-0 right-0 w-28 sm:w-48 bg-gradient-to-l from-[#FCFCFB] dark:from-[#080a09] via-[#FCFCFB]/90 dark:via-[#080a09]/90 to-transparent z-20 pointer-events-none backdrop-blur-[1px]" />
 
-          {/* Marquee Track */}
-          <div className="flex items-center gap-12 sm:gap-16 animate-marquee whitespace-nowrap">
+          {/* Marquee Fast Track */}
+          <div className="flex items-center gap-20 sm:gap-32 animate-marquee-fast whitespace-nowrap">
             {[...logos, ...logos, ...logos, ...logos].map((logo, idx) => (
               <div
                 key={`${logo.name}-${idx}`}
-                className="flex items-center justify-center shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer py-2"
+                className="flex items-center justify-center shrink-0 hover:scale-110 transition-all duration-300 cursor-pointer py-2 opacity-80 hover:opacity-100 dark:opacity-85 dark:hover:opacity-100"
               >
                 <img
                   src={logo.svg}
                   alt={logo.name}
-                  className={`${logo.height} w-auto object-contain`}
+                  className={`${logo.height} ${logo.filterClass} w-auto object-contain max-w-[150px]`}
                   loading="lazy"
                 />
               </div>

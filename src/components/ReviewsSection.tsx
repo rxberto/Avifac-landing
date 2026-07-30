@@ -1,68 +1,94 @@
 import { SectionHeader } from './SectionHeader';
 import { useLanguage } from '../context/LanguageContext';
+import { User } from 'lucide-react';
+
+interface ReviewItem {
+  name: string;
+  title: string;
+  avatar?: string;
+  initials?: string;
+  text: string;
+}
 
 export const ReviewsSection = () => {
   const { t } = useLanguage();
 
-  const reviewsRow1 = [
+  const reviewsRow1: ReviewItem[] = [
     {
-      name: 'John Williams',
-      title: t('Gestor de Carteras', 'Portfolio Manager'),
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+      name: 'Carlos Fernández Santos',
+      title: t('Director Financiero • Grupo Innova', 'CFO • Grupo Innova'),
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
       text: t(
         'Avialo ha transformado cómo gestionamos la facturación y los cobros en nuestras empresas.',
         'Avialo transformed how we manage invoicing and collections across all our companies.'
       ),
     },
     {
-      name: 'Daniel Brooks',
-      title: t('Analista Financiero', 'Financial Analyst'),
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+      name: 'Alejandro Gómez Ruiz',
+      title: t('Asesor Fiscal & Socio', 'Tax Advisor & Partner'),
+      initials: 'AG',
       text: t(
-        'La precisión en los informes fiscales y VeriFactu nos ahorran semanas de trabajo contable.',
+        'La precisión en los informes fiscales y la integración VeriFactu nos ahorran semanas de trabajo contable.',
         'VeriFactu tax reports and accuracy save us weeks of manual accounting work.'
       ),
     },
     {
-      name: 'Emily Watson',
-      title: t('Directora de Estrategia', 'Head of Strategy'),
-      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
+      name: 'Marta Benítez Morales',
+      title: t('CEO & Co-fundadora', 'CEO & Co-founder'),
+      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
       text: t(
-        'El soporte multi-moneda y los pagos SEPA hacen que Avialo sea indispensable.',
+        'El soporte multi-moneda y la gestión de cobros SEPA hacen que Avialo sea indispensable.',
         'Multi-currency support and direct SEPA debits make Avialo essential for us.'
       ),
     },
   ];
 
-  const reviewsRow2 = [
+  const reviewsRow2: ReviewItem[] = [
     {
-      name: 'Michael Turner',
-      title: t('Director Financiero', 'CFO'),
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
+      name: 'Javier Martínez Plaza',
+      title: t('Director de Operaciones', 'Head of Operations'),
+      initials: 'JM',
       text: t(
         'Los recordatorios automáticos por WhatsApp redujeron la morosidad a menos del 1%.',
         'Automated WhatsApp payment reminders reduced defaults to under 1%.'
       ),
     },
     {
-      name: 'Sophia Reed',
-      title: t('Diseñadora de Producto Lead', 'Lead Product Designer'),
-      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
+      name: 'Laura Prieto Medina',
+      title: t('Responsable Contable', 'Lead Accountant'),
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
       text: t(
-        'Una interfaz ultralimpia, rápida y profesional con la elegancia que exigimos.',
+        'Una interfaz ultralimpia, rápida y profesional con la precisión fiscal que exigimos.',
         'An ultra-clean, fast, and elegant interface with the precision we demand.'
       ),
     },
     {
-      name: 'Oliver Bennett',
-      title: t('Director de Operaciones', 'Head of Operations'),
-      avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80',
+      name: 'Gonzalo Ruiz de Alarcón',
+      title: t('Fundador & Director', 'Founder & Director'),
+      initials: 'GR',
       text: t(
-        'Despliegue rápido y garantía total de cumplimiento fiscal VeriFactu.',
+        'Despliegue rápido y garantía total de cumplimiento fiscal con VeriFactu.',
         'Rapid setup and complete peace of mind for VeriFactu tax compliance.'
       ),
     },
   ];
+
+  const renderAvatar = (rev: ReviewItem) => {
+    if (rev.avatar) {
+      return (
+        <img
+          src={rev.avatar}
+          alt={rev.name}
+          className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover shrink-0 border border-[#D2D2CE] dark:border-[#303131]"
+        />
+      );
+    }
+    return (
+      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#E6E6E3] dark:bg-[#232326] border border-[#D2D2CE] dark:border-[#303131] flex items-center justify-center shrink-0 text-xs sm:text-sm font-semibold text-[#0A0C0B] dark:text-white">
+        {rev.initials || <User className="w-4 h-4 text-gray-500 dark:text-gray-400" />}
+      </div>
+    );
+  };
 
   return (
     <section id="reviews" className="w-full bg-[#FCFCFB] dark:bg-[#080a09] py-[72px] relative z-10 transition-colors duration-300 overflow-hidden">
@@ -75,8 +101,8 @@ export const ReviewsSection = () => {
         <SectionHeader
           dotColor="var(--accent-green)"
           tagText={t('Testimonios', 'Testimonials')}
-          title={t('Confianza demostrada', 'Trusted by Leaders')}
-          description={t('Opiniones de directores financieros y empresas.', 'Feedback from CFOs, solo pros, and growing businesses.')}
+          title={t('Confianza demostrada por empresas', 'Trusted by Spanish Leaders')}
+          description={t('Opiniones de directores financieros, asesores y PYMEs.', 'Feedback from CFOs, tax advisors, and growing businesses.')}
         />
       </div>
 
@@ -100,11 +126,7 @@ export const ReviewsSection = () => {
               <div className="flex flex-col gap-2 sm:gap-2.5 w-full">
                 <div className="w-full h-[1px] bg-[#E6E6E3] dark:bg-[#232326] rounded-full shrink-0" />
                 <div className="flex items-center gap-2 sm:gap-3 w-full">
-                  <img
-                    src={rev.avatar}
-                    alt={rev.name}
-                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover shrink-0"
-                  />
+                  {renderAvatar(rev)}
                   <div className="flex flex-col">
                     <h6 className="text-xs sm:text-sm font-medium leading-[1.1] tracking-[-0.04em] text-[#0A0C0B] dark:text-white">
                       {rev.name}
@@ -133,11 +155,7 @@ export const ReviewsSection = () => {
               <div className="flex flex-col gap-2 sm:gap-2.5 w-full">
                 <div className="w-full h-[1px] bg-[#E6E6E3] dark:bg-[#232326] rounded-full shrink-0" />
                 <div className="flex items-center gap-2 sm:gap-3 w-full">
-                  <img
-                    src={rev.avatar}
-                    alt={rev.name}
-                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover shrink-0"
-                  />
+                  {renderAvatar(rev)}
                   <div className="flex flex-col">
                     <h6 className="text-xs sm:text-sm font-medium leading-[1.1] tracking-[-0.04em] text-[#0A0C0B] dark:text-white">
                       {rev.name}
