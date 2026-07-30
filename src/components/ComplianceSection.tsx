@@ -1,14 +1,17 @@
 import { motion } from 'framer-motion';
 import { SectionHeader } from './SectionHeader';
 import { ShieldCheck, Lock, Award, FileCheck, Key } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export const ComplianceSection = () => {
+  const { t } = useLanguage();
+
   const cards = [
-    { code: 'VeriFactu', label: 'RD 1007/2023 AEAT', icon: ShieldCheck, delay: 0 },
-    { code: 'FACe B2G', label: 'Facturación Pública', icon: Lock, delay: 0.1 },
-    { code: 'Crea y Crece', label: 'FacturaE B2B 2026', icon: Award, delay: 0.2 },
-    { code: 'SHA-256 & QR', label: 'Registros Inmutables', icon: FileCheck, delay: 0.3 },
-    { code: 'RGPD UE', label: 'Datos Alojados en España', icon: Key, delay: 0.4 },
+    { code: 'VeriFactu', label: t('RD 1007/2023 AEAT', 'AEAT Regulation'), icon: ShieldCheck, delay: 0 },
+    { code: 'FACe B2G', label: t('Facturación Pública', 'Public E-Invoicing'), icon: Lock, delay: 0.1 },
+    { code: 'Crea y Crece', label: t('FacturaE B2B 2026', 'B2B Mandatory 2026'), icon: Award, delay: 0.2 },
+    { code: 'SHA-256 & QR', label: t('Registros Inmutables', 'Immutable Records'), icon: FileCheck, delay: 0.3 },
+    { code: 'RGPD UE', label: t('Datos Alojados en España', 'EU Data Hosted'), icon: Key, delay: 0.4 },
   ];
 
   return (
@@ -18,9 +21,12 @@ export const ComplianceSection = () => {
         {/* Section Header */}
         <SectionHeader
           dotColor="var(--accent-cyan)"
-          tagText="Cumplimiento Fiscal Nacional"
-          title="Motor VeriFactu y FACe"
-          description="Diseñado para cumplir a rajatabla la normativa fiscal de España (AEAT) y la Ley Crea y Crece. Datos 100% alojados en la Unión Europea."
+          tagText={t('Cumplimiento Fiscal Nacional', 'National Tax Compliance')}
+          title={t('Motor VeriFactu y FACe', 'VeriFactu & FACe Engine')}
+          description={t(
+            'Diseñado para cumplir a rajatabla la normativa fiscal de España (AEAT) y la Ley Crea y Crece. Datos 100% alojados en la Unión Europea.',
+            'Engineered for full Spanish Tax Agency (AEAT) & Crea y Crece law compliance. 100% EU data residency.'
+          )}
         />
 
         {/* 5 Media Cards Row */}

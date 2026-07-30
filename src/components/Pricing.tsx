@@ -3,17 +3,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { SectionHeader } from './SectionHeader';
 import { Button } from './Button';
 import { Check, X } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export const Pricing = () => {
-  const [isYearly, setIsYearly] = useState(false);
+  const { t } = useLanguage();
+  const [isYearly, setIsYearly] = useState(true);
 
   const plans = [
     {
       name: 'Esencial',
-      desc: 'Facturar bien, sin complicaciones',
+      desc: t('Facturar bien, sin complicaciones', 'Fast & simple invoicing for solo pros'),
       priceMonthly: 15,
       priceYearly: 12,
-      cta: 'Contratar Esencial',
+      cta: t('Contratar Esencial', 'Choose Essential'),
       features: [
         { text: 'Facturas ilimitadas con Verifactu', included: true },
         { text: 'Presupuestos, albaranes y gastos', included: true },
@@ -112,9 +114,12 @@ export const Pricing = () => {
         {/* Section Header */}
         <SectionHeader
           dotColor="var(--accent-green)"
-          tagText="Precios de Avialo"
-          title="Planes de Avialo"
-          description="Todo incluido en cada plan, sin módulos que se compran aparte. Sin permanencia y sin límite de facturas en ninguno."
+          tagText={t('Precios de Avialo', 'Avialo Pricing')}
+          title={t('Planes de Avialo', 'Simple & Transparent Plans')}
+          description={t(
+            'Todo incluido en cada plan, sin módulos que se compran aparte. Sin permanencia y sin límite de facturas en ninguno.',
+            'All-inclusive plans with zero hidden add-ons. No lock-in contracts and unlimited invoices on every tier.'
+          )}
         />
 
         {/* Pricing Module Container */}
@@ -137,7 +142,7 @@ export const Pricing = () => {
                       : 'text-[rgba(10,12,11,0.6)] dark:text-white/60 hover:text-[#0A0C0B] dark:hover:text-white border border-transparent'
                   }`}
                 >
-                  Mensual
+                  {t('Mensual', 'Monthly')}
                 </button>
                 <button
                   onClick={() => setIsYearly(true)}
@@ -147,7 +152,7 @@ export const Pricing = () => {
                       : 'text-[rgba(10,12,11,0.6)] dark:text-white/60 hover:text-[#0A0C0B] dark:hover:text-white border border-transparent'
                   }`}
                 >
-                  Anual
+                  {t('Anual', 'Annual')}
                 </button>
               </div>
               
@@ -159,7 +164,7 @@ export const Pricing = () => {
                     exit={{ opacity: 0, scale: 0.8, x: -10 }}
                     className="px-3 py-1.5 rounded-full border border-[rgb(52,138,46)] dark:border-[rgb(104,204,88)] bg-[rgb(52,138,46)]/10 dark:bg-[rgb(104,204,88)]/10 text-[10px] sm:text-xs font-bold tracking-wider uppercase text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] shrink-0"
                   >
-                    Ahorra 17%
+                    {t('Ahorra 17%', 'Save 17%')}
                   </motion.span>
                 )}
               </AnimatePresence>
@@ -174,7 +179,10 @@ export const Pricing = () => {
                   exit={{ opacity: 0, y: 10 }}
                   className="text-xs sm:text-sm text-[rgba(10,12,11,0.72)] dark:text-white/80 bg-gradient-to-r from-[rgb(52,138,46)]/5 to-transparent dark:from-[rgb(104,204,88)]/10 border border-[#D2D2CE] dark:border-[#303131] px-4 py-2.5 rounded-xl shadow-sm"
                 >
-                  <span className="font-semibold text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)]">🎁 Oferta de Lanzamiento:</span> Descuento fundador congelado durante 2 años al contratar hoy.
+                  {t(
+                    '🎁 Oferta de Lanzamiento: Precio de fundador (−30%) congelado 2 años. Quedan 198 plazas.',
+                    '🎁 Founder Launch Offer: 30% discount locked for 2 years. 198 spots remaining.'
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -200,7 +208,7 @@ export const Pricing = () => {
                         </h5>
                         {plan.popular && (
                           <span className="text-[10px] font-bold tracking-wider uppercase text-white bg-[#0A0C0B] dark:text-black dark:bg-white px-2 py-1 rounded-md">
-                            El más elegido
+                            {t('El más elegido', 'Most Popular')}
                           </span>
                         )}
                       </div>
@@ -223,7 +231,7 @@ export const Pricing = () => {
                             {price},00 €
                           </motion.span>
                         </AnimatePresence>
-                        <span className="text-sm font-normal text-[rgba(10,12,11,0.72)] dark:text-white/80">/ mes</span>
+                        <span className="text-sm font-normal text-[rgba(10,12,11,0.72)] dark:text-white/80">{t('/ mes', '/ month')}</span>
                       </div>
                       <AnimatePresence mode="wait">
                         {isYearly ? (
@@ -236,7 +244,7 @@ export const Pricing = () => {
                             className="mt-1"
                           >
                             <span className="text-xs text-[rgba(10,12,11,0.6)] dark:text-white/60 font-medium block">
-                              {price * 12},00 € al año, IVA aparte
+                              {price * 12}{t(',00 € al año, IVA aparte', '.00 € / year, ex. VAT')}
                             </span>
                           </motion.div>
                         ) : (
@@ -250,10 +258,10 @@ export const Pricing = () => {
                           >
                             <div className="flex items-center gap-1.5">
                               <span className="text-[10px] font-bold tracking-wider uppercase text-[rgb(20,122,132)] dark:text-[#9efaff] bg-[rgb(20,122,132)]/10 dark:bg-[#9efaff]/10 px-1.5 py-0.5 rounded border border-[rgb(20,122,132)]/20 dark:border-[#9efaff]/20">
-                                Precio fijo
+                                {t('Precio fijo', 'Fixed price')}
                               </span>
                               <span className="text-xs text-[rgba(10,12,11,0.6)] dark:text-white/60 font-medium">
-                                Sin permanencia
+                                {t('Sin permanencia', 'Cancel anytime')}
                               </span>
                             </div>
                           </motion.div>

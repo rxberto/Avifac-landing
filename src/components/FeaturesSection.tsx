@@ -1,23 +1,26 @@
 import { motion } from 'framer-motion';
 import { SectionHeader } from './SectionHeader';
+import { useLanguage } from '../context/LanguageContext';
 
 export const FeaturesSection = () => {
+  const { t } = useLanguage();
+
   const cards = [
     {
-      title: 'Configuración rápida',
-      desc: 'Conecta tus sistemas financieros en menos de 2 minutos.',
+      title: t('Configuración rápida', 'Rapid Setup'),
+      desc: t('Conecta tus sistemas financieros en menos de 2 minutos.', 'Connect your financial stack in under 2 minutes.'),
       img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&auto=format&fit=crop&q=80',
       delay: 0,
     },
     {
-      title: 'Modelos a medida',
-      desc: 'Personaliza plantillas y flujos según tus necesidades fiscales.',
+      title: t('Modelos a medida', 'Custom Templates'),
+      desc: t('Personaliza plantillas y flujos según tus necesidades fiscales.', 'Customize invoice templates and tax workflows for your brand.'),
       img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&auto=format&fit=crop&q=80',
       delay: 0.2,
     },
     {
-      title: 'Datos seguros',
-      desc: 'Cifrado bancario AES-256 y registros inalterables VeriFactu.',
+      title: t('Datos seguros', 'Bank-Grade Security'),
+      desc: t('Cifrado bancario AES-256 y registros inalterables VeriFactu.', 'AES-256 bank encryption & immutable VeriFactu audit trails.'),
       img: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=500&auto=format&fit=crop&q=80',
       delay: 0.4,
     },
@@ -34,9 +37,12 @@ export const FeaturesSection = () => {
         {/* Section Header */}
         <SectionHeader
           dotColor="var(--accent-yellow)"
-          tagText="Infraestructura"
-          title="Adaptado a tu flujo"
-          description="Arquitectura modular integrada con tu contabilidad y pasarelas de pago."
+          tagText={t('Infraestructura', 'Infrastructure')}
+          title={t('Adaptado a tu flujo', 'Tailored to Your Workflow')}
+          description={t(
+            'Arquitectura modular integrada con tu contabilidad y pasarelas de pago.',
+            'Modular architecture integrated with your accounting software & gateways.'
+          )}
         />
 
         {/* 3 Content Cards Row */}

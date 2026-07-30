@@ -2,87 +2,89 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bot, Sparkles, ShieldCheck, Cpu, ArrowRight, CheckCircle2, TrendingUp, RefreshCw } from 'lucide-react';
 import { SectionHeader } from './SectionHeader';
+import { useLanguage } from '../context/LanguageContext';
 
 export const IntelligentDelegationSection = () => {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState(0);
 
   const tabs = [
     {
       id: 0,
-      badge: 'Motor IA Autónomo',
-      title: 'Procesamiento Autónomo de Facturas',
-      desc: 'Avialo procesa facturas PDF entrantes, extrae datos fiscales mediante OCR y concilia pagos automáticamente.',
+      badge: t('Motor IA Autónomo', 'Autonomous AI Engine'),
+      title: t('Procesamiento Autónomo de Facturas', 'Autonomous Invoice Processing'),
+      desc: t('Avialo procesa facturas PDF entrantes, extrae datos fiscales mediante OCR y concilia pagos automáticamente.', 'Avialo parses incoming PDFs, extracts tax data via OCR, and auto-reconciles bank payments.'),
       icon: Bot,
       preview: {
-        title: 'Factura Recibida: Provider Tech S.L.',
-        status: 'Autoprocesada por Avialo AI',
+        title: t('Factura Recibida: Provider Tech S.L.', 'Invoice Received: Provider Tech Ltd.'),
+        status: t('Autoprocesada por Avialo AI', 'Auto-processed by Avialo AI'),
         amount: '€4,250.00',
-        subtext: 'Procesado en 14ms • Confianza 99.8%',
+        subtext: t('Procesado en 14ms • Confianza 99.8%', 'Processed in 14ms • 99.8% Accuracy'),
         details: [
-          { label: 'Proveedor NIF', val: 'B-87654321' },
-          { label: 'Retención IRPF', val: '15.0% (-€637.50)' },
-          { label: 'Conciliación SEPA', val: 'AUTO-MATCHED #8821' },
-          { label: 'Estado VeriFactu', val: 'FIRMADO DIGITAL' },
+          { label: t('Proveedor NIF', 'Supplier Tax ID'), val: 'B-87654321' },
+          { label: t('Retención IRPF', 'Tax Withholding'), val: '15.0% (-€637.50)' },
+          { label: t('Conciliación SEPA', 'SEPA Matching'), val: 'AUTO-MATCHED #8821' },
+          { label: t('Estado VeriFactu', 'VeriFactu Status'), val: t('FIRMADO DIGITAL', 'DIGITALLY SIGNED') },
         ],
         chartData: [40, 65, 85, 60, 95, 100, 90],
       },
     },
     {
       id: 1,
-      badge: 'Analítica ML en Vivo',
-      title: 'Predicción de Tesorería en Tiempo Real',
-      desc: 'Anticipa tu flujo de caja, proyección de ingresos y liquidaciones tributarias con analítica predictiva.',
+      badge: t('Analítica ML en Vivo', 'Live ML Analytics'),
+      title: t('Predicción de Tesorería en Tiempo Real', 'Real-Time Cash Flow Forecast'),
+      desc: t('Anticipa tu flujo de caja, proyección de ingresos y liquidaciones tributarias con analítica predictiva.', 'Predict cash flow, revenue trends, and quarterly tax liabilities with predictive analytics.'),
       icon: Sparkles,
       preview: {
-        title: 'Proyección de Tesorería Q3 / Q4',
-        status: 'Previsión Liquidez Positiva (+28.4%)',
+        title: t('Proyección de Tesorería Q3 / Q4', 'Q3 / Q4 Cash Flow Forecast'),
+        status: t('Previsión Liquidez Positiva (+28.4%)', 'Positive Liquidity Outlook (+28.4%)'),
         amount: '€184,920.00',
-        subtext: 'IA Predictiva • Margen Neto 34.2%',
+        subtext: t('IA Predictiva • Margen Neto 34.2%', 'Predictive AI • Net Margin 34.2%'),
         details: [
-          { label: 'Margen Bruto Estimado', val: '€142,100.00' },
-          { label: 'Reserva Fiscal IVA/IRPF', val: '€28,450.00' },
-          { label: 'Riesgo de Impago', val: '< 0.2% Bajo Control' },
-          { label: 'Ratio de Liquidez', val: '2.84 Óptimo' },
+          { label: t('Margen Bruto Estimado', 'Est. Gross Margin'), val: '€142,100.00' },
+          { label: t('Reserva Fiscal IVA/IRPF', 'Tax Reserve Fund'), val: '€28,450.00' },
+          { label: t('Riesgo de Impago', 'Default Risk'), val: t('< 0.2% Bajo Control', '< 0.2% Low Risk') },
+          { label: t('Ratio de Liquidez', 'Liquidity Ratio'), val: t('2.84 Óptimo', '2.84 Optimal') },
         ],
         chartData: [30, 45, 55, 70, 85, 90, 110],
       },
     },
     {
       id: 2,
-      badge: 'VeriFactu 2026 Preparado',
-      title: 'Cumplimiento Fiscal Automatizado',
-      desc: 'Facturas firmadas digitalmente con huella inalterable VeriFactu enviadas automáticamente a la AEAT.',
+      badge: t('VeriFactu 2026 Preparado', 'VeriFactu 2026 Ready'),
+      title: t('Cumplimiento Fiscal Automatizado', 'Automated Tax Compliance'),
+      desc: t('Facturas firmadas digitalmente con huella inalterable VeriFactu enviadas automáticamente a la AEAT.', 'Digitally signed invoices with tamper-proof VeriFactu hashes sent directly to the Tax Agency.'),
       icon: ShieldCheck,
       preview: {
-        title: 'VeriFactu Audit Trail #VF-2026-981',
-        status: 'Huella Digital Firmada (eIDAS)',
-        amount: 'VERIFICADO OK',
-        subtext: 'Hash SHA-256 Inalterable',
+        title: t('VeriFactu Audit Trail #VF-2026-981', 'VeriFactu Audit Trail #VF-2026-981'),
+        status: t('Huella Digital Firmada (eIDAS)', 'Digitally Signed Hash (eIDAS)'),
+        amount: t('VERIFICADO OK', 'VERIFIED OK'),
+        subtext: t('Hash SHA-256 Inalterable', 'Immutable SHA-256 Hash'),
         details: [
-          { label: 'Hash Criptográfico', val: 'e3b0c44298fc1c149afbf4c8' },
-          { label: 'Sede Electrónica AEAT', val: 'Respuesta OK 200' },
-          { label: 'Registro Inalterable', val: 'Bloque #14298' },
-          { label: 'Timestamp Canónico', val: '2026-07-30T02:44:00Z' },
+          { label: t('Hash Criptográfico', 'Crypto Hash'), val: 'e3b0c44298fc1c149afbf4c8' },
+          { label: t('Sede Electrónica AEAT', 'AEAT Endpoint'), val: 'Response OK 200' },
+          { label: t('Registro Inalterable', 'Immutable Block'), val: 'Block #14298' },
+          { label: t('Timestamp Canónico', 'Canonical Timestamp'), val: '2026-07-30T02:44:00Z' },
         ],
         chartData: [100, 100, 100, 100, 100, 100, 100],
       },
     },
     {
       id: 3,
-      badge: 'Automatización Multicanal',
-      title: 'Cobro Multicanal de Clientes',
-      desc: 'Enlaces de cobro por WhatsApp, email y SMS con remesas SEPA directas y autoconciliación.',
+      badge: t('Automatización Multicanal', 'Multi-Channel Automation'),
+      title: t('Cobro Multicanal de Clientes', 'Multi-Channel Client Billing'),
+      desc: t('Enlaces de cobro por WhatsApp, email y SMS con remesas SEPA directas y autoconciliación.', 'Payment links via WhatsApp, email & SMS with instant SEPA direct debits & reconciliation.'),
       icon: Cpu,
       preview: {
-        title: 'Recordatorio WhatsApp Enviado',
-        status: 'Cobrado vía Stripe TPV Virtual',
+        title: t('Recordatorio WhatsApp Enviado', 'WhatsApp Reminder Sent'),
+        status: t('Cobrado vía Stripe TPV Virtual', 'Paid via Virtual POS Gateway'),
         amount: '€1,850.00',
-        subtext: 'Velocidad de Cobro: 0.8 días',
+        subtext: t('Velocidad de Cobro: 0.8 días', 'Collection Speed: 0.8 days'),
         details: [
-          { label: 'Cliente', val: 'Estudio Creativo Barcelona' },
-          { label: 'Canal Enviado', val: 'WhatsApp Business API' },
-          { label: 'Demora Reducida', val: '-84% Días de Cobro' },
-          { label: 'Conciliación Bancaria', val: 'SEPA AUTO-MATCH' },
+          { label: t('Cliente', 'Client Name'), val: 'Estudio Creativo Barcelona' },
+          { label: t('Canal Enviado', 'Channel Used'), val: 'WhatsApp Business API' },
+          { label: t('Demora Reducida', 'DSO Reduction'), val: t('-84% Días de Cobro', '-84% Payment Days') },
+          { label: t('Conciliación Bancaria', 'Bank Reconciliation'), val: 'SEPA AUTO-MATCH' },
         ],
         chartData: [20, 35, 50, 75, 80, 95, 100],
       },
@@ -101,9 +103,12 @@ export const IntelligentDelegationSection = () => {
         {/* Cabecera Concisa */}
         <SectionHeader
           dotColor="var(--accent-green)"
-          tagText="Delegación Inteligente"
-          title="Cuéntaselo a Avialo. Se encarga del resto."
-          description="Describe tu objetivo en lenguaje claro y Avialo ejecuta cada paso automáticamente."
+          tagText={t('Delegación Inteligente', 'Intelligent Delegation')}
+          title={t('Cuéntaselo a Avialo. Se encarga del resto.', 'Describe your goal to Avialo. It handles the rest.')}
+          description={t(
+            'Describe tu objetivo en lenguaje claro y Avialo ejecuta cada paso automáticamente.',
+            'State your request in plain English and Avialo executes every step automatically.'
+          )}
         />
 
         {/* Bloque Interactivo */}

@@ -1,42 +1,45 @@
 import { motion } from 'framer-motion';
 import { SectionHeader } from './SectionHeader';
 import { Sliders, ShieldCheck, Eye, Lock, Server, Key } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export const BenefitsSection = () => {
+  const { t } = useLanguage();
+
   const benefits = [
     {
-      title: 'Flujos a medida',
-      desc: 'Adapta la aprobación de facturas y cobros recurrentes a tu estructura.',
+      title: t('Flujos a medida', 'Custom Workflows'),
+      desc: t('Adapta la aprobación de facturas y cobros recurrentes a tu estructura.', 'Tailor invoice approvals and recurring payments to your team structure.'),
       icon: Sliders,
       delay: 0,
     },
     {
-      title: 'Auditado y certificado',
-      desc: 'Certificado según las leyes de VeriFactu y la normativa europea.',
+      title: t('Auditado y certificado', 'Audited & Certified'),
+      desc: t('Certificado según las leyes de VeriFactu y la normativa europea.', 'Certified under VeriFactu laws and EU eIDAS regulations.'),
       icon: ShieldCheck,
       delay: 0.1,
     },
     {
-      title: 'Visibilidad total',
-      desc: 'Acceso en tiempo real a registros contables e historial inalterable.',
+      title: t('Visibilidad total', 'Total Visibility'),
+      desc: t('Acceso en tiempo real a registros contables e historial inalterable.', 'Real-time access to accounting logs and immutable audit trail.'),
       icon: Eye,
       delay: 0.2,
     },
     {
-      title: 'Gobernanza y permisos',
-      desc: 'Control de acceso granular para contables, admins y asesores.',
+      title: t('Gobernanza y permisos', 'Governance & Roles'),
+      desc: t('Control de acceso granular para contables, admins y asesores.', 'Granular access control for accountants, admins, and advisors.'),
       icon: Lock,
       delay: 0.3,
     },
     {
-      title: 'Servidores dedicados',
-      desc: 'Infraestructura aislada para equipos corporativos que exigen velocidad.',
+      title: t('Servidores dedicados', 'Dedicated Infrastructure'),
+      desc: t('Infraestructura aislada para equipos corporativos que exigen velocidad.', 'Isolated cloud infrastructure designed for high throughput.'),
       icon: Server,
       delay: 0.4,
     },
     {
-      title: 'Cifrado bancario',
-      desc: 'Protección con cifrado AES-256 en reposo y TLS 1.3 en tránsito.',
+      title: t('Cifrado bancario', 'Bank-Level Encryption'),
+      desc: t('Protección con cifrado AES-256 en reposo y TLS 1.3 en tránsito.', 'Protected by AES-256 encryption at rest and TLS 1.3 in transit.'),
       icon: Key,
       delay: 0.5,
     },
@@ -53,9 +56,12 @@ export const BenefitsSection = () => {
         {/* Section Header */}
         <SectionHeader
           dotColor="var(--accent-green)"
-          tagText="Empresas"
-          title="Seguridad y control total"
-          description="Flexibilidad operativa y máxima protección para tu información financiera."
+          tagText={t('Empresas', 'Enterprise')}
+          title={t('Seguridad y control total', 'Security & Total Control')}
+          description={t(
+            'Flexibilidad operativa y máxima protección para tu información financiera.',
+            'Operational flexibility and enterprise protection for your financial data.'
+          )}
         />
 
         {/* 6 Icon Cards Grid */}

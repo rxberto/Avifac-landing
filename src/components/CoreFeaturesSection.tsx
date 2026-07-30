@@ -1,8 +1,10 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowUpRight, TrendingUp, Sparkles, BellRing } from 'lucide-react';
+import { ArrowUpRight, BellRing } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export const CoreFeaturesSection = () => {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -16,12 +18,12 @@ export const CoreFeaturesSection = () => {
   const rightMockupY = useTransform(scrollYProgress, [0, 1], [40, -10]);
 
   const riskBadges = [
-    'Scoring de riesgo en tiempo real',
-    'Control de morosidad activo',
-    'Alertas de cobro predictivas',
-    'Scoring de riesgo en tiempo real',
-    'Control de morosidad activo',
-    'Alertas de cobro predictivas',
+    t('Scoring de riesgo en tiempo real', 'Real-time risk scoring'),
+    t('Control de morosidad activo', 'Active default monitoring'),
+    t('Alertas de cobro predictivas', 'Predictive payment alerts'),
+    t('Scoring de riesgo en tiempo real', 'Real-time risk scoring'),
+    t('Control de morosidad activo', 'Active default monitoring'),
+    t('Alertas de cobro predictivas', 'Predictive payment alerts'),
   ];
 
   return (
@@ -46,18 +48,21 @@ export const CoreFeaturesSection = () => {
               <div className="flex items-center gap-2 mb-1">
                 <span className="w-[14px] h-[8px] rounded-full bg-[rgb(52,138,46)] dark:bg-[rgb(104,204,88)] shrink-0" />
                 <span className="text-sm font-normal leading-[1.5] tracking-[-0.02em] text-[rgba(10,12,11,0.72)] dark:text-white/80">
-                  Funciones
+                  {t('Funciones', 'Features')}
                 </span>
               </div>
               <h2 className="text-2xl sm:text-3xl md:text-[38px] font-normal leading-[1.1] tracking-[-0.04em] text-[rgb(29,29,29)] dark:text-white text-balance text-left">
-                Facturación sin fricción
+                {t('Facturación sin fricción', 'Frictionless Invoicing')}
               </h2>
             </div>
 
             {/* Columna Derecha */}
             <div className="flex flex-col items-start lg:items-end text-left lg:text-right gap-3 sm:gap-[16px] max-w-[545px] w-full">
               <p className="text-sm sm:text-base font-normal leading-[1.45] tracking-[-0.02em] text-[rgb(77,88,95)] dark:text-white/80">
-                Herramientas profesionales para gestionar cobros y optimizar tu tesorería.
+                {t(
+                  'Herramientas profesionales para gestionar cobros y optimizar tu tesorería.',
+                  'Professional tools to manage collections & streamline cash flow.'
+                )}
               </p>
 
               <a
@@ -85,7 +90,7 @@ export const CoreFeaturesSection = () => {
               {/* TARJETA 1 */}
               <div className="w-full min-h-[320px] sm:min-h-[392px] rounded-[20px] bg-[rgb(237,241,244)] dark:bg-[#131517] p-6 sm:p-[40px] overflow-hidden flex flex-col items-center justify-between gap-6 sm:gap-[30px] border border-transparent hover:border-[#D2D2CE] dark:hover:border-[#303131] transition-all text-center relative group">
                 <h6 className="text-base sm:text-lg font-medium leading-[1.1] tracking-[-0.04em] text-[rgb(29,29,29)] dark:text-white z-10">
-                  Análisis de morosidad
+                  {t('Análisis de morosidad', 'Default & Risk Analysis')}
                 </h6>
 
                 <div className="w-full max-w-[120px] sm:max-w-[150px] flex items-center justify-center my-auto z-10 group-hover:scale-105 transition-transform duration-300">
@@ -123,7 +128,7 @@ export const CoreFeaturesSection = () => {
                 </div>
 
                 <h6 className="text-base sm:text-lg font-medium leading-[1.1] tracking-[-0.04em] text-[rgb(29,29,29)] dark:text-white relative z-10">
-                  Métricas en vivo
+                  {t('Métricas en vivo', 'Live Metrics')}
                 </h6>
 
                 <div className="w-full flex items-center justify-center my-auto relative z-10">
@@ -149,10 +154,10 @@ export const CoreFeaturesSection = () => {
 
                 <div className="flex flex-col gap-[4px] items-center text-center max-w-[500px] mx-auto pb-4 sm:pb-6 relative z-10">
                   <h6 className="text-base sm:text-lg font-medium leading-[1.1] tracking-[-0.04em] text-[rgb(29,29,29)] dark:text-white">
-                    Seguimiento de facturas y cobros
+                    {t('Seguimiento de facturas y cobros', 'Invoice & Payment Tracking')}
                   </h6>
                   <p className="text-xs sm:text-sm font-normal leading-[1.5] tracking-[-0.02em] text-[rgb(77,88,95)] dark:text-white/80">
-                    Visualiza toda tu salud financiera en un solo lugar con atribución de cobros.
+                    {t('Visualiza toda tu salud financiera en un solo lugar con atribución de cobros.', 'Track your financial health in one single dashboard with payment attribution.')}
                   </p>
                 </div>
 
@@ -189,55 +194,70 @@ export const CoreFeaturesSection = () => {
             {/* Columna Derecha */}
             <div className="lg:col-span-4 flex flex-col gap-4 sm:gap-[30px]">
               
-              {/* TARJETA 4 - MODELO 303 Y CONTROL FISCAL CON IA */}
-              <div className="w-full min-h-[420px] sm:min-h-[528px] rounded-[20px] bg-[#000000] p-6 sm:p-[40px] overflow-hidden flex flex-col justify-between items-center text-center gap-6 sm:gap-[30px] border border-white/10 shadow-2xl relative group">
+              {/* TARJETA 4 - CONTROL FISCAL & MODELO 303 CON IA */}
+              <div className="w-full min-h-[420px] sm:min-h-[528px] rounded-[20px] bg-[#0A0C0B] dark:bg-[#131517] p-6 sm:p-[36px] overflow-hidden flex flex-col justify-between items-center text-center gap-5 sm:gap-[24px] border border-white/10 dark:border-white/15 shadow-2xl relative group">
                 
-                <h6 className="text-base sm:text-lg font-medium leading-[1.1] tracking-[-0.04em] text-white">
-                  Cálculo de Impuestos & Modelo 303 AEAT
-                </h6>
+                {/* Header Card */}
+                <div className="flex flex-col items-center gap-1">
+                  <span className="text-[10px] font-bold tracking-widest uppercase text-emerald-400 font-mono">
+                    {t('Gestión Tributaria AEAT', 'AEAT Tax Management')}
+                  </span>
+                  <h6 className="text-base sm:text-lg font-medium leading-[1.2] tracking-[-0.03em] text-white">
+                    {t('Previsión de Impuestos & Modelo 303', 'Tax Estimator & Form 303')}
+                  </h6>
+                </div>
 
-                <div className="w-full flex-1 flex flex-col items-center justify-center gap-4 my-auto py-4 sm:py-6">
-                  <div className="px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-[10px] sm:text-xs font-mono font-bold flex items-center gap-2 animate-pulse">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>BORRADOR MODELO 303 • LISTO PARA AEAT</span>
-                  </div>
+                {/* Main Interactive Widget UI */}
+                <div className="w-full flex-1 flex flex-col items-center justify-center gap-3 my-auto py-2">
+                  <div className="w-full bg-[#16181A] border border-[#2D3033] rounded-2xl p-4 text-left font-sans space-y-3.5 shadow-xl relative overflow-hidden">
+                    {/* Glowing background accent */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
 
-                  <div className="w-full bg-[#131517] border border-[#303131] rounded-2xl p-4 sm:p-5 text-left font-mono space-y-3 shadow-inner">
-                    <div className="flex justify-between items-center text-[10px] sm:text-xs">
-                      <span className="text-neutral-400">TRIMESTRE EN CURSO (Q3)</span>
-                      <span className="text-emerald-400 font-bold flex items-center gap-1">
-                        <TrendingUp className="w-3.5 h-3.5" /> AEAT READY
+                    {/* Widget Top Header */}
+                    <div className="flex justify-between items-center text-xs pb-2 border-b border-[#2D3033]">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                        <span className="text-white/90 font-medium">{t('Modelo 303 - Trimestre Q3', 'Form 303 - Q3 Quarter')}</span>
+                      </div>
+                      <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+                        {t('Previsión Exacta', '100% Accurate')}
                       </span>
                     </div>
 
-                    <div className="space-y-1.5 text-[10px] sm:text-xs text-neutral-300 py-1">
-                      <div className="flex justify-between">
-                        <span>Ingresos (Base 21%):</span>
-                        <span className="text-white font-bold">€18,450.00</span>
+                    {/* Line Items */}
+                    <div className="space-y-2 text-xs py-0.5">
+                      <div className="flex justify-between items-center">
+                        <span className="text-white/60">{t('Ventas / Ingresos (21%):', 'Sales / Revenue (21%):')}</span>
+                        <span className="text-white font-mono font-semibold">18.450,00 €</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span>IVA Repercutido:</span>
-                        <span className="text-emerald-400 font-bold">+€3,874.50</span>
+                      <div className="flex justify-between items-center">
+                        <span className="text-white/60">{t('IVA Repercutido (+21%):', 'VAT Collected (+21%):')}</span>
+                        <span className="text-emerald-400 font-mono font-semibold">+3.874,50 €</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span>Gastos Deducibles (OCR):</span>
-                        <span className="text-white font-bold">€6,200.00</span>
+                      <div className="flex justify-between items-center">
+                        <span className="text-white/60">{t('Gastos Deducibles OCR:', 'OCR Deductible Expenses:')}</span>
+                        <span className="text-white/90 font-mono">6.200,00 €</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span>IVA Soportado:</span>
-                        <span className="text-amber-400 font-bold">-€1,302.00</span>
+                      <div className="flex justify-between items-center">
+                        <span className="text-white/60">{t('IVA Soportado (-21%):', 'Deductible VAT (-21%):')}</span>
+                        <span className="text-amber-400 font-mono font-semibold">-1.302,00 €</span>
                       </div>
                     </div>
 
-                    <div className="text-[10px] sm:text-[11px] text-neutral-300 pt-2.5 border-t border-[#303131] flex justify-between items-center">
-                      <span>A pagar AEAT (Mod. 303):</span>
-                      <span className="text-emerald-400 font-bold text-xs sm:text-sm">€2,572.50</span>
+                    {/* Final Result highlight box */}
+                    <div className="pt-3 border-t border-[#2D3033] flex justify-between items-center bg-[#0F1113] p-2.5 rounded-xl border border-emerald-500/20">
+                      <span className="text-xs text-white/90 font-medium">{t('Resultado Estimado:', 'Estimated Tax Result:')}</span>
+                      <span className="text-emerald-400 font-mono font-bold text-sm sm:text-base">2.572,50 €</span>
                     </div>
                   </div>
                 </div>
 
-                <p className="text-xs font-normal leading-[1.5] tracking-[-0.02em] text-[rgb(186,186,186)]">
-                  Generación automática de ingresos, gastos e IVA devengado/soportado para presentar tus declaraciones trimestrales sin errores.
+                {/* Footer Caption */}
+                <p className="text-xs font-normal leading-[1.5] tracking-[-0.02em] text-[#A1A1AA]">
+                  {t(
+                    'Extracción automática de ingresos, gastos e IVA devengado para presentar tus liquidaciones trimestrales ante la AEAT en segundos.',
+                    'Automatic extraction of income, expenses, and VAT so you can generate quarterly tax filings effortlessly.'
+                  )}
                 </p>
               </div>
 
@@ -253,7 +273,7 @@ export const CoreFeaturesSection = () => {
                 </div>
 
                 <h6 className="text-base sm:text-lg font-medium leading-[1.1] tracking-[-0.04em] text-[rgb(29,29,29)] dark:text-white text-left w-full z-10">
-                  Alertas inteligentes
+                  {t('Alertas inteligentes', 'Smart Alerts')}
                 </h6>
 
                 <div className="w-full bg-white dark:bg-[#232326] border border-[#D2D2CE] dark:border-[#303131] rounded-2xl p-3.5 sm:p-4 text-left shadow-sm flex items-start gap-3 relative z-10">
@@ -262,10 +282,10 @@ export const CoreFeaturesSection = () => {
                   </div>
                   <div className="flex flex-col gap-0.5 sm:gap-1 pr-6">
                     <span className="text-xs font-bold text-[rgb(29,29,29)] dark:text-white">
-                      Objetivo de Cobro Alcanzado
+                      {t('Objetivo de Cobro Alcanzado', 'Payment Goal Reached')}
                     </span>
                     <p className="text-[10px] sm:text-[11px] text-[rgb(77,88,95)] dark:text-white/70 leading-snug">
-                      Factura INV-2026 cobrada (+4.5%). Recordatorio desactivado.
+                      {t('Factura INV-2026 cobrada (+4.5%). Recordatorio desactivado.', 'Invoice INV-2026 collected (+4.5%). Automated reminder paused.')}
                     </p>
                   </div>
                 </div>

@@ -2,8 +2,10 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { UserCheck, ShieldCheck, Zap } from 'lucide-react';
 import { SectionHeader } from './SectionHeader';
+import { useLanguage } from '../context/LanguageContext';
 
 export const OverviewSection = () => {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
@@ -18,27 +20,27 @@ export const OverviewSection = () => {
   const cardsData = [
     {
       id: 'card-1',
-      step: 'Paso 01',
-      title: 'Configura tu Entidad',
-      desc: 'Configura tu empresa o perfil de autónomo VeriFactu en menos de 1 minuto.',
+      step: t('Paso 01', 'Step 01'),
+      title: t('Configura tu Entidad', 'Set Up Your Company'),
+      desc: t('Configura tu empresa o perfil de autónomo VeriFactu en menos de 1 minuto.', 'Set up your company or freelancer VeriFactu profile in under 1 minute.'),
       gradient: 'from-[#F8F6FE] to-[#CAC7F5] dark:from-[#1A1829] dark:to-[#2E2854]',
       icon: UserCheck,
       zIndex: 1,
     },
     {
       id: 'card-2',
-      step: 'Paso 02',
-      title: 'Presupuestos a Factura',
-      desc: 'Genera presupuestos o albaranes y conviértelos a factura legal con un solo clic.',
+      step: t('Paso 02', 'Step 02'),
+      title: t('Presupuestos a Factura', 'Quotes to Invoice'),
+      desc: t('Genera presupuestos o albaranes y conviértelos a factura legal con un solo clic.', 'Create quotes or delivery notes and turn them into legal invoices in one click.'),
       gradient: 'from-[#FFEEF9] to-[#FFD0EE] dark:from-[#291724] dark:to-[#4D2342]',
       icon: ShieldCheck,
       zIndex: 2,
     },
     {
       id: 'card-3',
-      step: 'Paso 03',
-      title: 'Emisión & Cumplimiento',
-      desc: 'Generación inmutable con hash SHA-256, código QR y envío automático a Hacienda.',
+      step: t('Paso 03', 'Step 03'),
+      title: t('Emisión & Cumplimiento', 'Issue & Compliance'),
+      desc: t('Generación inmutable con hash SHA-256, código QR y envío automático a Hacienda.', 'Immutable generation with SHA-256 hash, QR code, and automatic tax submission.'),
       gradient: 'from-[#FFEEF9] to-[#FFD9E6] dark:from-[#291724] dark:to-[#4A2033]',
       icon: Zap,
       zIndex: 3,
@@ -56,9 +58,12 @@ export const OverviewSection = () => {
         {/* Cabecera de Sección concisa y traducida */}
         <SectionHeader
           dotColor="var(--accent-green)"
-          tagText="Cómo Funciona"
-          title="Soluciones de cobro potentes"
-          description="Procesa pagos con máxima precisión y acelera el crecimiento de tu empresa."
+          tagText={t('Cómo Funciona', 'How It Works')}
+          title={t('Soluciones de cobro potentes', 'Powerful billing solutions')}
+          description={t(
+            'Diseñadas para simplificar cada paso de tu facturación electrónica.',
+            'Designed to simplify every step of your billing workflow.'
+          )}
         />
 
         {/* Bloque de Cards de 3 Pasos */}

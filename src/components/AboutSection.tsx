@@ -1,31 +1,34 @@
 import { motion } from 'framer-motion';
 import { SectionHeader } from './SectionHeader';
 import { Button } from './Button';
+import { useLanguage } from '../context/LanguageContext';
 
 export const AboutSection = () => {
+  const { t } = useLanguage();
+
   const blocks = [
     {
       id: 1,
       imageLeft: true,
-      title: 'Tus operaciones en un solo lugar',
-      desc: 'Consolida facturación, conciliación bancaria y monitorización de tesorería.',
-      btnText: 'Explorar operaciones',
+      title: t('Tus operaciones en un solo lugar', 'Operations in One Place'),
+      desc: t('Consolida facturación, conciliación bancaria y monitorización de tesorería.', 'Consolidate invoicing, bank reconciliation, and cash flow monitoring.'),
+      btnText: t('Explorar operaciones', 'Explore Operations'),
       img: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&auto=format&fit=crop&q=80',
     },
     {
       id: 2,
       imageLeft: false,
-      title: 'Informes precisos en tiempo real',
-      desc: 'Obtén información sobre la salud de tus cobros e historial auditado.',
-      btnText: 'Explorar informes',
+      title: t('Informes precisos en tiempo real', 'Real-Time Financial Reports'),
+      desc: t('Obtén información sobre la salud de tus cobros e historial auditado.', 'Gain real-time insights into your collection metrics and audited logs.'),
+      btnText: t('Explorar informes', 'Explore Reports'),
       img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&auto=format&fit=crop&q=80',
     },
     {
       id: 3,
       imageLeft: true,
-      title: 'Flujos automatizados con IA',
-      desc: 'Nuestros agentes gestionan cobros por WhatsApp y sincronizan contabilidad.',
-      btnText: 'Explorar flujos',
+      title: t('Flujos automatizados con IA', 'AI Automated Workflows'),
+      desc: t('Nuestros agentes gestionan cobros por WhatsApp y sincronizan contabilidad.', 'Our financial AI agents manage payment links and sync accounting.'),
+      btnText: t('Explorar flujos', 'Explore Workflows'),
       img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format&fit=crop&q=80',
     },
   ];
@@ -37,9 +40,12 @@ export const AboutSection = () => {
         {/* Section Header */}
         <SectionHeader
           dotColor="var(--accent-green)"
-          tagText="Plataforma"
-          title="Gestión unificada"
-          description="Emisión de facturas, cobros y analítica financiera en un solo lugar."
+          tagText={t('Plataforma', 'Platform')}
+          title={t('Gestión unificada', 'Unified Management')}
+          description={t(
+            'Emisión de facturas, cobros y analítica financiera en un solo lugar.',
+            'Issue invoices, manage collections, and track cash analytics in one place.'
+          )}
         />
 
         {/* 3 Zig-Zag Alternating Blocks */}

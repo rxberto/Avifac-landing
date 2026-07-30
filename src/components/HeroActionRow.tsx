@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Layers, Bot, ShieldCheck, Award } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 interface ActionCardProps {
   icon: any;
@@ -38,29 +39,31 @@ const ActionCard = ({ icon: Icon, title, description, delay }: ActionCardProps) 
 };
 
 export const HeroActionRow = () => {
+  const { t } = useLanguage();
+
   const cards = [
     {
       icon: Layers,
-      title: 'Espacio Inteligente',
-      description: 'Inteligencia centralizada para operaciones financieras',
+      title: t('Espacio Inteligente', 'Smart Workspace'),
+      description: t('Inteligencia centralizada para operaciones financieras', 'Centralized intelligence for financial operations'),
       delay: 0,
     },
     {
       icon: Bot,
-      title: 'Agentes Financieros',
-      description: 'Flujos autónomos y automatización de facturas',
+      title: t('Agentes Financieros', 'Financial AI Agents'),
+      description: t('Flujos autónomos y automatización de facturas', 'Autonomous workflows & invoice automation'),
       delay: 0.1,
     },
     {
       icon: ShieldCheck,
-      title: 'Ecosistema Seguro',
-      description: 'Seguridad bancaria y cumplimiento VeriFactu',
+      title: t('Ecosistema Seguro', 'Secure Ecosystem'),
+      description: t('Seguridad bancaria y cumplimiento VeriFactu', 'Bank-grade security & VeriFactu compliance'),
       delay: 0.2,
     },
     {
       icon: Award,
-      title: 'Líder en Industria',
-      description: 'Diseñado para SaaS y equipos financieros modernos',
+      title: t('Líder en Industria', 'Industry Standard'),
+      description: t('Diseñado para SaaS y equipos financieros modernos', 'Built for modern teams and growing businesses'),
       delay: 0.3,
     },
   ];

@@ -1,45 +1,66 @@
 import { SectionHeader } from './SectionHeader';
+import { useLanguage } from '../context/LanguageContext';
 
 export const ReviewsSection = () => {
+  const { t } = useLanguage();
+
   const reviewsRow1 = [
     {
       name: 'John Williams',
-      title: 'Gestor de Carteras',
+      title: t('Gestor de Carteras', 'Portfolio Manager'),
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
-      text: 'Avialo ha transformado cómo gestionamos la facturación y los cobros en nuestras empresas.',
+      text: t(
+        'Avialo ha transformado cómo gestionamos la facturación y los cobros en nuestras empresas.',
+        'Avialo transformed how we manage invoicing and collections across all our companies.'
+      ),
     },
     {
       name: 'Daniel Brooks',
-      title: 'Analista Financiero',
+      title: t('Analista Financiero', 'Financial Analyst'),
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
-      text: 'La precisión en los informes fiscales y VeriFactu nos ahorran semanas de trabajo contable.',
+      text: t(
+        'La precisión en los informes fiscales y VeriFactu nos ahorran semanas de trabajo contable.',
+        'VeriFactu tax reports and accuracy save us weeks of manual accounting work.'
+      ),
     },
     {
       name: 'Emily Watson',
-      title: 'Directora de Estrategia',
+      title: t('Directora de Estrategia', 'Head of Strategy'),
       avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
-      text: 'El soporte multi-moneda y los pagos SEPA hacen que Avialo sea indispensable.',
+      text: t(
+        'El soporte multi-moneda y los pagos SEPA hacen que Avialo sea indispensable.',
+        'Multi-currency support and direct SEPA debits make Avialo essential for us.'
+      ),
     },
   ];
 
   const reviewsRow2 = [
     {
       name: 'Michael Turner',
-      title: 'Director Financiero',
+      title: t('Director Financiero', 'CFO'),
       avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
-      text: 'Los recordatorios automáticos por WhatsApp redujeron la morosidad a menos del 1%.',
+      text: t(
+        'Los recordatorios automáticos por WhatsApp redujeron la morosidad a menos del 1%.',
+        'Automated WhatsApp payment reminders reduced defaults to under 1%.'
+      ),
     },
     {
       name: 'Sophia Reed',
-      title: 'Diseñadora de Producto Lead',
+      title: t('Diseñadora de Producto Lead', 'Lead Product Designer'),
       avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
-      text: 'Una interfaz ultralimpia, rápida y profesional con la elegancia que exigimos.',
+      text: t(
+        'Una interfaz ultralimpia, rápida y profesional con la elegancia que exigimos.',
+        'An ultra-clean, fast, and elegant interface with the precision we demand.'
+      ),
     },
     {
       name: 'Oliver Bennett',
-      title: 'Director de Operaciones',
+      title: t('Director de Operaciones', 'Head of Operations'),
       avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80',
-      text: 'Despliegue rápido y garantía total de cumplimiento fiscal VeriFactu.',
+      text: t(
+        'Despliegue rápido y garantía total de cumplimiento fiscal VeriFactu.',
+        'Rapid setup and complete peace of mind for VeriFactu tax compliance.'
+      ),
     },
   ];
 
@@ -53,9 +74,9 @@ export const ReviewsSection = () => {
         {/* Section Header */}
         <SectionHeader
           dotColor="var(--accent-green)"
-          tagText="Testimonios"
-          title="Confianza demostrada"
-          description="Opiniones de directores financieros y empresas."
+          tagText={t('Testimonios', 'Testimonials')}
+          title={t('Confianza demostrada', 'Trusted by Leaders')}
+          description={t('Opiniones de directores financieros y empresas.', 'Feedback from CFOs, solo pros, and growing businesses.')}
         />
       </div>
 

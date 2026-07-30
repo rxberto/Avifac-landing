@@ -18,9 +18,11 @@ import {
 } from 'lucide-react';
 import { Button } from './Button';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
+  const { t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const leaveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -47,90 +49,90 @@ export const Navbar = () => {
       featured?: { title: string; desc: string; cta: string };
     }
   > = {
-    Producto: {
-      title: 'Soluciones de Facturación & Cobros',
+    [t('Producto', 'Product')]: {
+      title: t('Soluciones de Facturación & Cobros', 'Invoicing & Payment Solutions'),
       items: [
         {
-          title: 'Facturación VeriFactu',
-          desc: '100% adaptado a la normativa fiscal española.',
+          title: t('Facturación VeriFactu', 'VeriFactu Invoicing'),
+          desc: t('100% adaptado a la normativa fiscal española.', '100% compliant with Spanish tax legislation.'),
           icon: FileText,
-          badge: 'Ley 2026',
+          badge: t('Ley 2026', 'Act 2026'),
         },
         {
-          title: 'Cobros Recurrentes',
-          desc: 'Automatiza suscripciones y pagos con reintentos.',
+          title: t('Cobros Recurrentes', 'Recurring Billing'),
+          desc: t('Automatiza suscripciones y pagos con reintentos.', 'Automate subscriptions & recurring payments.'),
           icon: CreditCard,
-          badge: 'Popular',
+          badge: t('Popular', 'Popular'),
         },
         {
-          title: 'Escáner OCR Gastos',
-          desc: 'Sube tickets y extrae impuestos con IA.',
+          title: t('Escáner OCR Gastos', 'OCR Expense Scanner'),
+          desc: t('Sube tickets y extrae impuestos con IA.', 'Scan receipts & extract tax details with AI.'),
           icon: PieChart,
         },
         {
-          title: 'Portal de Clientes',
-          desc: 'Descarga facturas y paga en 1 clic.',
+          title: t('Portal de Clientes', 'Client Portal'),
+          desc: t('Descarga facturas y paga en 1 clic.', 'Download invoices & pay in one click.'),
           icon: Building2,
         },
       ],
       featured: {
-        title: 'Prueba la Facturación en Vivo',
-        desc: 'Genera tu primera factura electrónica en 30 segundos.',
-        cta: 'Probar Simulador',
+        title: t('Prueba la Facturación en Vivo', 'Try Live Invoicing'),
+        desc: t('Genera tu primera factura electrónica en 30 segundos.', 'Generate your first e-invoice in 30 seconds.'),
+        cta: t('Probar Simulador', 'Try Simulator'),
       },
     },
-    Integraciones: {
-      title: 'Integraciones Compatibles',
+    [t('Integraciones', 'Integrations')]: {
+      title: t('Integraciones Compatibles', 'Compatible Integrations'),
       items: [
         {
-          title: 'Redsys & Pasarelas TPV',
-          desc: 'Cobros directos con tarjetas bancarias.',
+          title: t('Redsys & Pasarelas TPV', 'Redsys & POS Gateways'),
+          desc: t('Cobros directos con tarjetas bancarias.', 'Direct payments with local bank cards.'),
           icon: Zap,
         },
         {
-          title: 'Stripe & PayPal',
-          desc: 'Procesamiento global multi-moneda.',
+          title: t('Stripe & PayPal', 'Stripe & PayPal'),
+          desc: t('Procesamiento global multi-moneda.', 'Global multi-currency payment processing.'),
           icon: Globe2,
         },
         {
-          title: 'Shopify & WooCommerce',
-          desc: 'Sincroniza pedidos e impuestos automáticamente.',
+          title: t('Shopify & WooCommerce', 'Shopify & WooCommerce'),
+          desc: t('Sincroniza pedidos e impuestos automáticamente.', 'Auto-sync e-commerce orders & taxes.'),
           icon: ShoppingBag,
           badge: 'E-commerce',
         },
         {
-          title: 'Holded & Wise & Revolut',
-          desc: 'Conciliación bancaria mediante Open Banking.',
+          title: t('Holded & Wise & Revolut', 'Holded & Wise & Revolut'),
+          desc: t('Conciliación bancaria mediante Open Banking.', 'Bank reconciliation via Open Banking.'),
           icon: Store,
         },
       ],
       featured: {
-        title: 'API Abierta para Developers',
-        desc: 'Conecta Avialo con tu backend mediante Webhooks.',
-        cta: 'Ver Documentación',
+        title: t('API Abierta para Developers', 'Developer Open API'),
+        desc: t('Conecta Avialo con tu backend mediante Webhooks.', 'Connect Avialo with your backend via Webhooks.'),
+        cta: t('Ver Documentación', 'View Docs'),
       },
     },
-    Soluciones: {
-      title: 'Diseñado para tu Tipo de Empresa',
+    [t('Soluciones', 'Solutions')]: {
+      title: t('Diseñado para tu Tipo de Empresa', 'Tailored for Your Business'),
       items: [
         {
-          title: 'Autónomos y Freelancers',
-          desc: 'Control de IRPF, IVA trimestral y libros oficiales.',
+          title: t('Autónomos y Freelancers', 'Freelancers & Solo Pros'),
+          desc: t('Control de IRPF, IVA trimestral y libros oficiales.', 'Manage income tax, quarterly VAT & official books.'),
           icon: ShieldCheck,
         },
         {
-          title: 'Agencias y Estudios',
-          desc: 'Gestión de proyectos y presupuestos avanzados.',
+          title: t('Agencias y Estudios', 'Agencies & Studios'),
+          desc: t('Gestión de proyectos y presupuestos avanzados.', 'Advanced quotes & client project tracking.'),
           icon: Sparkles,
         },
         {
-          title: 'Startups SaaS',
-          desc: 'Métricas de MRR y facturación recurrente.',
+          title: t('Startups SaaS', 'SaaS Startups'),
+          desc: t('Métricas de MRR y facturación recurrente.', 'MRR metrics & automated recurring billing.'),
           icon: Zap,
         },
         {
-          title: 'Gestorías y Asesores',
-          desc: 'Acceso para tu asesor con descarga en Excel/PDF.',
+          title: t('Gestorías y Asesores', 'Accountants & Agencies'),
+          desc: t('Acceso para tu asesor con descarga en Excel/PDF.', 'Free accountant access with Excel/PDF export.'),
           icon: Building2,
         },
       ],
@@ -280,11 +282,11 @@ export const Navbar = () => {
               href="#pricing"
               className="px-4 py-2 text-sm text-[rgba(10,12,11,0.72)] dark:text-white/80 hover:text-[#0A0C0B] dark:hover:text-white font-medium transition-colors rounded-full hover:bg-[#E6E6E3] dark:hover:bg-[#232326]"
             >
-              Precios
+              {t('Precios', 'Pricing')}
             </a>
           </nav>
 
-          {/* Desktop Action Buttons + Theme Toggle Elegante */}
+          {/* Desktop Action Buttons + Theme Toggle */}
           <div className="hidden lg:flex items-center gap-3 shrink-0">
             {/* Theme Toggle Button Minimalista & Elegante */}
             <button
@@ -304,10 +306,10 @@ export const Navbar = () => {
               href="https://app.avialo.tech/login"
               className="text-sm text-[rgba(10,12,11,0.72)] dark:text-white/80 hover:text-[#0A0C0B] dark:hover:text-white font-medium px-3 py-2 transition-colors"
             >
-              Iniciar Sesión
+              {t('Iniciar Sesión', 'Log In')}
             </a>
-            <Button variant="primary" href="https:/app.avialo.tech/registro">
-              Prueba 14 días gratis
+            <Button variant="primary" href="https://app.avialo.tech/registro">
+              {t('Prueba 14 días gratis', 'Start 14-Day Free Trial')}
             </Button>
           </div>
 

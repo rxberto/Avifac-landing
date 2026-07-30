@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion';
 import { Button } from './Button';
+import { useLanguage } from '../context/LanguageContext';
 
 export const FinalCTASection = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="cta" className="w-full bg-[#FCFCFB] dark:bg-[#080a09] pt-[56px] pb-[40px] relative z-10 border-b border-[#D2D2CE] dark:border-[#303131] transition-colors duration-300 overflow-hidden">
       
@@ -23,21 +26,21 @@ export const FinalCTASection = () => {
               <div className="flex items-center gap-2">
                 <span className="w-[14px] h-[8px] rounded-full bg-[#0A0C0B] dark:bg-white shrink-0" />
                 <span className="text-sm font-normal leading-[1.5] tracking-[-0.02em] text-[rgba(10,12,11,0.72)] dark:text-white/80">
-                  Empieza Hoy
+                  {t('Empieza Hoy', 'Get Started Today')}
                 </span>
               </div>
 
               <h2 className="text-[28px] sm:text-[36px] font-normal leading-[1.1] tracking-[-0.04em] text-[#0A0C0B] dark:text-white">
-                Impulsa tu negocio
+                {t('Impulsa tu negocio', 'Power your business forward')}
               </h2>
 
               <p className="text-base font-normal leading-[1.45] tracking-[-0.02em] text-[rgba(10,12,11,0.72)] dark:text-white/80">
-                Comienza tu prueba de 14 días gratis sin tarjeta de crédito.
+                {t('Comienza tu prueba de 14 días gratis sin tarjeta de crédito.', 'Start your 14-day free trial. No credit card required.')}
               </p>
             </div>
 
             <Button variant="primary" href="#pricing">
-              Empieza ahora gratis
+              {t('Empieza ahora gratis', 'Start 14-day free trial')}
             </Button>
           </div>
 

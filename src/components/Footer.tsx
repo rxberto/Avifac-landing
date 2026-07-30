@@ -8,6 +8,8 @@ import {
   Send,
 } from 'lucide-react';
 
+import { useLanguage } from '../context/LanguageContext';
+
 interface FooterProps {
   locale?: string;
 }
@@ -36,35 +38,45 @@ const LogoMark = () => {
 };
 
 // 2. AppStoreBadge & GooglePlayBadge
-const AppStoreBadge = ({ onClick }: { onClick: () => void }) => (
-  <button
-    onClick={onClick}
-    className="bg-[#FCFCFB] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] hover:border-[#0A0C0B]/40 dark:hover:border-white/40 hover:scale-[1.03] transition-all duration-200 cursor-pointer rounded-xl px-3.5 py-2 flex items-center gap-3 group text-left shadow-sm"
-  >
-    <svg className="w-5 h-5 fill-[#0A0C0B] dark:fill-white" viewBox="0 0 24 24">
-      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.85c.66-.8 1.11-1.92.99-3.04-1 .04-2.16.67-2.85 1.48-.6.7-1.13 1.83-.99 2.93 1.12.09 2.22-.57 2.85-1.37z" />
-    </svg>
-    <div className="flex flex-col">
-      <span className="text-[9px] uppercase tracking-wider text-[rgba(10,12,11,0.6)] dark:text-white/60 font-medium">Consíguelo en el</span>
-      <span className="text-xs font-semibold text-[#0A0C0B] dark:text-white tracking-tight -mt-0.5">App Store</span>
-    </div>
-  </button>
-);
+const AppStoreBadge = ({ onClick }: { onClick: () => void }) => {
+  const { t } = useLanguage();
+  return (
+    <button
+      onClick={onClick}
+      className="bg-[#FCFCFB] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] hover:border-[#0A0C0B]/40 dark:hover:border-white/40 hover:scale-[1.03] transition-all duration-200 cursor-pointer rounded-xl px-3.5 py-2 flex items-center gap-3 group text-left shadow-sm"
+    >
+      <svg className="w-5 h-5 fill-[#0A0C0B] dark:fill-white shrink-0" viewBox="0 0 24 24">
+        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.85c.66-.8 1.11-1.92.99-3.04-1 .04-2.16.67-2.85 1.48-.6.7-1.13 1.83-.99 2.93 1.12.09 2.22-.57 2.85-1.37z" />
+      </svg>
+      <div className="flex flex-col">
+        <span className="text-[9px] uppercase tracking-wider text-[rgba(10,12,11,0.6)] dark:text-white/60 font-medium">
+          {t('Consíguelo en el', 'Get it on')}
+        </span>
+        <span className="text-xs font-semibold text-[#0A0C0B] dark:text-white tracking-tight -mt-0.5">App Store</span>
+      </div>
+    </button>
+  );
+};
 
-const GooglePlayBadge = ({ onClick }: { onClick: () => void }) => (
-  <button
-    onClick={onClick}
-    className="bg-[#FCFCFB] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] hover:border-[#0A0C0B]/40 dark:hover:border-white/40 hover:scale-[1.03] transition-all duration-200 cursor-pointer rounded-xl px-3.5 py-2 flex items-center gap-3 group text-left shadow-sm"
-  >
-    <svg className="w-5 h-5 fill-[#0A0C0B] dark:fill-white" viewBox="0 0 24 24">
-      <path d="M3.609 1.814L13.792 12 3.61 22.186c-.194-.18-.31-.434-.31-.72V2.534c0-.286.116-.54.31-.72zm11.597 11.6l2.308-2.307c.365-.365.365-.958 0-1.323L15.206 7.48l-2.828 2.828 2.828 2.828zM4.686.736l10.155 10.155-2.828 2.828L1.858 3.564A1.02 1.02 0 0 1 2.534 2.5c.286 0 .54.116.72.31l1.432 1.432v-.006c0-.5.5-.9.999-1.5zM1.858 20.436l10.155-10.155 2.828 2.828L4.686 23.264c-.18.194-.434.31-.72.31a1.02 1.02 0 0 1-.676-1.064v-.006-.068z" />
-    </svg>
-    <div className="flex flex-col">
-      <span className="text-[9px] uppercase tracking-wider text-[rgba(10,12,11,0.6)] dark:text-white/60 font-medium">Disponible en</span>
-      <span className="text-xs font-semibold text-[#0A0C0B] dark:text-white tracking-tight -mt-0.5">Google Play</span>
-    </div>
-  </button>
-);
+const GooglePlayBadge = ({ onClick }: { onClick: () => void }) => {
+  const { t } = useLanguage();
+  return (
+    <button
+      onClick={onClick}
+      className="bg-[#FCFCFB] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] hover:border-[#0A0C0B]/40 dark:hover:border-white/40 hover:scale-[1.03] transition-all duration-200 cursor-pointer rounded-xl px-3.5 py-2 flex items-center gap-3 group text-left shadow-sm"
+    >
+      <svg className="w-5 h-5 fill-[#0A0C0B] dark:fill-white shrink-0" viewBox="0 0 24 24">
+        <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.802 8.99l-2.303 2.303-8.635-8.635z" />
+      </svg>
+      <div className="flex flex-col">
+        <span className="text-[9px] uppercase tracking-wider text-[rgba(10,12,11,0.6)] dark:text-white/60 font-medium">
+          {t('Disponible en', 'Get it on')}
+        </span>
+        <span className="text-xs font-semibold text-[#0A0C0B] dark:text-white tracking-tight -mt-0.5">Google Play</span>
+      </div>
+    </button>
+  );
+};
 
 // 3. FooterLink
 interface FooterLinkProps {
@@ -91,6 +103,7 @@ const FooterLink = ({ href, children, highlight, external }: FooterLinkProps) =>
 };
 
 export const Footer = ({ locale = 'es' }: FooterProps) => {
+  const { lang, setLang, t } = useLanguage();
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -108,9 +121,19 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
   };
 
   return (
-    <footer data-locale={locale} className="bg-[#FCFCFB] dark:bg-[#080a09] text-[rgba(10,12,11,0.72)] dark:text-white/80 font-sans relative border-t border-[#D2D2CE] dark:border-[#303131] transition-colors duration-300">
-      {/* Línea superior de acento multicolor ultra sutil */}
-      <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-violet-500/60 via-emerald-500/50 to-transparent z-20 pointer-events-none" />
+    <footer data-locale={locale} className="bg-[#FCFCFB] dark:bg-[#080a09] text-[rgba(10,12,11,0.72)] dark:text-white/80 font-sans relative transition-colors duration-300">
+      {/* SEPARADOR ESPECTACULAR CON BACKDROP BLUR & AURORA GLOW */}
+      <div className="relative w-full overflow-hidden pointer-events-none z-30 pt-8 pb-4">
+        {/* Auroras de brillo difuminado */}
+        <div className="absolute top-0 left-1/4 w-[450px] h-[70px] bg-gradient-to-r from-violet-600/30 via-purple-500/20 to-transparent rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-1/4 w-[450px] h-[70px] bg-gradient-to-l from-emerald-500/25 via-teal-400/20 to-transparent rounded-full blur-3xl pointer-events-none" />
+
+        {/* Barra con Cristal Esmerilado (Glassmorphic Backdrop Blur) */}
+        <div className="relative z-10 w-full border-t border-[#D2D2CE] dark:border-[#303131] backdrop-blur-2xl bg-[#FCFCFB]/60 dark:bg-[#080a09]/60">
+          {/* Hilo con gradiente de color brillante */}
+          <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-violet-500 via-emerald-400 via-cyan-400 to-transparent shadow-[0_0_15px_rgba(139,92,246,0.5)]" />
+        </div>
+      </div>
 
 
 
@@ -123,7 +146,10 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
             <LogoMark />
             
             <p className="text-xs text-[rgba(10,12,11,0.72)] dark:text-white/70 leading-relaxed max-w-sm">
-              Avialo es una marca y tecnología desarrollada y operada por Avialo (Avialo Soluciones S.L.), adaptada al 100% a la normativa tributaria española.
+              {t(
+                'Avialo es una marca y tecnología desarrollada y operada por Avialo (Avialo Soluciones S.L.), adaptada al 100% a la normativa tributaria española.',
+                'Avialo is a technology platform operated by Avialo Soluciones S.L., 100% tailored to Spanish tax & invoicing regulations.'
+              )}
             </p>
 
             {/* Redes Sociales: X (Twitter), LinkedIn, Facebook */}
@@ -146,64 +172,76 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
             </div>
 
             {/* Selector de Idioma */}
-            <div className="flex flex-wrap items-center gap-2 text-xs text-[rgba(10,12,11,0.6)] dark:text-white/60 pt-2 font-mono">
-              <span className="text-[#0A0C0B] dark:text-white font-bold cursor-default">Español</span>
+            <div className="flex items-center gap-2 text-xs text-[rgba(10,12,11,0.6)] dark:text-white/60 pt-2 font-mono">
+              <button
+                onClick={() => setLang('es')}
+                className={`transition-colors cursor-pointer ${
+                  lang === 'es'
+                    ? 'text-[#0A0C0B] dark:text-white font-bold underline underline-offset-4'
+                    : 'hover:text-[#0A0C0B] dark:hover:text-white'
+                }`}
+              >
+                Español
+              </button>
               <span>·</span>
-              <a href="#" className="hover:text-[#0A0C0B] dark:hover:text-white transition-colors">English</a>
-              <span>·</span>
-              <a href="#" className="hover:text-[#0A0C0B] dark:hover:text-white transition-colors">Català</a>
-              <span>·</span>
-              <a href="#" className="hover:text-[#0A0C0B] dark:hover:text-white transition-colors">Galego</a>
-              <span>·</span>
-              <a href="#" className="hover:text-[#0A0C0B] dark:hover:text-white transition-colors">Euskera</a>
+              <button
+                onClick={() => setLang('en')}
+                className={`transition-colors cursor-pointer ${
+                  lang === 'en'
+                    ? 'text-[#0A0C0B] dark:text-white font-bold underline underline-offset-4'
+                    : 'hover:text-[#0A0C0B] dark:hover:text-white'
+                }`}
+              >
+                English
+              </button>
             </div>
           </div>
 
           {/* Columna 2: Acceso Rápido */}
           <div className="md:col-span-2 space-y-3.5 text-left">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#0A0C0B] dark:text-white">Acceso Rápido</h4>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#0A0C0B] dark:text-white">{t('Acceso Rápido', 'Quick Links')}</h4>
             <ul className="space-y-2.5">
-              <li><FooterLink href="https://app.avialo.tech/registro" external>Crea una cuenta gratis</FooterLink></li>
-              <li><FooterLink href="https://app.avialo.tech/login" external>Iniciar sesión</FooterLink></li>
-              <li><FooterLink href="#pricing">Precios y Planes</FooterLink></li>
-              <li><FooterLink href="#">Estado del sistema</FooterLink></li>
+              <li><FooterLink href="https://app.avialo.tech/registro" external>{t('Crea una cuenta gratis', 'Create free account')}</FooterLink></li>
+              <li><FooterLink href="https://app.avialo.tech/login" external>{t('Iniciar sesión', 'Log in')}</FooterLink></li>
+              <li><FooterLink href="#pricing">{t('Precios y Planes', 'Pricing & Plans')}</FooterLink></li>
+              <li><FooterLink href="#">{t('Estado del sistema', 'System status')}</FooterLink></li>
             </ul>
           </div>
 
           {/* Columna 3: Funcionalidades */}
           <div className="md:col-span-2 space-y-3.5 text-left">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#0A0C0B] dark:text-white">Funcionalidades</h4>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#0A0C0B] dark:text-white">{t('Funcionalidades', 'Features')}</h4>
             <ul className="space-y-2.5">
-              <li><FooterLink href="#features">Facturación Online</FooterLink></li>
-              <li><FooterLink href="#features">Tickets Simplificados</FooterLink></li>
-              <li><FooterLink href="#features">Presupuestos y Albaranes</FooterLink></li>
-              <li><FooterLink href="#features">Control de Gastos</FooterLink></li>
-              <li><FooterLink href="#features">Inventario de Stock</FooterLink></li>
-              <li><FooterLink href="#features">Copiloto IA Fiscal</FooterLink></li>
+              <li><FooterLink href="#features">{t('Facturación Online', 'Online Invoicing')}</FooterLink></li>
+              <li><FooterLink href="#features">{t('Tickets Simplificados', 'Receipts & Tickets')}</FooterLink></li>
+              <li><FooterLink href="#features">{t('Presupuestos y Albaranes', 'Quotes & Delivery Notes')}</FooterLink></li>
+              <li><FooterLink href="#features">{t('Control de Gastos', 'Expense Management')}</FooterLink></li>
+              <li><FooterLink href="#features">{t('Inventario de Stock', 'Inventory Control')}</FooterLink></li>
+              <li><FooterLink href="#features">{t('Copiloto IA Fiscal', 'AI Tax Copilot')}</FooterLink></li>
             </ul>
           </div>
 
           {/* Columna 4: Soluciones */}
           <div className="md:col-span-2 space-y-3.5 text-left">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#0A0C0B] dark:text-white">Soluciones</h4>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#0A0C0B] dark:text-white">{t('Soluciones', 'Solutions')}</h4>
             <ul className="space-y-2.5">
-              <li><FooterLink href="#pricing">Para Autónomos</FooterLink></li>
-              <li><FooterLink href="#pricing">Para Pymes y Equipos</FooterLink></li>
-              <li><FooterLink href="#overview">Para Asesorías y Gestores</FooterLink></li>
-              <li><FooterLink href="#features">Migración desde Excel</FooterLink></li>
-              <li><FooterLink href="#faq" external>Soluciones API</FooterLink></li>
+              <li><FooterLink href="#pricing">{t('Para Autónomos', 'For Solo Pros')}</FooterLink></li>
+              <li><FooterLink href="#pricing">{t('Para Pymes y Equipos', 'For Small Teams')}</FooterLink></li>
+              <li><FooterLink href="#overview">{t('Para Asesorías y Gestores', 'For Accountants')}</FooterLink></li>
+              <li><FooterLink href="#features">{t('Migración desde Excel', 'Excel Migration')}</FooterLink></li>
+              <li><FooterLink href="#faq" external>{t('Soluciones API', 'API Integration')}</FooterLink></li>
             </ul>
           </div>
 
           {/* Columna 5: Hacienda y Legal */}
           <div className="md:col-span-2 space-y-3.5 text-left">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#0A0C0B] dark:text-white">Hacienda y Legal</h4>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#0A0C0B] dark:text-white">{t('Hacienda y Legal', 'Tax & Legal')}</h4>
             <ul className="space-y-2.5">
-              <li><FooterLink href="#faq">Ley Verifactu (AEAT)</FooterLink></li>
-              <li><FooterLink href="#faq">FACe & FacturaE B2B</FooterLink></li>
-              <li><FooterLink href="#" highlight={true} external>Declaración SIF Garante</FooterLink></li>
-              <li><FooterLink href="#">Términos de Servicio</FooterLink></li>
-              <li><FooterLink href="#">Política de Privacidad</FooterLink></li>
+              <li><FooterLink href="#faq">{t('Ley Verifactu (AEAT)', 'VeriFactu Regulation')}</FooterLink></li>
+              <li><FooterLink href="#faq">{t('FACe & FacturaE B2B', 'FACe Public Invoicing')}</FooterLink></li>
+              <li><FooterLink href="#" highlight={true} external>{t('Declaración SIF Garante', 'Guaranteed SIF Statement')}</FooterLink></li>
+              <li><FooterLink href="#">{t('Términos de Servicio', 'Terms of Service')}</FooterLink></li>
+              <li><FooterLink href="#">{t('Política de Privacidad', 'Privacy Policy')}</FooterLink></li>
             </ul>
           </div>
 
@@ -214,12 +252,18 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
           
           {/* Textos Legales */}
           <div className="lg:col-span-8 space-y-3.5 text-xs text-[rgba(10,12,11,0.72)] dark:text-white/70 leading-relaxed">
-            <p>© {new Date().getFullYear()} Avialo Soluciones S.L. Avialo es una marca registrada de Avialo Soluciones S.L. Todos los derechos reservados.</p>
+            <p>© {new Date().getFullYear()} Avialo Soluciones S.L. {t('Avialo es una marca registrada de Avialo Soluciones S.L. Todos los derechos reservados.', 'Avialo is a registered trademark of Avialo Soluciones S.L. All rights reserved.')}</p>
             <p>
-              Avialo es un Sistema de Facturación Certificado (SIF) que cumple estrictamente con los requisitos establecidos en la Ley 11/2021 de medidas de prevención y lucha contra el fraude fiscal y el Reglamento Verifactu (Real Decreto 1007/2023) de la Agencia Tributaria (AEAT). El sistema garantiza la integridad, conservación, accesibilidad, legibilidad, trazabilidad e inalterabilidad de todos los registros de facturación generados.
+              {t(
+                'Avialo es un Sistema de Facturación Certificado (SIF) que cumple strictly con los requisitos establecidos en la Ley 11/2021 de medidas de prevención y lucha contra el fraude fiscal y el Reglamento Verifactu (Real Decreto 1007/2023) de la Agencia Tributaria (AEAT). El sistema garantiza la integridad, conservación, accesibilidad, legibilidad, trazabilidad e inalterabilidad de todos los registros de facturación generados.',
+                'Avialo is a Certified Invoicing System (SIF) strictly compliant with Spanish Law 11/2021 against tax fraud and the VeriFactu Regulation (Royal Decree 1007/2023) of the Spanish Tax Agency (AEAT). The platform ensures full record integrity, traceability, and immutability.'
+              )}
             </p>
             <p>
-              Avialo es un producto desarrollado y comercializado por la empresa matriz Avialo Soluciones S.L., C.I.F. B26802249, inscrita en el Registro Mercantil.
+              {t(
+                'Avialo es un producto desarrollado y comercializado por la empresa matriz Avialo Soluciones S.L., C.I.F. B26802249, inscrita en el Registro Mercantil.',
+                'Avialo is developed and operated by Avialo Soluciones S.L. (Tax ID B26802249, Madrid, Spain).'
+              )}
             </p>
           </div>
 
@@ -228,9 +272,9 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
             <div className="border border-[rgb(52,138,46)]/40 dark:border-[rgb(104,204,88)]/40 bg-[rgb(52,138,46)]/5 dark:bg-[rgb(104,204,88)]/5 shadow-md rounded-xl p-4 max-w-[260px] w-full flex items-start gap-3">
               <ShieldCheck className="text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] size-5 shrink-0 mt-0.5" />
               <div className="flex flex-col">
-                <span className="text-[9px] font-extrabold tracking-wider uppercase text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] block">SOFTWARE HOMOLOGADO</span>
-                <span className="text-xs font-bold text-[#0A0C0B] dark:text-white tracking-wide mt-0.5 block">SISTEMA VERI*FACTU</span>
-                <span className="text-[9px] text-[rgba(10,12,11,0.6)] dark:text-white/60 leading-snug mt-0.5 block">Conforme al Real Decreto 1007/2023 de la AEAT</span>
+                <span className="text-[9px] font-extrabold tracking-wider uppercase text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] block">{t('SOFTWARE HOMOLOGADO', 'HOMOLOGATED SOFTWARE')}</span>
+                <span className="text-xs font-bold text-[#0A0C0B] dark:text-white tracking-wide mt-0.5 block">{t('SISTEMA VERI*FACTU', 'VERI*FACTU SYSTEM')}</span>
+                <span className="text-[9px] text-[rgba(10,12,11,0.6)] dark:text-white/60 leading-snug mt-0.5 block">{t('Conforme al Real Decreto 1007/2023 de la AEAT', 'Compliant with Spanish RD 1007/2023 AEAT')}</span>
               </div>
             </div>
           </div>

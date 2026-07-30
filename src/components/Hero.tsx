@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Navbar } from './Navbar';
 import { ShinyText } from './ShinyText';
@@ -9,6 +10,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 export const Hero = () => {
+  const { t } = useLanguage();
   const heroContainerRef = useRef<HTMLElement>(null);
   const dashboardRef = useRef<HTMLDivElement>(null);
 
@@ -68,12 +70,15 @@ export const Hero = () => {
           className="flex flex-col items-center max-w-[960px] px-2 sm:px-0"
         >
           <h1 className="font-normal tracking-[-0.04em] text-5xl sm:text-6xl md:text-7xl xl:text-8xl leading-[1.05] sm:leading-[1.1] select-none text-center text-[#0A0C0B] dark:text-white">
-            <span className="block">Tu facturación</span>
-            <ShinyText text="simple." speed={2.5} className="font-semibold block mt-1 sm:mt-0" />
+            <span className="block">{t('Tu facturación', 'Invoicing made')}</span>
+            <ShinyText text={t('simple.', 'effortless.')} speed={2.5} className="font-semibold block mt-1 sm:mt-0" />
           </h1>
 
           <p className="mt-5 sm:mt-6 text-lg sm:text-xl md:text-2xl font-normal leading-relaxed tracking-[-0.01em] text-[rgba(10,12,11,0.72)] dark:text-white/80 max-w-[860px] text-center px-2 sm:px-0">
-            Facturación electrónica y cumplimiento fiscal blindado con VeriFactu 2026 y FACe. Simplicidad de uso, soporte humano real y sin límites de facturas.
+            {t(
+              'Facturación electrónica y cumplimiento fiscal blindado con VeriFactu 2026 y FACe. Simplicidad de uso, soporte humano real y sin límites de facturas.',
+              'Smart e-invoicing and VeriFactu 2026 tax compliance for Spain. Built for speed, real human support, and unlimited invoices.'
+            )}
           </p>
         </motion.div>
 
@@ -85,7 +90,7 @@ export const Hero = () => {
           className="mt-5 sm:mt-8 w-full sm:w-auto px-4 sm:px-0"
         >
           <Button variant="primary" href="#pricing" className="w-full sm:w-auto text-base px-8 py-3.5 justify-center">
-            Pruébanos 14 días gratis
+            {t('Pruébanos 14 días gratis', 'Start 14-day free trial')}
           </Button>
         </motion.div>
 

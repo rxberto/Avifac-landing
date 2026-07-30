@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { Hero } from './components/Hero';
 import { HeroActionRow } from './components/HeroActionRow';
 import { Footer } from './components/Footer';
@@ -21,7 +22,8 @@ const FinalCTASection = lazy(() => import('./components/FinalCTASection').then(m
 export function App() {
   return (
     <ThemeProvider>
-      <main className="min-h-screen bg-[#FCFCFB] dark:bg-[#080a09] w-full overflow-x-hidden antialiased text-[#0A0C0B] dark:text-white transition-colors duration-300">
+      <LanguageProvider>
+        <main className="min-h-screen bg-[#FCFCFB] dark:bg-[#080a09] w-full overflow-x-hidden antialiased text-[#0A0C0B] dark:text-white transition-colors duration-300">
         {/* Above the fold (carga inmediata) */}
         <Hero />
         <HeroActionRow />
@@ -44,8 +46,9 @@ export function App() {
 
         <Footer />
       </main>
-    </ThemeProvider>
-  );
+    </LanguageProvider>
+  </ThemeProvider>
+);
 }
 
 export default App;

@@ -1,17 +1,20 @@
 import { motion } from 'framer-motion';
 import { Button } from './Button';
+import { useLanguage } from '../context/LanguageContext';
 
 export const IntegrationsSection = () => {
+  const { t } = useLanguage();
+
   const logos = [
-    { name: 'Stripe', tag: 'Pagos Globales' },
-    { name: 'RedSYS', tag: 'TPV España' },
-    { name: 'Ministerio', tag: 'VeriFactu / FacturaE' },
-    { name: 'WooCommerce', tag: 'eCommerce Auto' },
-    { name: 'Shopify', tag: 'Sincro Tienda' },
-    { name: 'PayPal', tag: 'Checkout Global' },
-    { name: 'Holded', tag: 'Open Banking' },
-    { name: 'Wise', tag: 'Multi-Moneda' },
-    { name: 'Revolut', tag: 'Banca Empresas' },
+    { name: 'Stripe', tag: t('Pagos Globales', 'Global Payments') },
+    { name: 'RedSYS', tag: t('TPV España', 'Spain POS Gateway') },
+    { name: 'Ministerio', tag: t('VeriFactu / FacturaE', 'VeriFactu / FacturaE') },
+    { name: 'WooCommerce', tag: t('eCommerce Auto', 'Auto eCommerce') },
+    { name: 'Shopify', tag: t('Sincro Tienda', 'Store Sync') },
+    { name: 'PayPal', tag: t('Checkout Global', 'Global Checkout') },
+    { name: 'Holded', tag: t('Open Banking', 'Open Banking') },
+    { name: 'Wise', tag: t('Multi-Moneda', 'Multi-Currency') },
+    { name: 'Revolut', tag: t('Banca Empresas', 'Business Banking') },
   ];
 
   return (
@@ -30,7 +33,7 @@ export const IntegrationsSection = () => {
             >
               <span className="w-[14px] h-[8px] rounded-full bg-[rgb(20,122,132)] dark:bg-[rgb(158,250,255)] shrink-0" />
               <span className="text-sm font-normal leading-[1.5] tracking-[-0.02em] text-[rgba(10,12,11,0.72)] dark:text-white/80">
-                Integraciones
+                {t('Integraciones', 'Integrations')}
               </span>
             </motion.div>
 
@@ -42,10 +45,13 @@ export const IntegrationsSection = () => {
               className="flex flex-col gap-3"
             >
               <h2 className="text-[32px] sm:text-[36px] font-normal leading-[1.1] tracking-[-0.04em] text-[#0A0C0B] dark:text-white">
-                Conexión total
+                {t('Conexión total', 'Seamless Integrations')}
               </h2>
               <p className="text-base font-normal leading-[1.5] tracking-[-0.02em] text-[rgba(10,12,11,0.72)] dark:text-white/80">
-                Sincroniza con tus pasarelas de pago y bancos nativamente.
+                {t(
+                  'Sincroniza con tus pasarelas de pago y bancos nativamente.',
+                  'Sync seamlessly with your payment gateways and bank accounts.'
+                )}
               </p>
             </motion.div>
           </div>
@@ -57,7 +63,7 @@ export const IntegrationsSection = () => {
             transition={{ duration: 1, delay: 0.3 }}
           >
             <Button variant="primary" href="#pricing">
-              Empieza ahora gratis
+              {t('Empieza ahora gratis', 'Start 14-day free trial')}
             </Button>
           </motion.div>
         </div>
