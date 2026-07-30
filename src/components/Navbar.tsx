@@ -175,7 +175,7 @@ export const Navbar = () => {
 
           {/* Desktop Center Nav Links */}
           <nav className="hidden lg:flex items-center space-x-1">
-            {Object.keys(megaMenus).map((key, idx) => (
+            {Object.keys(megaMenus).map((key) => (
               <div
                 key={key}
                 className="relative"
@@ -207,13 +207,7 @@ export const Navbar = () => {
                       transition={{ duration: 0.2, ease: 'easeOut' }}
                       onMouseEnter={() => handleMouseEnter(key)}
                       onMouseLeave={handleMouseLeave}
-                      className={`absolute top-full mt-3 w-[min(760px,calc(100vw-64px))] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] rounded-3xl p-6 shadow-2xl text-sm z-50 grid grid-cols-12 gap-5 overflow-hidden ${
-                        idx === 0
-                          ? 'left-0'
-                          : idx === 1
-                          ? 'left-1/2 -translate-x-1/2'
-                          : 'right-0'
-                      }`}
+                      className="absolute top-full mt-3 left-1/2 -translate-x-1/2 w-[min(720px,calc(100vw-48px))] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] rounded-3xl p-6 shadow-2xl text-sm z-50 grid grid-cols-12 gap-5 overflow-hidden"
                     >
                       {/* Items Grid */}
                       <div className={`${megaMenus[key].featured ? 'col-span-8' : 'col-span-12'} grid grid-cols-2 gap-3.5`}>
