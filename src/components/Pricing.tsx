@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { SectionHeader } from './SectionHeader';
 import { Button } from './Button';
 import { Check, X } from 'lucide-react';
@@ -151,15 +151,33 @@ export const Pricing = () => {
                 </button>
               </div>
               
-              <span className="px-3 py-1.5 rounded-full border border-[rgb(52,138,46)] dark:border-[rgb(104,204,88)] bg-[rgb(52,138,46)]/10 dark:bg-[rgb(104,204,88)]/10 text-[10px] sm:text-xs font-bold tracking-wider uppercase text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] shrink-0">
-                Ahorra 17%
-              </span>
+              <AnimatePresence>
+                {isYearly && (
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.8, x: -10 }}
+                    animate={{ opacity: 1, scale: 1, x: 0 }}
+                    exit={{ opacity: 0, scale: 0.8, x: -10 }}
+                    className="px-3 py-1.5 rounded-full border border-[rgb(52,138,46)] dark:border-[rgb(104,204,88)] bg-[rgb(52,138,46)]/10 dark:bg-[rgb(104,204,88)]/10 text-[10px] sm:text-xs font-bold tracking-wider uppercase text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] shrink-0"
+                  >
+                    Ahorra 17%
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* Launch Offer Text */}
-            <div className="text-xs sm:text-sm text-[rgba(10,12,11,0.72)] dark:text-white/80 bg-[#FCFCFB] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] px-4 py-2 rounded-xl">
-              <span className="font-semibold text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)]">Oferta de lanzamiento:</span> Descuento aplicado en el plan anual. IVA no incluido.
-            </div>
+            <AnimatePresence>
+              {isYearly && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="text-xs sm:text-sm text-[rgba(10,12,11,0.72)] dark:text-white/80 bg-gradient-to-r from-[rgb(52,138,46)]/5 to-transparent dark:from-[rgb(104,204,88)]/10 border border-[#D2D2CE] dark:border-[#303131] px-4 py-2.5 rounded-xl shadow-sm"
+                >
+                  <span className="font-semibold text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)]">🎁 Oferta de Lanzamiento:</span> Descuento fundador congelado durante 2 años al contratar hoy.
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* Pricing Cards Grid */}
@@ -191,18 +209,36 @@ export const Pricing = () => {
                       </p>
                     </div>
 
-                    <div className="flex flex-col py-4 border-y border-[#E6E6E3] dark:border-[#232326]">
+                    <div className="flex flex-col py-4 border-y border-[#E6E6E3] dark:border-[#232326] min-h-[104px] justify-center">
                       <div className="flex items-baseline gap-1">
-                        <span className="text-4xl font-bold leading-[1.1] tracking-[-0.04em] text-[#0A0C0B] dark:text-white">
-                          {price},00 €
-                        </span>
+                        <AnimatePresence mode="wait">
+                          <motion.span
+                            key={isYearly ? 'yearly' : 'monthly'}
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 10 }}
+                            transition={{ duration: 0.15 }}
+                            className="text-4xl font-bold leading-[1.1] tracking-[-0.04em] text-[#0A0C0B] dark:text-white inline-block"
+                          >
+                            {price},00 €
+                          </motion.span>
+                        </AnimatePresence>
                         <span className="text-sm font-normal text-[rgba(10,12,11,0.72)] dark:text-white/80">/ mes</span>
                       </div>
-                      {isYearly && (
-                        <span className="text-xs text-[rgba(10,12,11,0.6)] dark:text-white/60 mt-1 font-medium">
-                          {price * 12},00 € al año, IVA aparte
-                        </span>
-                      )}
+                      <AnimatePresence>
+                        {isYearly && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="overflow-hidden"
+                          >
+                            <span className="text-xs text-[rgba(10,12,11,0.6)] dark:text-white/60 mt-1 font-medium block">
+                              {price * 12},00 € al año, IVA aparte
+                            </span>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
 
                     <div className="flex flex-col gap-2.5">
