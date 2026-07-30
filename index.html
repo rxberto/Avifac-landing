@@ -1,10 +1,90 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('avialo-theme');
+          var isDark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>prueba2</title>
+
+    <!-- SEO Meta Tags Primarios -->
+    <title>Avialo - Facturación Inteligente</title>
+    <meta name="title" content="Avialo - Facturación Inteligente" />
+    <meta name="description" content="Avialo es la plataforma de facturación inteligente y gestión financiera automatizada adaptada a la Ley VeriFactu 2026. Crea facturas, gestiona cobros recurrentes y automatiza tus impuestos en España." />
+    <meta name="keywords" content="Avialo, facturación inteligente, software de facturas, VeriFactu, Ley VeriFactu 2026, autónomos, pymes, gestión financiera, conciliación bancaria, cobros recurrentes, factura electrónica" />
+    <meta name="author" content="Avialo" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#0A0C0B" />
+    <link rel="canonical" href="https://avialo.tech/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://avialo.tech/" />
+    <meta property="og:site_name" content="Avialo" />
+    <meta property="og:title" content="Avialo - Facturación Inteligente" />
+    <meta property="og:description" content="Plataforma de facturación inteligente, cobros recurrentes y cumplimiento automatizado de la normativa fiscal VeriFactu 2026 para autónomos y pymes." />
+    <meta property="og:image" content="https://avialo.es/favicon.svg" />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter / X -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://avialo.tech/" />
+    <meta property="twitter:title" content="Avialo - Facturación Inteligente" />
+    <meta property="twitter:description" content="Plataforma de facturación inteligente, cobros recurrentes y cumplimiento automatizado de la normativa fiscal VeriFactu 2026 para autónomos y pymes." />
+    <meta property="twitter:image" content="https://avialo.es/favicon.svg" />
+
+    <!-- Datos Estructurados JSON-LD (Schema.org) para Google -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://avialo.es/#software",
+            "name": "Avialo",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "description": "Plataforma SaaS de facturación inteligente, cobros recurrentes y cumplimiento automatizado de la Ley VeriFactu 2026.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStock"
+            }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://avialo.es/#organization",
+            "name": "Avialo",
+            "url": "https://avialo.es/",
+            "logo": "https://avialo.es/favicon.svg"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://avialo.es/#website",
+            "url": "https://avialo.es/",
+            "name": "Avialo",
+            "description": "Facturación Inteligente y Gestión Financiera",
+            "publisher": {
+              "@id": "https://avialo.es/#organization"
+            },
+            "inLanguage": "es-ES"
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

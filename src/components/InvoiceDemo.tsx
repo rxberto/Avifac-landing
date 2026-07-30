@@ -238,7 +238,7 @@ export const InvoiceDemo = () => {
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-black border border-neutral-700 flex items-center justify-center">
                   <img
-                    src="https://avialo.es/logo.svg"
+                    src="/favicon.svg"
                     alt="Avialo"
                     className="h-5 w-auto filter brightness-0 invert"
                     onError={(e) => {

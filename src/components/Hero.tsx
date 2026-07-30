@@ -42,6 +42,7 @@ export const Hero = () => {
         loop
         muted
         playsInline
+        preload="none"
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-20 sm:opacity-25 dark:opacity-65 pointer-events-none filter brightness-110 contrast-105 dark:brightness-120 dark:contrast-110 transition-opacity duration-300"
       >
         <source
@@ -99,6 +100,7 @@ export const Hero = () => {
               opacity: 1,
               y: translateY,
               transformStyle: 'preserve-3d',
+              willChange: 'transform',
             }}
             className="relative rounded-[8px] sm:rounded-[12px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-4 sm:p-8 md:p-10 shadow-2xl overflow-hidden transition-colors duration-300 text-[#0A0C0B] dark:text-white min-h-[420px] sm:min-h-[560px] md:min-h-[640px] flex flex-col justify-between"
           >

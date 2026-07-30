@@ -159,7 +159,7 @@ export const Navbar = () => {
           {/* Logo + Brand Name */}
           <a href="#" className="flex items-center gap-3 group shrink-0">
             <img
-              src="https://avialo.es/logo.svg"
+              src="/favicon.svg"
               alt="Avialo Logo"
               className="h-7 md:h-8 w-auto filter brightness-0 dark:brightness-0 dark:invert transition-transform duration-300 group-hover:scale-105"
               onError={(e) => {

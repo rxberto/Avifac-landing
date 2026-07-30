@@ -11,7 +11,7 @@ export const Footer = () => {
           <div className="col-span-2 space-y-4 text-left">
             <a href="#" className="flex items-center gap-2">
               <img
-                src="https://avialo.es/logo.svg"
+                src="/favicon.svg"
                 alt="Avialo Logo"
                 className="h-7 w-auto filter brightness-0 dark:invert"
                 onError={(e) => {
