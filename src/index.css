@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  font-family: 'Host Grotesk', sans-serif;
+  color-scheme: light;
+  
+  /* Light Mode Color Tokens */
+  --bg-main: #FCFCFB;
+  --elevation-strong: #F2F2F0;
+  --elevation-medium: #E6E6E3;
+  --elevation-weak: #D2D2CE;
+  --main-white: #0A0C0B;
+  --text-strong: #0A0C0B;
+  --text-medium: rgba(10, 12, 11, 0.72);
+  --text-weak: rgba(10, 12, 11, 0.6);
+  
+  /* Accent Tokens */
+  --accent-green: rgb(52, 138, 46);
+  --accent-yellow: rgb(154, 112, 12);
+  --accent-cyan: rgb(20, 122, 132);
+
+  --dot-color: rgba(10, 12, 11, 0.25);
+  --logo-filter: brightness(0);
+}
+
+.dark {
+  color-scheme: dark;
+
+  /* Dark Mode Color Tokens */
+  --bg-main: #080a09;
+  --elevation-strong: #131517;
+  --elevation-medium: #232326;
+  --elevation-weak: #303131;
+  --main-white: #ffffff;
+  --text-strong: #ffffff;
+  --text-medium: rgba(255, 255, 255, 0.8);
+  --text-weak: rgba(255, 255, 255, 0.7);
+
+  /* Accents */
+  --accent-green: rgb(104, 204, 88);
+  --accent-yellow: rgb(212, 177, 68);
+  --accent-cyan: rgb(158, 250, 255);
+
+  --dot-color: rgba(255, 255, 255, 0.15);
+  --logo-filter: brightness(0) invert(1);
+}
+
+/* Habilitar selección de texto completa en toda la web */
+*, *::before, *::after {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}
+
+/* Subrayado / Selección de texto elegante según el modo */
+::selection {
+  background-color: rgba(52, 138, 46, 0.25);
+  color: #0A0C0B;
+}
+
+.dark ::selection,
+html.dark ::selection {
+  background-color: rgba(104, 204, 88, 0.35);
+  color: #ffffff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-main);
+  color: var(--text-strong);
+  font-family: 'Host Grotesk', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Utility Token Classes */
+.theme-bg-main {
+  background-color: var(--bg-main);
+}
+.theme-bg-elevation-strong {
+  background-color: var(--elevation-strong);
+}
+.theme-bg-elevation-medium {
+  background-color: var(--elevation-medium);
+}
+.theme-border-elevation-weak {
+  border-color: var(--elevation-weak);
+}
+.theme-text-strong {
+  color: var(--text-strong);
+}
+.theme-text-medium {
+  color: var(--text-medium);
+}
+.theme-text-weak {
+  color: var(--text-weak);
+}
+
+/* Typography Presets */
+.h1-preset {
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: -0.04em;
+  color: var(--text-strong);
+}
+
+.h2-preset {
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: -0.04em;
+  color: var(--text-strong);
+}
+
+.h3-preset {
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: -0.04em;
+  color: var(--text-strong);
+}
+
+.h4-preset {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 110%;
+  letter-spacing: -0.04em;
+  color: var(--text-strong);
+}
+
+.h5-preset {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 110%;
+  letter-spacing: -0.04em;
+  color: var(--text-strong);
+}
+
+.h6-preset {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 110%;
+  letter-spacing: -0.04em;
+  color: var(--text-strong);
+}
+
+.body-large {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: -0.02em;
+  color: var(--text-medium);
+}
+
+.body-small {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: -0.02em;
+  color: var(--text-medium);
+}
+
+/* Dots Texture Background */
+.bg-dot-texture {
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+@keyframes dotPulseLight {
+  0%, 100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.animate-dot-pulse {
+  animation: dotPulseLight 4s ease-in-out infinite;
+}
+
+/* Continuous Marquee Animations */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marqueeReverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 70s linear infinite;
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marqueeReverse 70s linear infinite;
+}
+
+.animate-marquee:hover,
+.animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--elevation-medium);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--elevation-weak);
+}
