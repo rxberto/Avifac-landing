@@ -1,9 +1,10 @@
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useState, useEffect } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { Hero } from './components/Hero';
 import { HeroActionRow } from './components/HeroActionRow';
 import { Footer } from './components/Footer';
+import { NotFoundPage } from './components/NotFoundPage';
 
 // Lazy load below-the-fold components para optimización de rendimiento y carga móvil
 const IntelligentDelegationSection = lazy(() => import('./components/IntelligentDelegationSection').then(m => ({ default: m.IntelligentDelegationSection })));
@@ -20,35 +21,66 @@ const FAQSection = lazy(() => import('./components/FAQSection').then(m => ({ def
 const FinalCTASection = lazy(() => import('./components/FinalCTASection').then(m => ({ default: m.FinalCTASection })));
 
 export function App() {
+  const [isNotFound, setIsNotFound] = useState(false);
+
+  useEffect(() => {
+    const checkPath = () => {
+      const pathname = window.location.pathname.toLowerCase();
+      const hash = window.location.hash.toLowerCase();
+      if (
+        pathname === '/404' ||
+        pathname === '/404/' ||
+        hash === '#404' ||
+        (pathname !== '/' && !pathname.startsWith('/en') && !pathname.startsWith('/es'))
+      ) {
+        setIsNotFound(true);
+      } else {
+        setIsNotFound(false);
+      }
+    };
+
+    checkPath();
+    window.addEventListener('popstate', checkPath);
+    window.addEventListener('hashchange', checkPath);
+    return () => {
+      window.removeEventListener('popstate', checkPath);
+      window.removeEventListener('hashchange', checkPath);
+    };
+  }, []);
+
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <main className="min-h-screen bg-[#FCFCFB] dark:bg-[#080a09] w-full overflow-x-hidden antialiased text-[#0A0C0B] dark:text-white transition-colors duration-300">
-        {/* Above the fold (carga inmediata) */}
-        <Hero />
-        <HeroActionRow />
+        {isNotFound ? (
+          <NotFoundPage />
+        ) : (
+          <main className="min-h-screen bg-[#FCFCFB] dark:bg-[#080a09] w-full overflow-x-hidden antialiased text-[#0A0C0B] dark:text-white transition-colors duration-300">
+            {/* Above the fold (carga inmediata) */}
+            <Hero />
+            <HeroActionRow />
 
-        {/* Below the fold (carga diferida/lazy) */}
-        <Suspense fallback={<div className="h-32 w-full flex items-center justify-center text-[rgba(10,12,11,0.5)] dark:text-white/50 animate-pulse">Cargando sección...</div>}>
-          <IntelligentDelegationSection />
-          <OverviewSection />
-          <CoreFeaturesSection />
-          <FeaturesSection />
-          <IntegrationsSection />
-          <BenefitsSection />
-          <AboutSection />
-          <ReviewsSection />
-          <Pricing />
-          <ComplianceSection />
-          <FAQSection />
-          <FinalCTASection />
-        </Suspense>
+            {/* Below the fold (carga diferida/lazy) */}
+            <Suspense fallback={<div className="h-32 w-full flex items-center justify-center text-[rgba(10,12,11,0.5)] dark:text-white/50 animate-pulse">Cargando sección...</div>}>
+              <IntelligentDelegationSection />
+              <OverviewSection />
+              <CoreFeaturesSection />
+              <FeaturesSection />
+              <IntegrationsSection />
+              <BenefitsSection />
+              <AboutSection />
+              <ReviewsSection />
+              <Pricing />
+              <ComplianceSection />
+              <FAQSection />
+              <FinalCTASection />
+            </Suspense>
 
-        <Footer />
-      </main>
-    </LanguageProvider>
-  </ThemeProvider>
-);
+            <Footer />
+          </main>
+        )}
+      </LanguageProvider>
+    </ThemeProvider>
+  );
 }
 
 export default App;
