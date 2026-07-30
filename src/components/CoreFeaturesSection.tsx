@@ -189,48 +189,55 @@ export const CoreFeaturesSection = () => {
             {/* Columna Derecha */}
             <div className="lg:col-span-4 flex flex-col gap-4 sm:gap-[30px]">
               
-              {/* TARJETA 4 */}
+              {/* TARJETA 4 - MODELO 303 Y CONTROL FISCAL CON IA */}
               <div className="w-full min-h-[420px] sm:min-h-[528px] rounded-[20px] bg-[#000000] p-6 sm:p-[40px] overflow-hidden flex flex-col justify-between items-center text-center gap-6 sm:gap-[30px] border border-white/10 shadow-2xl relative group">
                 
                 <h6 className="text-base sm:text-lg font-medium leading-[1.1] tracking-[-0.04em] text-white">
-                  Predicciones mediante IA
+                  Cálculo de Impuestos & Modelo 303 AEAT
                 </h6>
 
                 <div className="w-full flex-1 flex flex-col items-center justify-center gap-4 my-auto py-4 sm:py-6">
                   <div className="px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-[10px] sm:text-xs font-mono font-bold flex items-center gap-2 animate-pulse">
                     <Sparkles className="w-3.5 h-3.5" />
-                    <span>ALERTA DE COBRO • 98.4% CONFIANZA</span>
+                    <span>BORRADOR MODELO 303 • LISTO PARA AEAT</span>
                   </div>
 
                   <div className="w-full bg-[#131517] border border-[#303131] rounded-2xl p-4 sm:p-5 text-left font-mono space-y-3 shadow-inner">
                     <div className="flex justify-between items-center text-[10px] sm:text-xs">
-                      <span className="text-neutral-400">TICKER: AVIA / EMPRESA</span>
+                      <span className="text-neutral-400">TRIMESTRE EN CURSO (Q3)</span>
                       <span className="text-emerald-400 font-bold flex items-center gap-1">
-                        <TrendingUp className="w-3.5 h-3.5" /> +14.2%
+                        <TrendingUp className="w-3.5 h-3.5" /> AEAT READY
                       </span>
                     </div>
 
-                    <div className="h-14 sm:h-16 w-full flex items-end gap-1.5 pt-2">
-                      {[35, 42, 38, 55, 62, 58, 74, 88, 95].map((h, i) => (
-                        <div
-                          key={i}
-                          style={{ height: `${h}%` }}
-                          className={`flex-1 rounded-t ${
-                            i >= 6 ? 'bg-emerald-400' : 'bg-neutral-700'
-                          }`}
-                        />
-                      ))}
+                    <div className="space-y-1.5 text-[10px] sm:text-xs text-neutral-300 py-1">
+                      <div className="flex justify-between">
+                        <span>Ingresos (Base 21%):</span>
+                        <span className="text-white font-bold">€18,450.00</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>IVA Repercutido:</span>
+                        <span className="text-emerald-400 font-bold">+€3,874.50</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Gastos Deducibles (OCR):</span>
+                        <span className="text-white font-bold">€6,200.00</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>IVA Soportado:</span>
+                        <span className="text-amber-400 font-bold">-€1,302.00</span>
+                      </div>
                     </div>
 
-                    <div className="text-[10px] sm:text-[11px] text-neutral-400 pt-2 border-t border-[#303131] flex justify-between">
-                      <span>Previsión Tesorería: €24,000.00</span>
-                      <span className="text-white font-bold">EJECUTAR</span>
+                    <div className="text-[10px] sm:text-[11px] text-neutral-300 pt-2.5 border-t border-[#303131] flex justify-between items-center">
+                      <span>A pagar AEAT (Mod. 303):</span>
+                      <span className="text-emerald-400 font-bold text-xs sm:text-sm">€2,572.50</span>
                     </div>
                   </div>
                 </div>
 
                 <p className="text-xs font-normal leading-[1.5] tracking-[-0.02em] text-[rgb(186,186,186)]">
-                  Datos en tiempo real y análisis predictivo de flujo de caja.
+                  Generación automática de ingresos, gastos e IVA devengado/soportado para presentar tus declaraciones trimestrales sin errores.
                 </p>
               </div>
 
