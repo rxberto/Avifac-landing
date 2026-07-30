@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Navbar } from './Navbar';
 import { ShinyText } from './ShinyText';
 import { Button } from './Button';
+import { APP_URLS } from '../config/urls';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -89,7 +90,7 @@ export const Hero = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-5 sm:mt-8 w-full sm:w-auto px-4 sm:px-0"
         >
-          <Button variant="primary" href="#pricing" className="w-full sm:w-auto text-base px-8 py-3.5 justify-center">
+          <Button variant="primary" href={APP_URLS.register} className="w-full sm:w-auto text-base px-8 py-3.5 justify-center">
             {t('Pruébanos 14 días gratis', 'Start 14-day free trial')}
           </Button>
         </motion.div>

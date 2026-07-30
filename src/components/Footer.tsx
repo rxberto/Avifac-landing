@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 
 import { useLanguage } from '../context/LanguageContext';
+import { APP_URLS } from '../config/urls';
 
 interface FooterProps {
   locale?: string;
@@ -105,6 +106,7 @@ const FooterLink = ({ href, children, highlight, external }: FooterLinkProps) =>
 export const Footer = ({ locale = 'es' }: FooterProps) => {
   const { lang, setLang, t } = useLanguage();
   const [showModal, setShowModal] = useState(false);
+  const [showAeatModal, setShowAeatModal] = useState(false);
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -123,8 +125,6 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
   return (
     <footer data-locale={locale} className="bg-[#FCFCFB] dark:bg-[#080a09] text-[rgba(10,12,11,0.72)] dark:text-white/80 font-sans relative border-t border-[#D2D2CE] dark:border-[#303131] transition-colors duration-300">
 
-
-
       {/* 2. SECCIÓN DE ENLACES Y NAVEGACIÓN PRINCIPAL */}
       <div className="max-w-7xl mx-auto px-6 sm:px-8 py-20">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-y-12 mb-16">
@@ -140,7 +140,7 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
               )}
             </p>
 
-            {/* Redes Sociales: X (Twitter), LinkedIn, Facebook */}
+            {/* Redes Sociales: X (Twitter), LinkedIn, Instagram */}
             <div className="flex items-center gap-4 text-[rgba(10,12,11,0.6)] dark:text-white/60">
               <a href="#" aria-label="X (Twitter)" className="hover:scale-125 hover:text-[#0A0C0B] dark:hover:text-white transition-all duration-300 transform ease-out cursor-pointer">
                 <svg className="size-4 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -148,8 +148,8 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
               <a href="#" aria-label="LinkedIn" className="hover:scale-125 hover:text-[#0A0C0B] dark:hover:text-white transition-all duration-300 transform ease-out cursor-pointer">
                 <svg className="size-4 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
               </a>
-              <a href="#" aria-label="Facebook" className="hover:scale-125 hover:text-[#0A0C0B] dark:hover:text-white transition-all duration-300 transform ease-out cursor-pointer">
-                <svg className="size-4 fill-current" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.5C10 7.01 11.49 5.65 13.75 5.65c1.08 0 2.21.19 2.21.19v2.43h-1.25c-1.23 0-1.61.77-1.61 1.56V12h2.74l-.44 3h-2.3v6.8c4.56-.93 8-4.96 8-9.8z"/></svg>
+              <a href="#" aria-label="Instagram" className="hover:scale-125 hover:text-[#0A0C0B] dark:hover:text-white transition-all duration-300 transform ease-out cursor-pointer">
+                <svg className="size-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
               </a>
             </div>
 
@@ -189,8 +189,8 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
           <div className="md:col-span-2 space-y-3.5 text-left">
             <h4 className="text-xs font-bold uppercase tracking-wider text-[#0A0C0B] dark:text-white">{t('Acceso Rápido', 'Quick Links')}</h4>
             <ul className="space-y-2.5">
-              <li><FooterLink href="https://app.avialo.tech/registro" external>{t('Crea una cuenta gratis', 'Create free account')}</FooterLink></li>
-              <li><FooterLink href="https://app.avialo.tech/login" external>{t('Iniciar sesión', 'Log in')}</FooterLink></li>
+              <li><FooterLink href={APP_URLS.register} external>{t('Crea una cuenta gratis', 'Create free account')}</FooterLink></li>
+              <li><FooterLink href={APP_URLS.login} external>{t('Iniciar sesión', 'Log in')}</FooterLink></li>
               <li><FooterLink href="#pricing">{t('Precios y Planes', 'Pricing & Plans')}</FooterLink></li>
               <li><FooterLink href="#">{t('Estado del sistema', 'System status')}</FooterLink></li>
             </ul>
@@ -235,7 +235,7 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
 
         </div>
 
-        {/* 3. PARTE INFERIOR (Legal y Sello Oficial AEAT) */}
+        {/* 3. PARTE INFERIOR (Legal y Sello Oficial AEAT Interactivo) */}
         <div className="border-t border-[#D2D2CE] dark:border-[#303131] pt-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start text-left">
           
           {/* Textos Legales */}
@@ -243,7 +243,7 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
             <p>© {new Date().getFullYear()} Avialo Soluciones S.L. {t('Avialo es una marca registrada de Avialo Soluciones S.L. Todos los derechos reservados.', 'Avialo is a registered trademark of Avialo Soluciones S.L. All rights reserved.')}</p>
             <p>
               {t(
-                'Avialo es un Sistema de Facturación Certificado (SIF) que cumple strictly con los requisitos establecidos en la Ley 11/2021 de medidas de prevención y lucha contra el fraude fiscal y el Reglamento Verifactu (Real Decreto 1007/2023) de la Agencia Tributaria (AEAT). El sistema garantiza la integridad, conservación, accesibilidad, legibilidad, trazabilidad e inalterabilidad de todos los registros de facturación generados.',
+                'Avialo es un Sistema de Facturación Certificado (SIF) que cumple estrictamente con los requisitos establecidos en la Ley 11/2021 de medidas de prevención y lucha contra el fraude fiscal y el Reglamento Verifactu (Real Decreto 1007/2023) de la Agencia Tributaria (AEAT). El sistema garantiza la integridad, conservación, accesibilidad, legibilidad, trazabilidad e inalterabilidad de todos los registros de facturación generados.',
                 'Avialo is a Certified Invoicing System (SIF) strictly compliant with Spanish Law 11/2021 against tax fraud and the VeriFactu Regulation (Royal Decree 1007/2023) of the Spanish Tax Agency (AEAT). The platform ensures full record integrity, traceability, and immutability.'
               )}
             </p>
@@ -255,22 +255,126 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
             </p>
           </div>
 
-          {/* Sello de Homologación Fiscal */}
+          {/* Sello de Homologación Fiscal Interactivo (Botón Modal AEAT) */}
           <div className="lg:col-span-4 flex lg:justify-end shrink-0">
-            <div className="border border-[rgb(52,138,46)]/40 dark:border-[rgb(104,204,88)]/40 bg-[rgb(52,138,46)]/5 dark:bg-[rgb(104,204,88)]/5 shadow-md rounded-xl p-4 max-w-[260px] w-full flex items-start gap-3">
+            <button
+              onClick={() => setShowAeatModal(true)}
+              className="border border-[rgb(52,138,46)]/40 dark:border-[rgb(104,204,88)]/40 bg-[rgb(52,138,46)]/5 dark:bg-[rgb(104,204,88)]/5 hover:bg-[rgb(52,138,46)]/10 dark:hover:bg-[rgb(104,204,88)]/10 hover:scale-[1.02] transition-all duration-200 shadow-md rounded-[4px] p-4 max-w-[270px] w-full flex items-start gap-3 text-left cursor-pointer group"
+            >
               <ShieldCheck className="text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] size-5 shrink-0 mt-0.5" />
-              <div className="flex flex-col">
-                <span className="text-[9px] font-extrabold tracking-wider uppercase text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] block">{t('SOFTWARE HOMOLOGADO', 'HOMOLOGATED SOFTWARE')}</span>
-                <span className="text-xs font-bold text-[#0A0C0B] dark:text-white tracking-wide mt-0.5 block">{t('SISTEMA VERI*FACTU', 'VERI*FACTU SYSTEM')}</span>
-                <span className="text-[9px] text-[rgba(10,12,11,0.6)] dark:text-white/60 leading-snug mt-0.5 block">{t('Conforme al Real Decreto 1007/2023 de la AEAT', 'Compliant with Spanish RD 1007/2023 AEAT')}</span>
+              <div className="flex flex-col w-full">
+                <div className="flex items-center justify-between w-full">
+                  <span className="text-[9px] font-extrabold tracking-wider uppercase text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] block">
+                    {t('SOFTWARE HOMOLOGADO', 'HOMOLOGATED SOFTWARE')}
+                  </span>
+                  <ArrowUpRight className="size-3 text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] opacity-70 group-hover:opacity-100 transition-opacity shrink-0" />
+                </div>
+                <span className="text-xs font-bold text-[#0A0C0B] dark:text-white tracking-wide mt-0.5 block">
+                  {t('SISTEMA VERI*FACTU', 'VERI*FACTU SYSTEM')}
+                </span>
+                <span className="text-[9px] text-[rgba(10,12,11,0.6)] dark:text-white/60 leading-snug mt-0.5 block font-medium group-hover:underline">
+                  {t('Ver acuerdo AEAT Nº 17 →', 'View AEAT Agreement Nº 17 →')}
+                </span>
               </div>
-            </div>
+            </button>
           </div>
 
         </div>
       </div>
 
-      {/* 4. MODAL INTERACTIVO "PRÓXIMAMENTE" */}
+      {/* 4. MODAL POP-UP ELEGANTE: ACUERDO DE COLABORACIÓN AEAT Nº 17 */}
+      <AnimatePresence>
+        {showAeatModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4"
+            onClick={() => setShowAeatModal(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96, y: 8 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 8 }}
+              transition={{ duration: 0.2 }}
+              className="bg-[#FCFCFB] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-6 sm:p-7 rounded-[4px] max-w-lg w-full relative shadow-2xl space-y-5 text-left"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Botón de Cierre */}
+              <button
+                onClick={() => setShowAeatModal(false)}
+                className="absolute top-4 right-4 text-[rgba(10,12,11,0.6)] dark:text-white/60 hover:text-[#0A0C0B] dark:hover:text-white transition-colors p-1.5 rounded-[2px] bg-[#E6E6E3]/40 dark:bg-[#232326]/40 cursor-pointer"
+                aria-label="Cerrar ventana"
+              >
+                <X className="size-4" />
+              </button>
+
+              {/* Título */}
+              <div className="space-y-1">
+                <h3 className="text-lg font-bold text-[#0A0C0B] dark:text-white tracking-tight">
+                  {t('Acuerdo de Colaboración Social con la Agencia Tributaria', 'AEAT Collaboration Agreement for Tax Records')}
+                </h3>
+                <p className="text-xs text-[rgba(10,12,11,0.6)] dark:text-white/60 font-mono">
+                  Avialo Soluciones S.L. • C.I.F. B26802249
+                </p>
+              </div>
+
+              {/* Cita Oficial del Acuerdo */}
+              <div className="p-3.5 rounded-[2px] bg-[#F2F2F0] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131] space-y-2">
+                <span className="text-[10px] font-bold font-mono uppercase tracking-wider text-[rgb(20,122,132)] dark:text-[rgb(158,250,255)] block">
+                  {t('TEXTO DEL ACUERDO DE COLABORACIÓN SOCIAL (Nº 17):', 'OFFICIAL SOCIAL COLLABORATION AGREEMENT (Nº 17):')}
+                </span>
+                <p className="text-xs font-serif leading-relaxed text-[#0A0C0B] dark:text-white/90 italic">
+                  "{t(
+                    'ACUERDO DE COLABORACIÓN ENTRE LA AGENCIA ESTATAL DE ADMINISTRACIÓN TRIBUTARIA Y AVIALO SOLUCIONES, S.L., PARA EL SUMINISTRO ELECTRÓNICO DE REGISTROS DE FACTURACIÓN (SII), EL SUMINISTRO ELECTRÓNICO DE LOS ASIENTOS CONTABLES DE LOS ESTABLECIMIENTOS AFECTADOS POR LA NORMATIVA DE LOS IMPUESTOS ESPECIALES (SILICIE) Y EL ENVÍO DE LOS FICHEROS QUE CONTIENEN REGISTROS DE FACTURACIÓN GENERADOS POR SISTEMAS DE EMISIÓN DE FACTURAS (VERIFACTU), EN REPRESENTACIÓN DE TERCEROS.',
+                    'COLLABORATION AGREEMENT BETWEEN THE SPANISH TAX AGENCY (AEAT) AND AVIALO SOLUCIONES, S.L., FOR THE ELECTRONIC PROVISION OF INVOICING RECORDS (SII), SPECIAL TAXES ACCOUNTING ENTRIES (SILICIE), AND TRANSMISSION OF INVOICING SYSTEM FILES (VERIFACTU), ON BEHALF OF THIRD PARTIES.'
+                  )}"
+                </p>
+              </div>
+
+              {/* Explicación en palabras claras */}
+              <p className="text-xs text-[rgba(10,12,11,0.72)] dark:text-white/80 leading-relaxed">
+                {t(
+                  'Este acuerdo oficial ratifica que la plataforma Avialo Soluciones S.L. ha sido auditada y aprobada por la Agencia Tributaria (AEAT) para la remisión telemática segura de facturación electrónica, SILICIE, SII y registros inalterables VeriFactu en representación de autónomos, empresas y gestorías.',
+                  'This official agreement confirms that Avialo Soluciones S.L. is audited and approved by the Spanish Tax Agency (AEAT) for secure electronic invoicing submission, SILICIE, SII, and immutable VeriFactu tax compliance on behalf of freelancers and businesses.'
+                )}
+              </p>
+
+              {/* Ficha Resumen */}
+              <div className="grid grid-cols-2 gap-2 pt-1 text-[11px]">
+                <div className="p-2.5 rounded-[2px] bg-[#E6E6E3]/50 dark:bg-[#232326]/50 border border-[#D2D2CE] dark:border-[#303131]">
+                  <span className="text-[9px] uppercase tracking-wider text-[rgba(10,12,11,0.6)] dark:text-white/60 block font-mono">
+                    {t('Sistemas Homologados', 'Certified Systems')}
+                  </span>
+                  <span className="font-semibold text-[#0A0C0B] dark:text-white block mt-0.5">
+                    VeriFactu • SII • SILICIE
+                  </span>
+                </div>
+                <div className="p-2.5 rounded-[2px] bg-[#E6E6E3]/50 dark:bg-[#232326]/50 border border-[#D2D2CE] dark:border-[#303131]">
+                  <span className="text-[9px] uppercase tracking-wider text-[rgba(10,12,11,0.6)] dark:text-white/60 block font-mono">
+                    {t('Ámbito de Aplicación', 'Jurisdiction')}
+                  </span>
+                  <span className="font-semibold text-[#0A0C0B] dark:text-white block mt-0.5">
+                    Nacional (AEAT España)
+                  </span>
+                </div>
+              </div>
+
+              {/* Botón de Cierre Secundario */}
+              <div className="pt-2">
+                <button
+                  onClick={() => setShowAeatModal(false)}
+                  className="w-full bg-[#0A0C0B] dark:bg-white text-white dark:text-black font-semibold text-xs py-2.5 rounded-[2px] hover:opacity-90 transition-opacity cursor-pointer shadow-sm text-center"
+                >
+                  {t('Entendido y cerrar', 'Understood & close')}
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* 5. MODAL INTERACTIVO "PRÓXIMAMENTE" (APPS MÓVILES) */}
       <AnimatePresence>
         {showModal && (
           <motion.div
@@ -285,7 +389,7 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
               transition={{ duration: 0.2 }}
-              className="bg-[#FCFCFB] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-6 rounded-2xl max-w-sm w-full relative shadow-2xl space-y-4 text-left"
+              className="bg-[#FCFCFB] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-6 rounded-[4px] max-w-sm w-full relative shadow-2xl space-y-4 text-left"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
@@ -298,7 +402,7 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
               </button>
 
               {/* Badge */}
-              <div className="text-[9px] tracking-widest font-mono text-[rgba(10,12,11,0.6)] dark:text-white/60 uppercase border border-[#D2D2CE] dark:border-[#303131] px-2.5 py-0.5 rounded-full bg-[#E6E6E3]/60 dark:bg-[#232326]/60 w-fit">
+              <div className="text-[9px] tracking-widest font-mono text-[rgba(10,12,11,0.6)] dark:text-white/60 uppercase border border-[#D2D2CE] dark:border-[#303131] px-2.5 py-0.5 rounded-[2px] bg-[#E6E6E3]/60 dark:bg-[#232326]/60 w-fit">
                 PRÓXIMAMENTE
               </div>
 
@@ -319,11 +423,11 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Tu correo electrónico"
-                    className="w-full border border-[#D2D2CE] dark:border-[#303131] bg-[#FCFCFB] dark:bg-[#080a09] text-[#0A0C0B] dark:text-white placeholder-[rgba(10,12,11,0.4)] dark:placeholder-white/40 text-xs px-3.5 py-2.5 rounded-xl focus:outline-none focus:border-[#0A0C0B] dark:focus:border-white transition-colors"
+                    className="w-full border border-[#D2D2CE] dark:border-[#303131] bg-[#FCFCFB] dark:bg-[#080a09] text-[#0A0C0B] dark:text-white placeholder-[rgba(10,12,11,0.4)] dark:placeholder-white/40 text-xs px-3.5 py-2.5 rounded-[2px] focus:outline-none focus:border-[#0A0C0B] dark:focus:border-white transition-colors"
                   />
                   <button
                     type="submit"
-                    className="w-full bg-[#0A0C0B] dark:bg-white text-white dark:text-black font-semibold text-xs px-4 py-2.5 rounded-xl hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
+                    className="w-full bg-[#0A0C0B] dark:bg-white text-white dark:text-black font-semibold text-xs px-4 py-2.5 rounded-[2px] hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
                   >
                     <span>Avisarme</span>
                     <Send className="size-3.5" />
@@ -333,7 +437,7 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
                 <motion.div
                   initial={{ opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="p-3 rounded-xl border border-[rgb(52,138,46)]/40 dark:border-[rgb(104,204,88)]/40 bg-[rgb(52,138,46)]/10 dark:bg-[rgb(104,204,88)]/10 text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] text-xs flex items-center gap-2 font-medium"
+                  className="p-3 rounded-[2px] border border-[rgb(52,138,46)]/40 dark:border-[rgb(104,204,88)]/40 bg-[rgb(52,138,46)]/10 dark:bg-[rgb(104,204,88)]/10 text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] text-xs flex items-center gap-2 font-medium"
                 >
                   <CheckCircle2 className="size-4 shrink-0" />
                   <span>¡Apuntado! Te avisaremos al instante.</span>

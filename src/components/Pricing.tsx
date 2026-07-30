@@ -4,6 +4,7 @@ import { SectionHeader } from './SectionHeader';
 import { Button } from './Button';
 import { Check, X } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { APP_URLS } from '../config/urls';
 
 export const Pricing = () => {
   const { t } = useLanguage();
@@ -286,7 +287,7 @@ export const Pricing = () => {
                     </div>
                   </div>
 
-                  <Button variant={plan.popular ? 'primary' : 'secondary'} href="#cta" className="w-full justify-center">
+                  <Button variant={plan.popular ? 'primary' : 'secondary'} href={APP_URLS.register} className="w-full justify-center">
                     {plan.cta}
                   </Button>
                 </div>

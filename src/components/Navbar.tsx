@@ -19,6 +19,7 @@ import {
 import { Button } from './Button';
 import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
+import { APP_URLS } from '../config/urls';
 
 export const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
@@ -297,12 +298,12 @@ export const Navbar = () => {
             </button>
 
             <a
-              href="https://app.avialo.tech/login"
+              href={APP_URLS.login}
               className="text-sm text-[rgba(10,12,11,0.72)] dark:text-white/80 hover:text-[#0A0C0B] dark:hover:text-white font-medium px-3 py-2 transition-colors"
             >
               {t('Iniciar Sesión', 'Log In')}
             </a>
-            <Button variant="primary" href="https://app.avialo.tech/registro">
+            <Button variant="primary" href={APP_URLS.register}>
               {t('Prueba 14 días gratis', 'Start 14-Day Free Trial')}
             </Button>
           </div>
@@ -419,14 +420,17 @@ export const Navbar = () => {
                 
               {/* Sticky Fixed Bottom Action Bar with Safe Area Padding */}
               <div className="shrink-0 p-4 pb-12 pt-3 bg-[#FCFCFB]/95 dark:bg-[#080a09]/95 backdrop-blur-md border-t border-[#D2D2CE] dark:border-[#303131] flex flex-col gap-2.5 z-50">
-                <Button variant="primary" href="https://app.avialo.tech/registro" className="w-full py-3.5 justify-center text-sm shadow-md">
-                  Prueba 14 días gratis
+                <Button variant="primary" href={APP_URLS.register} className="w-full py-3.5 justify-center text-sm shadow-md">
+                  {t('Prueba 14 días gratis', 'Start 14-Day Free Trial')}
                 </Button>
                 <a
-                  href="https://app.avialo.tech/login"
+                  href={APP_URLS.login}
                   className="w-full text-center text-xs text-[rgba(10,12,11,0.72)] dark:text-white/80 hover:text-[#0A0C0B] dark:hover:text-white font-medium py-2 transition-colors"
                 >
-                  ¿Ya tienes cuenta? <span className="underline font-bold text-[#0A0C0B] dark:text-white">Iniciar Sesión</span>
+                  {t('¿Ya tienes cuenta?', 'Already have an account?')}{' '}
+                  <span className="underline font-bold text-[#0A0C0B] dark:text-white">
+                    {t('Iniciar Sesión', 'Log In')}
+                  </span>
                 </a>
               </div>
             </motion.div>
