@@ -5,54 +5,47 @@ import { useLanguage } from '../context/LanguageContext';
 export const IntegrationsSection = () => {
   const { t } = useLanguage();
 
-  const integrations = [
+  const logos = [
     {
       name: 'Stripe',
-      tag: t('Pagos Globales', 'Global Payments'),
       svg: 'https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg',
-      customClass: 'h-6 w-auto dark:brightness-0 dark:invert opacity-90 group-hover:opacity-100 transition-all',
+      height: 'h-8 sm:h-9',
     },
     {
       name: 'PayPal',
-      tag: t('Checkout Global', 'Global Checkout'),
       svg: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg',
-      customClass: 'h-6 w-auto dark:brightness-0 dark:invert opacity-90 group-hover:opacity-100 transition-all',
+      height: 'h-8 sm:h-9',
     },
     {
       name: 'RedSYS',
-      tag: t('TPV España', 'Spain POS Gateway'),
       svg: 'https://cdn.brandfetch.io/idimpIFIlt/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B',
-      customClass: 'h-6 w-auto brightness-0 dark:invert opacity-90 group-hover:opacity-100 transition-all',
+      height: 'h-8 sm:h-9',
     },
     {
       name: 'Agencia Tributaria',
-      tag: t('VeriFactu / AEAT', 'VeriFactu / AEAT'),
       svg: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Agencia_Tributaria.svg',
-      customClass: 'h-7 w-auto dark:brightness-0 dark:invert opacity-90 group-hover:opacity-100 transition-all',
+      height: 'h-10 sm:h-12',
     },
     {
       name: 'Ministerio Digital',
-      tag: t('Normativa 2026', 'Act 2026'),
       svg: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Logotipo_del_Ministerio_para_la_Transformación_Digital_y_de_la_Función_Pública.svg',
-      customClass: 'h-7 w-auto dark:brightness-0 dark:invert opacity-90 group-hover:opacity-100 transition-all',
+      height: 'h-10 sm:h-12',
     },
     {
       name: 'WooCommerce',
-      tag: t('eCommerce Auto', 'Auto eCommerce'),
       svg: 'https://upload.wikimedia.org/wikipedia/commons/5/51/WooCommerce_logo_%282015%29.svg',
-      customClass: 'h-5 w-auto dark:brightness-0 dark:invert opacity-90 group-hover:opacity-100 transition-all',
+      height: 'h-7 sm:h-8',
     },
     {
       name: 'Shopify',
-      tag: t('Sincro Tienda', 'Store Sync'),
       svg: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg',
-      customClass: 'h-7 w-auto dark:brightness-0 dark:invert opacity-90 group-hover:opacity-100 transition-all',
+      height: 'h-8 sm:h-10',
     },
   ];
 
   return (
     <section id="integrations" className="w-full bg-[#FCFCFB] dark:bg-[#080a09] py-[72px] relative z-10 transition-colors duration-300 overflow-hidden">
-      <div className="max-w-[1140px] mx-auto px-4 sm:px-6 flex flex-col gap-12 text-left">
+      <div className="max-w-[1140px] mx-auto px-4 sm:px-6 flex flex-col gap-14 text-left">
         
         {/* Header wrapper */}
         <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6">
@@ -106,30 +99,25 @@ export const IntegrationsSection = () => {
           </motion.div>
         </div>
 
-        {/* Carousel de Marcas Moderno */}
-        <div className="w-full h-[120px] overflow-hidden relative rounded-2xl bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] flex items-center shadow-sm">
-          {/* Edge Blur Fades */}
-          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#F2F2F0] dark:from-[#131517] to-transparent z-20 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#F2F2F0] dark:from-[#131517] to-transparent z-20 pointer-events-none" />
+        {/* Carousel Infinito de Logos Puros en Color Original con Efecto Blur en los Extremos */}
+        <div className="w-full h-24 relative overflow-hidden flex items-center">
+          {/* Gradient Blur Fade Edges */}
+          <div className="absolute top-0 bottom-0 left-0 w-28 sm:w-44 bg-gradient-to-r from-[#FCFCFB] dark:from-[#080a09] via-[#FCFCFB]/90 dark:via-[#080a09]/90 to-transparent z-20 pointer-events-none backdrop-blur-[1px]" />
+          <div className="absolute top-0 bottom-0 right-0 w-28 sm:w-44 bg-gradient-to-l from-[#FCFCFB] dark:from-[#080a09] via-[#FCFCFB]/90 dark:via-[#080a09]/90 to-transparent z-20 pointer-events-none backdrop-blur-[1px]" />
 
-          {/* Continuous Infinite Marquee */}
-          <div className="flex items-center gap-4 animate-marquee whitespace-nowrap px-4">
-            {[...integrations, ...integrations, ...integrations].map((item, idx) => (
+          {/* Marquee Track */}
+          <div className="flex items-center gap-12 sm:gap-16 animate-marquee whitespace-nowrap">
+            {[...logos, ...logos, ...logos, ...logos].map((logo, idx) => (
               <div
-                key={`${item.name}-${idx}`}
-                className="group h-[88px] min-w-[200px] sm:min-w-[220px] rounded-xl bg-[#FCFCFB] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131] hover:border-[#0A0C0B]/40 dark:hover:border-white/40 hover:scale-[1.02] transition-all duration-200 shrink-0 flex flex-col justify-center items-center p-4 text-center cursor-pointer shadow-xs"
+                key={`${logo.name}-${idx}`}
+                className="flex items-center justify-center shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer py-2"
               >
-                <div className="h-8 flex items-center justify-center mb-1">
-                  <img
-                    src={item.svg}
-                    alt={item.name}
-                    className={item.customClass}
-                    loading="lazy"
-                  />
-                </div>
-                <span className="text-[10px] font-mono font-medium text-[rgba(10,12,11,0.6)] dark:text-white/60 tracking-wider uppercase">
-                  {item.tag}
-                </span>
+                <img
+                  src={logo.svg}
+                  alt={logo.name}
+                  className={`${logo.height} w-auto object-contain`}
+                  loading="lazy"
+                />
               </div>
             ))}
           </div>
