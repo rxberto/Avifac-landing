@@ -225,17 +225,37 @@ export const Pricing = () => {
                         </AnimatePresence>
                         <span className="text-sm font-normal text-[rgba(10,12,11,0.72)] dark:text-white/80">/ mes</span>
                       </div>
-                      <AnimatePresence>
-                        {isYearly && (
+                      <AnimatePresence mode="wait">
+                        {isYearly ? (
                           <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="overflow-hidden"
+                            key="yearly-text"
+                            initial={{ opacity: 0, y: -5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 5 }}
+                            transition={{ duration: 0.15 }}
+                            className="mt-1"
                           >
-                            <span className="text-xs text-[rgba(10,12,11,0.6)] dark:text-white/60 mt-1 font-medium block">
+                            <span className="text-xs text-[rgba(10,12,11,0.6)] dark:text-white/60 font-medium block">
                               {price * 12},00 € al año, IVA aparte
                             </span>
+                          </motion.div>
+                        ) : (
+                          <motion.div
+                            key="monthly-text"
+                            initial={{ opacity: 0, y: 5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -5 }}
+                            transition={{ duration: 0.15 }}
+                            className="mt-1.5"
+                          >
+                            <div className="flex items-center gap-1.5">
+                              <span className="text-[10px] font-bold tracking-wider uppercase text-[rgb(20,122,132)] dark:text-[#9efaff] bg-[rgb(20,122,132)]/10 dark:bg-[#9efaff]/10 px-1.5 py-0.5 rounded border border-[rgb(20,122,132)]/20 dark:border-[#9efaff]/20">
+                                Precio fijo
+                              </span>
+                              <span className="text-xs text-[rgba(10,12,11,0.6)] dark:text-white/60 font-medium">
+                                Sin permanencia
+                              </span>
+                            </div>
                           </motion.div>
                         )}
                       </AnimatePresence>
