@@ -5,7 +5,7 @@ import { Navbar } from './Navbar';
 import { ShinyText } from './ShinyText';
 import { Button } from './Button';
 import { APP_URLS } from '../config/urls';
-import { Search, Plus, Sparkles, Bell, Sun, ArrowUpRight, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Search, Plus, Sparkles, Bell, Sun, ArrowUpRight, CheckCircle2, ShieldCheck, X } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -54,49 +54,219 @@ const euro = (n: number) => `€${n.toLocaleString('es-ES', { minimumFractionDig
 const VerifactuSeal = () => {
   const { t } = useLanguage();
   const [showTip, setShowTip] = useState(false);
-
-  const handleClick = () => {
-    setShowTip(true);
-    window.setTimeout(() => setShowTip(false), 2500);
-  };
+  const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="relative shrink-0">
-      <button
-        onClick={handleClick}
-        aria-label={t('Software Certificado por la AEAT', 'Software Certified by AEAT')}
-        className="relative px-3 sm:px-4 py-1.5 rounded-full bg-emerald-500/15 dark:bg-emerald-400/20 border border-emerald-500/40 dark:border-emerald-400/40 flex items-center gap-2 cursor-pointer group hover:bg-emerald-500/25 dark:hover:bg-emerald-400/30 transition-all duration-300 shadow-sm"
+    <>
+      <div
+        className="relative shrink-0 z-40"
+        onMouseEnter={() => setShowTip(true)}
+        onMouseLeave={() => setShowTip(false)}
       >
-        <span className="relative flex h-3.5 w-3.5 items-center justify-center">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <ShieldCheck className="relative w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-        </span>
-        <span className="text-xs sm:text-sm font-extrabold text-emerald-900 dark:text-emerald-300 tracking-tight">
-          {t('Software Certificado por la AEAT', 'Software Certified by AEAT')}
-        </span>
-        <span className="hidden sm:inline-block text-[10px] uppercase font-extrabold tracking-wider px-2 py-0.5 rounded-full bg-emerald-600 text-white dark:bg-emerald-400 dark:text-black">
-          VeriFactu
-        </span>
-      </button>
-      <AnimatePresence>
-        {showTip && (
-          <motion.div
-            initial={{ opacity: 0, y: 6, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 6, scale: 0.95 }}
-            className="absolute top-full right-0 mt-2.5 whitespace-nowrap text-xs font-bold text-emerald-950 dark:text-emerald-100 bg-white dark:bg-[#1a1c1e] border border-emerald-500/40 px-3.5 py-2 rounded-xl shadow-2xl z-30 flex items-center gap-2"
+        {/* Sello Circular Grande de Homologación AEAT & FACe */}
+        <motion.button
+          onClick={() => setShowModal(true)}
+          whileHover={{ scale: 1.08, rotate: 2 }}
+          whileTap={{ scale: 0.95 }}
+          aria-label={t('Software Certificado por la AEAT', 'Software Certified by AEAT')}
+          className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-[#FCFCFB]/95 dark:bg-[#131517]/95 border-2 border-emerald-500/50 dark:border-emerald-400/50 shadow-2xl shadow-emerald-500/20 backdrop-blur-md flex items-center justify-center cursor-pointer group transition-all duration-300"
+        >
+          {/* Anillo exterior animado con destellos */}
+          <div className="absolute inset-0 rounded-full border border-emerald-500/30 dark:border-emerald-400/30 animate-pulse pointer-events-none" />
+
+          {/* Texto Curvo Giratorio SVG */}
+          <motion.svg
+            viewBox="0 0 100 100"
+            className="absolute inset-0 w-full h-full p-1"
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, duration: 24, ease: 'linear' }}
           >
-            <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-            <span>
-              {t(
-                'Homologado oficialmente según el RD 1007/2023 de la Agencia Tributaria',
-                'Officially approved under RD 1007/2023 by Spanish Tax Agency'
-              )}
+            <defs>
+              <path id="seal-circle-large" d="M 50,50 m -39,0 a 39,39 0 1,1 78,0 a 39,39 0 1,1 -78,0" />
+            </defs>
+            <circle cx={50} cy={50} r={44} fill="none" strokeWidth={1} strokeDasharray="3 3" className="stroke-emerald-600/50 dark:stroke-emerald-400/50" />
+            <text className="fill-emerald-700 dark:fill-emerald-400 font-extrabold tracking-[0.14em]" style={{ fontSize: 7.6 }}>
+              <textPath href="#seal-circle-large" startOffset="0%">
+                CERTIFICADO AEAT • VERIFACTU • FACe •
+              </textPath>
+            </text>
+          </motion.svg>
+
+          {/* Contenido Central del Sello */}
+          <div className="relative z-10 flex flex-col items-center justify-center text-center p-1">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-emerald-500/20 dark:bg-emerald-400/20 flex items-center justify-center mb-0.5 group-hover:scale-110 transition-transform">
+              <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 dark:text-emerald-400" />
+            </div>
+            <span className="text-[9px] sm:text-[11px] font-black uppercase tracking-tighter text-emerald-950 dark:text-emerald-200 leading-none">
+              AEAT
             </span>
+            <span className="text-[7px] sm:text-[9px] font-bold text-emerald-600 dark:text-emerald-400 leading-none mt-0.5">
+              Nº 17 · FACe
+            </span>
+          </div>
+
+          {/* Badge flotante "CERTIFICADO" */}
+          <span className="absolute -bottom-2 bg-emerald-600 text-white dark:bg-emerald-400 dark:text-black text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded-full shadow-md uppercase tracking-wider">
+            {t('CERTIFICADO', 'CERTIFIED')}
+          </span>
+        </motion.button>
+
+        {/* Popover Informativo Desplegable al hacer Hover o Click */}
+        <AnimatePresence>
+          {showTip && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.92 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.92 }}
+              transition={{ duration: 0.2 }}
+              className="absolute top-full right-0 mt-3 w-80 sm:w-96 p-4 rounded-2xl bg-white dark:bg-[#181a1d] border-2 border-emerald-500/40 dark:border-emerald-400/40 shadow-2xl z-50 text-left space-y-3 pointer-events-auto"
+            >
+              <div className="flex items-center justify-between border-b border-emerald-500/20 dark:border-emerald-400/20 pb-2.5">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-full bg-emerald-500/20 dark:bg-emerald-400/20 flex items-center justify-center shrink-0">
+                    <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                  </div>
+                  <h4 className="text-xs sm:text-sm font-extrabold text-neutral-900 dark:text-white leading-tight">
+                    {t('Software Certificado por la AEAT & FACe', 'Software Certified by AEAT & FACe')}
+                  </h4>
+                </div>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300">
+                  {t('Homologado', 'Approved')}
+                </span>
+              </div>
+
+              <ul className="space-y-2 text-xs text-neutral-700 dark:text-neutral-300">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                  <span>
+                    <strong>{t('Acuerdo de Colaboración Social AEAT Nº 17:', 'AEAT Social Collaboration Agreement Nº 17:')}</strong>{' '}
+                    {t(
+                      'Autorizados oficialmente para la remisión telemática directa de registros de facturación, SII, SILICIE y VeriFactu.',
+                      'Officially authorized for direct tax filing of invoices, SII, SILICIE, and VeriFactu.'
+                    )}
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                  <span>
+                    <strong>{t('Integrador Oficial FACe:', 'Official FACe Integrator:')}</strong>{' '}
+                    {t(
+                      'Conexión directa con el Punto General de Entrada de Facturas Electrónicas de la Administración Pública (B2G).',
+                      'Direct integration with Spain Public Administration E-Invoicing portal (FACe B2G).'
+                    )}
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                  <span>
+                    <strong>{t('Normativa VeriFactu RD 1007/2023:', 'VeriFactu RD 1007/2023 Law:')}</strong>{' '}
+                    {t(
+                      'Registros inalterables encadenados con firma digital SHA-256 y código QR regulatorio.',
+                      'Immutable records chained with SHA-256 digital signature and regulatory QR.'
+                    )}
+                  </span>
+                </li>
+              </ul>
+
+              <button
+                onClick={() => setShowModal(true)}
+                className="w-full mt-2 py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-md"
+              >
+                <span>{t('Ver documento oficial y acuerdo completo →', 'View official agreement & document →')}</span>
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Modal Popup Completo del Acuerdo AEAT Nº 17 & FACe */}
+      <AnimatePresence>
+        {showModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4"
+            onClick={() => setShowModal(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              transition={{ duration: 0.2 }}
+              className="bg-[#FCFCFB] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-6 sm:p-8 rounded-2xl max-w-xl w-full relative shadow-2xl space-y-5 text-left"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setShowModal(false)}
+                className="absolute top-4 right-4 text-neutral-400 hover:text-black dark:hover:text-white p-2 rounded-full bg-neutral-200/50 dark:bg-neutral-800/50 transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-emerald-500/20 dark:bg-emerald-400/20 flex items-center justify-center shrink-0">
+                  <ShieldCheck className="w-7 h-7 text-emerald-600 dark:text-emerald-400" />
+                </div>
+                <div>
+                  <h3 className="text-lg sm:text-xl font-extrabold text-neutral-900 dark:text-white leading-tight">
+                    {t('Certificación Oficial AEAT & Integrador FACe', 'Official AEAT Certification & FACe Integrator')}
+                  </h3>
+                  <p className="text-xs text-emerald-700 dark:text-emerald-400 font-mono font-bold mt-0.5">
+                    Acuerdo Social Nº 17 • Avialo Soluciones S.L. (C.I.F. B26802249)
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-4 rounded-xl bg-emerald-500/10 dark:bg-emerald-400/10 border border-emerald-500/30 dark:border-emerald-400/30 space-y-2">
+                <span className="text-[10px] font-black font-mono uppercase tracking-wider text-emerald-800 dark:text-emerald-300 block">
+                  {t('TEXTO OFICIAL DEL ACUERDO CON LA AGENCIA TRIBUTARIA (Nº 17):', 'OFFICIAL SOCIAL COLLABORATION AGREEMENT (Nº 17):')}
+                </span>
+                <p className="text-xs font-serif leading-relaxed text-neutral-800 dark:text-neutral-200 italic">
+                  "{t(
+                    'ACUERDO DE COLABORACIÓN ENTRE LA AGENCIA ESTATAL DE ADMINISTRACIÓN TRIBUTARIA Y AVIALO SOLUCIONES, S.L., PARA EL SUMINISTRO ELECTRÓNICO DE REGISTROS DE FACTURACIÓN (SII), EL SUMINISTRO ELECTRÓNICO DE LOS ASIENTOS CONTABLES DE LOS ESTABLECIMIENTOS AFECTADOS POR LA NORMATIVA DE LOS IMPUESTOS ESPECIALES (SILICIE) Y EL ENVÍO DE LOS FICHEROS QUE CONTIENEN REGISTROS DE FACTURACIÓN GENERADOS POR SISTEMAS DE EMISIÓN DE FACTURAS (VERIFACTU), EN REPRESENTACIÓN DE TERCEROS.',
+                    'COLLABORATION AGREEMENT BETWEEN THE SPANISH TAX AGENCY (AEAT) AND AVIALO SOLUCIONES, S.L., FOR THE ELECTRONIC PROVISION OF INVOICING RECORDS (SII), SPECIAL TAXES ACCOUNTING ENTRIES (SILICIE), AND TRANSMISSION OF INVOICING SYSTEM FILES (VERIFACTU), ON BEHALF OF THIRD PARTIES.'
+                  )}"
+                </p>
+              </div>
+
+              <div className="space-y-2 text-xs leading-relaxed text-neutral-700 dark:text-neutral-300">
+                <p>
+                  <strong>1. {t('Acuerdo de Colaboración Nº 17:', 'Social Collaboration Agreement Nº 17:')}</strong>{' '}
+                  {t(
+                    'Avialo Soluciones S.L. ha sido auditada y aprobada por la Agencia Tributaria (AEAT) para actuar como colaborador social en la remisión telemática de datos fiscales.',
+                    'Avialo Soluciones S.L. has been audited and approved by the Spanish Tax Agency (AEAT) as a social collaborator for tax filing.'
+                  )}
+                </p>
+                <p>
+                  <strong>2. {t('Integrador Oficial FACe (B2G):', 'Official FACe Integrator (B2G):')}</strong>{' '}
+                  {t(
+                    'La plataforma permite la generación y envío directo de facturas electrónicas a la Administración Pública mediante el formato oficial FacturaE con firma digital.',
+                    'The platform generates and directly sends official FacturaE e-invoices with digital signatures to public authorities.'
+                  )}
+                </p>
+                <p>
+                  <strong>3. {t('Garantía de Inalterabilidad VeriFactu (RD 1007/2023):', 'VeriFactu Immutability Guarantee (RD 1007/2023):')}</strong>{' '}
+                  {t(
+                    'Garantiza la integridad, trazabilidad, legibilidad e inalterabilidad de los registros conforme a la Ley 11/2021 de prevención contra el fraude fiscal.',
+                    'Ensures complete record integrity, traceability, and immutability according to Spanish Anti-Fraud Law 11/2021.'
+                  )}
+                </p>
+              </div>
+
+              <div className="pt-2">
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm py-3 rounded-xl transition-colors cursor-pointer shadow-lg text-center"
+                >
+                  {t('Entendido y cerrar', 'Understood & close')}
+                </button>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </>
   );
 };
 
@@ -248,6 +418,11 @@ export const Hero = () => {
 
         {/* Extended 3D Scroll Dashboard Panel — Interfaz real de Avialo, interactiva (Modo Claro y Oscuro) */}
         <div className="w-full max-w-7xl mt-6 sm:mt-10 [perspective:1000px] relative z-20 px-1 sm:px-0">
+          {/* Sello Circular Certificado AEAT que sobresale de la pantalla */}
+          <div className="absolute -top-10 -right-2 sm:-top-14 sm:-right-8 z-40">
+            <VerifactuSeal />
+          </div>
+
           <motion.div
             ref={dashboardRef}
             style={{
@@ -270,7 +445,10 @@ export const Hero = () => {
                   app.avialo.es/{activeTab}
                 </span>
               </div>
-              <VerifactuSeal />
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 dark:bg-emerald-400/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-[10px] sm:text-xs font-bold">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+                <span>VeriFactu & FACe</span>
+              </div>
             </div>
 
             {/* App Navbar (real, con pestañas pulsables) */}
