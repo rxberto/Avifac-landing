@@ -57,35 +57,21 @@ const VerifactuSeal = () => {
   const [showTip, setShowTip] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [popoverStyle, setPopoverStyle] = useState<React.CSSProperties>({});
-  const [popoverPlacement, setPopoverPlacement] = useState<'top' | 'bottom'>('top');
   const containerRef = useRef<HTMLDivElement>(null);
 
   const calculatePlacement = () => {
     if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
-      const isTopSpaceEnough = rect.top >= 280;
-      const placement = isTopSpaceEnough ? 'top' : 'bottom';
-      setPopoverPlacement(placement);
+      const centerY = rect.top + rect.height / 2;
+      const targetX = rect.left - 12;
 
-      const targetX = Math.min(rect.right, window.innerWidth - 16);
-
-      if (placement === 'top') {
-        setPopoverStyle({
-          position: 'fixed',
-          top: `${rect.top - 12}px`,
-          left: `${targetX}px`,
-          transform: 'translateX(-100%) translateY(-100%)',
-          zIndex: 9999,
-        });
-      } else {
-        setPopoverStyle({
-          position: 'fixed',
-          top: `${rect.bottom + 12}px`,
-          left: `${targetX}px`,
-          transform: 'translateX(-100%)',
-          zIndex: 9999,
-        });
-      }
+      setPopoverStyle({
+        position: 'fixed',
+        top: `${centerY}px`,
+        left: `${Math.max(16, targetX)}px`,
+        transform: 'translateX(-100%) translateY(-50%)',
+        zIndex: 9999,
+      });
     }
   };
 
@@ -105,20 +91,18 @@ const VerifactuSeal = () => {
         {/* Sello Circular Grande de Homologación AEAT & FACe */}
         <motion.button
           onClick={() => setShowModal(true)}
-          whileHover={{ scale: 1.08, rotate: 2 }}
+          whileHover={{ scale: 1.06 }}
           whileTap={{ scale: 0.95 }}
           aria-label={t('Software Certificado por la AEAT', 'Software Certified by AEAT')}
           className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-[#FCFCFB]/95 dark:bg-[#131517]/95 border-2 border-emerald-500/50 dark:border-emerald-400/50 shadow-2xl shadow-emerald-500/20 backdrop-blur-md flex items-center justify-center cursor-pointer group transition-all duration-300"
         >
-          {/* Anillo exterior animado con destellos */}
+          {/* Anillo exterior con destellos */}
           <div className="absolute inset-0 rounded-full border border-emerald-500/30 dark:border-emerald-400/30 animate-pulse pointer-events-none" />
 
-          {/* Texto Curvo Giratorio SVG */}
-          <motion.svg
+          {/* Texto Curvo Estático Fijo (Sin Girar) SVG */}
+          <svg
             viewBox="0 0 100 100"
-            className="absolute inset-0 w-full h-full p-1"
-            animate={{ rotate: 360 }}
-            transition={{ repeat: Infinity, duration: 24, ease: 'linear' }}
+            className="absolute inset-0 w-full h-full p-1 pointer-events-none"
           >
             <defs>
               <path id="seal-circle-large" d="M 50,50 m -39,0 a 39,39 0 1,1 78,0 a 39,39 0 1,1 -78,0" />
@@ -129,11 +113,11 @@ const VerifactuSeal = () => {
                 CERTIFICADO AEAT • VERIFACTU • FACe •
               </textPath>
             </text>
-          </motion.svg>
+          </svg>
 
-          {/* Contenido Central del Sello con Logo Oficial AEAT */}
+          {/* Contenido Central del Sello con Logo Oficial AEAT más pequeño */}
           <div className="relative z-10 flex flex-col items-center justify-center text-center p-1">
-            <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-white flex items-center justify-center p-1.5 shadow-md border border-emerald-500/30 group-hover:scale-110 transition-transform overflow-hidden">
+            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white flex items-center justify-center p-1 shadow-sm border border-emerald-500/30 group-hover:scale-110 transition-transform overflow-hidden">
               <img
                 src="https://agenciatributaria.carm.es/documents/20632/70329/logo-agencia-tributaria.png/6a19f0b1-99f8-46c7-8d8c-16804daa7f7a?version=1.0&t=1775028705126"
                 alt="Logo Agencia Tributaria AEAT"
@@ -151,23 +135,15 @@ const VerifactuSeal = () => {
           </span>
         </motion.button>
 
-        {/* Popover Informativo Desplegable al hacer Hover en Portal (Totalmente Plano 2D sin inclinación) */}
+        {/* Popover Informativo Desplegable a la Izquierda en Portal (Totalmente Plano 2D sin inclinación) */}
         {typeof document !== 'undefined' &&
           createPortal(
             <AnimatePresence>
               {showTip && (
                 <motion.div
-                  initial={{
-                    opacity: 0,
-                    y: popoverPlacement === 'top' ? -10 : 10,
-                    scale: 0.92,
-                  }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{
-                    opacity: 0,
-                    y: popoverPlacement === 'top' ? -10 : 10,
-                    scale: 0.92,
-                  }}
+                  initial={{ opacity: 0, x: 10, scale: 0.92 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: 10, scale: 0.92 }}
                   transition={{ duration: 0.2 }}
                   style={popoverStyle}
                   className="w-80 sm:w-96 p-4 rounded-2xl bg-white dark:bg-[#181a1d] border-2 border-emerald-500/40 dark:border-emerald-400/40 shadow-2xl text-left space-y-3 pointer-events-auto"
