@@ -404,8 +404,8 @@ export const Hero = () => {
             }}
             className="relative rounded-[8px] sm:rounded-[12px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] shadow-2xl transition-colors duration-300 text-[#0A0C0B] dark:text-white min-h-[420px] sm:min-h-[600px] md:min-h-[680px] flex flex-col"
           >
-            {/* Sello Circular Certificado AEAT pegado a la propia pantalla */}
-            <div className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 z-40 pointer-events-auto">
+            {/* Sello Circular Certificado AEAT con centro alineado a la esquina superior derecha de la pantalla */}
+            <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 z-40 pointer-events-auto">
               <VerifactuSeal />
             </div>
             {/* Browser Chrome */}
