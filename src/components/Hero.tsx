@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Navbar } from './Navbar';
@@ -55,18 +56,35 @@ const VerifactuSeal = () => {
   const { t } = useLanguage();
   const [showTip, setShowTip] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [popoverStyle, setPopoverStyle] = useState<React.CSSProperties>({});
   const [popoverPlacement, setPopoverPlacement] = useState<'top' | 'bottom'>('top');
   const containerRef = useRef<HTMLDivElement>(null);
 
   const calculatePlacement = () => {
     if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
-      // If there is enough space above (e.g. at initial page position), open ABOVE ('top')
-      // If scrolled close to the top of the window, open BELOW ('bottom')
-      if (rect.top >= 280) {
-        setPopoverPlacement('top');
+      const isTopSpaceEnough = rect.top >= 280;
+      const placement = isTopSpaceEnough ? 'top' : 'bottom';
+      setPopoverPlacement(placement);
+
+      const targetX = Math.min(rect.right, window.innerWidth - 16);
+
+      if (placement === 'top') {
+        setPopoverStyle({
+          position: 'fixed',
+          top: `${rect.top - 12}px`,
+          left: `${targetX}px`,
+          transform: 'translateX(-100%) translateY(-100%)',
+          zIndex: 9999,
+        });
       } else {
-        setPopoverPlacement('bottom');
+        setPopoverStyle({
+          position: 'fixed',
+          top: `${rect.bottom + 12}px`,
+          left: `${targetX}px`,
+          transform: 'translateX(-100%)',
+          zIndex: 9999,
+        });
       }
     }
   };
@@ -133,82 +151,85 @@ const VerifactuSeal = () => {
           </span>
         </motion.button>
 
-        {/* Popover Informativo Desplegable al hacer Hover o Click */}
-        <AnimatePresence>
-          {showTip && (
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: popoverPlacement === 'top' ? -10 : 10,
-                scale: 0.92,
-              }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{
-                opacity: 0,
-                y: popoverPlacement === 'top' ? -10 : 10,
-                scale: 0.92,
-              }}
-              transition={{ duration: 0.2 }}
-              className={`absolute right-0 w-80 sm:w-96 p-4 rounded-2xl bg-white dark:bg-[#181a1d] border-2 border-emerald-500/40 dark:border-emerald-400/40 shadow-2xl z-50 text-left space-y-3 pointer-events-auto ${
-                popoverPlacement === 'top' ? 'bottom-full mb-3' : 'top-full mt-3'
-              }`}
-            >
-              <div className="flex items-center justify-between border-b border-emerald-500/20 dark:border-emerald-400/20 pb-2.5">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-full bg-emerald-500/20 dark:bg-emerald-400/20 flex items-center justify-center shrink-0">
-                    <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+        {/* Popover Informativo Desplegable al hacer Hover en Portal (Totalmente Plano 2D sin inclinación) */}
+        {typeof document !== 'undefined' &&
+          createPortal(
+            <AnimatePresence>
+              {showTip && (
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    y: popoverPlacement === 'top' ? -10 : 10,
+                    scale: 0.92,
+                  }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{
+                    opacity: 0,
+                    y: popoverPlacement === 'top' ? -10 : 10,
+                    scale: 0.92,
+                  }}
+                  transition={{ duration: 0.2 }}
+                  style={popoverStyle}
+                  className="w-80 sm:w-96 p-4 rounded-2xl bg-white dark:bg-[#181a1d] border-2 border-emerald-500/40 dark:border-emerald-400/40 shadow-2xl text-left space-y-3 pointer-events-auto"
+                >
+                  <div className="flex items-center justify-between border-b border-emerald-500/20 dark:border-emerald-400/20 pb-2.5">
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-full bg-emerald-500/20 dark:bg-emerald-400/20 flex items-center justify-center shrink-0">
+                        <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                      </div>
+                      <h4 className="text-xs sm:text-sm font-extrabold text-neutral-900 dark:text-white leading-tight">
+                        {t('Software Certificado por la AEAT & FACe', 'Software Certified by AEAT & FACe')}
+                      </h4>
+                    </div>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300">
+                      {t('Homologado', 'Approved')}
+                    </span>
                   </div>
-                  <h4 className="text-xs sm:text-sm font-extrabold text-neutral-900 dark:text-white leading-tight">
-                    {t('Software Certificado por la AEAT & FACe', 'Software Certified by AEAT & FACe')}
-                  </h4>
-                </div>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300">
-                  {t('Homologado', 'Approved')}
-                </span>
-              </div>
 
-              <ul className="space-y-2 text-xs text-neutral-700 dark:text-neutral-300">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                  <span>
-                    <strong>{t('Acuerdo de Colaboración Social AEAT Nº 17:', 'AEAT Social Collaboration Agreement Nº 17:')}</strong>{' '}
-                    {t(
-                      'Autorizados oficialmente para la remisión telemática directa de registros de facturación, SII, SILICIE y VeriFactu.',
-                      'Officially authorized for direct tax filing of invoices, SII, SILICIE, and VeriFactu.'
-                    )}
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                  <span>
-                    <strong>{t('Integrador Oficial FACe:', 'Official FACe Integrator:')}</strong>{' '}
-                    {t(
-                      'Conexión directa con el Punto General de Entrada de Facturas Electrónicas de la Administración Pública (B2G).',
-                      'Direct integration with Spain Public Administration E-Invoicing portal (FACe B2G).'
-                    )}
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                  <span>
-                    <strong>{t('Normativa VeriFactu RD 1007/2023:', 'VeriFactu RD 1007/2023 Law:')}</strong>{' '}
-                    {t(
-                      'Registros inalterables encadenados con firma digital SHA-256 y código QR regulatorio.',
-                      'Immutable records chained with SHA-256 digital signature and regulatory QR.'
-                    )}
-                  </span>
-                </li>
-              </ul>
+                  <ul className="space-y-2 text-xs text-neutral-700 dark:text-neutral-300">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                      <span>
+                        <strong>{t('Acuerdo de Colaboración Social AEAT Nº 17:', 'AEAT Social Collaboration Agreement Nº 17:')}</strong>{' '}
+                        {t(
+                          'Autorizados oficialmente para la remisión telemática directa de registros de facturación, SII, SILICIE y VeriFactu.',
+                          'Officially authorized for direct tax filing of invoices, SII, SILICIE, and VeriFactu.'
+                        )}
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                      <span>
+                        <strong>{t('Integrador Oficial FACe:', 'Official FACe Integrator:')}</strong>{' '}
+                        {t(
+                          'Conexión directa con el Punto General de Entrada de Facturas Electrónicas de la Administración Pública (B2G).',
+                          'Direct integration with Spain Public Administration E-Invoicing portal (FACe B2G).'
+                        )}
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                      <span>
+                        <strong>{t('Normativa VeriFactu RD 1007/2023:', 'VeriFactu RD 1007/2023 Law:')}</strong>{' '}
+                        {t(
+                          'Registros inalterables encadenados con firma digital SHA-256 y código QR regulatorio.',
+                          'Immutable records chained with SHA-256 digital signature and regulatory QR.'
+                        )}
+                      </span>
+                    </li>
+                  </ul>
 
-              <button
-                onClick={() => setShowModal(true)}
-                className="w-full mt-2 py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-md"
-              >
-                <span>{t('Ver documento oficial y acuerdo completo →', 'View official agreement & document →')}</span>
-              </button>
-            </motion.div>
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className="w-full mt-2 py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-md"
+                  >
+                    <span>{t('Ver documento oficial y acuerdo completo →', 'View official agreement & document →')}</span>
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>,
+            document.body
           )}
-        </AnimatePresence>
       </div>
 
       {/* Modal Popup Completo del Acuerdo AEAT Nº 17 & FACe */}
@@ -423,11 +444,6 @@ export const Hero = () => {
 
         {/* Extended 3D Scroll Dashboard Panel — Interfaz real de Avialo, interactiva (Modo Claro y Oscuro) */}
         <div className="w-full max-w-7xl mt-6 sm:mt-10 [perspective:1000px] relative z-20 px-1 sm:px-0">
-          {/* Sello Circular Certificado AEAT (renderizado totalmente plano en 2D sin inclinación 3D) */}
-          <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 z-40 pointer-events-auto">
-            <VerifactuSeal />
-          </div>
-
           <motion.div
             ref={dashboardRef}
             style={{
@@ -440,6 +456,10 @@ export const Hero = () => {
             }}
             className="relative rounded-[8px] sm:rounded-[12px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] shadow-2xl transition-colors duration-300 text-[#0A0C0B] dark:text-white min-h-[420px] sm:min-h-[600px] md:min-h-[680px] flex flex-col"
           >
+            {/* Sello Circular Certificado AEAT pegado a la pantalla (Badge contenido en 3D, Hover Popover 2D plano mediante Portal) */}
+            <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 z-40 pointer-events-auto">
+              <VerifactuSeal />
+            </div>
             {/* Browser Chrome */}
             <div className="flex items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 border-b border-[#D2D2CE] dark:border-[#303131] shrink-0">
               <div className="flex items-center gap-1.5 sm:gap-2">
