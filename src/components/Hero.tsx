@@ -149,9 +149,10 @@ const VerifactuSeal = () => {
           </span>
         </div>
 
-        {/* Badge flotante "SOFTWARE CERTIFICADO" */}
-        <span className="absolute -bottom-2 bg-emerald-600 text-white dark:bg-emerald-400 dark:text-black text-[7px] sm:text-[9px] font-black px-2 sm:px-2.5 py-0.5 rounded-full shadow-md uppercase tracking-wider whitespace-nowrap z-20">
-          {t('SOFTWARE CERTIFICADO', 'CERTIFIED SOFTWARE')}
+        {/* Badge flotante "SOFTWARE CERTIFICADO" (Responsive: 2 líneas en móvil, 1 línea en escritorio) */}
+        <span className="absolute -bottom-3 sm:-bottom-2 bg-emerald-600 text-white dark:bg-emerald-400 dark:text-black text-[6.5px] sm:text-[9px] font-black px-1.5 sm:px-2.5 py-0.5 rounded-md sm:rounded-full shadow-md uppercase tracking-wider z-20 text-center leading-none flex flex-col sm:flex-row items-center justify-center gap-0 sm:gap-1 select-none">
+          <span>{t('SOFTWARE', 'SOFTWARE')}</span>
+          <span>{t('CERTIFICADO', 'CERTIFIED')}</span>
         </span>
       </motion.div>
 
