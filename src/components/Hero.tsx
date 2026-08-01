@@ -92,16 +92,17 @@ const VerifactuSeal = () => {
             </text>
           </motion.svg>
 
-          {/* Contenido Central del Sello */}
+          {/* Contenido Central del Sello con Logo Oficial AEAT */}
           <div className="relative z-10 flex flex-col items-center justify-center text-center p-1">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-emerald-500/20 dark:bg-emerald-400/20 flex items-center justify-center mb-0.5 group-hover:scale-110 transition-transform">
-              <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 dark:text-emerald-400" />
+            <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-white flex items-center justify-center p-1.5 shadow-md border border-emerald-500/30 group-hover:scale-110 transition-transform overflow-hidden">
+              <img
+                src="https://agenciatributaria.carm.es/documents/20632/70329/logo-agencia-tributaria.png/6a19f0b1-99f8-46c7-8d8c-16804daa7f7a?version=1.0&t=1775028705126"
+                alt="Logo Agencia Tributaria AEAT"
+                className="w-full h-full object-contain"
+              />
             </div>
-            <span className="text-[9px] sm:text-[11px] font-black uppercase tracking-tighter text-emerald-950 dark:text-emerald-200 leading-none">
-              AEAT
-            </span>
-            <span className="text-[7px] sm:text-[9px] font-bold text-emerald-600 dark:text-emerald-400 leading-none mt-0.5">
-              Nº 17 · FACe
+            <span className="text-[8px] sm:text-[9.5px] font-black uppercase tracking-tighter text-emerald-950 dark:text-emerald-200 leading-none mt-1">
+              AEAT Nº 17
             </span>
           </div>
 
@@ -418,11 +419,6 @@ export const Hero = () => {
 
         {/* Extended 3D Scroll Dashboard Panel — Interfaz real de Avialo, interactiva (Modo Claro y Oscuro) */}
         <div className="w-full max-w-7xl mt-6 sm:mt-10 [perspective:1000px] relative z-20 px-1 sm:px-0">
-          {/* Sello Circular Certificado AEAT que sobresale de la pantalla */}
-          <div className="absolute -top-10 -right-2 sm:-top-14 sm:-right-8 z-40">
-            <VerifactuSeal />
-          </div>
-
           <motion.div
             ref={dashboardRef}
             style={{
@@ -433,8 +429,12 @@ export const Hero = () => {
               transformStyle: 'preserve-3d',
               willChange: 'transform',
             }}
-            className="relative rounded-[8px] sm:rounded-[12px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] shadow-2xl overflow-hidden transition-colors duration-300 text-[#0A0C0B] dark:text-white min-h-[420px] sm:min-h-[600px] md:min-h-[680px] flex flex-col"
+            className="relative rounded-[8px] sm:rounded-[12px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] shadow-2xl transition-colors duration-300 text-[#0A0C0B] dark:text-white min-h-[420px] sm:min-h-[600px] md:min-h-[680px] flex flex-col"
           >
+            {/* Sello Circular Certificado AEAT pegado a la propia pantalla */}
+            <div className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 z-40 pointer-events-auto">
+              <VerifactuSeal />
+            </div>
             {/* Browser Chrome */}
             <div className="flex items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 border-b border-[#D2D2CE] dark:border-[#303131] shrink-0">
               <div className="flex items-center gap-1.5 sm:gap-2">
