@@ -56,8 +56,8 @@ export const HeroActionRow = () => {
     },
     {
       icon: ShieldCheck,
-      title: t('Ecosistema Seguro', 'Secure Ecosystem'),
-      description: t('Seguridad bancaria y cumplimiento VeriFactu', 'Bank-grade security & VeriFactu compliance'),
+      title: t('Certificado por la AEAT', 'Certified by AEAT'),
+      description: t('Homologado y certificado 100% bajo la normativa VeriFactu', 'Officially certified under 100% VeriFactu tax laws'),
       delay: 0.2,
     },
     {

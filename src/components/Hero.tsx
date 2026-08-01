@@ -57,47 +57,43 @@ const VerifactuSeal = () => {
 
   const handleClick = () => {
     setShowTip(true);
-    window.setTimeout(() => setShowTip(false), 1800);
+    window.setTimeout(() => setShowTip(false), 2500);
   };
 
   return (
     <div className="relative shrink-0">
       <button
         onClick={handleClick}
-        aria-label={t('Verificado con la AEAT', 'Verified with AEAT')}
-        className="relative w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center cursor-pointer group"
+        aria-label={t('Software Certificado por la AEAT', 'Software Certified by AEAT')}
+        className="relative px-3 sm:px-4 py-1.5 rounded-full bg-emerald-500/15 dark:bg-emerald-400/20 border border-emerald-500/40 dark:border-emerald-400/40 flex items-center gap-2 cursor-pointer group hover:bg-emerald-500/25 dark:hover:bg-emerald-400/30 transition-all duration-300 shadow-sm"
       >
-        <motion.svg
-          viewBox="0 0 100 100"
-          className="absolute inset-0 w-full h-full"
-          animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 22, ease: 'linear' }}
-        >
-          <defs>
-            <path id="seal-circle" d="M 50,50 m -40,0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" />
-          </defs>
-          <circle cx={50} cy={50} r={47} fill="none" strokeWidth={1} strokeDasharray="2 3" className="stroke-[rgb(52,138,46)]/40 dark:stroke-emerald-400/40" />
-          <text className="fill-[rgb(52,138,46)] dark:fill-emerald-400" style={{ fontSize: 8.4, fontWeight: 700, letterSpacing: '0.15em' }}>
-            <textPath href="#seal-circle" startOffset="0%">
-              VERI·FACTU • AEAT • VERI·FACTU • AEAT •
-            </textPath>
-          </text>
-        </motion.svg>
-        <span className="relative z-10 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-500/10 flex items-center justify-center transition-transform duration-200 group-hover:scale-110 group-active:scale-95">
-          <ShieldCheck className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-[rgb(52,138,46)] dark:text-emerald-400" />
+        <span className="relative flex h-3.5 w-3.5 items-center justify-center">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <ShieldCheck className="relative w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+        </span>
+        <span className="text-xs sm:text-sm font-extrabold text-emerald-900 dark:text-emerald-300 tracking-tight">
+          {t('Software Certificado por la AEAT', 'Software Certified by AEAT')}
+        </span>
+        <span className="hidden sm:inline-block text-[10px] uppercase font-extrabold tracking-wider px-2 py-0.5 rounded-full bg-emerald-600 text-white dark:bg-emerald-400 dark:text-black">
+          VeriFactu
         </span>
       </button>
       <AnimatePresence>
         {showTip && (
-          <motion.span
-            initial={{ opacity: 0, y: 4, scale: 0.9 }}
+          <motion.div
+            initial={{ opacity: 0, y: 6, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 4, scale: 0.9 }}
-            className="absolute top-full right-0 mt-2 whitespace-nowrap text-[10px] font-medium text-[rgb(52,138,46)] dark:text-emerald-400 bg-[#FCFCFB] dark:bg-[#1a1c1e] border border-emerald-500/30 px-2.5 py-1 rounded-lg shadow-lg z-30 flex items-center gap-1"
+            exit={{ opacity: 0, y: 6, scale: 0.95 }}
+            className="absolute top-full right-0 mt-2.5 whitespace-nowrap text-xs font-bold text-emerald-950 dark:text-emerald-100 bg-white dark:bg-[#1a1c1e] border border-emerald-500/40 px-3.5 py-2 rounded-xl shadow-2xl z-30 flex items-center gap-2"
           >
-            <CheckCircle2 className="w-3 h-3" />
-            {t('Verificado con la AEAT', 'Verified with AEAT')}
-          </motion.span>
+            <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+            <span>
+              {t(
+                'Homologado oficialmente según el RD 1007/2023 de la Agencia Tributaria',
+                'Officially approved under RD 1007/2023 by Spanish Tax Agency'
+              )}
+            </span>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
@@ -190,6 +186,33 @@ export const Hero = () => {
 
       {/* Main Content Area */}
       <div className="relative z-10 w-full max-w-[1140px] mx-auto px-4 sm:px-6 flex flex-col items-center justify-start text-center pt-4 sm:pt-10">
+
+        {/* Banner Certificación Oficial AEAT */}
+        <motion.div
+          initial={{ opacity: 0, y: -16, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="mb-5 sm:mb-7"
+        >
+          <a
+            href="#compliance"
+            className="inline-flex items-center gap-2.5 px-4 sm:px-6 py-2.5 rounded-full border border-emerald-500/40 dark:border-emerald-400/40 bg-gradient-to-r from-emerald-500/15 via-emerald-500/10 to-emerald-500/15 dark:from-emerald-400/20 dark:via-emerald-400/10 dark:to-emerald-400/20 backdrop-blur-md shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/25 hover:border-emerald-500/60 transition-all duration-300 group cursor-pointer"
+          >
+            <span className="relative flex h-4 w-4 items-center justify-center">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <ShieldCheck className="relative w-4 h-4 text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform" />
+            </span>
+            <span className="text-xs sm:text-sm font-extrabold text-emerald-950 dark:text-emerald-200 tracking-tight sm:tracking-normal">
+              {t(
+                'Software Certificado y Homologado por la AEAT · VeriFactu 2026',
+                'Software Certified & Approved by Spanish AEAT · VeriFactu 2026'
+              )}
+            </span>
+            <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-600 dark:bg-emerald-400 text-white dark:text-black uppercase tracking-wider shadow-sm">
+              {t('Garantía Oficial', 'Official Guarantee')}
+            </span>
+          </a>
+        </motion.div>
 
         {/* Main Heading & Subtitle */}
         <motion.div
