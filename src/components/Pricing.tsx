@@ -162,14 +162,17 @@ export const Pricing = () => {
               
               <AnimatePresence>
                 {isYearly && (
-                  <motion.span
+                  <motion.div
                     initial={{ opacity: 0, scale: 0.8, x: -10 }}
                     animate={{ opacity: 1, scale: 1, x: 0 }}
                     exit={{ opacity: 0, scale: 0.8, x: -10 }}
-                    className="px-3 py-1.5 rounded-full border border-[rgb(52,138,46)] dark:border-[rgb(104,204,88)] bg-[rgb(52,138,46)]/10 dark:bg-[rgb(104,204,88)]/10 text-[10px] sm:text-xs font-bold tracking-wider uppercase text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] shrink-0"
+                    className="px-3 py-1.5 rounded-full border border-[rgb(52,138,46)] dark:border-[rgb(104,204,88)] bg-[rgb(52,138,46)]/10 dark:bg-[rgb(104,204,88)]/10 text-[10px] sm:text-xs font-bold tracking-wider uppercase text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] shrink-0 flex items-center gap-1.5"
                   >
-                    {t('Ahorra 17%', 'Save 17%')}
-                  </motion.span>
+                    <span className="line-through opacity-50 font-normal">17%</span>
+                    <span className="font-extrabold text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)]">
+                      {t('AHORRA 30% DTO.', 'SAVE 30% OFF')}
+                    </span>
+                  </motion.div>
                 )}
               </AnimatePresence>
             </div>
