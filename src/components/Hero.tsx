@@ -95,8 +95,11 @@ const VerifactuSeal = () => {
   }, [showTip]);
 
   const handleMouseEnter = () => {
-    calculatePlacement();
-    setShowTip(true);
+    // Deshabilitar completamente el hover/popover en móviles (< 640px)
+    if (typeof window !== 'undefined' && window.innerWidth >= 640) {
+      calculatePlacement();
+      setShowTip(true);
+    }
   };
 
   return (
@@ -108,10 +111,10 @@ const VerifactuSeal = () => {
     >
       {/* Sello Circular Grande de Homologación AEAT & FACe */}
       <motion.div
-        whileHover={{ scale: 1.06 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={{ scale: window.innerWidth >= 640 ? 1.06 : 1 }}
+        whileTap={{ scale: window.innerWidth >= 640 ? 0.95 : 1 }}
         aria-label={t('Software Certificado por la AEAT', 'Software Certified by AEAT')}
-        className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-[#FCFCFB]/95 dark:bg-[#131517]/95 border-2 border-emerald-500/50 dark:border-emerald-400/50 shadow-2xl shadow-emerald-500/20 backdrop-blur-md flex items-center justify-center cursor-pointer group transition-all duration-300 select-none"
+        className="relative w-20 h-20 sm:w-32 sm:h-32 rounded-full bg-[#FCFCFB]/95 dark:bg-[#131517]/95 border-2 border-emerald-500/50 dark:border-emerald-400/50 shadow-2xl shadow-emerald-500/20 backdrop-blur-md flex items-center justify-center cursor-default sm:cursor-pointer group transition-all duration-300 select-none"
       >
         {/* Anillo exterior con destellos */}
         <div className="absolute inset-0 rounded-full border border-emerald-500/30 dark:border-emerald-400/30 animate-pulse pointer-events-none" />
@@ -134,25 +137,25 @@ const VerifactuSeal = () => {
 
         {/* Contenido Central del Sello con Logo Oficial AEAT más pequeño */}
         <div className="relative z-10 flex flex-col items-center justify-center text-center p-1">
-          <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white flex items-center justify-center p-1 shadow-sm border border-emerald-500/30 group-hover:scale-110 transition-transform overflow-hidden">
+          <div className="w-6 h-6 sm:w-9 sm:h-9 rounded-full bg-white flex items-center justify-center p-1 shadow-sm border border-emerald-500/30 sm:group-hover:scale-110 transition-transform overflow-hidden">
             <img
               src="https://agenciatributaria.carm.es/documents/20632/70329/logo-agencia-tributaria.png/6a19f0b1-99f8-46c7-8d8c-16804daa7f7a?version=1.0&t=1775028705126"
               alt="Logo Agencia Tributaria AEAT"
               className="w-full h-full object-contain"
             />
           </div>
-          <span className="text-[8px] sm:text-[9.5px] font-black uppercase tracking-tighter text-emerald-950 dark:text-emerald-200 leading-none mt-1">
+          <span className="text-[7.5px] sm:text-[9.5px] font-black uppercase tracking-tighter text-emerald-950 dark:text-emerald-200 leading-none mt-0.5 sm:mt-1">
             AEAT Nº 17
           </span>
         </div>
 
         {/* Badge flotante "CERTIFICADO" */}
-        <span className="absolute -bottom-2 bg-emerald-600 text-white dark:bg-emerald-400 dark:text-black text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded-full shadow-md uppercase tracking-wider">
+        <span className="absolute -bottom-2 bg-emerald-600 text-white dark:bg-emerald-400 dark:text-black text-[8px] sm:text-[10px] font-black px-1.5 sm:px-2 py-0.5 rounded-full shadow-md uppercase tracking-wider">
           {t('CERTIFICADO', 'CERTIFIED')}
         </span>
       </motion.div>
 
-      {/* Popover Informativo Desplegable a la Izquierda en Portal (Totalmente Plano 2D sin inclinación) */}
+      {/* Popover Informativo Desplegable a la Izquierda en Portal (Solo Escritorio >= 640px, oculto en móviles) */}
       {typeof document !== 'undefined' &&
         createPortal(
           <AnimatePresence>
@@ -163,7 +166,7 @@ const VerifactuSeal = () => {
                 exit={{ opacity: 0, x: 10, scale: 0.92 }}
                 transition={{ duration: 0.2 }}
                 style={popoverStyle}
-                className="w-80 sm:w-96 p-4 rounded-2xl bg-white dark:bg-[#181a1d] border-2 border-emerald-500/40 dark:border-emerald-400/40 shadow-2xl text-left space-y-3 pointer-events-auto"
+                className="hidden sm:block w-80 sm:w-96 p-4 rounded-2xl bg-white dark:bg-[#181a1d] border-2 border-emerald-500/40 dark:border-emerald-400/40 shadow-2xl text-left space-y-3 pointer-events-auto"
               >
                 <div className="flex items-center justify-between border-b border-emerald-500/20 dark:border-emerald-400/20 pb-2.5">
                   <div className="flex items-center gap-2">
