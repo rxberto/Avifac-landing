@@ -63,17 +63,37 @@ const VerifactuSeal = () => {
     if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
       const centerY = rect.top + rect.height / 2;
-      const targetX = rect.left - 12;
+      const popoverWidth = Math.min(384, window.innerWidth - 32);
+
+      // Preferred right edge is to the left of seal (rect.left - 16)
+      let rightEdge = rect.left - 16;
+      // Clamp right edge so left edge (rightEdge - popoverWidth) is at least 16px from viewport left edge
+      if (rightEdge - popoverWidth < 16) {
+        rightEdge = 16 + popoverWidth;
+      }
 
       setPopoverStyle({
         position: 'fixed',
-        top: `${centerY}px`,
-        left: `${Math.max(16, targetX)}px`,
+        top: `${Math.max(120, Math.min(window.innerHeight - 200, centerY))}px`,
+        left: `${rightEdge}px`,
         transform: 'translateX(-100%) translateY(-50%)',
         zIndex: 9999,
+        maxWidth: 'calc(100vw - 32px)',
       });
     }
   };
+
+  useEffect(() => {
+    if (showTip) {
+      calculatePlacement();
+      window.addEventListener('resize', calculatePlacement);
+      window.addEventListener('scroll', calculatePlacement);
+      return () => {
+        window.removeEventListener('resize', calculatePlacement);
+        window.removeEventListener('scroll', calculatePlacement);
+      };
+    }
+  }, [showTip]);
 
   const handleMouseEnter = () => {
     calculatePlacement();
