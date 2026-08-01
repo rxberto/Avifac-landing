@@ -20,7 +20,7 @@ const LogoMark = () => {
   const [hasError, setHasError] = useState(false);
 
   return (
-    <div className="flex items-center gap-2.5">
+    <a href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
       {!hasError ? (
         <img
           src="/favicon.svg"
@@ -34,7 +34,7 @@ const LogoMark = () => {
         </div>
       )}
       <span className="text-[#0A0C0B] dark:text-white font-bold text-xl tracking-tight">Avialo</span>
-    </div>
+    </a>
   );
 };
 
@@ -228,8 +228,9 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
               <li><FooterLink href="#faq">{t('Ley Verifactu (AEAT)', 'VeriFactu Regulation')}</FooterLink></li>
               <li><FooterLink href="#faq">{t('FACe & FacturaE B2B', 'FACe Public Invoicing')}</FooterLink></li>
               <li><FooterLink href="https://www.avialo.tech/ACUERDO_AVIALO_SOLUCIONES_SL.pdf" highlight={true} external>{t('Declaración SIF Garante', 'Guaranteed SIF Statement')}</FooterLink></li>
-              <li><FooterLink href="/privacidad">{t('Términos de Servicio', 'Terms of Service')}</FooterLink></li>
               <li><FooterLink href="/privacidad">{t('Política de Privacidad', 'Privacy Policy')}</FooterLink></li>
+              <li><FooterLink href="/proteccion-datos">{t('Protección de Datos SIF', 'Tax Data Protection')}</FooterLink></li>
+              <li><FooterLink href="/terminos">{t('Términos y Condiciones', 'Terms & Conditions')}</FooterLink></li>
             </ul>
           </div>
 

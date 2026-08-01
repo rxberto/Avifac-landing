@@ -160,7 +160,7 @@ export const Navbar = () => {
         <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-3.5 flex items-center justify-between">
           
           {/* Logo + Brand Name */}
-          <a href="#" className="flex items-center gap-3 group shrink-0">
+          <a href="/" className="flex items-center gap-3 group shrink-0">
             <img
               src="/favicon.svg"
               alt="Avialo Logo"

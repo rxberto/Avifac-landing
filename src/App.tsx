@@ -20,9 +20,11 @@ const ComplianceSection = lazy(() => import('./components/ComplianceSection').th
 const FAQSection = lazy(() => import('./components/FAQSection').then(m => ({ default: m.FAQSection })));
 const FinalCTASection = lazy(() => import('./components/FinalCTASection').then(m => ({ default: m.FinalCTASection })));
 const PrivacyPolicyPage = lazy(() => import('./components/PrivacyPolicyPage').then(m => ({ default: m.PrivacyPolicyPage })));
+const DataProtectionPage = lazy(() => import('./components/DataProtectionPage').then(m => ({ default: m.DataProtectionPage })));
+const TermsPage = lazy(() => import('./components/TermsPage').then(m => ({ default: m.TermsPage })));
 
 export function App() {
-  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | '404'>('home');
+  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | 'data-protection' | 'terms' | '404'>('home');
 
   useEffect(() => {
     const checkPath = () => {
@@ -37,12 +39,32 @@ export function App() {
         hash === '#privacidad' ||
         hash === '#privacy';
 
+      const isDataProtectionRoute =
+        pathname === '/proteccion-datos' ||
+        pathname === '/proteccion-datos/' ||
+        pathname === '/proteccion-de-datos' ||
+        pathname === '/proteccion-de-datos/' ||
+        hash === '#proteccion-datos' ||
+        hash === '#dataprotection';
+
+      const isTermsRoute =
+        pathname === '/terminos' ||
+        pathname === '/terminos/' ||
+        pathname === '/terminos-y-condiciones' ||
+        pathname === '/terminos-y-condiciones/' ||
+        hash === '#terminos' ||
+        hash === '#terms';
+
       const validLandingPaths = ['/', '/index.html', '/en', '/en/', '/es', '/es/'];
       const isExplicit404 = pathname === '/404' || pathname === '/404/' || hash === '#404';
       const isValidLanding = validLandingPaths.includes(pathname) || hash.startsWith('#');
 
       if (isPrivacyRoute) {
         setCurrentRoute('privacy');
+      } else if (isDataProtectionRoute) {
+        setCurrentRoute('data-protection');
+      } else if (isTermsRoute) {
+        setCurrentRoute('terms');
       } else if (isExplicit404 || !isValidLanding) {
         setCurrentRoute('404');
       } else {
@@ -67,6 +89,10 @@ export function App() {
             <NotFoundPage />
           ) : currentRoute === 'privacy' ? (
             <PrivacyPolicyPage />
+          ) : currentRoute === 'data-protection' ? (
+            <DataProtectionPage />
+          ) : currentRoute === 'terms' ? (
+            <TermsPage />
           ) : (
             <main className="min-h-screen bg-[#FCFCFB] dark:bg-[#080a09] w-full overflow-x-hidden antialiased text-[#0A0C0B] dark:text-white transition-colors duration-300">
               {/* Above the fold (carga inmediata) */}

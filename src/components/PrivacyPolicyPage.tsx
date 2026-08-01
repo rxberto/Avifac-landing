@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { useLanguage } from '../context/LanguageContext';
@@ -10,7 +10,6 @@ import {
   Server,
   Sparkles,
   Eye,
-  Type,
   Sun,
   BookOpen,
   Mail,
@@ -19,19 +18,36 @@ import {
   AlertCircle,
   ChevronRight,
   ArrowUp,
+  RotateCcw,
 } from 'lucide-react';
 
 export const PrivacyPolicyPage = () => {
   const { t } = useLanguage();
 
-  // Controles de Accesibilidad Exclusivos de esta página
+  // Controles de Accesibilidad Flotantes (Esquina Derecha)
   const [fontSize, setFontSize] = useState<'normal' | 'large' | 'xlarge'>('normal');
   const [highContrast, setHighContrast] = useState(false);
   const [dyslexicFont, setDyslexicFont] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>('intro');
+  const [showAccessibilityMenu, setShowAccessibilityMenu] = useState(false);
+
+  // Botón Flotante de Índice (Esquina Izquierda, cerrado por defecto)
+  const [isIndexOpen, setIsIndexOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('responsable');
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  // Cierre automático con tecla Escape para máxima accesibilidad por teclado
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setShowAccessibilityMenu(false);
+        setIsIndexOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   const fontClasses = {
@@ -41,524 +57,767 @@ export const PrivacyPolicyPage = () => {
   };
 
   const sections = [
-    { id: 'responsable', title: t('1. Responsable del Tratamiento', '1. Data Controller Details') },
-    { id: 'marco-legal', title: t('2. Marco Legal y Normativa Aplicable', '2. Legal Framework & Regulations') },
-    { id: 'aeat-verifactu', title: t('3. Certificación AEAT, VeriFactu y FACe', '3. AEAT, VeriFactu & FACe Certification') },
-    { id: 'finalidades', title: t('4. Finalidades del Tratamiento de Datos', '4. Purposes of Data Processing') },
-    { id: 'inalterabilidad', title: t('5. Inalterabilidad y Registros SIF (4 años)', '5. SIF Immutability & 4-Year Retention') },
-    { id: 'residencia-seguridad', title: t('6. Residencia de Datos en la UE y Seguridad', '6. EU Data Residency & Security') },
-    { id: 'asistente-ia', title: t('7. Tratamiento por Asistente de IA Fiscal', '7. AI Tax Assistant Data Processing') },
-    { id: 'inicios-sesion', title: t('8. Inicios de Sesión, 2FA y Auditoría', '8. Logins, 2FA & Audit Logs') },
-    { id: 'destinatarios', title: t('9. Destinatarios y Encargados de Tratamiento', '9. Recipients & Data Processors') },
-    { id: 'derechos', title: t('10. Ejercicio de Derechos ARCO+', '10. User Rights (ARCO+)') },
-    { id: 'cookies', title: t('11. Política de Cookies y Tecnologías', '11. Cookie & Technology Policy') },
-    { id: 'contacto', title: t('12. Contacto y Delegado de Protección', '12. Contact & Protection Officer') },
+    { id: 'responsable', title: t('1. Identificación del Responsable y Estado del DPD', '1. Data Controller Identification') },
+    { id: 'marco-legal', title: t('2. Marco Legal y Principios Normativos', '2. Legal Framework & Normative Principles') },
+    { id: 'aeat-verifactu', title: t('3. Homologación AEAT, VeriFactu, FACe y Regímenes Forales', '3. AEAT, VeriFactu, FACe & Regional Tax Offices') },
+    { id: 'rol-avialo', title: t('4. Rol de Avialo: Responsable vs Encargado (Art. 28 RGPD)', '4. Role of Avialo: Controller vs Processor') },
+    { id: 'categorias-datos', title: t('5. Categorías de Datos Objeto de Tratamiento', '5. Categories of Processed Data') },
+    { id: 'finalidades-bases', title: t('6. Finalidades y Bases Jurídicas del Tratamiento', '6. Purposes & Legal Bases of Processing') },
+    { id: 'plazos-conservacion', title: t('7. Plazos de Conservación y Custodia Legal (4 y 6 Años)', '7. Retention Periods & Legal Custody') },
+    { id: 'residencia-seguridad', title: t('8. Residencia UE, Cifrado y Transferencias Internacionales', '8. EU Residency, Encryption & International Transfers') },
+    { id: 'asistente-ia', title: t('9. Tratamiento de Datos por el Copiloto de IA Fiscal', '9. AI Tax Assistant Data Processing') },
+    { id: 'decisiones-automatizadas', title: t('10. Decisiones Automatizadas y Protección de Menores', '10. Automated Decisions & Minor Protection') },
+    { id: 'inicios-sesion', title: t('11. Control de Acceso, 2FA y Registros de Auditoría', '11. Access Control, 2FA & Audit Logs') },
+    { id: 'destinatarios', title: t('12. Destinatarios y Subencargados del Tratamiento', '12. Recipients & Sub-processors') },
+    { id: 'derechos', title: t('13. Ejercicio de Derechos de Protección de Datos', '13. Exercise of Data Protection Rights') },
+    { id: 'brechas-seguridad', title: t('14. Gestión y Notificación de Brechas de Seguridad', '14. Security Breach Management & Notification') },
+    { id: 'redes-sociales', title: t('15. Redes Sociales y Deber de Confidencialidad', '15. Social Media & Duty of Confidentiality') },
+    { id: 'cookies', title: t('16. Política de Cookies y Almacenamiento Técnico', '16. Technical Cookie Policy') },
+    { id: 'vigencia', title: t('17. Vigencia, Modificaciones y Canal de Atención', '17. Validity, Modifications & Attention Channel') },
   ];
 
   const scrollToSection = (id: string) => {
     setActiveSection(id);
     const element = document.getElementById(id);
     if (element) {
-      const yOffset = -100;
+      const yOffset = -110;
       const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
+  };
+
+  const resetAccessibility = () => {
+    setFontSize('normal');
+    setHighContrast(false);
+    setDyslexicFont(false);
   };
 
   return (
     <div
       className={`min-h-screen w-full transition-colors duration-300 ${
         highContrast
-          ? 'bg-black text-yellow-300 dark:bg-black dark:text-yellow-300 font-mono'
+          ? 'hc-active bg-black text-yellow-300 font-mono'
           : 'bg-[#FCFCFB] dark:bg-[#080a09] text-[#0A0C0B] dark:text-white'
       } ${dyslexicFont ? 'font-sans tracking-wide' : ''}`}
     >
+      {/* Inyección CSS de Alto Contraste WCAG AAA */}
+      {highContrast && (
+        <style>{`
+          .hc-active, .hc-active * {
+            background-color: #000000 !important;
+            color: #FFFF00 !important;
+            border-color: #FFFF00 !important;
+          }
+          .hc-active a {
+            color: #00FFFF !important;
+            text-decoration: underline !important;
+            font-weight: bold !important;
+          }
+          .hc-active p, .hc-active li {
+            color: #FFFFFF !important;
+          }
+          .hc-active button {
+            background-color: #111111 !important;
+            color: #FFFF00 !important;
+            border: 2px solid #FFFF00 !important;
+          }
+        `}</style>
+      )}
+
       <Navbar />
 
-      {/* Hero Header de la Página Legal */}
-      <section className="relative pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-[#D2D2CE] dark:border-[#303131]">
-        <div className="max-w-4xl mx-auto text-center space-y-4">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider"
-          >
-            <ShieldCheck className="w-4 h-4" />
-            <span>{t('Protección de Datos & Cumplimiento Fiscal AEAT', 'Data Protection & AEAT Tax Compliance')}</span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-            className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#0A0C0B] dark:text-white"
-          >
+      {/* Header Principal de la Página Legal */}
+      <header className="relative pt-32 pb-10 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto border-b border-[#D2D2CE] dark:border-[#303131]">
+        <div className="text-center space-y-3">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0A0C0B] dark:text-white">
             {t('Política de Privacidad y Protección de Datos', 'Privacy Policy & Data Protection')}
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-            className="text-sm sm:text-base text-[rgba(10,12,11,0.7)] dark:text-white/70 max-w-2xl mx-auto"
-          >
+          </h1>
+          <p className="text-xs sm:text-sm text-[rgba(10,12,11,0.7)] dark:text-white/70 max-w-2xl mx-auto leading-relaxed">
             {t(
-              'Garantizamos la máxima transparencia en el tratamiento de tus datos personales y fiscales en estricto cumplimiento del RGPD, LOPDGDD y el Reglamento VeriFactu (RD 1007/2023) de la Agencia Tributaria.',
-              'We ensure maximum transparency regarding personal and tax data processing under GDPR, LOPDGDD, and Spanish Tax Agency VeriFactu Regulation (RD 1007/2023).'
+              'Regulación aplicable a los tratamientos de datos personales y fiscales realizados a través de la plataforma Avialo en estricto cumplimiento del RGPD, LOPDGDD y el Reglamento VeriFactu (RD 1007/2023).',
+              'Regulation governing personal and tax data processing on the Avialo platform in compliance with GDPR, LOPDGDD, and VeriFactu Regulation.'
             )}
-          </motion.p>
-
-          <div className="pt-2 text-xs font-mono text-emerald-800 dark:text-emerald-400 font-bold">
-            {t('Última actualización: 1 de Agosto de 2026 • Versión 2.4 SIF', 'Last updated: August 1, 2026 • Version 2.4 SIF')}
+          </p>
+          <div className="pt-2 text-xs font-mono text-emerald-700 dark:text-emerald-400 font-bold">
+            {t('Documento Oficial • Versión 2.4 SIF • Vigente a 1 de Agosto de 2026', 'Official Document • Version 2.4 SIF • Effective August 1, 2026')}
           </div>
         </div>
-      </section>
+      </header>
 
-      {/* Barra Flotante de Accesibilidad Web (Exclusiva de la página /privacidad) */}
-      <div className="sticky top-20 z-30 bg-[#F2F2F0]/90 dark:bg-[#131517]/90 backdrop-blur-md border-b border-[#D2D2CE] dark:border-[#303131] py-2.5 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2 text-[rgba(10,12,11,0.8)] dark:text-white/80 font-bold">
-            <Eye className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-            <span>{t('Opciones de Accesibilidad Lectora:', 'Reader Accessibility Options:')}</span>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-            {/* Control de Tamaño de Letra */}
-            <div className="flex items-center gap-1 bg-white dark:bg-[#1f2124] border border-[#D2D2CE] dark:border-[#303131] p-1 rounded-lg">
-              <Type className="w-3.5 h-3.5 text-neutral-500 ml-1" />
-              <button
-                onClick={() => setFontSize('normal')}
-                className={`px-2 py-0.5 rounded text-[11px] font-bold transition-colors ${
-                  fontSize === 'normal'
-                    ? 'bg-emerald-600 text-white dark:bg-emerald-400 dark:text-black'
-                    : 'text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800'
-                }`}
-              >
-                A
-              </button>
-              <button
-                onClick={() => setFontSize('large')}
-                className={`px-2 py-0.5 rounded text-xs font-bold transition-colors ${
-                  fontSize === 'large'
-                    ? 'bg-emerald-600 text-white dark:bg-emerald-400 dark:text-black'
-                    : 'text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800'
-                }`}
-              >
-                A+
-              </button>
-              <button
-                onClick={() => setFontSize('xlarge')}
-                className={`px-2 py-0.5 rounded text-sm font-bold transition-colors ${
-                  fontSize === 'xlarge'
-                    ? 'bg-emerald-600 text-white dark:bg-emerald-400 dark:text-black'
-                    : 'text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800'
-                }`}
-              >
-                A++
-              </button>
-            </div>
-
-            {/* Alternar Alto Contraste */}
-            <button
-              onClick={() => setHighContrast(!highContrast)}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border font-bold text-[11px] transition-colors cursor-pointer ${
-                highContrast
-                  ? 'bg-yellow-300 text-black border-yellow-400'
-                  : 'bg-white dark:bg-[#1f2124] border-[#D2D2CE] dark:border-[#303131] text-neutral-700 dark:text-neutral-200 hover:border-emerald-500'
-              }`}
+      {/* Botón Flotante de Índice Legal (Esquina Inferior Izquierda) */}
+      <aside className="fixed bottom-6 left-6 z-50">
+        <AnimatePresence>
+          {isIndexOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 8 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 8 }}
+              role="dialog"
+              aria-label={t('Índice navegable de secciones legales', 'Navigable table of contents')}
+              className="mb-3 p-4 rounded-[4px] bg-[#FCFCFB]/95 dark:bg-[#131517]/95 backdrop-blur-xl border border-[#D2D2CE] dark:border-[#303131] shadow-2xl space-y-2 w-72 sm:w-80 max-h-[70vh] overflow-y-auto text-xs text-left"
             >
-              <Sun className="w-3.5 h-3.5" />
-              <span>{highContrast ? t('Alto Contraste ON', 'High Contrast ON') : t('Alto Contraste', 'High Contrast')}</span>
-            </button>
-
-            {/* Tipografía Lectura Fácil */}
-            <button
-              onClick={() => setDyslexicFont(!dyslexicFont)}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border font-bold text-[11px] transition-colors cursor-pointer ${
-                dyslexicFont
-                  ? 'bg-emerald-600 text-white border-emerald-700'
-                  : 'bg-white dark:bg-[#1f2124] border-[#D2D2CE] dark:border-[#303131] text-neutral-700 dark:text-neutral-200 hover:border-emerald-500'
-              }`}
-            >
-              <BookOpen className="w-3.5 h-3.5" />
-              <span>{t('Lectura Fácil', 'Dyslexia Friendly')}</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Contenido Principal con Navegación Lateral e Índice */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* Columna Izquierda: Índice Navegable Fijo */}
-          <aside className="hidden lg:block lg:col-span-4 sticky top-36 p-5 rounded-2xl bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] space-y-4">
-            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#0A0C0B] dark:text-white border-b border-[#D2D2CE] dark:border-[#303131] pb-3">
-              <FileText className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-              <span>{t('Índice Legal de Secciones', 'Legal Table of Contents')}</span>
-            </div>
-            <nav className="space-y-1 text-xs">
-              {sections.map((sec) => (
+              <div className="flex items-center justify-between border-b border-[#D2D2CE] dark:border-[#303131] pb-2 font-bold text-[#0A0C0B] dark:text-white sticky top-0 bg-[#FCFCFB] dark:bg-[#131517] pt-1">
+                <span className="flex items-center gap-1.5">
+                  <FileText className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                  {t('Índice de Secciones', 'Table of Contents')} ({sections.length})
+                </span>
                 <button
-                  key={sec.id}
-                  onClick={() => scrollToSection(sec.id)}
-                  className={`w-full text-left px-3 py-2 rounded-lg font-medium transition-all flex items-center justify-between cursor-pointer ${
-                    activeSection === sec.id
-                      ? 'bg-emerald-600 text-white font-bold shadow-sm'
-                      : 'text-[rgba(10,12,11,0.7)] dark:text-white/70 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white'
-                  }`}
+                  onClick={() => setIsIndexOpen(false)}
+                  className="text-neutral-400 hover:text-black dark:hover:text-white p-1 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  aria-label="Cerrar índice"
                 >
-                  <span className="truncate">{sec.title}</span>
-                  <ChevronRight className="w-3.5 h-3.5 shrink-0 opacity-70" />
+                  ✕
                 </button>
-              ))}
-            </nav>
-
-            <div className="pt-3 border-t border-[#D2D2CE] dark:border-[#303131] space-y-2">
-              <div className="text-[11px] text-[rgba(10,12,11,0.6)] dark:text-white/60">
-                {t('¿Dudas sobre tus datos personales?', 'Questions about your personal data?')}
               </div>
-              <a
-                href="mailto:hola@avialo.es"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-400 hover:underline"
+
+              <div className="space-y-1 pt-1" role="menu">
+                {sections.map((sec) => (
+                  <button
+                    key={sec.id}
+                    role="menuitem"
+                    onClick={() => {
+                      scrollToSection(sec.id);
+                      setIsIndexOpen(false);
+                    }}
+                    className={`w-full text-left px-2.5 py-1.5 rounded-[2px] font-medium transition-colors flex items-center justify-between cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
+                      activeSection === sec.id
+                        ? 'bg-[#0A0C0B] text-white dark:bg-white dark:text-black font-bold'
+                        : 'text-[rgba(10,12,11,0.8)] dark:text-white/80 hover:bg-[#F2F2F0] dark:hover:bg-[#1f2124]'
+                    }`}
+                  >
+                    <span className="truncate">{sec.title}</span>
+                    <ChevronRight className="w-3.5 h-3.5 shrink-0 opacity-60 ml-1" />
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <button
+          onClick={() => setIsIndexOpen(!isIndexOpen)}
+          tabIndex={0}
+          aria-label={t('Abrir índice de secciones legales', 'Open table of contents')}
+          aria-expanded={isIndexOpen}
+          aria-haspopup="dialog"
+          className="w-11 h-11 rounded-[4px] bg-[#0A0C0B] dark:bg-white text-white dark:text-black shadow-lg flex items-center justify-center hover:opacity-90 transition-opacity focus:ring-2 focus:ring-emerald-500 outline-none cursor-pointer"
+        >
+          <FileText className="w-5 h-5" />
+        </button>
+      </aside>
+
+      {/* Botón Flotante de Accesibilidad Web (Esquina Inferior Derecha) */}
+      <aside className="fixed bottom-6 right-6 z-50">
+        <AnimatePresence>
+          {showAccessibilityMenu && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 8 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 8 }}
+              role="dialog"
+              aria-label={t('Opciones de accesibilidad lectora', 'Reader accessibility options')}
+              className="mb-3 p-4 rounded-[4px] bg-[#FCFCFB]/95 dark:bg-[#131517]/95 backdrop-blur-xl border border-[#D2D2CE] dark:border-[#303131] shadow-2xl space-y-3 w-64 text-xs text-left"
+            >
+              <div className="flex items-center justify-between border-b border-[#D2D2CE] dark:border-[#303131] pb-2 font-bold text-[#0A0C0B] dark:text-white">
+                <span className="flex items-center gap-1.5">
+                  <Eye className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                  {t('Accesibilidad Lectora', 'Reader Accessibility')}
+                </span>
+                <button
+                  onClick={() => setShowAccessibilityMenu(false)}
+                  className="text-neutral-400 hover:text-black dark:hover:text-white p-1 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  aria-label="Cerrar menú accesibilidad"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Tamaño de Letra */}
+              <div className="space-y-1.5">
+                <span className="text-[11px] font-semibold text-neutral-500 block">{t('Tamaño de Texto:', 'Text Size:')}</span>
+                <div className="grid grid-cols-3 gap-1 bg-[#F2F2F0] dark:bg-[#1f2124] p-1 rounded-[2px]">
+                  <button
+                    onClick={() => setFontSize('normal')}
+                    aria-label="Tamaño normal de texto"
+                    className={`py-1 rounded-[2px] font-bold text-[11px] cursor-pointer focus:ring-2 focus:ring-emerald-500 outline-none ${
+                      fontSize === 'normal' ? 'bg-[#0A0C0B] text-white dark:bg-white dark:text-black' : 'text-neutral-600 dark:text-neutral-300'
+                    }`}
+                  >
+                    A
+                  </button>
+                  <button
+                    onClick={() => setFontSize('large')}
+                    aria-label="Tamaño grande de texto"
+                    className={`py-1 rounded-[2px] font-bold text-xs cursor-pointer focus:ring-2 focus:ring-emerald-500 outline-none ${
+                      fontSize === 'large' ? 'bg-[#0A0C0B] text-white dark:bg-white dark:text-black' : 'text-neutral-600 dark:text-neutral-300'
+                    }`}
+                  >
+                    A+
+                  </button>
+                  <button
+                    onClick={() => setFontSize('xlarge')}
+                    aria-label="Tamaño extra grande de texto"
+                    className={`py-1 rounded-[2px] font-bold text-sm cursor-pointer focus:ring-2 focus:ring-emerald-500 outline-none ${
+                      fontSize === 'xlarge' ? 'bg-[#0A0C0B] text-white dark:bg-white dark:text-black' : 'text-neutral-600 dark:text-neutral-300'
+                    }`}
+                  >
+                    A++
+                  </button>
+                </div>
+              </div>
+
+              {/* Alto Contraste (WCAG AAA) */}
+              <button
+                onClick={() => setHighContrast(!highContrast)}
+                aria-pressed={highContrast}
+                className={`w-full flex items-center justify-between p-2 rounded-[2px] border font-bold text-[11px] transition-colors cursor-pointer focus:ring-2 focus:ring-emerald-500 outline-none ${
+                  highContrast
+                    ? 'bg-yellow-300 text-black border-yellow-400'
+                    : 'bg-[#F2F2F0] dark:bg-[#1f2124] border-[#D2D2CE] dark:border-[#303131] text-neutral-700 dark:text-neutral-200'
+                }`}
               >
-                <Mail className="w-3.5 h-3.5" />
-                <span>hola@avialo.es</span>
-              </a>
-            </div>
-          </aside>
+                <span className="flex items-center gap-1.5">
+                  <Sun className="w-3.5 h-3.5" />
+                  {t('Alto Contraste (WCAG)', 'High Contrast (WCAG)')}
+                </span>
+                <span>{highContrast ? 'ON' : 'OFF'}</span>
+              </button>
 
-          {/* Columna Derecha: Texto Normativo Completo */}
-          <main className="lg:col-span-8 space-y-10 text-left">
-            
-            {/* Banner Destacado de Compromiso RGPD + AEAT */}
-            <div className="p-6 rounded-2xl bg-emerald-500/10 border-2 border-emerald-500/30 space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold shrink-0">
-                  <ShieldCheck className="w-6 h-6" />
+              {/* Lectura Fácil (Dyslexia Friendly) */}
+              <button
+                onClick={() => setDyslexicFont(!dyslexicFont)}
+                aria-pressed={dyslexicFont}
+                className={`w-full flex items-center justify-between p-2 rounded-[2px] border font-bold text-[11px] transition-colors cursor-pointer focus:ring-2 focus:ring-emerald-500 outline-none ${
+                  dyslexicFont
+                    ? 'bg-emerald-600 text-white border-emerald-700'
+                    : 'bg-[#F2F2F0] dark:bg-[#1f2124] border-[#D2D2CE] dark:border-[#303131] text-neutral-700 dark:text-neutral-200'
+                }`}
+              >
+                <span className="flex items-center gap-1.5">
+                  <BookOpen className="w-3.5 h-3.5" />
+                  {t('Lectura Fácil', 'Dyslexia Friendly')}
+                </span>
+                <span>{dyslexicFont ? 'ON' : 'OFF'}</span>
+              </button>
+
+              {/* Botón de Restablecer Ajustes */}
+              <button
+                onClick={resetAccessibility}
+                className="w-full flex items-center justify-center gap-1.5 pt-2 border-t border-[#D2D2CE] dark:border-[#303131] text-[10px] font-bold text-neutral-500 hover:text-black dark:hover:text-white transition-colors cursor-pointer"
+              >
+                <RotateCcw className="w-3 h-3" />
+                <span>{t('Restablecer valores', 'Reset settings')}</span>
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <button
+          onClick={() => setShowAccessibilityMenu(!showAccessibilityMenu)}
+          tabIndex={0}
+          aria-label={t('Abrir opciones de accesibilidad lectora', 'Open reader accessibility options')}
+          aria-expanded={showAccessibilityMenu}
+          aria-haspopup="dialog"
+          className="w-11 h-11 rounded-[4px] bg-[#0A0C0B] dark:bg-white text-white dark:text-black shadow-lg flex items-center justify-center hover:opacity-90 transition-opacity focus:ring-2 focus:ring-emerald-500 outline-none cursor-pointer"
+        >
+          <Eye className="w-5 h-5" />
+        </button>
+      </aside>
+
+      {/* Contenido Principal */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+        
+        <main className="space-y-12 text-left" role="main">
+          
+          {/* SECCIÓN 1: Responsable del Tratamiento */}
+          <section id="responsable" className="space-y-4 pt-2">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
+              <Building2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>1. Identificación del Responsable y Estado del DPD</span>
+            </h2>
+            <div className={fontClasses[fontSize]}>
+              <p className="mb-4">
+                En cumplimiento del Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo, de 27 de abril de 2016, relativo a la protección de las personas físicas en lo que respecta al tratamiento de datos personales y a la libre circulación de estos datos (RGPD), y de la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD), se le informa de que el responsable del tratamiento de los datos es:
+              </p>
+
+              <div className="border border-[#D2D2CE] dark:border-[#303131] bg-[#FCFCFB] dark:bg-[#131517] p-5 rounded-[4px] space-y-2.5 font-mono text-xs sm:text-sm mb-4">
+                <div className="flex flex-col sm:flex-row sm:justify-between border-b border-[#D2D2CE] dark:border-[#303131] pb-2 gap-1">
+                  <span className="font-bold text-neutral-500">Razón Social:</span>
+                  <span className="font-extrabold text-[#0A0C0B] dark:text-white">AVIALO SOLUCIONES SL</span>
                 </div>
-                <div>
-                  <h2 className="text-base sm:text-lg font-extrabold text-[#0A0C0B] dark:text-white leading-tight">
-                    {t('Compromiso Blindado de Privacidad y Cumplimiento Tributario', 'Armored Privacy & Tax Compliance Commitment')}
-                  </h2>
-                  <p className="text-xs text-emerald-800 dark:text-emerald-300 font-medium">
-                    {t('AVIALO SOLUCIONES, S.L. (NIF B26802249) • Residencia 100% de datos en España y la Unión Europea', 'AVIALO SOLUCIONES, S.L. (Tax ID B26802249) • 100% EU & Spain Data Residency')}
-                  </p>
+                <div className="flex flex-col sm:flex-row sm:justify-between border-b border-[#D2D2CE] dark:border-[#303131] pb-2 gap-1">
+                  <span className="font-bold text-neutral-500">NIF / CIF:</span>
+                  <span className="font-extrabold text-emerald-700 dark:text-emerald-400">B26802249</span>
+                </div>
+                <div className="flex flex-col sm:flex-row sm:justify-between border-b border-[#D2D2CE] dark:border-[#303131] pb-2 gap-1">
+                  <span className="font-bold text-neutral-500">Forma Jurídica:</span>
+                  <span className="font-bold text-[#0A0C0B] dark:text-white">Sociedad Limitada (S.L.)</span>
+                </div>
+                <div className="flex flex-col sm:flex-row sm:justify-between border-b border-[#D2D2CE] dark:border-[#303131] pb-2 gap-1">
+                  <span className="font-bold text-neutral-500">Domicilio Social:</span>
+                  <span>Calle Honduras 20, Puerta B, Planta 4. 28822, Coslada (Madrid), España</span>
+                </div>
+                <div className="flex flex-col sm:flex-row sm:justify-between border-b border-[#D2D2CE] dark:border-[#303131] pb-2 gap-1">
+                  <span className="font-bold text-neutral-500">Actividad CNAE:</span>
+                  <span>6220 - Actividades de consultoría informática y gestión de instalaciones informáticas</span>
+                </div>
+                <div className="flex flex-col sm:flex-row sm:justify-between border-b border-[#D2D2CE] dark:border-[#303131] pb-2 gap-1">
+                  <span className="font-bold text-neutral-500">Objeto Social:</span>
+                  <span>Otros servicios relacionados con las tecnologías de la información y la informática</span>
+                </div>
+                <div className="flex flex-col sm:flex-row sm:justify-between border-b border-[#D2D2CE] dark:border-[#303131] pb-2 gap-1">
+                  <span className="font-bold text-neutral-500">Datos Registrales:</span>
+                  <span>Inscrita en el Registro Mercantil de Madrid, Tomo 0, Libro 0, Folio 0, Sección GNE, Hoja M-878808, Inscripción 1ª.</span>
+                </div>
+                <div className="flex flex-col sm:flex-row sm:justify-between pt-1 gap-1">
+                  <span className="font-bold text-neutral-500">Email de contacto:</span>
+                  <a href="mailto:hola@avialo.es" className="font-bold text-emerald-600 dark:text-emerald-400 underline underline-offset-4">hola@avialo.es</a>
                 </div>
               </div>
-              <p className="text-xs text-[rgba(10,12,11,0.75)] dark:text-white/80 leading-relaxed">
-                {t(
-                  'El presente documento constituye la Política de Privacidad oficial aplicable a la plataforma de facturación electrónica Avialo. Todos los tratamientos de datos respetan los principios de licitud, lealtad, transparencia, limitación de la finalidad, minimización, exactitud, limitación del plazo de conservación, integridad y confidencialidad.',
-                  'This document constitutes the official Privacy Policy for the Avialo e-invoicing platform. All data processing respects the principles of lawfulness, fairness, transparency, purpose limitation, data minimization, and integrity.'
-                )}
+              <p className="font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 p-3 rounded-[4px] border border-emerald-200 dark:border-emerald-800">
+                Conforme al Art. 34 LOPDGDD, la entidad no requiere la designación obligatoria de DPD, habilitando hola@avialo.es como canal oficial de atención de privacidad.
               </p>
             </div>
+          </section>
 
-            {/* SECCIÓN 1: Responsable del Tratamiento */}
-            <section id="responsable" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
-              <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
-                <Building2 className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-                <span>{t('1. Identificación del Responsable del Tratamiento', '1. Data Controller Identification')}</span>
-              </h2>
-              <div className={fontClasses[fontSize]}>
-                <p className="mb-3">
-                  En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE) y del Reglamento General de Protección de Datos (RGPD UE 2016/679), se informan los datos identificativos del responsable legal del tratamiento:
-                </p>
-                <div className="p-4 rounded-xl bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] space-y-2 text-xs font-mono">
-                  <div className="flex justify-between border-b border-[#D2D2CE] dark:border-[#303131] pb-1.5">
-                    <span className="font-bold text-neutral-500">Denominación Social:</span>
-                    <span className="font-extrabold text-[#0A0C0B] dark:text-white">AVIALO SOLUCIONES, S.L. (Sociedad Unipersonal)</span>
-                  </div>
-                  <div className="flex justify-between border-b border-[#D2D2CE] dark:border-[#303131] pb-1.5">
-                    <span className="font-bold text-neutral-500">Número de Identificación Fiscal (NIF):</span>
-                    <span className="font-extrabold text-emerald-700 dark:text-emerald-400">B26802249</span>
-                  </div>
-                  <div className="flex justify-between border-b border-[#D2D2CE] dark:border-[#303131] pb-1.5">
-                    <span className="font-bold text-neutral-500">Domicilio Social:</span>
-                    <span>Calle de Honduras 20, 4B, 28822 Coslada (Madrid), España</span>
-                  </div>
-                  <div className="flex justify-between border-b border-[#D2D2CE] dark:border-[#303131] pb-1.5">
-                    <span className="font-bold text-neutral-500">Correo Electrónico Oficial:</span>
-                    <a href="mailto:hola@avialo.es" className="font-bold text-emerald-600 dark:text-emerald-400 underline">hola@avialo.es</a>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="font-bold text-neutral-500">Actividad Principal:</span>
-                    <span>Desarrollo de Software de Facturación Certificado (SIF)</span>
-                  </div>
+          {/* SECCIÓN 2: Marco Legal */}
+          <section id="marco-legal" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
+              <FileText className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>2. Marco Legal y Principios Normativos Aplicables</span>
+            </h2>
+            <div className={fontClasses[fontSize]}>
+              <p className="mb-4">
+                La plataforma de facturación electrónica y gestión fiscal Avialo opera en estricta consonancia con los principios fundamentales exigidos por la legislación española e internacional. Todo tratamiento de información personal o fiscal se rige de forma imperativa por las siguientes normas y principios:
+              </p>
+              
+              <ul className="space-y-3 pl-5 list-disc marker:text-emerald-500">
+                <li>
+                  <strong>Reglamento General de Protección de Datos (RGPD UE 2016/679):</strong> Marco europeo que regula la recogida, tratamiento, conservación y circulación de los datos de carácter personal de personas físicas dentro de la Unión Europea.
+                </li>
+                <li>
+                  <strong>Ley Orgánica 3/2018 (LOPDGDD):</strong> Normativa estatal española de protección de datos personales y garantía de los derechos digitales de los ciudadanos y trabajadores.
+                </li>
+                <li>
+                  <strong>Ley 34/2002 (LSSI-CE):</strong> Regulación aplicable a las comunicaciones electrónicas, servicios de la sociedad de la información y contratación telemática.
+                </li>
+                <li>
+                  <strong>Ley 11/2021, de 9 de julio, de Medidas de Prevención y Lucha contra el Fraude Fiscal:</strong> Disposición legal que prohíbe el software de doble uso o contabilidad paralela y exige la trazabilidad e inalterabilidad de los programas de facturación.
+                </li>
+                <li>
+                  <strong>Real Decreto 1007/2023 (Reglamento VeriFactu / SIF):</strong> Especificación técnica imperativa de la Agencia Tributaria que aprueba el reglamento de requisitos técnicos de los sistemas informáticos de facturación.
+                </li>
+                <li>
+                  <strong>Real Decreto 1619/2012:</strong> Reglamento por el que se regulan las obligaciones de facturación en el territorio español (expedición, plazos, facturas simplificadas, rectificativas y recapitulativas).
+                </li>
+                <li>
+                  <strong>Código de Comercio (Real Decreto de 22 de agosto de 1885, Art. 30):</strong> Relativo al deber de conservación de registros contables y documentación mercantil.
+                </li>
+                <li>
+                  <strong>Ley 25/2007, de 18 de octubre:</strong> Conservación de datos de comunicaciones electrónicas y redes de comunicación.
+                </li>
+                <li>
+                  <strong>Ley 18/2022 de Creación y Crecimiento de Empresas:</strong> Relativa a la obligación y despliegue de la facturación electrónica B2B.
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* SECCIÓN 3: Homologación */}
+          <section id="aeat-verifactu" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>3. Homologación AEAT, Sistema VeriFactu, Integración FACe y Regímenes Forales</span>
+            </h2>
+            <div className={fontClasses[fontSize]}>
+              <p className="mb-4">
+                AVIALO SOLUCIONES S.L. ha estructurado su motor de facturación como un <strong>Sistema Informático de Facturación (SIF) Garante</strong> que garantiza el cumplimiento pleno de la normativa tributaria en todos los regímenes del territorio nacional:
+              </p>
+              
+              <div className="space-y-4 my-4">
+                <div className="border border-[#D2D2CE] dark:border-[#303131] p-4 rounded-[4px] bg-[#FCFCFB] dark:bg-[#131517]">
+                  <h3 className="font-bold text-sm text-[#0A0C0B] dark:text-white flex items-center gap-2 mb-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    <span>Acuerdo Social AEAT Nº 17 & Veri*Factu (Tiempo Real)</span>
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[rgba(10,12,11,0.8)] dark:text-white/80 leading-relaxed">
+                    Avialo Soluciones S.L. cuenta con la condición de colaborador social de la Agencia Estatal de Administración Tributaria (Acuerdo Nº 17), facultada para la presentación telemática directa de registros de facturación. El sistema implementa la modalidad recomendada <strong>Veri*Factu</strong>, enviando cada registro de alta o anulación a la sede electrónica de la AEAT en el mismo instante de su expedición.
+                  </p>
+                </div>
+
+                <div className="border border-[#D2D2CE] dark:border-[#303131] p-4 rounded-[4px] bg-[#FCFCFB] dark:bg-[#131517]">
+                  <h3 className="font-bold text-sm text-[#0A0C0B] dark:text-white flex items-center gap-2 mb-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    <span>Integrador Oficial FACe (Administración Pública B2G)</span>
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[rgba(10,12,11,0.8)] dark:text-white/80 leading-relaxed">
+                    La plataforma incorpora conexión telemática con el Punto General de Entrada de Facturas Electrónicas (FACe), permitiendo la emisión y firma digital oficial del esquema FacturaE (versiones 3.2.x) dirigidas a organismos públicos estatales, autonómicos y locales.
+                  </p>
+                </div>
+
+                <div className="border border-[#D2D2CE] dark:border-[#303131] p-4 rounded-[4px] bg-[#FCFCFB] dark:bg-[#131517]">
+                  <h3 className="font-bold text-sm text-[#0A0C0B] dark:text-white flex items-center gap-2 mb-1.5">
+                    <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
+                    <span>Adaptación Foral en Desarrollo: TicketBAI & Batuz (LROE)</span>
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[rgba(10,12,11,0.8)] dark:text-white/80 leading-relaxed">
+                    Respecto a los regímenes tributarios forales del País Vasco (Gipuzkoa, Bizkaia y Araba/Álava), Avialo Soluciones S.L. se encuentra actualmente completando el desarrollo técnico y la adaptación del módulo de firma e integración TicketBAI/Batuz. La homologación e inscripción formal en el registro oficial de software garante de las Haciendas Forales vascas se formalizará con las certificaciones correspondientes de manera previa al despliegue comercial en dichos territorios.
+                  </p>
                 </div>
               </div>
-            </section>
+            </div>
+          </section>
 
-            {/* SECCIÓN 2: Marco Legal y Normativa Aplicable */}
-            <section id="marco-legal" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
-              <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
-                <FileText className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-                <span>{t('2. Marco Legal y Normativa Aplicable', '2. Legal Framework & Regulations')}</span>
-              </h2>
-              <div className={fontClasses[fontSize]}>
-                <p className="mb-3">
-                  La plataforma Avialo está diseñada y operada bajo el estricto cumplimiento de los marcos normativos europeos y españoles en materia de privacidad, comercio electrónico y legislación tributaria:
-                </p>
-                <ul className="space-y-2 text-xs sm:text-sm pl-4 list-disc marker:text-emerald-500">
-                  <li><strong>RGPD (Reglamento UE 2016/679):</strong> Protección de las personas físicas en lo que respecta al tratamiento de datos personales.</li>
-                  <li><strong>LOPDGDD (Ley Orgánica 3/2018):</strong> Garantía de los derechos digitales y protección de datos en España.</li>
-                  <li><strong>LSSI-CE (Ley 34/2002):</strong> Servicios de la sociedad de la información y comercio electrónico.</li>
-                  <li><strong>Ley 11/2021 de Medidas de Prevención y Lucha contra el Fraude Fiscal:</strong> Exigencia de inalterabilidad y trazabilidad en los programas informáticos de facturación.</li>
-                  <li><strong>Real Decreto 1007/2023 (Reglamento VeriFactu / SIF):</strong> Requisitos técnicos obligatorios para los sistemas informáticos de facturación.</li>
-                  <li><strong>Real Decreto 1619/2012:</strong> Reglamento por el que se regulan las obligaciones de facturación en España.</li>
-                </ul>
+          {/* SECCIÓN 4: Rol de Avialo */}
+          <section id="rol-avialo" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
+              <Building2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>4. Rol de Avialo: Responsable vs Encargado (Art. 28 RGPD)</span>
+            </h2>
+            <div className={fontClasses[fontSize]}>
+              <p className="mb-3">
+                Para garantizar la correcta aplicación del RGPD, es imperativo distinguir los distintos roles de Avialo en el tratamiento de los datos:
+              </p>
+              <ul className="space-y-2 pl-5 list-disc marker:text-emerald-500">
+                <li>
+                  <strong>Avialo como Responsable del Tratamiento:</strong> Avialo actúa como Responsable sobre los datos de los usuarios registrados, clientes directos y datos de facturación relativos al propio servicio SaaS (gestión de suscripciones, soporte y datos de la cuenta).
+                </li>
+                <li>
+                  <strong>Avialo como Encargado del Tratamiento (Art. 28 RGPD):</strong> Avialo asume la condición de Encargado respecto de los datos de terceros (clientes, proveedores) que el usuario introduce o procesa en la plataforma mediante la emisión de facturas y documentos contables. El usuario actúa, en este caso, como Responsable de dichos datos.
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* SECCIÓN 5: Categorías de Datos */}
+          <section id="categorias-datos" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
+              <Server className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>5. Categorías de Datos Objeto de Tratamiento</span>
+            </h2>
+            <div className={fontClasses[fontSize]}>
+              <p className="mb-3">
+                Para el desarrollo del servicio SaaS y el cumplimiento de las obligaciones tributarias impuestas por la legislación española, Avialo recoge y trata únicamente las categorías de datos strictly necesarias:
+              </p>
+              
+              <ul className="space-y-2 pl-5 list-disc marker:text-emerald-500">
+                <li><strong>Datos de Identificación del Usuario:</strong> Nombre, apellidos, DNI/NIF, correo electrónico, teléfono de contacto y dirección postal.</li>
+                <li><strong>Datos de la Entidad Fiscal:</strong> Razones sociales, NIF/CIF, domicilio fiscal, régimen impositivo territorial (Territorio Común, Canarias IGIC, Ceuta/Melilla IPSI, Navarra o País Vasco), serie de numeración e imágenes de logotipos.</li>
+                <li><strong>Certificados Digitales:</strong> Custodia encriptada HSM/KMS de certificados cualificados para la firma telemática TicketBAI/FACe.</li>
+                <li><strong>Datos de Facturación y Clientes:</strong> Datos identificativos de clientes receptores, descripciones de operaciones, importes, bases imponibles, tipos de IVA/IRPF, recargo de equivalencia y rectificativas.</li>
+                <li><strong>Registros de Auditoría Tributaria (SIF):</strong> Ficheros informáticos `FiscalRecord`, huella digital hash encadenada (SHA-256), código QR fiscal y registros normativos de eventos (`EventLog`).</li>
+                <li><strong>Datos de Navegación y Sesión:</strong> Direcciones IP de origen, timestamps, identificador de dispositivo, navegador y registros de auditoría de accesos.</li>
+              </ul>
+            </div>
+          </section>
+
+          {/* SECCIÓN 6: Finalidades y Bases */}
+          <section id="finalidades-bases" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>6. Finalidades y Bases Jurídicas del Tratamiento</span>
+            </h2>
+            <div className={fontClasses[fontSize]}>
+              <p className="mb-4">
+                Cada tratamiento realizado por Avialo ampara su legitimación en las bases jurídicas contempladas en el artículo 6 del RGPD:
+              </p>
+
+              <div className="space-y-3">
+                <div className="border border-[#D2D2CE] dark:border-[#303131] p-3.5 rounded-[4px] bg-[#FCFCFB] dark:bg-[#131517]">
+                  <strong className="block text-emerald-700 dark:text-emerald-400 mb-1">A) Ejecución del Contrato de Servicios SaaS (Art. 6.1.b RGPD)</strong>
+                  <span>Habilitación de cuenta de usuario, emisión y gestión de facturas, presupuestos, albaranes, cobros recurrentes y asistencia técnica al cliente.</span>
+                </div>
+                <div className="border border-[#D2D2CE] dark:border-[#303131] p-3.5 rounded-[4px] bg-[#FCFCFB] dark:bg-[#131517]">
+                  <strong className="block text-emerald-700 dark:text-emerald-400 mb-1">B) Cumplimiento de Obligaciones Legales Tributarias (Art. 6.1.c RGPD)</strong>
+                  <span>Generación de registros informáticos SIF inmutables, remisión telemática directa de facturas a la AEAT y conservación imperativa exigida por la Ley General Tributaria y el RD 1007/2023.</span>
+                </div>
+                <div className="border border-[#D2D2CE] dark:border-[#303131] p-3.5 rounded-[4px] bg-[#FCFCFB] dark:bg-[#131517]">
+                  <strong className="block text-emerald-700 dark:text-emerald-400 mb-1">C) Interés Legítimo en Seguridad e Integridad (Art. 6.1.f RGPD)</strong>
+                  <span>Protección ante fraudes, conservación de logs de auditoría de inicio de sesión, prevención de intrusiones informáticas y defensa legal de la compañía.</span>
+                </div>
+                <div className="border border-[#D2D2CE] dark:border-[#303131] p-3.5 rounded-[4px] bg-[#FCFCFB] dark:bg-[#131517]">
+                  <strong className="block text-emerald-700 dark:text-emerald-400 mb-1">D) Consentimiento Explícito (Art. 6.1.a RGPD)</strong>
+                  <span>Envío de comunicaciones comerciales relativas a actualizaciones del producto y activación de módulos opcionales de IA.</span>
+                </div>
               </div>
-            </section>
+            </div>
+          </section>
 
-            {/* SECCIÓN 3: Certificación AEAT, VeriFactu y FACe */}
-            <section id="aeat-verifactu" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
-              <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
-                <ShieldCheck className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-                <span>{t('3. Certificación AEAT, Sistema VeriFactu y Registro FACe', '3. AEAT Certification, VeriFactu & FACe Register')}</span>
-              </h2>
-              <div className={fontClasses[fontSize]}>
-                <p className="mb-3">
-                  Avialo Soluciones S.L. ostenta la condición de <strong>Software de Facturación Certificado (SIF)</strong> respaldado por las siguientes garantías institucionales:
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-                  <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 space-y-2">
-                    <div className="flex items-center gap-2 font-bold text-xs text-emerald-800 dark:text-emerald-300">
-                      <CheckCircle2 className="w-4 h-4" />
-                      <span>Acuerdo Social AEAT Nº 17</span>
-                    </div>
-                    <p className="text-xs text-[rgba(10,12,11,0.7)] dark:text-white/70">
-                      Autorizados oficialmente por la Agencia Estatal de Administración Tributaria para la remisión telemática directa de registros de facturación, SII, SILICIE y sistemas Veri*Factu en representación de terceros.
-                    </p>
-                  </div>
-                  <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 space-y-2">
-                    <div className="flex items-center gap-2 font-bold text-xs text-emerald-800 dark:text-emerald-300">
-                      <CheckCircle2 className="w-4 h-4" />
-                      <span>Integrador Oficial FACe (B2G)</span>
-                    </div>
-                    <p className="text-xs text-[rgba(10,12,11,0.7)] dark:text-white/70">
-                      Conexión técnica habilitada con el Punto General de Entrada de Facturas Electrónicas de la Administración Pública para la emisión oficial del formato FacturaE firmado digitalmente.
-                    </p>
-                  </div>
+          {/* SECCIÓN 7: Plazos de Conservación */}
+          <section id="plazos-conservacion" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
+              <Lock className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>7. Plazos de Conservación y Custodia Legal (4 y 6 Años)</span>
+            </h2>
+            <div className={fontClasses[fontSize]}>
+              <p className="mb-3">
+                Conforme a la normativa vigente aplicable, los datos se conservarán durante los siguientes plazos:
+              </p>
+              
+              <ul className="space-y-2 pl-5 list-disc marker:text-emerald-500 mb-4">
+                <li><strong>Documentación Mercantil:</strong> 6 años (Art. 30.1 Código de Comercio).</li>
+                <li><strong>Registros Tributarios SIF:</strong> 4 años (Art. 66 Ley General Tributaria).</li>
+                <li><strong>Datos de Cuenta:</strong> Durante la vigencia del contrato y 5 años adicionales para posibles acciones personales (Art. 1964 Código Civil).</li>
+                <li><strong>Comunicaciones Comerciales:</strong> Hasta la revocación del consentimiento por parte del interesado.</li>
+                <li><strong>Logs de Seguridad:</strong> 12 meses, conforme a la Ley 25/2007.</li>
+              </ul>
+
+              <div className="border border-amber-500/40 bg-amber-500/10 p-4 rounded-[4px] text-amber-900 dark:text-amber-200 text-xs sm:text-sm leading-relaxed space-y-2">
+                <div className="flex items-center gap-2 font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-amber-600 dark:text-amber-400" />
+                  <span>Aviso de Deber Legal de Conservación Improbable de Borrado:</span>
                 </div>
                 <p>
-                  Asimismo, la arquitectura soporta de forma nativa los requerimientos forales de <strong>TicketBAI y Batuz/LROE</strong> en el País Vasco (Araba, Bizkaia y Gipuzkoa) mediante firma de ficheros XML con certificado cualificado XAdES.
+                  Una vez emitida una factura oficial o registro fiscal de alta, el ordenamiento jurídico español prohíbe tajantemente su eliminación física o rectificación silenciosa.
+                </p>
+                <p>
+                  En consecuencia, Avialo conservará los datos de facturación e historiales de auditoría durante los plazos legales de <strong>4 y 6 años</strong> mencionados. Esta obligación legal prevalece sobre el derecho de supresión de datos en virtud de la excepción explícita prevista en el <strong>artículo 17.3.b del RGPD</strong>.
                 </p>
               </div>
-            </section>
-
-            {/* SECCIÓN 4: Finalidades del Tratamiento de Datos */}
-            <section id="finalidades" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
-              <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
-                <CheckCircle2 className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-                <span>{t('4. Finalidades del Tratamiento de Datos', '4. Purposes of Data Processing')}</span>
-              </h2>
-              <div className={fontClasses[fontSize]}>
-                <p className="mb-3">
-                  Tratamos la información proporcionada por los usuarios para las siguientes finalidades legítimas:
-                </p>
-                <div className="space-y-3 text-xs sm:text-sm">
-                  <div className="p-3 rounded-lg bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">
-                    <strong>A) Prestación del Servicio SaaS de Facturación:</strong> Gestión de cuentas de usuario, emisión de facturas completas/simplificadas, presupuestos, albaranes, cobros recurrentes y exportación de libros registros.
-                  </div>
-                  <div className="p-3 rounded-lg bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">
-                    <strong>B) Remisión Telemática Tributaria (AEAT):</strong> Envío en tiempo real o diferido de los registros fiscales de alta y anulación al servicio web de la Agencia Tributaria en modalidad Veri*Factu.
-                  </div>
-                  <div className="p-3 rounded-lg bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">
-                    <strong>C) Facturación a Administraciones Públicas (FACe):</strong> Tramitación de facturas electrónicas dirigidas a órganos administrativos del Estado, Comunidades Autónomas y Entidades Locales.
-                  </div>
-                  <div className="p-3 rounded-lg bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">
-                    <strong>D) Asistencia Técnica y Soporte al Cliente:</strong> Resolución de incidencias, consultas fiscales y atención personalizada mediante correo o widget de ayuda.
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* SECCIÓN 5: Inalterabilidad y Registros SIF (Conservación 4 años) */}
-            <section id="inalterabilidad" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
-              <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
-                <Lock className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-                <span>{t('5. Principios SIF: Inalterabilidad y Custodia Imperativa (4 años)', '5. SIF Immutability & Mandatory 4-Year Custody')}</span>
-              </h2>
-              <div className={fontClasses[fontSize]}>
-                <p className="mb-3">
-                  En virtud de la Ley 11/2021 y del artículo 66 de la Ley General Tributaria (Ley 58/2003), los registros informáticos de facturación expedidos a través de Avialo poseen carácter <strong>inmutable, encadenado e inalterable (`append-only`)</strong>.
-                </p>
-                <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-200 text-xs leading-relaxed space-y-2">
-                  <div className="flex items-center gap-2 font-bold uppercase tracking-wider">
-                    <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
-                    <span>Aviso Imperativo de Conservación Legal:</span>
-                  </div>
-                  <p>
-                    Una vez emitida una factura o registro de alta, la legislación tributaria española <strong>prohíbe expresamente su borrado o modificación destructiva</strong>. Las correcciones se realizan únicamente mediante facturas rectificativas o registros fiscales de anulación encadenados.
-                  </p>
-                  <p>
-                    Avialo conservará los datos de facturación e historiales de eventos de auditoría durante el plazo legal de prescripción tributaria de <strong>al menos 4 años</strong>, prevaleciendo este deber legal sobre la solicitud de supresión de datos conforme al art. 17.3.b del RGPD.
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            {/* SECCIÓN 6: Residencia de Datos en la UE y Seguridad */}
-            <section id="residencia-seguridad" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
-              <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
-                <Server className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-                <span>{t('6. Residencia de Datos en la Unión Europea y Seguridad', '6. EU Data Residency & Technical Security')}</span>
-              </h2>
-              <div className={fontClasses[fontSize]}>
-                <p className="mb-3">
-                  Toda la infraestructura tecnológica, bases de datos PostgreSQL, almacenamiento WORM de evidencias fiscales e instancias de procesamiento de Avialo residen <strong>100% en centros de datos ubicados en territorio de la Unión Europea (España / Región UE)</strong>.
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 my-3 text-xs">
-                  <div className="p-3 rounded-lg bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] space-y-1">
-                    <strong className="block text-emerald-700 dark:text-emerald-400">Cifrado de Extremo a Extremo</strong>
-                    <span>Cifrado TLS 1.3 en tránsito y AES-256 en reposo para todas las bases de datos.</span>
-                  </div>
-                  <div className="p-3 rounded-lg bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] space-y-1">
-                    <strong className="block text-emerald-700 dark:text-emerald-400">Custodia en KMS/HSM</strong>
-                    <span>Certificados digitales para TicketBAI custodiados en módulos de seguridad hardware aislados.</span>
-                  </div>
-                  <div className="p-3 rounded-lg bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] space-y-1">
-                    <strong className="block text-emerald-700 dark:text-emerald-400">Almacenamiento WORM</strong>
-                    <span>Ficheros XML y registros de auditoría guardados en soportes inalterables de solo lectura.</span>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* SECCIÓN 7: Tratamiento por Asistente de IA Fiscal */}
-            <section id="asistente-ia" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
-              <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
-                <Sparkles className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-                <span>{t('7. Tratamiento de Datos por el Copiloto de IA Fiscal', '7. AI Tax Assistant Data Processing')}</span>
-              </h2>
-              <div className={fontClasses[fontSize]}>
-                <p className="mb-3">
-                  Avialo integra un asistente de Inteligencia Artificial propio especializado en la normativa tributaria española (VeriFactu, LIVA, LIRPF):
-                </p>
-                <ul className="space-y-2 text-xs sm:text-sm pl-4 list-disc marker:text-emerald-500">
-                  <li><strong>Inferencia Local en la UE:</strong> Los modelos se ejecutan en servidores seguros ubicados en la Unión Europea sin enviar datos a plataformas públicas de terceros fuera de la UE.</li>
-                  <li><strong>Anonimización en Origen:</strong> Las consultas enviadas al copiloto eliminan automáticamente nombres, NIFs y datos de contacto sensibles mediante canal de anonimización previo.</li>
-                  <li><strong>Derecho de Exclusión (Opt-Out):</strong> El usuario puede desactivar en cualquier momento el almacenamiento de sus consultas para el entrenamiento futuro del modelo desde el panel de ajustes de su cuenta.</li>
-                </ul>
-              </div>
-            </section>
-
-            {/* SECCIÓN 8: Inicios de Sesión, 2FA y Auditoría */}
-            <section id="inicios-sesion" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
-              <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
-                <Lock className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-                <span>{t('8. Control de Acceso, Autenticación 2FA y Registros de Auditoría', '8. Access Control, 2FA Authentication & Audit Logs')}</span>
-              </h2>
-              <div className={fontClasses[fontSize]}>
-                <p className="mb-3">
-                  Para prevenir accesos no autorizados y garantizar la trazabilidad exigida por la normativa SIF, Avialo recopila y almacena datos de control de acceso:
-                </p>
-                <div className="p-4 rounded-xl bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] space-y-2 text-xs">
-                  <p>• <strong>Registros de Sesión (`Session Log`):</strong> Dirección IP de origen, tipo de navegador, sistema operativo, fecha y hora exacta de cada inicio de sesión.</p>
-                  <p>• <strong>Autenticación de Doble Factor (2FA):</strong> Recomendada y disponible para todos los usuarios, obligatoria para perfiles de administración.</p>
-                  <p>• <strong>Registro de Eventos de Seguridad (`EventLog`):</strong> Registro append-only de modificaciones de permisos, invitaciones a workspaces y operaciones de emisión o anulación fiscal.</p>
-                </div>
-              </div>
-            </section>
-
-            {/* SECCIÓN 9: Destinatarios y Encargados de Tratamiento */}
-            <section id="destinatarios" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
-              <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
-                <Building2 className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-                <span>{t('9. Destinatarios de los Datos y Encargados de Tratamiento', '9. Data Recipients & Sub-processors')}</span>
-              </h2>
-              <div className={fontClasses[fontSize]}>
-                <p className="mb-3">
-                  Sus datos personales y fiscales no serán cedidos a terceros, salvo imperativo legal o prestación de servicios auxiliares indispensables:
-                </p>
-                <ul className="space-y-2 text-xs sm:text-sm pl-4 list-disc marker:text-emerald-500">
-                  <li><strong>Organismos Públicos y Administración Tributaria:</strong> AEAT, Haciendas Forales Vascas y Registro FACe por obligación legal derivada de la emisión de registros fiscales.</li>
-                  <li><strong>Entidades Bancarias y Pasarelas de Pago:</strong> Procesamiento de suscripciones SaaS (Stripe / Redsys) bajo estándares PCI-DSS.</li>
-                  <li><strong>Proveedores de Infraestructura en la UE:</strong> Proveedores de alojamiento cloud, custodia de certificados y envío de correo transaccional en la Región UE con contratos de Encargado de Tratamiento (art. 28 RGPD).</li>
-                </ul>
-              </div>
-            </section>
-
-            {/* SECCIÓN 10: Ejercicio de Derechos ARCO+ */}
-            <section id="derechos" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
-              <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
-                <ShieldCheck className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-                <span>{t('10. Ejercicio de Derechos (Acceso, Rectificación, Supresión y Oposición)', '10. Exercise of User Rights (ARCO+)')}</span>
-              </h2>
-              <div className={fontClasses[fontSize]}>
-                <p className="mb-3">
-                  El usuario puede ejercitar en todo momento sus derechos reconocidos en los artículos 15 a 22 del RGPD:
-                </p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-bold text-center my-3">
-                  <div className="p-2.5 rounded-lg bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">Acceso (Art. 15)</div>
-                  <div className="p-2.5 rounded-lg bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">Rectificación (Art. 16)</div>
-                  <div className="p-2.5 rounded-lg bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">Supresión (Art. 17)*</div>
-                  <div className="p-2.5 rounded-lg bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">Oposición (Art. 21)</div>
-                  <div className="p-2.5 rounded-lg bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">Limitación (Art. 18)</div>
-                  <div className="p-2.5 rounded-lg bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">Portabilidad (Art. 20)</div>
-                </div>
-                <p className="text-xs text-[rgba(10,12,11,0.7)] dark:text-white/70">
-                  Para ejercitar cualquiera de estos derechos, basta con enviar una solicitud escrita acompañada de copia de documento acreditativo de identidad a la dirección oficial:
-                </p>
-                <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-center my-2">
-                  <a href="mailto:hola@avialo.es" className="font-extrabold text-sm text-emerald-700 dark:text-emerald-400 hover:underline">
-                    📧 hola@avialo.es
-                  </a>
-                </div>
-                <p className="text-xs text-neutral-500">
-                  *Nota: El derecho de supresión está supeditado al cumplimiento del deber legal de conservación de registros fiscales durante 4 años ante la Agencia Tributaria. Asimismo, si considera vulnerados sus derechos, puede presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD en <a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer" className="underline font-bold">www.aepd.es</a>).
-                </p>
-              </div>
-            </section>
-
-            {/* SECCIÓN 11: Política de Cookies */}
-            <section id="cookies" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
-              <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
-                <FileText className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-                <span>{t('11. Política de Cookies y Tecnologías de Almacenamiento', '11. Cookies & Storage Technology Policy')}</span>
-              </h2>
-              <div className={fontClasses[fontSize]}>
-                <p className="mb-3">
-                  Avialo utiliza únicamente cookies técnicas estrictamente necesarias para el funcionamiento seguro de la plataforma, el mantenimiento de sesiones autenticadas y la preferencia de idioma/tema. No utilizamos cookies publicitarias ni de seguimiento de terceros sin consentimiento explícito.
-                </p>
-              </div>
-            </section>
-
-            {/* SECCIÓN 12: Contacto y Delegado de Protección */}
-            <section id="contacto" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
-              <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
-                <Mail className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-                <span>{t('12. Contacto Legal y Atributos de Empresa', '12. Legal Contact & Corporate Details')}</span>
-              </h2>
-              <div className={fontClasses[fontSize]}>
-                <p className="mb-3">
-                  Para cualquier duda o aclaración sobre esta Política de Privacidad o el tratamiento de sus datos de facturación:
-                </p>
-                <div className="p-5 rounded-2xl bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] space-y-2 text-xs">
-                  <p><strong>AVIALO SOLUCIONES, S.L.</strong> (Sociedad Unipersonal)</p>
-                  <p>NIF: <strong>B26802249</strong></p>
-                  <p>Dirección: Calle de Honduras 20, 4B, 28822 Coslada (Madrid), España</p>
-                  <p>Correo de atención: <a href="mailto:hola@avialo.es" className="text-emerald-600 dark:text-emerald-400 font-bold underline">hola@avialo.es</a></p>
-                  <p>Web oficial: <a href="https://avialo.tech" className="text-emerald-600 dark:text-emerald-400 font-bold underline">https://avialo.tech</a></p>
-                </div>
-              </div>
-            </section>
-
-            {/* Botón Volver Arriba */}
-            <div className="pt-8 flex justify-center">
-              <button
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0A0C0B] dark:bg-white text-white dark:text-black font-bold text-xs hover:opacity-90 transition-opacity shadow-md cursor-pointer"
-              >
-                <ArrowUp className="w-4 h-4" />
-                <span>{t('Volver al inicio de la página', 'Back to top')}</span>
-              </button>
             </div>
+          </section>
 
-          </main>
+          {/* SECCIÓN 8: Residencia y Transferencias */}
+          <section id="residencia-seguridad" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
+              <Server className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>8. Residencia UE, Cifrado y Transferencias Internacionales</span>
+            </h2>
+            <div className={fontClasses[fontSize]}>
+              <p className="mb-4">
+                La totalidad de la infraestructura de Avialo radica en centros de datos seguros situados exclusivamente en el territorio de la Unión Europea (España / Región UE), garantizando un nivel adecuado de protección:
+              </p>
 
-        </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs mb-4">
+                <div className="border border-[#D2D2CE] dark:border-[#303131] p-3.5 rounded-[4px] bg-[#FCFCFB] dark:bg-[#131517]">
+                  <strong className="block text-emerald-700 dark:text-emerald-400 mb-1">Cifrado Bancario TLS 1.3 / AES-256</strong>
+                  <span>Protección criptográfica avanzada en el tránsito de red y cifrado completo de bases de datos en reposo.</span>
+                </div>
+                <div className="border border-[#D2D2CE] dark:border-[#303131] p-3.5 rounded-[4px] bg-[#FCFCFB] dark:bg-[#131517]">
+                  <strong className="block text-emerald-700 dark:text-emerald-400 mb-1">Custodia Certificados HSM/KMS</strong>
+                  <span>Módulos de seguridad hardware aislados para la firma electrónica cualificada.</span>
+                </div>
+                <div className="border border-[#D2D2CE] dark:border-[#303131] p-3.5 rounded-[4px] bg-[#FCFCFB] dark:bg-[#131517]">
+                  <strong className="block text-emerald-700 dark:text-emerald-400 mb-1">Soportes Inalterables WORM</strong>
+                  <span>Evidencias fiscales y logs conservados en almacenamiento de lectura inmutable.</span>
+                </div>
+              </div>
+
+              <p>
+                <strong>Transferencias Internacionales:</strong> Aunque la infraestructura principal está basada en la UE, en caso de utilizar proveedores o subencargados fuera del EEE, dichas transferencias se amparan bajo el <strong>EU-US Data Privacy Framework</strong> o, en su defecto, mediante la suscripción de <strong>Cláusulas Contractuales Tipo (SCC - Art. 46.2.c RGPD)</strong> aprobadas por la Comisión Europea.
+              </p>
+            </div>
+          </section>
+
+          {/* SECCIÓN 9: Copiloto IA */}
+          <section id="asistente-ia" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>9. Tratamiento de Datos por el Copiloto de IA Fiscal</span>
+            </h2>
+            <div className={fontClasses[fontSize]}>
+              <p className="mb-3">
+                Avialo incorpora un copiloto de Inteligencia Artificial especializado en la resolución de dudas sobre la normativa fiscal española (VeriFactu, Ley de IVA, IRPF y deducciones):
+              </p>
+
+              <ul className="space-y-2.5 pl-5 list-disc marker:text-emerald-500">
+                <li>
+                  <strong>Inferencia Exclusiva en Servidores de la UE:</strong> Las consultas formuladas al asistente son procesadas en instancias de inferencia ubicadas en territorio europeo.
+                </li>
+                <li>
+                  <strong>Anonimización Previa en Origen:</strong> Antes de procesar la petición, un filtro automatizado elimina nombres, NIFs, cuentas bancarias e identificadores personales.
+                </li>
+                <li>
+                  <strong>Derecho de Exclusión (Opt-Out):</strong> El usuario dispone de la facultad de desactivar la recopilación de consultas para el entrenamiento continuo del modelo.
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* SECCIÓN 10: Decisiones Automatizadas y Menores */}
+          <section id="decisiones-automatizadas" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>10. Decisiones Automatizadas y Protección de Menores</span>
+            </h2>
+            <div className={fontClasses[fontSize]}>
+              <ul className="space-y-3 pl-5 list-disc marker:text-emerald-500">
+                <li>
+                  <strong>Decisiones Automatizadas (Art. 22 RGPD):</strong> Avialo no toma decisiones automatizadas ni elabora perfiles que produzcan efectos jurídicos en el usuario o que le afecten significativamente de modo similar.
+                </li>
+                <li>
+                  <strong>Protección de Menores (Art. 8 RGPD / Art. 7 LOPDGDD):</strong> Los servicios de Avialo están dirigidos exclusivamente a profesionales y entidades jurídicas mayores de 18 años. No se recopilan intencionadamente datos personales de menores de 14 años.
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* SECCIÓN 11: Inicios Sesion y Auditoría */}
+          <section id="inicios-sesion" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
+              <Lock className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>11. Control de Acceso, 2FA y Registros de Auditoría</span>
+            </h2>
+            <div className={fontClasses[fontSize]}>
+              <p className="mb-3">
+                Con objeto de salvaguardar la cuenta del cliente e impedir accesos no autorizados a la información contable, se registran los eventos de control de acceso:
+              </p>
+
+              <div className="border border-[#D2D2CE] dark:border-[#303131] p-4 rounded-[4px] bg-[#FCFCFB] dark:bg-[#131517] space-y-2 text-xs sm:text-sm">
+                <p>• <strong>Registros de Sesión (`Session Logs`):</strong> Captura de la dirección IP de acceso, tipo de navegador, sistema operativo y marca de tiempo exacta de login.</p>
+                <p>• <strong>Autenticación de Doble Factor (2FA):</strong> Disponible para todas las cuentas e imprescindible para perfiles con permisos de administración.</p>
+                <p>• <strong>Log Inmutable de Auditoría Interna:</strong> Todas las acciones efectuadas por el personal de soporte quedan registradas en un fichero inalterable.</p>
+              </div>
+            </div>
+          </section>
+
+          {/* SECCIÓN 12: Destinatarios */}
+          <section id="destinatarios" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
+              <Building2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>12. Destinatarios y Subencargados del Tratamiento</span>
+            </h2>
+            <div className={fontClasses[fontSize]}>
+              <p className="mb-3">
+                Avialo Soluciones S.L. no cederá datos a terceros, exceptuando las cesiones legalmente obligatorias y los proveedores indispensables bajo contrato de encargado de tratamiento (Art. 28 RGPD):
+              </p>
+
+              <ul className="space-y-2 pl-5 list-disc marker:text-emerald-500">
+                <li><strong>Administración Tributaria:</strong> Agencia Estatal de Administración Tributaria (AEAT), Haciendas Forales Vascas y Registro FACe por mandato legal.</li>
+                <li><strong>Pasarelas de Pago Certificadas PCI-DSS:</strong> Procesamiento seguro de suscripciones con cifrado bancario.</li>
+                <li><strong>Proveedores de Infraestructura:</strong> Empresas de alojamiento de servidores, respaldo cloud y mensajería transaccional certificadas bajo el RGPD.</li>
+              </ul>
+            </div>
+          </section>
+
+          {/* SECCIÓN 13: Ejercicio de Derechos */}
+          <section id="derechos" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>13. Ejercicio de Derechos de Protección de Datos</span>
+            </h2>
+            <div className={fontClasses[fontSize]}>
+              <p className="mb-4">
+                Cualquier usuario puede ejercitar libremente los derechos garantizados en el RGPD dirigiendo comunicación escrita a la dirección oficial:
+              </p>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-bold text-center mb-4">
+                <div className="border border-[#D2D2CE] dark:border-[#303131] p-2.5 rounded-[2px] bg-[#F2F2F0] dark:bg-[#131517]">Acceso</div>
+                <div className="border border-[#D2D2CE] dark:border-[#303131] p-2.5 rounded-[2px] bg-[#F2F2F0] dark:bg-[#131517]">Rectificación</div>
+                <div className="border border-[#D2D2CE] dark:border-[#303131] p-2.5 rounded-[2px] bg-[#F2F2F0] dark:bg-[#131517]">Supresión*</div>
+                <div className="border border-[#D2D2CE] dark:border-[#303131] p-2.5 rounded-[2px] bg-[#F2F2F0] dark:bg-[#131517]">Oposición</div>
+                <div className="border border-[#D2D2CE] dark:border-[#303131] p-2.5 rounded-[2px] bg-[#F2F2F0] dark:bg-[#131517]">Limitación</div>
+                <div className="border border-[#D2D2CE] dark:border-[#303131] p-2.5 rounded-[2px] bg-[#F2F2F0] dark:bg-[#131517]">Portabilidad</div>
+                <div className="border border-[#D2D2CE] dark:border-[#303131] p-2.5 rounded-[2px] bg-[#F2F2F0] dark:bg-[#131517]">Retirar Consentimiento</div>
+                <div className="border border-[#D2D2CE] dark:border-[#303131] p-2.5 rounded-[2px] bg-[#F2F2F0] dark:bg-[#131517]">No Decisiones Auto. (Art. 22)</div>
+              </div>
+
+              <div className="border border-emerald-500/30 bg-emerald-500/10 p-4 rounded-[4px] text-center space-y-1 my-3">
+                <p className="text-xs text-[rgba(10,12,11,0.7)] dark:text-white/70">Para solicitar el ejercicio de derechos, envíe correo con copia de documento identificativo a:</p>
+                <a href="mailto:hola@avialo.es" className="font-extrabold text-sm text-emerald-700 dark:text-emerald-400 inline-flex items-center gap-1.5 hover:underline underline-offset-4">
+                  <span className="no-underline">📧</span>
+                  <span>hola@avialo.es</span>
+                </a>
+              </div>
+
+              <p className="text-xs text-neutral-500 leading-relaxed mb-2">
+                *Nota: El derecho de supresión no podrá aplicarse a los datos incluidos en facturas emitidas o registros informáticos SIF dada la obligación legal imperativa de su conservación ante la Administración Tributaria.
+              </p>
+              <p className="text-xs text-neutral-500 leading-relaxed">
+                Asimismo, tiene derecho a presentar una reclamación ante la Autoridad de Control competente: <strong>Agencia Española de Protección de Datos (AEPD)</strong> - C/ Jorge Juan, 6, 28001 Madrid. Tel: 901 100 099 / 912 663 517 (<a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-4">www.aepd.es</a>).
+              </p>
+            </div>
+          </section>
+
+          {/* SECCIÓN 14: Brechas de Seguridad */}
+          <section id="brechas-seguridad" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
+              <AlertCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>14. Gestión y Notificación de Brechas de Seguridad (Arts. 33 y 34 RGPD)</span>
+            </h2>
+            <div className={fontClasses[fontSize]}>
+              <p className="mb-3">
+                En cumplimiento del RGPD, Avialo ha implementado procedimientos específicos para la gestión de incidentes:
+              </p>
+              <ul className="space-y-2 pl-5 list-disc marker:text-emerald-500">
+                <li><strong>Notificación a la AEPD:</strong> Cualquier brecha de seguridad que constituya un riesgo para los derechos y libertades de las personas será notificada a la Autoridad de Control en un plazo máximo de 72 horas.</li>
+                <li><strong>Notificación a los Afectados:</strong> En caso de que la brecha entrañe un alto riesgo para los usuarios (compromiso de credenciales, datos financieros), se comunicará a los afectados sin dilación indebida, incluyendo las medidas correctoras adoptadas.</li>
+              </ul>
+            </div>
+          </section>
+
+          {/* SECCIÓN 15: Redes Sociales */}
+          <section id="redes-sociales" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
+              <Building2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>15. Redes Sociales y Deber de Confidencialidad</span>
+            </h2>
+            <div className={fontClasses[fontSize]}>
+              <ul className="space-y-3 pl-5 list-disc marker:text-emerald-500">
+                <li>
+                  <strong>Redes Sociales:</strong> En el tratamiento de datos para estadísticas de páginas en redes sociales, Avialo actúa en régimen de corresponsabilidad (joint responsibility) junto con la plataforma correspondiente, en virtud de la jurisprudencia del TJUE.
+                </li>
+                <li>
+                  <strong>Deber de Confidencialidad (Art. 5 LOPDGDD):</strong> Todo el personal, colaboradores y subcontratistas de Avialo están sujetos a un estricto deber de secreto profesional sobre los datos tratados, obligación que subsiste incluso una vez finalizada su relación con la empresa.
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* SECCIÓN 16: Cookies */}
+          <section id="cookies" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
+              <FileText className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>16. Política de Cookies y Almacenamiento Técnico</span>
+            </h2>
+            <div className={fontClasses[fontSize]}>
+              <p className="mb-3">
+                Avialo emplea exclusivamente cookies técnicas exentas de consentimiento previo destinadas al correcto funcionamiento de la plataforma. Detalle de tipologías utilizadas:
+              </p>
+              <ul className="space-y-2 pl-5 list-disc marker:text-emerald-500">
+                <li><strong>Cookies de Sesión:</strong> Para el mantenimiento seguro del token de autenticación mientras el usuario navega por la plataforma.</li>
+                <li><strong>Cookies de Personalización (Tema):</strong> Almacenan la preferencia de visualización (modo claro u oscuro, alto contraste).</li>
+                <li><strong>Cookies de Idioma:</strong> Retienen la preferencia lingüística del usuario para futuras visitas.</li>
+              </ul>
+              <p className="mt-3">
+                No se emplean cookies publicitarias o de seguimiento de terceros sin consentimiento explícito.
+              </p>
+            </div>
+          </section>
+
+          {/* SECCIÓN 17: Vigencia */}
+          <section id="vigencia" className="space-y-4 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0A0C0B] dark:text-white flex items-center gap-2">
+              <Mail className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>17. Vigencia, Modificaciones y Canal de Atención</span>
+            </h2>
+            <div className={fontClasses[fontSize]}>
+              <p className="mb-3">
+                La presente Política de Privacidad se encuentra vigente desde el 1 de agosto de 2026. AVIALO SOLUCIONES S.L. se reserva el derecho de modificar el texto para adecuarlo a novedades legislativas, jurisprudenciales o dictámenes de la Agencia Tributaria o AEPD.
+              </p>
+              
+              <div className="border border-[#D2D2CE] dark:border-[#303131] p-4 rounded-[4px] bg-[#FCFCFB] dark:bg-[#131517] space-y-1.5 font-mono text-xs">
+                <p><strong>AVIALO SOLUCIONES S.L.</strong> • CIF B26802249</p>
+                <p>Domicilio: Calle Honduras 20, Puerta B, Planta 4. 28822, Coslada (Madrid), España</p>
+                <p>Correo de contacto directo: <a href="mailto:hola@avialo.es" className="text-emerald-600 dark:text-emerald-400 font-bold underline underline-offset-4">hola@avialo.es</a></p>
+                <p>Sitio web oficial: <a href="https://avialo.tech" className="text-emerald-600 dark:text-emerald-400 font-bold underline underline-offset-4">https://avialo.tech</a></p>
+              </div>
+            </div>
+          </section>
+
+          {/* Botón Volver Arriba */}
+          <div className="pt-8 flex justify-center">
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[4px] bg-[#0A0C0B] dark:bg-white text-white dark:text-black font-bold text-xs hover:opacity-90 transition-opacity shadow-sm cursor-pointer"
+            >
+              <ArrowUp className="w-4 h-4" />
+              <span>{t('Volver al inicio de la página', 'Back to top')}</span>
+            </button>
+          </div>
+
+        </main>
+
       </div>
 
       <Footer />
