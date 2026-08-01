@@ -358,33 +358,6 @@ export const Hero = () => {
       {/* Main Content Area */}
       <div className="relative z-10 w-full max-w-[1140px] mx-auto px-4 sm:px-6 flex flex-col items-center justify-start text-center pt-4 sm:pt-10">
 
-        {/* Banner Certificación Oficial AEAT */}
-        <motion.div
-          initial={{ opacity: 0, y: -16, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          className="mb-5 sm:mb-7"
-        >
-          <a
-            href="#compliance"
-            className="inline-flex items-center gap-2.5 px-4 sm:px-6 py-2.5 rounded-full border border-emerald-500/40 dark:border-emerald-400/40 bg-gradient-to-r from-emerald-500/15 via-emerald-500/10 to-emerald-500/15 dark:from-emerald-400/20 dark:via-emerald-400/10 dark:to-emerald-400/20 backdrop-blur-md shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/25 hover:border-emerald-500/60 transition-all duration-300 group cursor-pointer"
-          >
-            <span className="relative flex h-4 w-4 items-center justify-center">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <ShieldCheck className="relative w-4 h-4 text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform" />
-            </span>
-            <span className="text-xs sm:text-sm font-extrabold text-emerald-950 dark:text-emerald-200 tracking-tight sm:tracking-normal">
-              {t(
-                'Software Certificado y Homologado por la AEAT · VeriFactu 2026',
-                'Software Certified & Approved by Spanish AEAT · VeriFactu 2026'
-              )}
-            </span>
-            <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-600 dark:bg-emerald-400 text-white dark:text-black uppercase tracking-wider shadow-sm">
-              {t('Garantía Oficial', 'Official Guarantee')}
-            </span>
-          </a>
-        </motion.div>
-
         {/* Main Heading & Subtitle */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
