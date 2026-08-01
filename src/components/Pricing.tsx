@@ -162,15 +162,14 @@ export const Pricing = () => {
               
               <AnimatePresence>
                 {isYearly && (
-                  <motion.div
+                  <motion.span
                     initial={{ opacity: 0, scale: 0.8, x: -10 }}
                     animate={{ opacity: 1, scale: 1, x: 0 }}
                     exit={{ opacity: 0, scale: 0.8, x: -10 }}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[rgb(52,138,46)] dark:border-[rgb(104,204,88)] bg-[rgb(52,138,46)]/10 dark:bg-[rgb(104,204,88)]/10 text-[10px] sm:text-xs font-bold tracking-wider uppercase text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] shrink-0 shadow-sm"
+                    className="px-3 py-1.5 rounded-full border border-[rgb(52,138,46)] dark:border-[rgb(104,204,88)] bg-[rgb(52,138,46)]/10 dark:bg-[rgb(104,204,88)]/10 text-[10px] sm:text-xs font-bold tracking-wider uppercase text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] shrink-0"
                   >
-                    <span>🔥</span>
-                    <span>{t('Ahorra 30% • Plazas limitadas', 'Save 30% • Limited spots')}</span>
-                  </motion.div>
+                    {t('Ahorra 17%', 'Save 17%')}
+                  </motion.span>
                 )}
               </AnimatePresence>
             </div>
@@ -182,20 +181,12 @@ export const Pricing = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
-                  className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs sm:text-sm text-[rgba(10,12,11,0.85)] dark:text-white/90 bg-gradient-to-r from-emerald-500/10 via-emerald-500/5 to-transparent border border-emerald-500/30 px-4 py-2.5 rounded-xl shadow-sm text-center"
+                  className="text-xs sm:text-sm text-[rgba(10,12,11,0.72)] dark:text-white/80 bg-gradient-to-r from-[rgb(52,138,46)]/5 to-transparent dark:from-[rgb(104,204,88)]/10 border border-[#D2D2CE] dark:border-[#303131] px-4 py-2.5 rounded-xl shadow-sm"
                 >
-                  <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded-md bg-emerald-600 text-white dark:bg-emerald-400 dark:text-black font-black text-[10px] uppercase tracking-wider animate-pulse">
-                      🔥 {t('30% DTO. FUNDADOR', '30% FOUNDER DISCOUNT')}
-                    </span>
-                    <span className="font-semibold">
-                      {t('Precio congelado durante 2 años.', 'Price locked for 2 years.')}
-                    </span>
-                  </div>
-                  <span className="hidden sm:inline text-neutral-400">•</span>
-                  <span className="font-bold text-amber-600 dark:text-amber-400">
-                    ⚡ {t('Quedan plazas limitadas', 'Limited spots remaining')}
-                  </span>
+                  {t(
+                    '🎁 Oferta de Lanzamiento: Precio de fundador (−30%) congelado 2 años. Quedan plazas limitadas.',
+                    '🎁 Founder Launch Offer: 30% discount locked for 2 years. Limited spots remaining.'
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
