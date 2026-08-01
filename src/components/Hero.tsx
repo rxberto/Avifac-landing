@@ -55,12 +55,33 @@ const VerifactuSeal = () => {
   const { t } = useLanguage();
   const [showTip, setShowTip] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [popoverPlacement, setPopoverPlacement] = useState<'top' | 'bottom'>('top');
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const calculatePlacement = () => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      // If there is enough space above (e.g. at initial page position), open ABOVE ('top')
+      // If scrolled close to the top of the window, open BELOW ('bottom')
+      if (rect.top >= 280) {
+        setPopoverPlacement('top');
+      } else {
+        setPopoverPlacement('bottom');
+      }
+    }
+  };
+
+  const handleMouseEnter = () => {
+    calculatePlacement();
+    setShowTip(true);
+  };
 
   return (
     <>
       <div
+        ref={containerRef}
         className="relative shrink-0 z-40"
-        onMouseEnter={() => setShowTip(true)}
+        onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setShowTip(false)}
       >
         {/* Sello Circular Grande de Homologación AEAT & FACe */}
@@ -116,11 +137,21 @@ const VerifactuSeal = () => {
         <AnimatePresence>
           {showTip && (
             <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.92 }}
+              initial={{
+                opacity: 0,
+                y: popoverPlacement === 'top' ? -10 : 10,
+                scale: 0.92,
+              }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.92 }}
+              exit={{
+                opacity: 0,
+                y: popoverPlacement === 'top' ? -10 : 10,
+                scale: 0.92,
+              }}
               transition={{ duration: 0.2 }}
-              className="absolute top-full right-0 mt-3 w-80 sm:w-96 p-4 rounded-2xl bg-white dark:bg-[#181a1d] border-2 border-emerald-500/40 dark:border-emerald-400/40 shadow-2xl z-50 text-left space-y-3 pointer-events-auto"
+              className={`absolute right-0 w-80 sm:w-96 p-4 rounded-2xl bg-white dark:bg-[#181a1d] border-2 border-emerald-500/40 dark:border-emerald-400/40 shadow-2xl z-50 text-left space-y-3 pointer-events-auto ${
+                popoverPlacement === 'top' ? 'bottom-full mb-3' : 'top-full mt-3'
+              }`}
             >
               <div className="flex items-center justify-between border-b border-emerald-500/20 dark:border-emerald-400/20 pb-2.5">
                 <div className="flex items-center gap-2">
