@@ -217,7 +217,7 @@ const VerifactuSeal = () => {
                 </ul>
 
                 <a
-                  href="/ACUERDO_AVIALO_SOLUCIONES_SL.pdf"
+                  href="https://www.avialo.tech/ACUERDO_AVIALO_SOLUCIONES_SL.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full mt-2 py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-md text-center block"
