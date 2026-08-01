@@ -65,8 +65,8 @@ const VerifactuSeal = () => {
       const centerY = rect.top + rect.height / 2;
       const popoverWidth = Math.min(384, window.innerWidth - 32);
 
-      // Preferred right edge is shifted MUCH further to the left of seal (rect.left - 64)
-      let rightEdge = rect.left - 64;
+      // Preferred right edge is shifted an additional 100px further to the left of seal (rect.left - 164)
+      let rightEdge = rect.left - 164;
       // Clamp right edge so left edge (rightEdge - popoverWidth) is at least 16px from viewport left edge
       if (rightEdge - popoverWidth < 16) {
         rightEdge = 16 + popoverWidth;
