@@ -19,23 +19,34 @@ const Pricing = lazy(() => import('./components/Pricing').then(m => ({ default: 
 const ComplianceSection = lazy(() => import('./components/ComplianceSection').then(m => ({ default: m.ComplianceSection })));
 const FAQSection = lazy(() => import('./components/FAQSection').then(m => ({ default: m.FAQSection })));
 const FinalCTASection = lazy(() => import('./components/FinalCTASection').then(m => ({ default: m.FinalCTASection })));
+const PrivacyPolicyPage = lazy(() => import('./components/PrivacyPolicyPage').then(m => ({ default: m.PrivacyPolicyPage })));
 
 export function App() {
-  const [isNotFound, setIsNotFound] = useState(false);
+  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | '404'>('home');
 
   useEffect(() => {
     const checkPath = () => {
       const pathname = window.location.pathname.toLowerCase();
       const hash = window.location.hash.toLowerCase();
 
+      const isPrivacyRoute =
+        pathname === '/privacidad' ||
+        pathname === '/privacidad/' ||
+        pathname === '/politica-de-privacidad' ||
+        pathname === '/politica-de-privacidad/' ||
+        hash === '#privacidad' ||
+        hash === '#privacy';
+
       const validLandingPaths = ['/', '/index.html', '/en', '/en/', '/es', '/es/'];
       const isExplicit404 = pathname === '/404' || pathname === '/404/' || hash === '#404';
-      const isValidRoute = validLandingPaths.includes(pathname) || hash.startsWith('#');
+      const isValidLanding = validLandingPaths.includes(pathname) || hash.startsWith('#');
 
-      if (isExplicit404 || !isValidRoute) {
-        setIsNotFound(true);
+      if (isPrivacyRoute) {
+        setCurrentRoute('privacy');
+      } else if (isExplicit404 || !isValidLanding) {
+        setCurrentRoute('404');
       } else {
-        setIsNotFound(false);
+        setCurrentRoute('home');
       }
     };
 
@@ -51,33 +62,37 @@ export function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        {isNotFound ? (
-          <NotFoundPage />
-        ) : (
-          <main className="min-h-screen bg-[#FCFCFB] dark:bg-[#080a09] w-full overflow-x-hidden antialiased text-[#0A0C0B] dark:text-white transition-colors duration-300">
-            {/* Above the fold (carga inmediata) */}
-            <Hero />
-            <HeroActionRow />
+        <Suspense fallback={<div className="h-32 w-full flex items-center justify-center text-[rgba(10,12,11,0.5)] dark:text-white/50 animate-pulse">Cargando...</div>}>
+          {currentRoute === '404' ? (
+            <NotFoundPage />
+          ) : currentRoute === 'privacy' ? (
+            <PrivacyPolicyPage />
+          ) : (
+            <main className="min-h-screen bg-[#FCFCFB] dark:bg-[#080a09] w-full overflow-x-hidden antialiased text-[#0A0C0B] dark:text-white transition-colors duration-300">
+              {/* Above the fold (carga inmediata) */}
+              <Hero />
+              <HeroActionRow />
 
-            {/* Below the fold (carga diferida/lazy) */}
-            <Suspense fallback={<div className="h-32 w-full flex items-center justify-center text-[rgba(10,12,11,0.5)] dark:text-white/50 animate-pulse">Cargando sección...</div>}>
-              <IntelligentDelegationSection />
-              <OverviewSection />
-              <CoreFeaturesSection />
-              <FeaturesSection />
-              <IntegrationsSection />
-              <BenefitsSection />
-              <AboutSection />
-              <ReviewsSection />
-              <Pricing />
-              <ComplianceSection />
-              <FAQSection />
-              <FinalCTASection />
-            </Suspense>
+              {/* Below the fold (carga diferida/lazy) */}
+              <Suspense fallback={<div className="h-32 w-full flex items-center justify-center text-[rgba(10,12,11,0.5)] dark:text-white/50 animate-pulse">Cargando sección...</div>}>
+                <IntelligentDelegationSection />
+                <OverviewSection />
+                <CoreFeaturesSection />
+                <FeaturesSection />
+                <IntegrationsSection />
+                <BenefitsSection />
+                <AboutSection />
+                <ReviewsSection />
+                <Pricing />
+                <ComplianceSection />
+                <FAQSection />
+                <FinalCTASection />
+              </Suspense>
 
-            <Footer />
-          </main>
-        )}
+              <Footer />
+            </main>
+          )}
+        </Suspense>
       </LanguageProvider>
     </ThemeProvider>
   );
