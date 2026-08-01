@@ -423,6 +423,11 @@ export const Hero = () => {
 
         {/* Extended 3D Scroll Dashboard Panel — Interfaz real de Avialo, interactiva (Modo Claro y Oscuro) */}
         <div className="w-full max-w-7xl mt-6 sm:mt-10 [perspective:1000px] relative z-20 px-1 sm:px-0">
+          {/* Sello Circular Certificado AEAT (renderizado totalmente plano en 2D sin inclinación 3D) */}
+          <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 z-40 pointer-events-auto">
+            <VerifactuSeal />
+          </div>
+
           <motion.div
             ref={dashboardRef}
             style={{
@@ -435,10 +440,6 @@ export const Hero = () => {
             }}
             className="relative rounded-[8px] sm:rounded-[12px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] shadow-2xl transition-colors duration-300 text-[#0A0C0B] dark:text-white min-h-[420px] sm:min-h-[600px] md:min-h-[680px] flex flex-col"
           >
-            {/* Sello Circular Certificado AEAT con centro alineado a la esquina superior derecha de la pantalla */}
-            <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 z-40 pointer-events-auto">
-              <VerifactuSeal />
-            </div>
             {/* Browser Chrome */}
             <div className="flex items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 border-b border-[#D2D2CE] dark:border-[#303131] shrink-0">
               <div className="flex items-center gap-1.5 sm:gap-2">
