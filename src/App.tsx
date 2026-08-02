@@ -23,9 +23,10 @@ const PrivacyPolicyPage = lazy(() => import('./components/PrivacyPolicyPage').th
 const DataProtectionPage = lazy(() => import('./components/DataProtectionPage').then(m => ({ default: m.DataProtectionPage })));
 const TermsPage = lazy(() => import('./components/TermsPage').then(m => ({ default: m.TermsPage })));
 const PricingPage = lazy(() => import('./components/PricingPage').then(m => ({ default: m.PricingPage })));
+const VeriFactuPage = lazy(() => import('./components/VeriFactuPage').then(m => ({ default: m.VeriFactuPage })));
 
 export function App() {
-  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | 'data-protection' | 'terms' | 'pricing' | '404'>('home');
+  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | 'data-protection' | 'terms' | 'pricing' | 'verifactu' | '404'>('home');
 
   useEffect(() => {
     const checkPath = () => {
@@ -63,6 +64,13 @@ export function App() {
         pathname === '/pricing/' ||
         hash === '#precios';
 
+      const isVeriFactuRoute =
+        pathname === '/verifactu' ||
+        pathname === '/verifactu/' ||
+        pathname === '/facturacion-verifactu' ||
+        pathname === '/facturacion-verifactu/' ||
+        hash === '#verifactu';
+
       const validLandingPaths = ['/', '/index.html', '/en', '/en/', '/es', '/es/'];
       const isExplicit404 = pathname === '/404' || pathname === '/404/' || hash === '#404';
       const isValidLanding = validLandingPaths.includes(pathname) || hash.startsWith('#');
@@ -75,6 +83,8 @@ export function App() {
         setCurrentRoute('terms');
       } else if (isPricingRoute) {
         setCurrentRoute('pricing');
+      } else if (isVeriFactuRoute) {
+        setCurrentRoute('verifactu');
       } else if (isExplicit404 || !isValidLanding) {
         setCurrentRoute('404');
       } else {
@@ -105,6 +115,8 @@ export function App() {
             <TermsPage />
           ) : currentRoute === 'pricing' ? (
             <PricingPage />
+          ) : currentRoute === 'verifactu' ? (
+            <VeriFactuPage />
           ) : (
             <main className="min-h-screen bg-[#FCFCFB] dark:bg-[#080a09] w-full overflow-x-hidden antialiased text-[#0A0C0B] dark:text-white transition-colors duration-300">
               {/* Above the fold (carga inmediata) */}

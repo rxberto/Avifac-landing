@@ -46,7 +46,7 @@ export const Navbar = () => {
     string,
     {
       title: string;
-      items: { title: string; desc: string; icon: any; badge?: string }[];
+      items: { title: string; desc: string; icon: any; badge?: string; href?: string }[];
       featured?: { title: string; desc: string; cta: string };
     }
   > = {
@@ -58,6 +58,7 @@ export const Navbar = () => {
           desc: t('100% adaptado a la normativa fiscal española.', '100% compliant with Spanish tax legislation.'),
           icon: FileText,
           badge: t('Ley 2026', 'Act 2026'),
+          href: '/verifactu',
         },
         {
           title: t('Cobros Recurrentes', 'Recurring Billing'),
@@ -226,7 +227,7 @@ export const Navbar = () => {
                       return (
                         <a
                           key={item.title}
-                          href="#features"
+                          href={item.href || "#features"}
                           className="group p-3 rounded-2xl bg-[#FCFCFB] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131] hover:border-[#0A0C0B]/30 dark:hover:border-white/30 hover:bg-[#E6E6E3]/60 dark:hover:bg-[#232326]/60 transition-all flex items-start gap-3"
                         >
                           <div className="p-2 rounded-xl bg-[#E6E6E3] dark:bg-[#232326] text-[#0A0C0B] dark:text-white group-hover:scale-105 transition-transform shrink-0 mt-0.5">
@@ -369,7 +370,7 @@ export const Navbar = () => {
                         return (
                           <a
                             key={item.title}
-                            href="#features"
+                            href={item.href || "#features"}
                             onClick={() => setMobileMenuOpen(false)}
                             className="flex items-start gap-3.5 p-3 rounded-2xl bg-[#FCFCFB] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] active:scale-[0.98] transition-transform"
                           >

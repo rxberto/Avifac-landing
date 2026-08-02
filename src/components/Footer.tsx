@@ -200,7 +200,7 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
           <div className="md:col-span-2 space-y-3.5 text-left">
             <h4 className="text-xs font-bold uppercase tracking-wider text-[#0A0C0B] dark:text-white">{t('Funcionalidades', 'Features')}</h4>
             <ul className="space-y-2.5">
-              <li><FooterLink href="#features">{t('Facturación Online', 'Online Invoicing')}</FooterLink></li>
+              <li><FooterLink href="/verifactu">{t('Facturación VeriFactu', 'VeriFactu Invoicing')}</FooterLink></li>
               <li><FooterLink href="#features">{t('Tickets Simplificados', 'Receipts & Tickets')}</FooterLink></li>
               <li><FooterLink href="#features">{t('Presupuestos y Albaranes', 'Quotes & Delivery Notes')}</FooterLink></li>
               <li><FooterLink href="#features">{t('Control de Gastos', 'Expense Management')}</FooterLink></li>
