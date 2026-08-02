@@ -1,91 +1,53 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
 import { useLanguage } from '../context/LanguageContext';
 
-// Componentes vectoriales inline ligeros sin llamadas de red externas (Cero errores HTTP 429 de Wikimedia/Github)
-const INTEGRATION_LOGOS = [
+const LOGOS = [
   {
-    id: 'stripe',
     name: 'Stripe',
-    element: (
-      <div className="flex items-center gap-2 font-black tracking-tight text-xl text-[#635BFF] dark:text-[#7C74FF]">
-        <svg className="size-6 fill-current" viewBox="0 0 24 24">
-          <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.303 1.901-1.303 2.227 0 4.125.66 5.86 1.776V2.6C16.634 1.71 14.868 1.4 12.6 1.4 8.795 1.4 6 3.42 6 6.58c0 4.88 6.787 5.093 6.787 6.643 0 .768-.67 1.34-1.95 1.34-2.13 0-4.32-.73-6.22-1.99v4.773c2.096 1.091 4.225 1.455 6.22 1.455 3.99 0 6.945-1.97 6.945-5.26 0-5.11-6.806-5.188-6.806-6.391z" />
-        </svg>
-        <span>Stripe</span>
-      </div>
-    )
+    svg: 'https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg',
+    height: 'h-7 sm:h-8',
+    filterClass: '',
   },
   {
-    id: 'paypal',
     name: 'PayPal',
-    element: (
-      <div className="flex items-center gap-1.5 font-extrabold text-lg tracking-tight text-[#003087] dark:text-[#3B7BFF]">
-        <span className="px-2 py-0.5 rounded bg-[#0079C1] text-white text-sm font-mono italic font-black">PP</span>
-        <span className="text-[#0079C1] dark:text-sky-400">PayPal</span>
-      </div>
-    )
+    svg: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg',
+    height: 'h-7 sm:h-8',
+    filterClass: '',
   },
   {
-    id: 'redsys',
-    name: 'Redsys TPV',
-    element: (
-      <div className="flex items-center gap-2 font-black text-base text-[#D32F2F] dark:text-red-400 tracking-wide uppercase">
-        <span className="w-5 h-5 rounded-full bg-[#D32F2F] dark:bg-red-500 text-white flex items-center justify-center text-[11px] font-mono">R</span>
-        <span>Redsys <small className="text-xs text-[#0A0C0B] dark:text-white font-mono">TPV</small></span>
-      </div>
-    )
+    name: 'RedSYS',
+    svg: 'https://raw.githubusercontent.com/mabuenox/RedsysTPV/master/redsys.png',
+    height: 'h-7 sm:h-8',
+    filterClass: '',
   },
   {
-    id: 'aeat',
     name: 'Agencia Tributaria',
-    element: (
-      <div className="flex items-center gap-2 text-sm font-bold text-[#0A0C0B] dark:text-white uppercase tracking-tight">
-        <div className="flex flex-col gap-0.5 w-4 shrink-0">
-          <span className="w-full h-1 bg-[#D32F2F]" />
-          <span className="w-full h-1 bg-[#FBC02D]" />
-          <span className="w-full h-1 bg-[#D32F2F]" />
-        </div>
-        <span>Agencia Tributaria</span>
-      </div>
-    )
+    svg: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Agencia_Tributaria.svg',
+    height: 'h-8 sm:h-9',
+    filterClass: '',
   },
   {
-    id: 'ministerio',
-    name: 'FACe & B2B',
-    element: (
-      <div className="flex items-center gap-2 font-bold text-sm text-[rgb(20,122,132)] dark:text-[rgb(158,250,255)] font-mono">
-        <span className="px-2 py-0.5 rounded border border-current font-black text-xs">FACe</span>
-        <span>Gobierno B2B</span>
-      </div>
-    )
+    name: 'Ministerio Digital',
+    svg: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Logotipo_del_Ministerio_para_la_Transformación_Digital_y_de_la_Función_Pública.svg',
+    height: 'h-8 sm:h-9',
+    filterClass: '',
   },
   {
-    id: 'woocommerce',
     name: 'WooCommerce',
-    element: (
-      <div className="flex items-center gap-2 font-extrabold text-lg tracking-tight text-[#7F54B3] dark:text-[#AD84DD]">
-        <div className="w-6 h-6 rounded bg-[#7F54B3] dark:bg-[#AD84DD] text-white dark:text-[#0A0C0B] flex items-center justify-center font-serif text-sm font-black italic">W</div>
-        <span>WooCommerce</span>
-      </div>
-    )
+    svg: 'https://upload.wikimedia.org/wikipedia/commons/5/51/WooCommerce_logo_%282015%29.svg',
+    height: 'h-6 sm:h-7',
+    filterClass: '',
   },
   {
-    id: 'shopify',
     name: 'Shopify',
-    element: (
-      <div className="flex items-center gap-1.5 font-bold text-lg tracking-tight text-[#95BF47]">
-        <svg className="size-5 fill-[#95BF47]" viewBox="0 0 24 24">
-          <path d="M21.202 8.705c-.066-.075-.152-.132-.246-.164l-4.137-.99c-.113-.027-.231-.027-.344 0L12 8.761l-4.475-1.21c-.113-.027-.231-.027-.344 0l-4.137.99c-.094.032-.18.089-.246.164-.066.075-.11.166-.128.265L1 18.238c-.012.067-.006.137.017.201.024.064.062.122.112.169.05.048.11.083.177.103l10.5 3.23c.126.039.262.039.388 0l10.5-3.23c.067-.02.127-.055.177-.103.05-.047.088-.105.112-.169.023-.064.029-.134.017-.201l-1.642-9.268c-.018-.099-.062-.19-.128-.265zM12 21.053L2.831 18.23l1.455-8.214 3.737-.895L12 10.19l3.977-1.069 3.737.895 1.455 8.214L12 21.053z" />
-        </svg>
-        <span className="text-[#0A0C0B] dark:text-white">Shopify</span>
-      </div>
-    )
-  }
+    svg: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg',
+    height: 'h-7 sm:h-8',
+    filterClass: 'dark:brightness-0 dark:invert',
+  },
 ];
 
-export const IntegrationsSection: React.FC = () => {
+export const IntegrationsSection = () => {
   const { t } = useLanguage();
 
   return (
@@ -145,19 +107,28 @@ export const IntegrationsSection: React.FC = () => {
         </div>
 
         {/* Carousel Infinito Rápido y Separado de Logos con Capa de Transparencia Elegante */}
-        <div className="w-full h-20 sm:h-24 relative overflow-hidden flex items-center">
+        <div className="w-full h-24 relative overflow-hidden flex items-center">
           {/* Edge Gradient Blur Fades */}
-          <div className="absolute top-0 bottom-0 left-0 w-20 sm:w-40 bg-gradient-to-r from-[#FCFCFB] dark:from-[#080a09] via-[#FCFCFB]/90 dark:via-[#080a09]/90 to-transparent z-20 pointer-events-none backdrop-blur-[1px]" />
-          <div className="absolute top-0 bottom-0 right-0 w-20 sm:w-40 bg-gradient-to-l from-[#FCFCFB] dark:from-[#080a09] via-[#FCFCFB]/90 dark:via-[#080a09]/90 to-transparent z-20 pointer-events-none backdrop-blur-[1px]" />
+          <div className="absolute top-0 bottom-0 left-0 w-28 sm:w-48 bg-gradient-to-r from-[#FCFCFB] dark:from-[#080a09] via-[#FCFCFB]/90 dark:via-[#080a09]/90 to-transparent z-20 pointer-events-none backdrop-blur-[1px]" />
+          <div className="absolute top-0 bottom-0 right-0 w-28 sm:w-48 bg-gradient-to-l from-[#FCFCFB] dark:from-[#080a09] via-[#FCFCFB]/90 dark:via-[#080a09]/90 to-transparent z-20 pointer-events-none backdrop-blur-[1px]" />
 
           {/* Marquee Fast Track */}
-          <div className="flex items-center gap-16 sm:gap-28 animate-marquee-fast whitespace-nowrap">
-            {[...INTEGRATION_LOGOS, ...INTEGRATION_LOGOS, ...INTEGRATION_LOGOS, ...INTEGRATION_LOGOS].map((logo, idx) => (
+          <div className="flex items-center gap-20 sm:gap-32 animate-marquee-fast whitespace-nowrap">
+            {[...LOGOS, ...LOGOS, ...LOGOS, ...LOGOS].map((logo, idx) => (
               <div
-                key={`${logo.id}-${idx}`}
-                className="flex items-center justify-center shrink-0 hover:scale-105 transition-all duration-300 cursor-pointer opacity-85 hover:opacity-100 dark:opacity-90 dark:hover:opacity-100 px-2"
+                key={`${logo.name}-${idx}`}
+                className="flex items-center justify-center shrink-0 w-[110px] sm:w-[140px] h-9 hover:scale-110 transition-all duration-300 cursor-pointer opacity-80 hover:opacity-100 dark:opacity-85 dark:hover:opacity-100"
               >
-                {logo.element}
+                <img
+                  src={logo.svg}
+                  alt={logo.name}
+                  width={140}
+                  height={36}
+                  className={`${logo.height} ${logo.filterClass} w-auto object-contain max-w-full`}
+                  loading={idx < LOGOS.length ? 'eager' : 'lazy'}
+                  decoding="async"
+                  referrerPolicy="no-referrer"
+                />
               </div>
             ))}
           </div>
