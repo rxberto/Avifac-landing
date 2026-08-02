@@ -13,75 +13,74 @@ export const Pricing = () => {
   const plans = [
     {
       name: 'Esencial',
-      desc: t('Facturar bien, sin complicaciones', 'Fast & simple invoicing for solo pros'),
+      desc: t('Facturas rápidas e impecables sin complicaciones', 'Fast & simple invoicing for solo pros'),
       priceMonthly: 15,
       priceYearly: 12,
       cta: t('Contratar Esencial', 'Choose Essential'),
       features: [
-        { text: 'Facturas ilimitadas con Verifactu', included: true },
-        { text: 'Presupuestos, albaranes y gastos', included: true },
-        { text: 'Cobro online por enlace', included: true },
-        { text: '1 empresa', included: true },
-        { text: '1 usuario (+ gestor gratis)', included: true },
-        { text: 'Asistente: 100 consultas/mes', included: true },
-        { text: 'Soporte email 24-48h', included: true },
-        { text: t('Facturas recurrentes (cuotas y suscripciones)', 'Recurring invoices (fees and subscriptions)'), included: false },
-        { text: 'Equipo y roles', included: false },
-        { text: 'API, webhooks y tienda', included: false },
-        { text: 'Facturar a la Adm. (FACe)', included: false },
-        { text: 'Portal de cliente', included: false },
-        { text: 'Plantillas y campos propios', included: false },
-        { text: 'Cartera de clientes en panel', included: false },
-        { text: 'Logo de tu gestoría', included: false },
+        { text: t('Facturas ilimitadas con Verifactu', 'Unlimited invoices with VeriFactu'), included: true },
+        { text: t('Presupuestos, albaranes y gastos', 'Quotes, delivery notes & expenses'), included: true },
+        { text: t('Cobro online por enlace de pago', 'Online card payment link billing'), included: true },
+        { text: t('1 empresa y NIF incluido', '1 company and tax ID included'), included: true },
+        { text: t('1 usuario (+ gestor gratis)', '1 user (+ free accountant access)'), included: true },
+        { text: t('Asistente: 100 consultas/mes', 'AI Copilot: 100 queries/month'), included: true },
+        { text: t('Soporte email 24-48h', 'Email support within 24-48h'), included: true },
+        { text: t('Facturas recurrentes y cuotas', 'Recurring invoices and subscriptions'), included: false },
+        { text: t('Equipo y roles granulares', 'Team management & roles'), included: false },
+        { text: t('API REST, webhooks y tiendas', 'REST API, webhooks & e-commerce'), included: false },
+        { text: t('Facturar a la Adm. Pública (FACe)', 'Public Admin invoicing (FACe)'), included: false },
+        { text: t('Portal de cliente dedicado', 'Dedicated self-service client portal'), included: false },
+        { text: t('Plantillas y campos propios', 'Custom templates & fields'), included: false },
+        { text: t('Cartera de clientes en panel', 'Client portfolio in console'), included: false },
+        { text: t('Marca blanca de tu gestoría', 'White-label custom branding'), included: false },
       ],
     },
     {
       name: 'Completo',
-      desc: 'Todo el producto para tu negocio',
+      desc: t('El motor operativo definitivo para tu negocio', 'The operational and tax engine for your business'),
       priceMonthly: 29,
       priceYearly: 24,
-      popular: true,
-      cta: 'Contratar Completo',
+      cta: t('Contratar Completo', 'Choose Complete'),
       features: [
-        { text: 'Facturas ilimitadas con Verifactu', included: true },
-        { text: 'Presupuestos, albaranes y gastos', included: true },
-        { text: 'Cobro online por enlace', included: true },
-        { text: '1 empresa', included: true },
-        { text: '3 usuarios', included: true },
-        { text: 'Asistente: 500 consultas/mes', included: true },
-        { text: 'Soporte prioritario 8h', included: true },
-        { text: t('Facturas recurrentes (cuotas y suscripciones)', 'Recurring invoices (fees and subscriptions)'), included: true },
-        { text: 'Equipo y roles', included: true },
-        { text: 'API, webhooks y tienda', included: true },
-        { text: 'Facturar a la Adm. (FACe)', included: true },
-        { text: 'Portal de cliente', included: true },
-        { text: 'Plantillas y campos propios', included: true },
-        { text: 'Cartera de clientes en panel', included: false },
-        { text: 'Logo de tu gestoría', included: false },
+        { text: t('Facturas ilimitadas con Verifactu', 'Unlimited invoices with VeriFactu'), included: true },
+        { text: t('Presupuestos, albaranes y gastos', 'Quotes, delivery notes & expenses'), included: true },
+        { text: t('Cobro online por enlace de pago', 'Online card payment link billing'), included: true },
+        { text: t('1 empresa y NIF incluido', '1 company and tax ID included'), included: true },
+        { text: t('3 usuarios (+ gestor gratis)', '3 users (+ free accountant access)'), included: true },
+        { text: t('Asistente: 500 consultas/mes', 'AI Copilot: 500 queries/month'), included: true },
+        { text: t('Soporte prioritario < 8h', 'Priority support < 8 hours'), included: true },
+        { text: t('Facturas recurrentes y cuotas', 'Recurring invoices and subscriptions'), included: true },
+        { text: t('Equipo y roles granulares', 'Team management & roles'), included: true },
+        { text: t('API REST, webhooks y tiendas', 'REST API, webhooks & e-commerce'), included: true },
+        { text: t('Facturar a la Adm. Pública (FACe)', 'Public Admin invoicing (FACe)'), included: true },
+        { text: t('Portal de cliente dedicado', 'Dedicated self-service client portal'), included: true },
+        { text: t('Plantillas y campos propios', 'Custom templates & fields'), included: true },
+        { text: t('Cartera de clientes en panel', 'Client portfolio in console'), included: false },
+        { text: t('Marca blanca de tu gestoría', 'White-label custom branding'), included: false },
       ],
     },
     {
       name: 'Multiempresa',
-      desc: 'Varias empresas desde un solo panel',
+      desc: t('Múltiples sociedades bajo un solo panel', 'Multiple legal entities in a unified console'),
       priceMonthly: 99,
       priceYearly: 79,
-      cta: 'Contratar Multiempresa',
+      cta: t('Contratar Multiempresa', 'Choose Multi-Entity'),
       features: [
-        { text: 'Facturas ilimitadas con Verifactu', included: true },
-        { text: 'Presupuestos, albaranes y gastos', included: true },
-        { text: 'Cobro online por enlace', included: true },
-        { text: '10 empresas', included: true },
-        { text: 'Usuarios sin límite', included: true },
-        { text: 'Asistente sin límite', included: true },
-        { text: 'Soporte SLA de 4h directo', included: true },
-        { text: t('Facturas recurrentes (cuotas y suscripciones)', 'Recurring invoices (fees and subscriptions)'), included: true },
-        { text: 'Equipo y roles', included: true },
-        { text: 'API, webhooks y tienda', included: true },
-        { text: 'Facturar a la Adm. (FACe)', included: true },
-        { text: 'Portal de cliente', included: true },
-        { text: 'Plantillas y campos propios', included: true },
-        { text: 'Cartera de clientes en panel', included: true },
-        { text: 'Logo de tu gestoría', included: true },
+        { text: t('Facturas ilimitadas con Verifactu', 'Unlimited invoices with VeriFactu'), included: true },
+        { text: t('Presupuestos, albaranes y gastos', 'Quotes, delivery notes & expenses'), included: true },
+        { text: t('Cobro online por enlace de pago', 'Online card payment link billing'), included: true },
+        { text: t('10 empresas y NIFs incluidos', '10 companies and tax IDs included'), included: true },
+        { text: t('Usuarios ilimitados (+ gestores)', 'Unlimited users (+ free accountants)'), included: true },
+        { text: t('Asistente Copiloto sin límite', 'Unlimited AI Copilot advisory queries'), included: true },
+        { text: t('Soporte directo SLA < 4h', 'Direct VIP support SLA < 4h'), included: true },
+        { text: t('Facturas recurrentes y cuotas', 'Recurring invoices and subscriptions'), included: true },
+        { text: t('Equipo y roles granulares', 'Team management & roles'), included: true },
+        { text: t('API REST, webhooks y tiendas', 'REST API, webhooks & e-commerce'), included: true },
+        { text: t('Facturar a la Adm. Pública (FACe)', 'Public Admin invoicing (FACe)'), included: true },
+        { text: t('Portal de cliente dedicado', 'Dedicated self-service client portal'), included: true },
+        { text: t('Plantillas y campos propios', 'Custom templates & fields'), included: true },
+        { text: t('Cartera de clientes en panel', 'Client portfolio in console'), included: true },
+        { text: t('Marca blanca de tu gestoría', 'White-label custom branding'), included: true },
       ],
     },
   ];
@@ -89,7 +88,7 @@ export const Pricing = () => {
   return (
     <section id="pricing" className="w-full bg-[#FCFCFB] dark:bg-[#080a09] py-[72px] relative z-10 overflow-hidden transition-colors duration-300">
       
-      {/* Marco "Dots" adaptado */}
+      {/* Marco Dots */}
       <motion.div
         id="Dots"
         initial={{ opacity: 0, y: 40 }}
@@ -115,190 +114,166 @@ export const Pricing = () => {
 
       <div className="max-w-[1080px] mx-auto px-4 sm:px-0 flex flex-col gap-10 text-left relative z-10">
         
-        {/* Section Header */}
+        {/* Section Header Limpio sin exceso de elementos */}
         <SectionHeader
           dotColor="var(--accent-green)"
-          tagText={t('Precios de Avialo', 'Avialo Pricing')}
-          title={t('Planes de Avialo', 'Simple & Transparent Plans')}
+          tagText={t('Planes y Precios', 'Plans & Pricing')}
+          title={t('Planes transparentes para cada negocio', 'Transparent plans for every business')}
           description={t(
-            'Todo incluido en cada plan, sin módulos que se compran aparte. Sin permanencia y sin límite de facturas en ninguno.',
-            'All-inclusive plans with zero hidden add-ons. No lock-in contracts and unlimited invoices on every tier.'
+            'Todo incluido en cada nivel, sin módulos que se pagan aparte ni sorpresas. Sin permanencia y con facturas VeriFactu ilimitadas en todos los planes.',
+            'All-inclusive plans with zero hidden fees. No lock-in contracts and unlimited VeriFactu invoices across every tier.'
           )}
         />
 
-        {/* Pricing Module Container */}
+        {/* Pricing Container */}
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
           className="flex flex-col gap-6 w-full"
         >
-          {/* Switch Bar Premium & Launch Offer Note */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full">
-            <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
-              <div className="flex items-center gap-1 p-1.5 rounded-full bg-[#E6E6E3]/60 dark:bg-[#131517] border border-[#D2D2CE]/60 dark:border-[#303131] shadow-inner shrink-0">
+          {/* Conmutador y Nota Editorial (sin tags recargados ni emojis) */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full bg-[#F2F2F0] dark:bg-[#131517] p-4 sm:p-5 rounded-[12px] border border-[#D2D2CE] dark:border-[#303131]">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 w-full sm:w-auto">
+              <span className="text-xs sm:text-sm font-bold text-[#0A0C0B] dark:text-white shrink-0">
+                {t('Frecuencia:', 'Frequency:')}
+              </span>
+
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center p-1 rounded-[8px] bg-[#FCFCFB] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131] w-full sm:w-auto gap-1 sm:gap-0">
                 <button
                   onClick={() => setIsYearly(false)}
-                  className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 ${
+                  className={`px-4 py-1.5 rounded-[6px] text-xs sm:text-sm transition-all duration-200 cursor-pointer ${
                     !isYearly
-                      ? 'bg-white dark:bg-[#232326] text-[#0A0C0B] dark:text-white shadow-sm border border-[#D2D2CE] dark:border-[#404141]'
-                      : 'text-[rgba(10,12,11,0.6)] dark:text-white/60 hover:text-[#0A0C0B] dark:hover:text-white border border-transparent'
+                      ? 'bg-[#0A0C0B] dark:bg-white text-white dark:text-black font-bold shadow-sm'
+                      : 'text-[rgba(10,12,11,0.7)] dark:text-white/70 hover:text-[#0A0C0B] dark:hover:text-white font-medium'
                   }`}
                 >
-                  {t('Mensual', 'Monthly')}
+                  {t('Pago Mensual', 'Monthly Billing')}
                 </button>
                 <button
                   onClick={() => setIsYearly(true)}
-                  className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 ${
+                  className={`px-4 py-1.5 rounded-[6px] text-xs sm:text-sm transition-all duration-200 cursor-pointer ${
                     isYearly
-                      ? 'bg-white dark:bg-[#232326] text-[#0A0C0B] dark:text-white shadow-sm border border-[#D2D2CE] dark:border-[#404141]'
-                      : 'text-[rgba(10,12,11,0.6)] dark:text-white/60 hover:text-[#0A0C0B] dark:hover:text-white border border-transparent'
+                      ? 'bg-[#0A0C0B] dark:bg-white text-white dark:text-black font-bold shadow-sm'
+                      : 'text-[rgba(10,12,11,0.7)] dark:text-white/70 hover:text-[#0A0C0B] dark:hover:text-white font-medium'
                   }`}
                 >
-                  {t('Anual', 'Annual')}
+                  {t('Pago Anual (30% Dto.)', 'Annual Billing (30% Off)')}
                 </button>
               </div>
-              
-              <AnimatePresence>
-                {isYearly && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8, x: -10 }}
-                    animate={{ opacity: 1, scale: 1, x: 0 }}
-                    exit={{ opacity: 0, scale: 0.8, x: -10 }}
-                    className="px-3 py-1.5 rounded-full border border-[rgb(52,138,46)] dark:border-[rgb(104,204,88)] bg-[rgb(52,138,46)]/10 dark:bg-[rgb(104,204,88)]/10 text-[10px] sm:text-xs font-bold tracking-wider uppercase text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] shrink-0 flex items-center gap-1.5"
-                  >
-                    <span className="line-through opacity-50 font-normal">17%</span>
-                    <span className="font-extrabold text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)]">
-                      {t('AHORRA 30% DTO.', 'SAVE 30% OFF')}
-                    </span>
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </div>
 
-            {/* Launch Offer Text */}
-            <AnimatePresence>
-              {isYearly && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  className="text-xs sm:text-sm text-[rgba(10,12,11,0.72)] dark:text-white/80 bg-gradient-to-r from-[rgb(52,138,46)]/5 to-transparent dark:from-[rgb(104,204,88)]/10 border border-[#D2D2CE] dark:border-[#303131] px-4 py-2.5 rounded-xl shadow-sm"
-                >
-                  {t(
-                    '🎁 Oferta de Lanzamiento: Precio de fundador (−30%) congelado 2 años. Quedan plazas limitadas.',
-                    '🎁 Founder Launch Offer: 30% discount locked for 2 years. Limited spots remaining.'
-                  )}
-                </motion.div>
+            <div className="text-xs sm:text-sm text-[rgba(10,12,11,0.8)] dark:text-white/80 font-normal">
+              {t(
+                'Descuento de Fundador: Ahorras un 30% en modalidad anual y tu tarifa queda protegida sin subidas durante 2 años.',
+                'Founder Discount: Save 30% with annual billing and keep your fee shielded against rate increases for 2 straight years.'
               )}
-            </AnimatePresence>
+            </div>
           </div>
 
-          {/* Pricing Cards Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-[16px] w-full items-stretch">
+          {/* Tarjetas de Precios Uniformes - Todos por igual */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 w-full items-stretch">
             {plans.map((plan) => {
               const price = isYearly ? plan.priceYearly : plan.priceMonthly;
 
               return (
                 <div
                   key={plan.name}
-                  className={`w-full rounded-[12px] bg-[#F2F2F0] dark:bg-[#131517] p-[24px_24px_32px_24px] flex flex-col justify-between gap-8 border transition-all ${
-                    plan.popular ? 'border-[#0A0C0B]/40 dark:border-white/40 shadow-xl' : 'border-transparent hover:border-[#0A0C0B]/30 dark:hover:border-white/30'
-                  }`}
+                  className="w-full rounded-[12px] bg-[#F2F2F0] dark:bg-[#131517] p-7 sm:p-8 flex flex-col justify-between gap-8 border border-[#D2D2CE] dark:border-[#303131] transition-all hover:border-[#0A0C0B]/40 dark:hover:border-white/40"
                 >
                   <div className="flex flex-col gap-6">
                     <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <h5 className="text-xl font-bold leading-[1.1] tracking-[-0.04em] text-[#0A0C0B] dark:text-white">
-                          {plan.name}
-                        </h5>
-                        {plan.popular && (
-                          <span className="text-[10px] font-bold tracking-wider uppercase text-white bg-[#0A0C0B] dark:text-black dark:bg-white px-2 py-1 rounded-md">
-                            {t('El más elegido', 'Most Popular')}
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-sm font-normal leading-[1.5] tracking-[-0.02em] text-[rgba(10,12,11,0.72)] dark:text-white/80 min-h-[42px]">
+                      <h3 className="text-2xl font-bold leading-[1.1] tracking-[-0.03em] text-[#0A0C0B] dark:text-white mb-2">
+                        {plan.name}
+                      </h3>
+                      <p className="text-xs sm:text-sm font-normal leading-[1.5] text-[rgba(10,12,11,0.72)] dark:text-white/80 min-h-[42px]">
                         {plan.desc}
                       </p>
                     </div>
 
-                    <div className="flex flex-col py-4 border-y border-[#E6E6E3] dark:border-[#232326] min-h-[104px] justify-center">
-                      <div className="flex items-baseline gap-1">
+                    <div className="flex flex-col py-5 border-y border-[#E6E6E3] dark:border-[#232326] justify-center">
+                      <div className="flex items-baseline gap-1.5">
                         <AnimatePresence mode="wait">
                           <motion.span
                             key={isYearly ? 'yearly' : 'monthly'}
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 10 }}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
                             transition={{ duration: 0.15 }}
-                            className="text-4xl font-bold leading-[1.1] tracking-[-0.04em] text-[#0A0C0B] dark:text-white inline-block"
+                            className="text-4xl font-extrabold leading-[1.1] tracking-[-0.04em] text-[#0A0C0B] dark:text-white inline-block"
                           >
                             {price},00 €
                           </motion.span>
                         </AnimatePresence>
-                        <span className="text-sm font-normal text-[rgba(10,12,11,0.72)] dark:text-white/80">{t('/ mes', '/ month')}</span>
+                        <span className="text-sm font-medium text-[rgba(10,12,11,0.72)] dark:text-white/80">{t('/ mes', '/ month')}</span>
                       </div>
-                      <AnimatePresence mode="wait">
+                      <div className="mt-1.5 text-xs text-[rgba(10,12,11,0.7)] dark:text-white/70 font-normal">
                         {isYearly ? (
-                          <motion.div
-                            key="yearly-text"
-                            initial={{ opacity: 0, y: -5 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 5 }}
-                            transition={{ duration: 0.15 }}
-                            className="mt-1"
-                          >
-                            <span className="text-xs text-[rgba(10,12,11,0.6)] dark:text-white/60 font-medium block">
-                              {price * 12}{t(',00 € al año, IVA aparte', '.00 € / year, ex. VAT')}
-                            </span>
-                          </motion.div>
+                          <span>
+                            {price * 12}{t(',00 € al año (facturación anual, IVA no incl.)', '.00 € / year (billed annually, ex. VAT)')}
+                          </span>
                         ) : (
-                          <motion.div
-                            key="monthly-text"
-                            initial={{ opacity: 0, y: 5 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -5 }}
-                            transition={{ duration: 0.15 }}
-                            className="mt-1.5"
-                          >
-                            <div className="flex items-center gap-1.5">
-                              <span className="text-[10px] font-bold tracking-wider uppercase text-[rgb(20,122,132)] dark:text-[#9efaff] bg-[rgb(20,122,132)]/10 dark:bg-[#9efaff]/10 px-1.5 py-0.5 rounded border border-[rgb(20,122,132)]/20 dark:border-[#9efaff]/20">
-                                {t('Precio fijo', 'Fixed price')}
-                              </span>
-                              <span className="text-xs text-[rgba(10,12,11,0.6)] dark:text-white/60 font-medium">
-                                {t('Sin permanencia', 'Cancel anytime')}
-                              </span>
-                            </div>
-                          </motion.div>
+                          <span>
+                            {t('Facturación mensual sin permanencia (IVA no incl.)', 'Billed monthly, cancel anytime (ex. VAT)')}
+                          </span>
                         )}
-                      </AnimatePresence>
+                      </div>
                     </div>
 
-                    <div className="flex flex-col gap-2.5">
-                      <span className="text-xs font-semibold text-[rgba(10,12,11,0.6)] dark:text-white/70 uppercase tracking-wider mb-1">
-                        Características
-                      </span>
-                      {plan.features.map((feat, idx) => (
-                        <div key={idx} className={`flex items-start gap-2.5 text-sm font-normal transition-colors ${feat.included ? 'text-[rgba(10,12,11,0.85)] dark:text-white/90' : 'text-[rgba(10,12,11,0.4)] dark:text-white/30 line-through'}`}>
-                          {feat.included ? (
-                            <Check className="w-4 h-4 text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] shrink-0 mt-0.5" />
-                          ) : (
-                            <X className="w-4 h-4 text-[rgba(10,12,11,0.3)] dark:text-white/20 shrink-0 mt-0.5" />
-                          )}
-                          <span className="leading-snug">{feat.text}</span>
-                        </div>
-                      ))}
+                    <div className="flex flex-col gap-3">
+                      <div className="space-y-2.5">
+                        {plan.features.map((feat, idx) => (
+                          <div
+                            key={idx}
+                            className={`flex items-start gap-2.5 text-xs sm:text-sm transition-colors ${
+                              feat.included
+                                ? 'text-[rgba(10,12,11,0.88)] dark:text-white/90 font-normal'
+                                : 'text-[rgba(10,12,11,0.35)] dark:text-white/30 line-through'
+                            }`}
+                          >
+                            {feat.included ? (
+                              <Check className="w-4 h-4 text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] shrink-0 mt-0.5" />
+                            ) : (
+                              <X className="w-4 h-4 text-[rgba(10,12,11,0.25)] dark:text-white/20 shrink-0 mt-0.5" />
+                            )}
+                            <span className="leading-snug">{feat.text}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
-                  <Button variant={plan.popular ? 'primary' : 'secondary'} href={APP_URLS.register} className="w-full justify-center">
-                    {plan.cta}
-                  </Button>
+                  <div className="pt-2">
+                    <Button variant="primary" href={APP_URLS.register} className="w-full justify-center py-3 text-sm font-bold">
+                      {plan.cta}
+                    </Button>
+                  </div>
                 </div>
               );
             })}
+          </div>
+
+          {/* Banner limpio de acceso a la Página de Precios y Comparativa */}
+          <div className="w-full mt-2 flex flex-col sm:flex-row items-center justify-between p-6 sm:p-8 bg-[#F2F2F0] dark:bg-[#131517] rounded-[12px] border border-[#D2D2CE] dark:border-[#303131] gap-6">
+            <div className="space-y-1.5 text-left max-w-3xl">
+              <h4 className="text-base sm:text-lg font-bold text-[#0A0C0B] dark:text-white tracking-tight">
+                {t('¿Quieres comparar todas las especificaciones y ventajas en detalle?', 'Want to compare all specifications and advantages in detail?')}
+              </h4>
+              <p className="text-xs sm:text-sm text-[rgba(10,12,11,0.72)] dark:text-white/80 leading-relaxed font-normal">
+                {t(
+                  'Explora nuestra página dedicada de precios con la matriz técnica completa por módulos (IA, OCR, API, VeriFactu) y conoce nuestras garantías SIF ante la Agencia Tributaria.',
+                  'Explore our dedicated pricing page featuring the complete technical feature matrix (AI, OCR, API, VeriFactu) and review our official Tax Agency SIF compliance commitments.'
+                )}
+              </p>
+            </div>
+            <Button
+              variant="secondary"
+              href="/precios"
+              className="w-full sm:w-auto shrink-0 whitespace-normal sm:whitespace-nowrap px-6 py-3.5 text-xs sm:text-sm font-bold justify-center text-center"
+            >
+              <span>{t('Ver Página Completa de Precios →', 'Explore Full Pricing Page →')}</span>
+            </Button>
           </div>
         </motion.div>
 

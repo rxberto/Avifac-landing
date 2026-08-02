@@ -24,14 +24,14 @@ export const FinalCTASection = () => {
           <div className="max-w-[620px] flex flex-col gap-3.5 items-center lg:items-start">
             <h2 className="text-[28px] sm:text-[40px] lg:text-[44px] font-normal leading-[1.1] tracking-[-0.04em] text-[#0A0C0B] dark:text-white">
               {t(
-                'Empieza a facturar con la potencia de la IA hoy mismo',
-                'Start invoicing with the power of AI today'
+                'Empieza a facturar con un software certificado hoy mismo',
+                'Start invoicing with certified software today'
               )}
             </h2>
             <p className="text-base sm:text-lg font-normal leading-[1.5] tracking-[-0.02em] text-[rgba(10,12,11,0.72)] dark:text-white/80">
               {t(
-                'Únete a miles de autónomos y pymes que ya ahorran horas de gestión fiscal con la garantía total de Avialo.',
-                'Join thousands of freelancers and teams saving hours of accounting work with complete peace of mind.'
+                'Únete a miles de autónomos y pymes que ya cumplen con la normativa fiscal y ahorran horas con la potencia de la IA y la garantía de Avialo.',
+                'Join thousands of professionals complying with tax regulations and saving hours with AI power and guaranteed peace of mind.'
               )}
             </p>
           </div>

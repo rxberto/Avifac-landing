@@ -22,9 +22,10 @@ const FinalCTASection = lazy(() => import('./components/FinalCTASection').then(m
 const PrivacyPolicyPage = lazy(() => import('./components/PrivacyPolicyPage').then(m => ({ default: m.PrivacyPolicyPage })));
 const DataProtectionPage = lazy(() => import('./components/DataProtectionPage').then(m => ({ default: m.DataProtectionPage })));
 const TermsPage = lazy(() => import('./components/TermsPage').then(m => ({ default: m.TermsPage })));
+const PricingPage = lazy(() => import('./components/PricingPage').then(m => ({ default: m.PricingPage })));
 
 export function App() {
-  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | 'data-protection' | 'terms' | '404'>('home');
+  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | 'data-protection' | 'terms' | 'pricing' | '404'>('home');
 
   useEffect(() => {
     const checkPath = () => {
@@ -55,6 +56,13 @@ export function App() {
         hash === '#terminos' ||
         hash === '#terms';
 
+      const isPricingRoute =
+        pathname === '/precios' ||
+        pathname === '/precios/' ||
+        pathname === '/pricing' ||
+        pathname === '/pricing/' ||
+        hash === '#precios';
+
       const validLandingPaths = ['/', '/index.html', '/en', '/en/', '/es', '/es/'];
       const isExplicit404 = pathname === '/404' || pathname === '/404/' || hash === '#404';
       const isValidLanding = validLandingPaths.includes(pathname) || hash.startsWith('#');
@@ -65,6 +73,8 @@ export function App() {
         setCurrentRoute('data-protection');
       } else if (isTermsRoute) {
         setCurrentRoute('terms');
+      } else if (isPricingRoute) {
+        setCurrentRoute('pricing');
       } else if (isExplicit404 || !isValidLanding) {
         setCurrentRoute('404');
       } else {
@@ -93,6 +103,8 @@ export function App() {
             <DataProtectionPage />
           ) : currentRoute === 'terms' ? (
             <TermsPage />
+          ) : currentRoute === 'pricing' ? (
+            <PricingPage />
           ) : (
             <main className="min-h-screen bg-[#FCFCFB] dark:bg-[#080a09] w-full overflow-x-hidden antialiased text-[#0A0C0B] dark:text-white transition-colors duration-300">
               {/* Above the fold (carga inmediata) */}

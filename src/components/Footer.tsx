@@ -191,7 +191,7 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
             <ul className="space-y-2.5">
               <li><FooterLink href={APP_URLS.register} external>{t('Crea una cuenta gratis', 'Create free account')}</FooterLink></li>
               <li><FooterLink href={APP_URLS.login} external>{t('Iniciar sesión', 'Log in')}</FooterLink></li>
-              <li><FooterLink href="#pricing">{t('Precios y Planes', 'Pricing & Plans')}</FooterLink></li>
+              <li><FooterLink href="/precios">{t('Precios y Planes', 'Pricing & Plans')}</FooterLink></li>
               <li><FooterLink href="#">{t('Estado del sistema', 'System status')}</FooterLink></li>
             </ul>
           </div>
@@ -213,8 +213,8 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
           <div className="md:col-span-2 space-y-3.5 text-left">
             <h4 className="text-xs font-bold uppercase tracking-wider text-[#0A0C0B] dark:text-white">{t('Soluciones', 'Solutions')}</h4>
             <ul className="space-y-2.5">
-              <li><FooterLink href="#pricing">{t('Para Autónomos', 'For Solo Pros')}</FooterLink></li>
-              <li><FooterLink href="#pricing">{t('Para Pymes y Equipos', 'For Small Teams')}</FooterLink></li>
+              <li><FooterLink href="/precios">{t('Para Autónomos', 'For Solo Pros')}</FooterLink></li>
+              <li><FooterLink href="/precios">{t('Para Pymes y Equipos', 'For Small Teams')}</FooterLink></li>
               <li><FooterLink href="#overview">{t('Para Asesorías y Gestores', 'For Accountants')}</FooterLink></li>
               <li><FooterLink href="#features">{t('Migración desde Excel', 'Excel Migration')}</FooterLink></li>
               <li><FooterLink href="#faq" external>{t('Soluciones API', 'API Integration')}</FooterLink></li>

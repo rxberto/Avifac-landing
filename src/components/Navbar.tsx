@@ -199,7 +199,7 @@ export const Navbar = () => {
             ))}
 
             <a
-              href="#pricing"
+              href="/precios"
               onMouseEnter={() => setActiveDropdown(null)}
               className="px-4 py-2 text-sm text-[rgba(10,12,11,0.72)] dark:text-white/80 hover:text-[#0A0C0B] dark:hover:text-white font-medium transition-colors rounded-full hover:bg-[#E6E6E3] dark:hover:bg-[#232326]"
             >
