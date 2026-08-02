@@ -395,12 +395,6 @@ export const Navbar = () => {
                     <span>{t('14 Días Gratis', '14-Day Free Trial')}</span>
                   </Button>
                 </div>
-                <div className="flex items-center justify-between text-[11px] text-[rgba(10,12,11,0.65)] dark:text-white/65 px-1">
-                  <span className="flex items-center gap-1 font-medium">
-                    <span className="size-2 rounded-full bg-[rgb(52,138,46)] dark:bg-[rgb(104,204,88)] inline-block animate-pulse" />
-                    {t('Sin tarjeta • Activación al instante', 'No credit card needed • Instant activation')}
-                  </span>
-                </div>
               </div>
 
               {/* Contenedor con Scroll de Enlaces */}
