@@ -285,7 +285,7 @@ export const CoreFeaturesSection = () => {
                       {t('Objetivo de Cobro Alcanzado', 'Payment Goal Reached')}
                     </span>
                     <p className="text-[10px] sm:text-[11px] text-[rgb(77,88,95)] dark:text-white/70 leading-snug">
-                      {t('Factura INV-2026 cobrada (+4.5%). Recordatorio desactivado.', 'Invoice INV-2026 collected (+4.5%). Automated reminder paused.')}
+                      {t('Factura INV-2027 cobrada (+4.5%). Recordatorio desactivado.', 'Invoice INV-2027 collected (+4.5%). Automated reminder paused.')}
                     </p>
                   </div>
                 </div>

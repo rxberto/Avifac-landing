@@ -80,7 +80,7 @@ export const IntelligentDelegationSection = () => {
     },
     {
       id: 2,
-      badge: t('VeriFactu 2026 Preparado', 'VeriFactu 2026 Ready'),
+      badge: t('VeriFactu 2027 Preparado', 'VeriFactu 2027 Ready'),
       title: t('Cumplimiento Fiscal Automatizado', 'Automated Tax Compliance'),
       desc: t(
         'Cada factura emitida se firma digitalmente, se envía a la AEAT y queda enlazada en una cadena inalterable.',
@@ -259,7 +259,7 @@ export const IntelligentDelegationSection = () => {
                                 </div>
                                 <div className="grid grid-cols-2 gap-2">
                                   <Field label="Tipo" value="F1 — Completa" />
-                                  <Field label="Fecha de operación" value="30/07/2026" />
+                                  <Field label="Fecha de operación" value="30/07/2027" />
                                 </div>
                                 <div className="border border-[#D2D2CE] dark:border-[#303131] rounded-lg p-2.5 bg-[#F2F2F0] dark:bg-[#080a09]">
                                   <div className="grid grid-cols-4 text-[8px] sm:text-[9px] text-neutral-400 mb-1.5">
@@ -304,7 +304,7 @@ export const IntelligentDelegationSection = () => {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 h-full">
                         <div className="border border-[#D2D2CE] dark:border-[#303131] rounded-lg p-3 bg-[#F2F2F0] dark:bg-[#080a09] flex flex-col justify-between">
                           <div>
-                            <p className="text-[10px] sm:text-[11px] font-bold mb-1.5">Resumen fiscal — 3T 2026</p>
+                            <p className="text-[10px] sm:text-[11px] font-bold mb-1.5">Resumen fiscal — 3T 2027</p>
                             <Row label="IVA repercutido (ventas)" value="€3,215.40" />
                             <Row label="IVA soportado deducible" value="-€682.10" />
                           </div>

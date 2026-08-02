@@ -62,7 +62,7 @@ export const PricingPage = () => {
       cta: t('Empezar prueba de 14 días', 'Start 14-Day Free Trial'),
       keyFeatures: [
         { text: t('Facturas y presupuestos ilimitados', 'Unlimited invoices & estimates'), included: true },
-        { text: t('Cumplimiento total VeriFactu 2026 (AEAT)', 'Full VeriFactu 2026 compliance (AEAT)'), included: true },
+        { text: t('Cumplimiento total VeriFactu 2027 (AEAT)', 'Full VeriFactu 2027 compliance (AEAT)'), included: true },
         { text: t('Escáner OCR de tickets y gastos con IA', 'AI OCR receipt & expense scanner'), included: true },
         { text: t('Cobro online por enlace de pago', 'Online payment link billing'), included: true },
         { text: t('Asistente Copiloto IA: 100 consultas/mes', 'AI Tax Copilot: 100 queries/month'), included: true },
@@ -123,8 +123,8 @@ export const PricingPage = () => {
 
   const comparisonCategories: ComparisonCategory[] = [
     {
-      titleEs: 'Facturación, Cobros y Normativa Fiscal (AEAT 2026)',
-      titleEn: 'Invoicing, Payments & Tax Compliance (AEAT 2026)',
+      titleEs: 'Facturación, Cobros y Normativa Fiscal (AEAT 2027)',
+      titleEn: 'Invoicing, Payments & Tax Compliance (AEAT 2027)',
       icon: FileText,
       rows: [
         {
@@ -401,7 +401,7 @@ export const PricingPage = () => {
     },
     {
       icon: Scale,
-      title: t('Cumplimiento legal garantizado 2026', 'Guaranteed legal compliance for 2026'),
+      title: t('Cumplimiento legal garantizado 2027', 'Guaranteed legal compliance for 2027'),
       desc: t(
         'El Reglamento VeriFactu y la Ley Antifraude imponen duras sanciones al software no homologado. Avialo incorpora de serie registros inmutables, códigos QR fiscales y la Declaración SIF Garante ante Hacienda.',
         'The VeriFactu Regulation and Anti-Fraud Law impose severe fines for uncertified software. Avialo inherently builds immutable record chaining, tax QR codes, and official Tax Agency SIF declarations.'
@@ -494,8 +494,8 @@ export const PricingPage = () => {
     {
       q: t('¿Cuándo es obligatorio VeriFactu y por qué es imprescindible operar con un software certificado?', 'When is VeriFactu mandatory and why is operating with certified software essential?'),
       a: t(
-        'La Ley 11/2021 de medidas contra el fraude y el reglamento técnico VeriFactu (Real Decreto 1007/2023) establecen la prohibición rotunda de emitir facturas mediante programas no verificables como Excel o Word. La obligatoriedad de operar con un software certificado entra en vigor el 1 de enero para pymes y empresas, y el 1 de julio para autónomos y profesionales independientes. Las sanciones por utilizar programas no homologados pueden ascender hasta 50.000 € por usuario y año. Con Avialo dispones en todo momento del respaldo de la Declaración de Responsabilidad SIF Garante ante la Agencia Tributaria.',
-        'Spanish Law 11/2021 and its VeriFactu technical framework (Royal Decree 1007/2023) strictly ban issuing invoices via unverified tools like Excel or Word. Mandatory compliance with certified software begins on January 1st for SMEs and businesses, and on July 1st for self-employed freelancers. Fines for operating uncertified tools reach up to €50,000 per user per year. With Avialo, you hold the definitive protection of our official Guaranteed SIF Statement filed before the Tax Agency.'
+        'La Ley 11/2021 de medidas contra el fraude y el reglamento técnico VeriFactu (Real Decreto 1007/2023) establecen la prohibición rotunda de emitir facturas mediante programas no verificables como Excel o Word. La obligatoriedad de operar con un software certificado entra en vigor el 1 de enero de 2027 para pymes y empresas, y el 1 de julio de 2027 para autónomos y profesionales independientes. Las sanciones por utilizar programas no homologados pueden ascender hasta 50.000 € por usuario y año. Con Avialo dispones en todo momento del respaldo de la Declaración de Responsabilidad SIF Garante ante la Agencia Tributaria.',
+        'Spanish Law 11/2021 and its VeriFactu technical framework (Royal Decree 1007/2023) strictly ban issuing invoices via unverified tools like Excel or Word. Mandatory compliance with certified software begins on January 1st, 2027 for SMEs and businesses, and on July 1st, 2027 for self-employed freelancers. Fines for operating uncertified tools reach up to €50,000 per user per year. With Avialo, you hold the definitive protection of our official Guaranteed SIF Statement filed before the Tax Agency.'
       ),
     },
   ];
@@ -518,8 +518,8 @@ export const PricingPage = () => {
 
           <p className="text-base sm:text-lg text-[rgba(10,12,11,0.72)] dark:text-white/80 max-w-2xl mx-auto leading-[1.5] font-normal">
             {t(
-              'Todo incluido en cada nivel, sin módulos que se pagan aparte ni comisiones sorpresa. Sin permanencia, con 14 días de prueba gratuita sin tarjeta y cumplimiento 100% VeriFactu 2026.',
-              'All-inclusive across every tier, with no extra paid modules or surprise fees. No lock-in contracts, a 14-day free trial without a card, and 100% VeriFactu 2026 compliance.'
+              'Todo incluido en cada nivel, sin módulos que se pagan aparte ni comisiones sorpresa. Sin permanencia, con 14 días de prueba gratuita sin tarjeta y cumplimiento 100% VeriFactu 2027.',
+              'All-inclusive across every tier, with no extra paid modules or surprise fees. No lock-in contracts, a 14-day free trial without a card, and 100% VeriFactu 2027 compliance.'
             )}
           </p>
 
@@ -825,8 +825,8 @@ export const PricingPage = () => {
             </h2>
             <p className="text-sm sm:text-base text-[rgba(10,12,11,0.72)] dark:text-white/75 leading-relaxed">
               {t(
-                'Una filosofía de precios transparente: sin tarifas por módulo, sin encierro de datos y con seguridad jurídica total ante la Agencia Tributaria en 2026.',
-                'A transparent pricing philosophy: zero add-on module fees, zero data traps, and complete legal security with the Spanish Tax Agency in 2026.'
+                'Una filosofía de precios transparente: sin tarifas por módulo, sin encierro de datos y con seguridad jurídica total ante la Agencia Tributaria en 2027.',
+                'A transparent pricing philosophy: zero add-on module fees, zero data traps, and complete legal security with the Spanish Tax Agency in 2027.'
               )}
             </p>
           </div>

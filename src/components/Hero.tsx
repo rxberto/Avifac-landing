@@ -26,10 +26,10 @@ const CLIENT_POOL = [
 ];
 
 const INITIAL_INVOICES: Invoice[] = [
-  { id: 'AV-2026-100', client: 'Studio UX Global', date: '29/07/2026', amount: 4500, status: 'Emitida' },
-  { id: 'AV-2026-099', client: 'Nexa Labs Tech Ltd', date: '26/07/2026', amount: 1850, status: 'Emitida' },
-  { id: 'AV-2026-098', client: 'Acme Design Studio', date: '24/07/2026', amount: 3200, status: 'Emitida' },
-  { id: 'AV-2026-097', client: 'Bright Studio', date: '21/07/2026', amount: 2100, status: 'Pendiente' },
+  { id: 'AV-2027-100', client: 'Studio UX Global', date: '29/07/2027', amount: 4500, status: 'Emitida' },
+  { id: 'AV-2027-099', client: 'Nexa Labs Tech Ltd', date: '26/07/2027', amount: 1850, status: 'Emitida' },
+  { id: 'AV-2027-098', client: 'Acme Design Studio', date: '24/07/2027', amount: 3200, status: 'Emitida' },
+  { id: 'AV-2027-097', client: 'Bright Studio', date: '21/07/2027', amount: 2100, status: 'Pendiente' },
 ];
 
 const QUARTERS: Record<string, { iva: number; soportado: number; resultado: number; ingresos: number; gastos: number }> = {
@@ -266,7 +266,7 @@ export const Hero = () => {
   const handleNewInvoice = () => {
     const client = CLIENT_POOL[Math.floor(Math.random() * CLIENT_POOL.length)];
     const amount = Math.floor(900 + Math.random() * 2300);
-    const id = `AV-2026-${nextNumber}`;
+    const id = `AV-2027-${nextNumber}`;
     const newInvoice: Invoice = { id, client, date: t('Hoy', 'Today'), amount, status: 'Emitida' };
 
     setInvoices((prev) => [newInvoice, ...prev].slice(0, 6));
@@ -334,8 +334,8 @@ export const Hero = () => {
 
           <p className="mt-5 sm:mt-6 text-lg sm:text-xl md:text-2xl font-normal leading-relaxed tracking-[-0.01em] text-[rgba(10,12,11,0.72)] dark:text-white/80 max-w-[860px] text-center px-2 sm:px-0">
             {t(
-              'Facturación electrónica y cumplimiento fiscal blindado con VeriFactu 2026 y FACe. Simplicidad de uso, soporte humano real y sin límites de facturas.',
-              'Smart e-invoicing and VeriFactu 2026 tax compliance for Spain. Built for speed, real human support, and unlimited invoices.'
+              'Facturación electrónica y cumplimiento fiscal blindado con VeriFactu 2027 y FACe. Simplicidad de uso, soporte humano real y sin límites de facturas.',
+              'Smart e-invoicing and VeriFactu 2027 tax compliance for Spain. Built for speed, real human support, and unlimited invoices.'
             )}
           </p>
         </motion.div>
@@ -646,7 +646,7 @@ export const Hero = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 flex-1 min-h-0">
                       <div className="bg-[#FCFCFB] dark:bg-[#1a1c1e] border border-[#D2D2CE] dark:border-[#303131] rounded-lg sm:rounded-xl p-3.5 sm:p-4 shadow-sm">
-                        <p className="text-[11px] sm:text-xs font-bold mb-2">Resumen fiscal — {quarter} 2026</p>
+                        <p className="text-[11px] sm:text-xs font-bold mb-2">Resumen fiscal — {quarter} 2027</p>
                         <AnimatePresence mode="wait">
                           <motion.div
                             key={quarter}

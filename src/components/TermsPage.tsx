@@ -142,7 +142,7 @@ export const TermsPage = () => {
             )}
           </p>
           <div className="pt-2 text-xs font-mono text-emerald-700 dark:text-emerald-400 font-bold">
-            {t('Documento Contractual • Versión 1.0 • Vigente a 1 de Agosto de 2026', 'Contractual Document • Version 1.0 • Effective August 1, 2026')}
+            {t('Documento Contractual • Versión 1.0 • Vigente a 1 de Agosto de 2027', 'Contractual Document • Version 1.0 • Effective August 1, 2027')}
           </div>
         </div>
       </header>

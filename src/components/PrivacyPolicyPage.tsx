@@ -139,7 +139,7 @@ export const PrivacyPolicyPage = () => {
             )}
           </p>
           <div className="pt-2 text-xs font-mono text-emerald-700 dark:text-emerald-400 font-bold">
-            {t('Documento Oficial • Versión 2.4 SIF • Vigente a 1 de Agosto de 2026', 'Official Document • Version 2.4 SIF • Effective August 1, 2026')}
+            {t('Documento Oficial • Versión 2.4 SIF • Vigente a 1 de Agosto de 2027', 'Official Document • Version 2.4 SIF • Effective August 1, 2027')}
           </div>
         </div>
       </header>
@@ -793,7 +793,7 @@ export const PrivacyPolicyPage = () => {
             </h2>
             <div className={fontClasses[fontSize]}>
               <p className="mb-3">
-                La presente Política de Privacidad se encuentra vigente desde el 1 de agosto de 2026. AVIALO SOLUCIONES S.L. se reserva el derecho de modificar el texto para adecuarlo a novedades legislativas, jurisprudenciales o dictámenes de la Agencia Tributaria o AEPD.
+                La presente Política de Privacidad se encuentra vigente desde el 1 de agosto de 2027. AVIALO SOLUCIONES S.L. se reserva el derecho de modificar el texto para adecuarlo a novedades legislativas, jurisprudenciales o dictámenes de la Agencia Tributaria o AEPD.
               </p>
               
               <div className="border border-[#D2D2CE] dark:border-[#303131] p-4 rounded-[4px] bg-[#FCFCFB] dark:bg-[#131517] space-y-1.5 font-mono text-xs">

@@ -57,7 +57,7 @@ export const Navbar = () => {
           title: t('Facturación VeriFactu', 'VeriFactu Invoicing'),
           desc: t('100% adaptado a la normativa fiscal española.', '100% compliant with Spanish tax legislation.'),
           icon: FileText,
-          badge: t('Ley 2026', 'Act 2026'),
+          badge: t('Ley 2027', 'Act 2027'),
           href: '/verifactu',
         },
         {

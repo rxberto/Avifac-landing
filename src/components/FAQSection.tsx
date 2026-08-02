@@ -19,8 +19,8 @@ export const FAQSection = () => {
       id: 1,
       q: t('¿Cumple Avialo con la normativa VeriFactu y cuándo es obligatorio?', 'Is Avialo fully compliant with VeriFactu and when does it become mandatory?'),
       a: t(
-        'Sí, al 100%. Avialo está diseñado desde la primera línea de código para cumplir el RD 1007/2023 (VeriFactu), la integración con FACe (Administración Pública) y la Ley Crea y Crece B2B. Recuerda que la obligatoriedad de operar con un software certificado entra en vigor el 1 de enero para pymes y empresas, y el 1 de julio para autónomos y profesionales independientes. Nuestro sistema registra alta y anulación con hash encadenado SHA-256 y código QR oficial.',
-        'Yes, 100%. Avialo is engineered to comply with Spanish RD 1007/2023 (VeriFactu), FACe public invoicing, and B2B e-invoicing. Please note that mandatory operation with certified software takes legal effect on January 1st for SMEs and corporations, and on July 1st for self-employed freelancers. Every invoice generates secure SHA-256 chained hashes and official QR codes.'
+        'Sí, al 100%. Avialo está diseñado desde la primera línea de código para cumplir el RD 1007/2023 (VeriFactu), la integración con FACe (Administración Pública) y la Ley Crea y Crece B2B. Recuerda que la obligatoriedad de operar con un software certificado entra en vigor el 1 de enero de 2027 para pymes y empresas, y el 1 de julio de 2027 para autónomos y profesionales independientes. Nuestro sistema registra alta y anulación con hash encadenado SHA-256 y código QR oficial.',
+        'Yes, 100%. Avialo is engineered to comply with Spanish RD 1007/2023 (VeriFactu), FACe public invoicing, and B2B e-invoicing. Please note that mandatory operation with certified software takes legal effect on January 1st, 2027 for SMEs and corporations, and on July 1st, 2027 for self-employed freelancers. Every invoice generates secure SHA-256 chained hashes and official QR codes.'
       ),
     },
     {

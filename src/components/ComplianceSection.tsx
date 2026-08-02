@@ -9,7 +9,7 @@ export const ComplianceSection = () => {
   const cards = [
     { code: 'VeriFactu', label: t('RD 1007/2023 AEAT', 'AEAT Regulation'), icon: ShieldCheck, delay: 0 },
     { code: 'FACe B2G', label: t('Facturación Pública', 'Public E-Invoicing'), icon: Lock, delay: 0.1 },
-    { code: 'Crea y Crece', label: t('FacturaE B2B 2026', 'B2B Mandatory 2026'), icon: Award, delay: 0.2 },
+    { code: 'Crea y Crece', label: t('FacturaE B2B 2027', 'B2B Mandatory 2027'), icon: Award, delay: 0.2 },
     { code: 'SHA-256 & QR', label: t('Registros Inmutables', 'Immutable Records'), icon: FileCheck, delay: 0.3 },
     { code: 'RGPD UE', label: t('Datos Alojados en España', 'EU Data Hosted'), icon: Key, delay: 0.4 },
   ];
