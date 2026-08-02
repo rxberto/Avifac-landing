@@ -26,9 +26,11 @@ const PricingPage = lazy(() => import('./components/PricingPage').then(m => ({ d
 const VeriFactuPage = lazy(() => import('./components/VeriFactuPage').then(m => ({ default: m.VeriFactuPage })));
 const CobrosRecurrentesPage = lazy(() => import('./components/CobrosRecurrentesPage').then(m => ({ default: m.CobrosRecurrentesPage })));
 const PortalClientesPage = lazy(() => import('./components/PortalClientesPage').then(m => ({ default: m.PortalClientesPage })));
+const SolucionesPage = lazy(() => import('./components/SolucionesPage').then(m => ({ default: m.SolucionesPage })));
+const SolucionDetallePage = lazy(() => import('./components/SolucionDetallePage').then(m => ({ default: m.SolucionDetallePage })));
 
 export function App() {
-  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | 'data-protection' | 'terms' | 'pricing' | 'verifactu' | 'cobros' | 'portal' | '404'>('home');
+  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | 'data-protection' | 'terms' | 'pricing' | 'verifactu' | 'cobros' | 'portal' | 'soluciones' | 'soluciones-autonomos' | 'soluciones-agencias' | 'soluciones-startups' | 'soluciones-gestorias' | '404'>('home');
 
   useEffect(() => {
     const checkPath = () => {
@@ -93,6 +95,23 @@ export function App() {
         hash === '#portal-clientes' ||
         hash === '#portal';
 
+      const isAutonomosRoute = pathname.includes('/soluciones/autonomos') || pathname.includes('/soluciones-autonomos') || hash.includes('#autonomos');
+      const isAgenciasRoute = pathname.includes('/soluciones/agencias') || pathname.includes('/soluciones-agencias') || hash.includes('#agencias');
+      const isStartupsRoute = pathname.includes('/soluciones/startups') || pathname.includes('/soluciones-startups') || hash.includes('#startups');
+      const isGestoriasRoute = pathname.includes('/soluciones/gestorias') || pathname.includes('/soluciones-gestorias') || hash.includes('#gestorias');
+
+      const isSolucionesRoute =
+        !isAutonomosRoute &&
+        !isAgenciasRoute &&
+        !isStartupsRoute &&
+        !isGestoriasRoute &&
+        (pathname === '/soluciones' ||
+          pathname === '/soluciones/' ||
+          pathname === '/solutions' ||
+          pathname === '/solutions/' ||
+          hash === '#soluciones' ||
+          hash === '#solutions');
+
       const validLandingPaths = ['/', '/index.html', '/en', '/en/', '/es', '/es/'];
       const isExplicit404 = pathname === '/404' || pathname === '/404/' || hash === '#404';
       const isValidLanding = validLandingPaths.includes(pathname) || hash.startsWith('#');
@@ -111,6 +130,16 @@ export function App() {
         setCurrentRoute('cobros');
       } else if (isPortalRoute) {
         setCurrentRoute('portal');
+      } else if (isAutonomosRoute) {
+        setCurrentRoute('soluciones-autonomos');
+      } else if (isAgenciasRoute) {
+        setCurrentRoute('soluciones-agencias');
+      } else if (isStartupsRoute) {
+        setCurrentRoute('soluciones-startups');
+      } else if (isGestoriasRoute) {
+        setCurrentRoute('soluciones-gestorias');
+      } else if (isSolucionesRoute) {
+        setCurrentRoute('soluciones');
       } else if (isExplicit404 || !isValidLanding) {
         setCurrentRoute('404');
       } else {
@@ -147,6 +176,16 @@ export function App() {
             <CobrosRecurrentesPage />
           ) : currentRoute === 'portal' ? (
             <PortalClientesPage />
+          ) : currentRoute === 'soluciones' ? (
+            <SolucionesPage />
+          ) : currentRoute === 'soluciones-autonomos' ? (
+            <SolucionDetallePage type="autonomos" />
+          ) : currentRoute === 'soluciones-agencias' ? (
+            <SolucionDetallePage type="agencias" />
+          ) : currentRoute === 'soluciones-startups' ? (
+            <SolucionDetallePage type="startups" />
+          ) : currentRoute === 'soluciones-gestorias' ? (
+            <SolucionDetallePage type="gestorias" />
           ) : (
             <main className="min-h-screen bg-[#FCFCFB] dark:bg-[#080a09] w-full overflow-x-hidden antialiased text-[#0A0C0B] dark:text-white transition-colors duration-300">
               {/* Above the fold (carga inmediata) */}

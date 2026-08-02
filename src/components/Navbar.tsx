@@ -48,7 +48,7 @@ export const Navbar = () => {
     {
       title: string;
       items: { title: string; desc: string; icon: any; badge?: string; href?: string }[];
-      featured?: { title: string; desc: string; cta: string };
+      featured?: { title: string; desc: string; cta: string; href?: string };
     }
   > = {
     [t('Producto', 'Product')]: {
@@ -84,6 +84,7 @@ export const Navbar = () => {
         title: t('Prueba la Facturación en Vivo', 'Try Live Invoicing'),
         desc: t('Genera tu primera factura electrónica en 30 segundos.', 'Generate your first e-invoice in 30 seconds.'),
         cta: t('Probar Simulador', 'Try Simulator'),
+        href: '/verifactu',
       },
     },
     [t('Integraciones', 'Integrations')]: {
@@ -124,23 +125,33 @@ export const Navbar = () => {
           title: t('Autónomos y Freelancers', 'Freelancers & Solo Pros'),
           desc: t('Control de IRPF, IVA trimestral y libros oficiales.', 'Manage income tax, quarterly VAT & official books.'),
           icon: ShieldCheck,
+          href: '/soluciones/autonomos',
         },
         {
           title: t('Agencias y Estudios', 'Agencies & Studios'),
           desc: t('Gestión de proyectos y presupuestos avanzados.', 'Advanced quotes & client project tracking.'),
           icon: Sparkles,
+          href: '/soluciones/agencias',
         },
         {
-          title: t('Startups SaaS', 'SaaS Startups'),
-          desc: t('Métricas de MRR y facturación recurrente.', 'MRR metrics & automated recurring billing.'),
+          title: t('Startups SaaS & E-commerce', 'SaaS & E-commerce Startups'),
+          desc: t('Métricas de MRR, Stripe y pasarelas digitales.', 'MRR metrics, Stripe & online payment gateways.'),
           icon: Zap,
+          href: '/soluciones/startups',
         },
         {
           title: t('Gestorías y Asesores', 'Accountants & Agencies'),
           desc: t('Acceso para tu asesor con descarga en Excel/PDF.', 'Free accountant access with Excel/PDF export.'),
           icon: Building2,
+          href: '/soluciones/gestorias',
         },
       ],
+      featured: {
+        title: t('Encuentra tu Solución', 'Explore All Solutions'),
+        desc: t('Compara por qué Avialo es superador frente a los ERPs tradicionales.', 'Compare why Avialo decisively outperforms outdated legacy ERPs.'),
+        cta: t('Ver Todas las Soluciones', 'View All Solutions'),
+        href: '/soluciones',
+      },
     },
   };
 
@@ -272,7 +283,7 @@ export const Navbar = () => {
                         </p>
                       </div>
                       <a
-                        href="#overview"
+                        href={megaMenus[activeDropdown].featured.href || "#features"}
                         className="mt-4 flex items-center justify-center gap-1.5 bg-[#0A0C0B] dark:bg-white text-white dark:text-black text-xs font-bold py-2 rounded-xl hover:bg-[#0A0C0B]/80 dark:hover:bg-white/90 transition-colors"
                       >
                         <span>{megaMenus[activeDropdown].featured.cta}</span>
@@ -410,7 +421,7 @@ export const Navbar = () => {
                           {megaMenus[key].featured.desc}
                         </p>
                         <a
-                          href="#demo"
+                          href={megaMenus[key].featured.href || "#features"}
                           onClick={() => setMobileMenuOpen(false)}
                           className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0A0C0B] dark:text-white"
                         >

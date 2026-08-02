@@ -219,11 +219,11 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
           <div className="md:col-span-2 space-y-3.5 text-left">
             <h4 className="text-xs font-bold uppercase tracking-wider text-[#0A0C0B] dark:text-white">{t('Soluciones', 'Solutions')}</h4>
             <ul className="space-y-2.5">
-              <li><FooterLink href="/precios">{t('Para Autónomos', 'For Solo Pros')}</FooterLink></li>
-              <li><FooterLink href="/precios">{t('Para Pymes y Equipos', 'For Small Teams')}</FooterLink></li>
-              <li><FooterLink href="#overview">{t('Para Asesorías y Gestores', 'For Accountants')}</FooterLink></li>
-              <li><FooterLink href="#features">{t('Migración desde Excel', 'Excel Migration')}</FooterLink></li>
-              <li><FooterLink href="#faq" external>{t('Soluciones API', 'API Integration')}</FooterLink></li>
+              <li><FooterLink href="/soluciones/autonomos">{t('Para Autónomos y Freelance', 'For Solo Pros & Freelancers')}</FooterLink></li>
+              <li><FooterLink href="/soluciones/agencias">{t('Para Pymes, Agencias y Estudios', 'For SMEs & Agencies')}</FooterLink></li>
+              <li><FooterLink href="/soluciones/startups">{t('Para Startups SaaS y E-commerce', 'For SaaS & E-commerce Startups')}</FooterLink></li>
+              <li><FooterLink href="/soluciones/gestorias">{t('Para Asesorías y Gestores', 'For Accountants & Advisors')}</FooterLink></li>
+              <li><FooterLink href="/soluciones">{t('Ver Todas las Soluciones', 'Explore All Solutions')}</FooterLink></li>
             </ul>
           </div>
 

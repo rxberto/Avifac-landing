@@ -16,7 +16,8 @@ import {
   Database, 
   Sliders, 
   Shield, 
-  Award 
+  Award,
+  Scale
 } from 'lucide-react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
@@ -257,7 +258,7 @@ export const CobrosRecurrentesPage: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3 pt-2 text-xs font-mono border-t border-[#D2D2CE] dark:border-[#303131]">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 pt-2 text-xs font-mono border-t border-[#D2D2CE] dark:border-[#303131]">
                       <div className="p-2.5 rounded-[4px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">
                         <span className="text-[10px] text-[rgba(10,12,11,0.6)] dark:text-white/60 block">{t('MÉTODO DE COBRO', 'BILLING METHOD')}</span>
                         <span className="font-bold flex items-center gap-1 mt-1 text-[#0A0C0B] dark:text-white">
@@ -301,7 +302,7 @@ export const CobrosRecurrentesPage: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3 pt-2 text-xs font-mono border-t border-[#D2D2CE] dark:border-[#303131]">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 pt-2 text-xs font-mono border-t border-[#D2D2CE] dark:border-[#303131]">
                       <div className="p-2.5 rounded-[4px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">
                         <span className="text-[10px] text-[rgba(10,12,11,0.6)] dark:text-white/60 block">{t('CUENTA CLIENTE (IBAN)', 'CLIENT ACCOUNT (IBAN)')}</span>
                         <span className="font-bold flex items-center gap-1 mt-1 text-[#0A0C0B] dark:text-white">
@@ -839,7 +840,7 @@ export const CobrosRecurrentesPage: React.FC = () => {
               <div className="pt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs text-white/70 font-mono">
                 <span>⚡ {t('SIN TARJETA DE CRÉDITO', 'NO CREDIT CARD NEEDED')}</span>
                 <span>🔒 {t('CERO COMISIONES POR COBRO', 'ZERO ADDED PAYMENT FEES')}</span>
-                <span>🇪🇸 {t('SOPORTE HUMANO EN ESPAÑA', 'REAL HUMAN SPANISH SUPPORT')}</span>
+                <span className="flex items-center gap-1.5"><Scale className="w-3.5 h-3.5 text-[rgb(158,250,255)]" /> {t('SOPORTE EN VIVO ESPECIALIZADO', 'SPECIALIZED LIVE SUPPORT')}</span>
               </div>
             </div>
           </div>
