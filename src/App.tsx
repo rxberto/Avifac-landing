@@ -28,9 +28,11 @@ const CobrosRecurrentesPage = lazy(() => import('./components/CobrosRecurrentesP
 const PortalClientesPage = lazy(() => import('./components/PortalClientesPage').then(m => ({ default: m.PortalClientesPage })));
 const SolucionesPage = lazy(() => import('./components/SolucionesPage').then(m => ({ default: m.SolucionesPage })));
 const SolucionDetallePage = lazy(() => import('./components/SolucionDetallePage').then(m => ({ default: m.SolucionDetallePage })));
+const IntegracionApiPage = lazy(() => import('./components/IntegracionApiPage').then(m => ({ default: m.IntegracionApiPage })));
+const IntegracionPagosPage = lazy(() => import('./components/IntegracionPagosPage').then(m => ({ default: m.IntegracionPagosPage })));
 
 export function App() {
-  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | 'data-protection' | 'terms' | 'pricing' | 'verifactu' | 'cobros' | 'portal' | 'soluciones' | 'soluciones-autonomos' | 'soluciones-agencias' | 'soluciones-startups' | 'soluciones-gestorias' | '404'>('home');
+  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | 'data-protection' | 'terms' | 'pricing' | 'verifactu' | 'cobros' | 'portal' | 'soluciones' | 'soluciones-autonomos' | 'soluciones-agencias' | 'soluciones-startups' | 'soluciones-gestorias' | 'api' | 'pagos' | '404'>('home');
 
   useEffect(() => {
     const checkPath = () => {
@@ -100,6 +102,9 @@ export function App() {
       const isStartupsRoute = pathname.includes('/soluciones/startups') || pathname.includes('/soluciones-startups') || hash.includes('#startups');
       const isGestoriasRoute = pathname.includes('/soluciones/gestorias') || pathname.includes('/soluciones-gestorias') || hash.includes('#gestorias');
 
+      const isApiRoute = pathname.includes('/integraciones/api') || pathname.includes('/integraciones-api') || hash.includes('#api-webhooks') || hash.includes('#api');
+      const isPagosRoute = pathname.includes('/integraciones/pagos') || pathname.includes('/integraciones-pagos') || hash.includes('#pagos') || hash.includes('#pasarelas');
+
       const isSolucionesRoute =
         !isAutonomosRoute &&
         !isAgenciasRoute &&
@@ -140,6 +145,10 @@ export function App() {
         setCurrentRoute('soluciones-gestorias');
       } else if (isSolucionesRoute) {
         setCurrentRoute('soluciones');
+      } else if (isApiRoute) {
+        setCurrentRoute('api');
+      } else if (isPagosRoute) {
+        setCurrentRoute('pagos');
       } else if (isExplicit404 || !isValidLanding) {
         setCurrentRoute('404');
       } else {
@@ -186,6 +195,10 @@ export function App() {
             <SolucionDetallePage type="startups" />
           ) : currentRoute === 'soluciones-gestorias' ? (
             <SolucionDetallePage type="gestorias" />
+          ) : currentRoute === 'api' ? (
+            <IntegracionApiPage />
+          ) : currentRoute === 'pagos' ? (
+            <IntegracionPagosPage />
           ) : (
             <main className="min-h-screen bg-[#FCFCFB] dark:bg-[#080a09] w-full overflow-x-hidden antialiased text-[#0A0C0B] dark:text-white transition-colors duration-300">
               {/* Above the fold (carga inmediata) */}

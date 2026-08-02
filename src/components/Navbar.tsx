@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ChevronDown,
@@ -9,13 +9,12 @@ import {
   Sparkles,
   Zap,
   ShieldCheck,
-  Globe2,
   PieChart,
-  ShoppingBag,
-  Store,
   Sun,
   Moon,
   Tag,
+  Code2,
+  Landmark,
 } from 'lucide-react';
 import { Button } from './Button';
 import { useTheme } from '../context/ThemeContext';
@@ -28,6 +27,17 @@ export const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const leaveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
 
   const handleMouseEnter = (name: string) => {
     if (leaveTimeoutRef.current) {
@@ -88,34 +98,28 @@ export const Navbar = () => {
       },
     },
     [t('Integraciones', 'Integrations')]: {
-      title: t('Integraciones Compatibles', 'Compatible Integrations'),
+      title: t('Integraciones y Conectividad', 'Integrations & Connectivity'),
       items: [
         {
-          title: t('Redsys & Pasarelas TPV', 'Redsys & POS Gateways'),
-          desc: t('Cobros directos con tarjetas bancarias.', 'Direct payments with local bank cards.'),
-          icon: Zap,
+          title: t('API REST & Webhooks', 'REST API & Webhooks'),
+          desc: t('Emisión VeriFactu por HTTP JSON y eventos en tiempo real protegidos con HMAC.', 'VeriFactu e-invoicing via JSON & real-time HMAC-secured events.'),
+          icon: Code2,
+          badge: t('API REST', 'REST API'),
+          href: '/integraciones/api',
         },
         {
-          title: t('Stripe & PayPal', 'Stripe & PayPal'),
-          desc: t('Procesamiento global multi-moneda.', 'Global multi-currency payment processing.'),
-          icon: Globe2,
-        },
-        {
-          title: t('Shopify & WooCommerce', 'Shopify & WooCommerce'),
-          desc: t('Sincroniza pedidos e impuestos automáticamente.', 'Auto-sync e-commerce orders & taxes.'),
-          icon: ShoppingBag,
-          badge: 'E-commerce',
-        },
-        {
-          title: t('Holded & Wise & Revolut', 'Holded & Wise & Revolut'),
-          desc: t('Conciliación bancaria mediante Open Banking.', 'Bank reconciliation via Open Banking.'),
-          icon: Store,
+          title: t('Pasarelas de Pago & Bancos', 'Payment Gateways & Banks'),
+          desc: t('Conecta Stripe, Redsys, PayPal y cuentas bancarias con 0% comisión Avialo.', 'Connect Stripe, Redsys, PayPal & banks with 0% Avialo fees.'),
+          icon: Landmark,
+          badge: t('0% Comisiones', '0% Fees'),
+          href: '/integraciones/pagos',
         },
       ],
       featured: {
-        title: t('API Abierta para Developers', 'Developer Open API'),
-        desc: t('Conecta Avialo con tu backend mediante Webhooks.', 'Connect Avialo with your backend via Webhooks.'),
-        cta: t('Ver Documentación', 'View Docs'),
+        title: t('Conectividad Universal', 'Universal Connectivity'),
+        desc: t('Compatible con cualquier stack tecnológico a través de peticiones HTTP estándar.', 'Compatible with any tech stack via standard HTTP JSON requests.'),
+        cta: t('Explorar Endpoints API', 'Explore API Endpoints'),
+        href: '/integraciones/api',
       },
     },
     [t('Soluciones', 'Solutions')]: {
@@ -235,7 +239,7 @@ export const Navbar = () => {
                   className="absolute top-full mt-3 left-1/2 -translate-x-1/2 w-[720px] max-w-[calc(100vw-48px)] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] rounded-3xl p-6 shadow-2xl text-sm z-50 grid grid-cols-12 gap-5 overflow-hidden"
                 >
                   {/* Items Grid */}
-                  <div className={`${megaMenus[activeDropdown].featured ? 'col-span-8' : 'col-span-12'} grid grid-cols-2 gap-3.5`}>
+                  <div className={`${megaMenus[activeDropdown].featured ? 'col-span-8' : 'col-span-12'} grid ${megaMenus[activeDropdown].items.length <= 2 ? 'grid-cols-1' : 'grid-cols-2'} gap-3.5`}>
                     {megaMenus[activeDropdown].items.map((item) => {
                       const Icon = item.icon;
                       return (
@@ -366,13 +370,13 @@ export const Navbar = () => {
           {mobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'calc(100dvh - 65px)' }}
+              animate={{ opacity: 1, height: 'calc(100vh - 65px)' }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="lg:hidden overflow-hidden bg-[#FCFCFB] dark:bg-[#080a09] border-t border-[#D2D2CE] dark:border-[#303131] fixed top-[65px] left-0 right-0 bottom-0 z-40 flex flex-col"
+              transition={{ duration: 0.25, ease: 'easeInOut' }}
+              className="lg:hidden bg-[#FCFCFB] dark:bg-[#080a09] border-t border-[#D2D2CE] dark:border-[#303131] fixed top-[65px] left-0 right-0 bottom-0 z-40 flex flex-col overscroll-contain touch-pan-y max-h-[calc(100vh-65px)]"
             >
               {/* Scrollable Links Container */}
-              <div className="flex-1 overflow-y-auto px-6 pt-6 pb-8 space-y-8">
+              <div className="flex-1 overflow-y-auto px-6 pt-6 pb-8 space-y-8 overscroll-contain touch-pan-y">
                 {Object.keys(megaMenus).map((key) => (
                   <div key={key} className="space-y-4">
                     <h3 className="text-[#0A0C0B] dark:text-white font-bold text-lg mb-2 border-b border-[#D2D2CE] dark:border-[#303131] pb-2">

@@ -331,8 +331,8 @@ export const PricingPage = () => {
           multiempresa: true,
         },
         {
-          nameEs: 'Exportación en formatos contables (A3, Sage, Holded, CSV)',
-          nameEn: 'Export to ERP formats (A3, Sage, Holded, CSV)',
+          nameEs: 'Exportación en formatos contables (A3, Sage, CSV y Excel)',
+          nameEn: 'Export to accounting formats (A3, Sage, CSV & Excel)',
           esencial: false,
           completo: true,
           multiempresa: true,

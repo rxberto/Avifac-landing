@@ -207,11 +207,9 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
               <li><FooterLink href="/verifactu">{t('Facturación VeriFactu', 'VeriFactu Invoicing')}</FooterLink></li>
               <li><FooterLink href="/cobros-recurrentes">{t('Cobros Recurrentes', 'Recurring Billing')}</FooterLink></li>
               <li><FooterLink href="/portal-clientes">{t('Portal de Clientes', 'Client Portal')}</FooterLink></li>
-              <li><FooterLink href="#features">{t('Tickets Simplificados', 'Receipts & Tickets')}</FooterLink></li>
-              <li><FooterLink href="#features">{t('Presupuestos y Albaranes', 'Quotes & Delivery Notes')}</FooterLink></li>
+              <li><FooterLink href="/integraciones/api">{t('API & Webhooks para Devs', 'Developer API & Webhooks')}</FooterLink></li>
+              <li><FooterLink href="/integraciones/pagos">{t('Pasarelas de Pago & Bancos', 'Payment Gateways & Banks')}</FooterLink></li>
               <li><FooterLink href="#features">{t('Control de Gastos', 'Expense Management')}</FooterLink></li>
-              <li><FooterLink href="#features">{t('Inventario de Stock', 'Inventory Control')}</FooterLink></li>
-              <li><FooterLink href="#features">{t('Copiloto IA Fiscal', 'AI Tax Copilot')}</FooterLink></li>
             </ul>
           </div>
 
