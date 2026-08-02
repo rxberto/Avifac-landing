@@ -323,7 +323,7 @@ export const Hero = () => {
         muted
         playsInline
         webkit-playsinline="true"
-        preload="auto"
+        preload="none"
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-20 sm:opacity-25 dark:opacity-65 pointer-events-none filter brightness-110 contrast-105 dark:brightness-120 dark:contrast-110 transition-opacity duration-300 transform-gpu will-change-transform"
       >
         <source
@@ -341,13 +341,8 @@ export const Hero = () => {
       {/* Main Content Area */}
       <div className="relative z-10 w-full max-w-[1140px] mx-auto px-4 sm:px-6 flex flex-col items-center justify-start text-center pt-4 sm:pt-10">
 
-        {/* Main Heading & Subtitle */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="flex flex-col items-center max-w-[960px] px-2 sm:px-0"
-        >
+        {/* Main Heading & Subtitle - Renderizado directo sin opacity 0 para máximo LCP en móvil */}
+        <div className="flex flex-col items-center max-w-[960px] px-2 sm:px-0">
           <h1 className="font-normal tracking-[-0.04em] text-5xl sm:text-6xl md:text-7xl xl:text-8xl leading-[1.05] sm:leading-[1.1] select-none text-center text-[#0A0C0B] dark:text-white">
             <span className="block">{t('Tu facturación', 'Invoicing made')}</span>
             <ShinyText text={t('simple.', 'effortless.')} speed={2.5} className="font-semibold block mt-1 sm:mt-0" />
@@ -359,19 +354,14 @@ export const Hero = () => {
               'Smart e-invoicing and VeriFactu 2027 tax compliance for Spain. Built for speed, real human support, and unlimited invoices.'
             )}
           </p>
-        </motion.div>
+        </div>
 
         {/* CTA Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-5 sm:mt-8 w-full sm:w-auto px-4 sm:px-0"
-        >
+        <div className="mt-5 sm:mt-8 w-full sm:w-auto px-4 sm:px-0">
           <Button variant="primary" href={APP_URLS.register} className="w-full sm:w-auto text-base px-8 py-3.5 justify-center">
             {t('Pruébanos 14 días gratis', 'Start 14-day free trial')}
           </Button>
-        </motion.div>
+        </div>
 
         {/* Extended 3D Scroll Dashboard Panel — Interfaz real de Avialo, interactiva (Modo Claro y Oscuro) */}
         <div className="w-full max-w-7xl mt-6 sm:mt-10 [perspective:1000px] relative z-20 px-1 sm:px-0">

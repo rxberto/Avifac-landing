@@ -2,11 +2,11 @@ import { Suspense, lazy, useState, useEffect } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { Hero } from './components/Hero';
-import { HeroActionRow } from './components/HeroActionRow';
-import { Footer } from './components/Footer';
 import { NotFoundPage } from './components/NotFoundPage';
 
 // Lazy load below-the-fold components para optimización de rendimiento y carga móvil
+const HeroActionRow = lazy(() => import('./components/HeroActionRow').then(m => ({ default: m.HeroActionRow })));
+const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
 const IntelligentDelegationSection = lazy(() => import('./components/IntelligentDelegationSection').then(m => ({ default: m.IntelligentDelegationSection })));
 const OverviewSection = lazy(() => import('./components/OverviewSection').then(m => ({ default: m.OverviewSection })));
 const CoreFeaturesSection = lazy(() => import('./components/CoreFeaturesSection').then(m => ({ default: m.CoreFeaturesSection })));
@@ -216,12 +216,12 @@ export function App() {
             <IntegracionPagosPage />
           ) : (
             <main className="min-h-screen bg-[#FCFCFB] dark:bg-[#080a09] w-full overflow-x-hidden antialiased text-[#0A0C0B] dark:text-white transition-colors duration-300">
-              {/* Above the fold (carga inmediata) */}
+              {/* Above the fold (carga inmediata pura y sin bloqueo) */}
               <Hero />
-              <HeroActionRow />
 
               {/* Below the fold (carga diferida/lazy) */}
               <Suspense fallback={<div className="h-32 w-full flex items-center justify-center text-[rgba(10,12,11,0.5)] dark:text-white/50 animate-pulse">Cargando sección...</div>}>
+                <HeroActionRow />
                 <IntelligentDelegationSection />
                 <OverviewSection />
                 <CoreFeaturesSection />
@@ -234,9 +234,8 @@ export function App() {
                 <ComplianceSection />
                 <FAQSection />
                 <FinalCTASection />
+                <Footer />
               </Suspense>
-
-              <Footer />
             </main>
           )}
         </Suspense>
