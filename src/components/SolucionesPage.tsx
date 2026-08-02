@@ -37,7 +37,7 @@ export const SolucionesPage: React.FC = () => {
       badgeEs: 'Profesionales independientes',
       badgeEn: 'Independent professionals',
       icon: User,
-      image: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=70',
       href: '/soluciones/autonomos'
     },
     {
@@ -49,7 +49,7 @@ export const SolucionesPage: React.FC = () => {
       badgeEs: 'Empresas y equipos',
       badgeEn: 'Companies & teams',
       icon: Users,
-      image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=70',
       href: '/soluciones/agencias'
     },
     {
@@ -61,7 +61,7 @@ export const SolucionesPage: React.FC = () => {
       badgeEs: 'Negocios digitales',
       badgeEn: 'Digital online brands',
       icon: ShoppingBag,
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=70',
       href: '/soluciones/startups'
     },
     {
@@ -73,7 +73,7 @@ export const SolucionesPage: React.FC = () => {
       badgeEs: 'Despachos y asesores',
       badgeEn: 'Accounting firms',
       icon: Briefcase,
-      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=70',
       href: '/soluciones/gestorias'
     }
   ];
@@ -112,6 +112,8 @@ export const SolucionesPage: React.FC = () => {
                     <img
                       src={choice.image}
                       alt={t(choice.titleEs, choice.titleEn)}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out brightness-[0.92] group-hover:brightness-100"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />

@@ -24,8 +24,9 @@ export const NotFoundPage = () => {
             muted
             loop
             playsInline
+            preload="auto"
             onCanPlay={() => setVideoLoaded(true)}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 transform-gpu ${
               videoLoaded ? 'opacity-100' : 'opacity-0'
             }`}
           >
