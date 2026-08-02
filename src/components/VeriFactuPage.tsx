@@ -42,8 +42,8 @@ export const VeriFactuPage = () => {
       id: 2,
       q: t('¿Cuándo entra en vigor la obligatoriedad legal para mi negocio?', 'When do these regulations become mandatory for my business?'),
       a: t(
-        'El calendario normativo de la Agencia Tributaria establece un despliegue escalonado pero inexorable: para las pymes y empresas (sociedades mercantiles), la obligatoriedad entra en vigor el 1 de enero de 2026. Para los autónomos y profesionales independientes, la fecha límite vinculante es el 1 de julio de 2026. Operar tras esas fechas sin un software SIF homologado implica infracciones muy graves.',
-        'The Tax Agency timeline sets a mandatory phased rollout: for SMEs and corporate companies, full legal compliance begins January 1st, 2026. For self-employed individuals and freelancers, the binding deadline is July 1st, 2026. Invoicing without certified SIF software after these deadlines constitutes a severe regulatory breach.'
+        'El calendario normativo de la Agencia Tributaria establece un despliegue escalonado pero inexorable: para las pymes y empresas (sociedades mercantiles), la obligatoriedad entra en vigor el 1 de enero de 2027. Para los autónomos y profesionales independientes, la fecha límite vinculante es el 1 de julio de 2027. Operar tras esas fechas sin un software SIF homologado implica infracciones muy graves.',
+        'The Tax Agency timeline sets a mandatory phased rollout: for SMEs and corporate companies, full legal compliance begins January 1st, 2027. For self-employed individuals and freelancers, the binding deadline is July 1st, 2027. Invoicing without certified SIF software after these deadlines constitutes a severe regulatory breach.'
       ),
     },
     {
@@ -114,8 +114,8 @@ export const VeriFactuPage = () => {
         >
           <h1 className="text-4xl sm:text-5xl lg:text-[60px] font-bold tracking-[-0.03em] text-[#0A0C0B] dark:text-white leading-[1.12]">
             {t(
-              'Facturación VeriFactu 2026: Seguridad fiscal sin fisuras ni letra pequeña',
-              'VeriFactu 2026 Invoicing: Ironclad tax compliance without compromises'
+              'Facturación VeriFactu 2027: Seguridad fiscal sin fisuras ni letra pequeña',
+              'VeriFactu 2027 Invoicing: Ironclad tax compliance without compromises'
             )}
           </h1>
 
@@ -240,7 +240,7 @@ export const VeriFactuPage = () => {
                         {t('FACTURA OFICIAL VERIFACTU', 'OFFICIAL VERIFACTU INVOICE')}
                       </div>
                       <div className="text-sm sm:text-base font-bold text-[#0A0C0B] dark:text-white font-mono">
-                        FAC-2026-00489
+                        FAC-2027-00489
                       </div>
                     </div>
                   </div>
@@ -320,11 +320,11 @@ export const VeriFactuPage = () => {
           </div>
         </section>
 
-        {/* SECCIÓN 2: CALENDARIO NORMATIVO 2026 - FECHAS OBLIGATORIAS VINCULANTES */}
+        {/* SECCIÓN 2: CALENDARIO NORMATIVO 2027 - FECHAS OBLIGATORIAS VINCULANTES */}
         <section className="space-y-10">
           <div className="text-center sm:text-left space-y-3 max-w-3xl">
             <h2 className="text-2xl sm:text-4xl font-bold tracking-[-0.03em] text-[#0A0C0B] dark:text-white">
-              {t('Calendario Normativo 2026: ¿Cuándo entra en vigor para tu empresa?', '2026 Legal Timeline: When does it become binding for your business?')}
+              {t('Calendario Normativo 2027: ¿Cuándo entra en vigor para tu empresa?', '2027 Legal Timeline: When does it become binding for your business?')}
             </h2>
             <p className="text-sm sm:text-base text-[rgba(10,12,11,0.75)] dark:text-white/75 leading-relaxed font-normal">
               {t(
@@ -381,15 +381,15 @@ export const VeriFactuPage = () => {
                   <div className="space-y-5 text-left">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[6px] bg-[rgba(20,122,132,0.12)] text-[rgb(20,122,132)] dark:text-[rgb(158,250,255)] font-bold text-xs font-mono uppercase">
                       <Clock className="w-3.5 h-3.5" />
-                      <span>{t('FECHA LEGAL VINCULANTE: 01/01/2026', 'MANDATORY DEADLINE: 01/01/2026')}</span>
+                      <span>{t('FECHA LEGAL VINCULANTE: 01/01/2027', 'MANDATORY DEADLINE: 01/01/2027')}</span>
                     </div>
                     <h3 className="text-2xl sm:text-3xl font-bold text-[#0A0C0B] dark:text-white leading-tight">
-                      {t('1 de Enero de 2026: Obligatorio para Sociedades y Pymes', 'January 1st, 2026: Mandatory for SMEs & Corporations')}
+                      {t('1 de Enero de 2027: Obligatorio para Sociedades y Pymes', 'January 1st, 2027: Mandatory for SMEs & Corporations')}
                     </h3>
                     <p className="text-sm sm:text-base text-[rgba(10,12,11,0.75)] dark:text-white/75 leading-relaxed">
                       {t(
-                        'A partir del 1 de enero de 2026, todas las empresas emisoras de facturas y sociedades mercantiles que operen en el territorio común español tienen terminantemente prohibido utilizar softwares informáticos no homologados ante VeriFactu.',
-                        'Starting January 1st, 2026, all corporations and businesses operating under common Spanish tax law are strictly legally forbidden from generating bills using software lacking official VeriFactu SIF certification.'
+                        'A partir del 1 de enero de 2027, todas las empresas emisoras de facturas y sociedades mercantiles que operen en el territorio común español tienen terminantemente prohibido utilizar softwares informáticos no homologados ante VeriFactu.',
+                        'Starting January 1st, 2027, all corporations and businesses operating under common Spanish tax law are strictly legally forbidden from generating bills using software lacking official VeriFactu SIF certification.'
                       )}
                     </p>
                     <ul className="space-y-2.5 text-xs sm:text-sm font-medium text-[#0A0C0B] dark:text-white">
@@ -432,15 +432,15 @@ export const VeriFactuPage = () => {
                   <div className="space-y-5 text-left">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[6px] bg-[rgba(52,138,46,0.15)] text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] font-bold text-xs font-mono uppercase">
                       <Clock className="w-3.5 h-3.5" />
-                      <span>{t('FECHA LEGAL VINCULANTE: 01/07/2026', 'MANDATORY DEADLINE: 01/07/2026')}</span>
+                      <span>{t('FECHA LEGAL VINCULANTE: 01/07/2027', 'MANDATORY DEADLINE: 01/07/2027')}</span>
                     </div>
                     <h3 className="text-2xl sm:text-3xl font-bold text-[#0A0C0B] dark:text-white leading-tight">
-                      {t('1 de Julio de 2026: Obligatorio para Autónomos y Profesionales', 'July 1st, 2026: Mandatory for Freelancers & Independent Professionals')}
+                      {t('1 de Julio de 2027: Obligatorio para Autónomos y Profesionales', 'July 1st, 2027: Mandatory for Freelancers & Independent Professionals')}
                     </h3>
                     <p className="text-sm sm:text-base text-[rgba(10,12,11,0.75)] dark:text-white/75 leading-relaxed">
                       {t(
-                        'Los trabajadores autónomos, profesionales liberales y gremios independientes disponen hasta el 1 de julio de 2026 para abandonar plantillas manuales, hojas de cálculo o carnets en papel y operar exclusivamente bajo software SIF.',
-                        'Self-employed professionals, freelancers, and independent contractors have until July 1st, 2026 to retire manual templates, paper notebooks, or basic Excel files, moving 100% to certified SIF tools.'
+                        'Los trabajadores autónomos, profesionales liberales y gremios independientes disponen hasta el 1 de julio de 2027 para abandonar plantillas manuales, hojas de cálculo o carnets en papel y operar exclusivamente bajo software SIF.',
+                        'Self-employed professionals, freelancers, and independent contractors have until July 1st, 2027 to retire manual templates, paper notebooks, or basic Excel files, moving 100% to certified SIF tools.'
                       )}
                     </p>
                     <ul className="space-y-2.5 text-xs sm:text-sm font-medium text-[#0A0C0B] dark:text-white">
