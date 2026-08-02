@@ -65,6 +65,7 @@ export const Navbar = () => {
           desc: t('Automatiza suscripciones y pagos con reintentos.', 'Automate subscriptions & recurring payments.'),
           icon: CreditCard,
           badge: t('Popular', 'Popular'),
+          href: '/cobros-recurrentes',
         },
         {
           title: t('Escáner OCR Gastos', 'OCR Expense Scanner'),
@@ -163,9 +164,9 @@ export const Navbar = () => {
           {/* Logo + Brand Name */}
           <a href="/" className="flex items-center gap-3 group shrink-0">
             <img
-              src="/favicon.svg"
+              src="/favicon.svg?v=2"
               alt="Avialo Logo"
-              className="h-7 md:h-8 w-auto filter brightness-0 dark:brightness-0 dark:invert transition-transform duration-300 group-hover:scale-105"
+              className="h-7 md:h-8 w-auto transition-transform duration-300 group-hover:scale-105"
               onError={(e) => {
                 (e.currentTarget as HTMLElement).style.display = 'none';
               }}

@@ -23,9 +23,9 @@ const LogoMark = () => {
     <a href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
       {!hasError ? (
         <img
-          src="/favicon.svg"
+          src="/favicon.svg?v=2"
           alt="Avialo Logo"
-          className="h-7 w-auto object-contain brightness-0 dark:brightness-0 dark:invert"
+          className="h-7 w-auto object-contain"
           onError={() => setHasError(true)}
         />
       ) : (
@@ -201,6 +201,7 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
             <h4 className="text-xs font-bold uppercase tracking-wider text-[#0A0C0B] dark:text-white">{t('Funcionalidades', 'Features')}</h4>
             <ul className="space-y-2.5">
               <li><FooterLink href="/verifactu">{t('Facturación VeriFactu', 'VeriFactu Invoicing')}</FooterLink></li>
+              <li><FooterLink href="/cobros-recurrentes">{t('Cobros Recurrentes', 'Recurring Billing')}</FooterLink></li>
               <li><FooterLink href="#features">{t('Tickets Simplificados', 'Receipts & Tickets')}</FooterLink></li>
               <li><FooterLink href="#features">{t('Presupuestos y Albaranes', 'Quotes & Delivery Notes')}</FooterLink></li>
               <li><FooterLink href="#features">{t('Control de Gastos', 'Expense Management')}</FooterLink></li>

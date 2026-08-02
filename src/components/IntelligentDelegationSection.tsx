@@ -65,7 +65,7 @@ export const IntelligentDelegationSection = () => {
         'Click "New invoice" and see the real editor: client, line items, VAT and totals calculated instantly.'
       ),
       icon: Bot,
-      url: invoiceFormOpen ? 'app.avialo.es/facturas/nueva' : 'app.avialo.es/facturas',
+      url: invoiceFormOpen ? 'app.avialo.tech/facturas/nueva' : 'app.avialo.tech/facturas',
     },
     {
       id: 1,
@@ -76,7 +76,7 @@ export const IntelligentDelegationSection = () => {
         'Output VAT, quarterly tax return, and quarter EBITDA, calculated in real time.'
       ),
       icon: Sparkles,
-      url: 'app.avialo.es/informes',
+      url: 'app.avialo.tech/informes',
     },
     {
       id: 2,
@@ -87,7 +87,7 @@ export const IntelligentDelegationSection = () => {
         'Every issued invoice is digitally signed, sent to the Tax Agency, and chained into a tamper-proof ledger.'
       ),
       icon: ShieldCheck,
-      url: 'app.avialo.es/facturas/av-0001',
+      url: 'app.avialo.tech/facturas/av-0001',
     },
     {
       id: 3,
@@ -98,7 +98,7 @@ export const IntelligentDelegationSection = () => {
         'PDF, email, WhatsApp, or a direct payment link: your client pays their way, you see it reconciled.'
       ),
       icon: Cpu,
-      url: 'app.avialo.es/facturas/av-0001',
+      url: 'app.avialo.tech/facturas/av-0001',
     },
   ];
 
