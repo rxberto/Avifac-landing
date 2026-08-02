@@ -134,10 +134,10 @@ export const SolucionDetallePage: React.FC<SolucionDetalleProps> = ({ type }) =>
           aEn: 'For independent professionals and freelancers in Spain, VeriFactu compliance begins July 1st, 2027. Avialo guarantees full technological readiness well ahead of statutory deadlines.'
         },
         {
-          qEs: '¿Puedo importar mi listado de clientes y facturas antiguas desde Excel o de mi programa anterior?',
-          qEn: 'Can I import existing client rosters and past invoices from Excel or old software?',
-          aEs: 'Sí, absolutamente. Contamos con un asistente importador por Excel / CSV ultra Rápido. Puedes arrastrar tu archivo anterior y nuestro sistema ordenará tus contactos y series contables en menos de 2 minutos.',
-          aEn: 'Yes, absolutely. Our high-speed Excel/CSV import assistant enables you to migrate your contacts, past ledgers, and billing series in under 2 minutes without friction.'
+          qEs: '¿Cuánto tiempo se tarda en configurar Avialo para empezar a emitir facturas legales?',
+          qEn: 'How long does it take to set up Avialo and issue legal e-invoices?',
+          aEs: 'Menos de 2 minutos. Al registrarte solo tienes que introducir tu NIF y tus datos fiscales de empresa o autónomo. A partir de ahí, puedes emitir tu primera factura con código QR VeriFactu y enlace de pago en tu Portal de Clientes de forma inmediata.',
+          aEn: 'Under 2 minutes. Simply input your Tax ID (NIF) and official corporate profile upon registration. You can immediately issue your first invoice with a legal VeriFactu QR stamp and Client Portal payment checkout without delay.'
         },
         {
           qEs: '¿Mi gestor contable tiene que pagar una licencia extra para descargar mis datos trimestrales?',

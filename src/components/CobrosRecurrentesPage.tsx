@@ -115,12 +115,12 @@ export const CobrosRecurrentesPage: React.FC = () => {
     {
       id: 5,
       icon: Database,
-      qEs: '¿Es fácil migrar mis suscripciones actuales desde Excel u otras herramientas?',
-      qEn: 'Is it simple to migrate my active subscriptions from Excel or legacy tools?',
-      aEs: 'Extremadamente ágil y sin cortes de servicio. Dispones de un importador masivo inteligente que te permite cargar en minutos tus listas de clientes, cuotas periódicas y mandatos bancarios. Además, nuestro equipo de soporte técnico humano en España te acompaña en todo el proceso de transición para que no experimentes ni una sola hora de interrupción ni pierdas el ciclo contable en curso.',
-      aEn: 'Extremely fast with zero downtime. You have access to our smart bulk onboarding importer designed to ingest your client rolls, recurring fee structures, and banking details in minutes. Furthermore, our specialized human technical support team in Spain guides your whole migration journey to ensure zero downtime or billing disruptions across your active fiscal cycles.',
-      highlightEs: 'Punto Clave: Migración guiada en menos de 24h con soporte técnico humano español',
-      highlightEn: 'Key Takeaway: Guided 24h migration with expert human technical support located in Spain'
+      qEs: '¿Es fácil empezar a emitir suscripciones periódicas y recurrentes por primera vez?',
+      qEn: 'Is it easy to start billing recurring subscriptions and memberships for the first time?',
+      aEs: 'Extremadamente sencillo e intuitivo. Configuras tus planes de cobros en menos de 5 minutos definiendo la periodicidad, el importe y la fecha de cargo. Nuestro equipo de soporte en vivo especializado en España te acompaña en la puesta en marcha para que tus facturas recurrentes y mandatos SEPA empiecen a emitirse de forma automática en tu ciclo contable actual.',
+      aEn: 'Extremely simple and intuitive. You set up your recurring pricing tiers in under 5 minutes by defining periodicity, amounts, and billing cycles. Our specialized live technical support team in Spain guides your initial setup so automated invoicing starts seamlessly.',
+      highlightEs: 'Punto Clave: Puesta en marcha guiada con soporte en vivo especializado y humano en España',
+      highlightEn: 'Key Takeaway: Guided fast setup with expert live technical support located in Spain'
     }
   ];
 

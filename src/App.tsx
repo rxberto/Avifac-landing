@@ -30,9 +30,10 @@ const SolucionesPage = lazy(() => import('./components/SolucionesPage').then(m =
 const SolucionDetallePage = lazy(() => import('./components/SolucionDetallePage').then(m => ({ default: m.SolucionDetallePage })));
 const IntegracionApiPage = lazy(() => import('./components/IntegracionApiPage').then(m => ({ default: m.IntegracionApiPage })));
 const IntegracionPagosPage = lazy(() => import('./components/IntegracionPagosPage').then(m => ({ default: m.IntegracionPagosPage })));
+const ControlGastosPage = lazy(() => import('./components/ControlGastosPage').then(m => ({ default: m.ControlGastosPage })));
 
 export function App() {
-  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | 'data-protection' | 'terms' | 'pricing' | 'verifactu' | 'cobros' | 'portal' | 'soluciones' | 'soluciones-autonomos' | 'soluciones-agencias' | 'soluciones-startups' | 'soluciones-gestorias' | 'api' | 'pagos' | '404'>('home');
+  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | 'data-protection' | 'terms' | 'pricing' | 'verifactu' | 'cobros' | 'portal' | 'control-gastos' | 'soluciones' | 'soluciones-autonomos' | 'soluciones-agencias' | 'soluciones-startups' | 'soluciones-gestorias' | 'api' | 'pagos' | '404'>('home');
 
   useEffect(() => {
     const checkPath = () => {
@@ -97,6 +98,16 @@ export function App() {
         hash === '#portal-clientes' ||
         hash === '#portal';
 
+      const isControlGastosRoute =
+        pathname === '/control-gastos' ||
+        pathname === '/control-gastos/' ||
+        pathname === '/gastos' ||
+        pathname === '/gastos/' ||
+        pathname === '/ocr-gastos' ||
+        pathname === '/ocr-gastos/' ||
+        hash === '#control-gastos' ||
+        hash === '#gastos';
+
       const isAutonomosRoute = pathname.includes('/soluciones/autonomos') || pathname.includes('/soluciones-autonomos') || hash.includes('#autonomos');
       const isAgenciasRoute = pathname.includes('/soluciones/agencias') || pathname.includes('/soluciones-agencias') || hash.includes('#agencias');
       const isStartupsRoute = pathname.includes('/soluciones/startups') || pathname.includes('/soluciones-startups') || hash.includes('#startups');
@@ -135,6 +146,8 @@ export function App() {
         setCurrentRoute('cobros');
       } else if (isPortalRoute) {
         setCurrentRoute('portal');
+      } else if (isControlGastosRoute) {
+        setCurrentRoute('control-gastos');
       } else if (isAutonomosRoute) {
         setCurrentRoute('soluciones-autonomos');
       } else if (isAgenciasRoute) {
@@ -185,6 +198,8 @@ export function App() {
             <CobrosRecurrentesPage />
           ) : currentRoute === 'portal' ? (
             <PortalClientesPage />
+          ) : currentRoute === 'control-gastos' ? (
+            <ControlGastosPage />
           ) : currentRoute === 'soluciones' ? (
             <SolucionesPage />
           ) : currentRoute === 'soluciones-autonomos' ? (

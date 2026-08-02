@@ -403,7 +403,7 @@ export const VeriFactuPage = () => {
                       </li>
                       <li className="flex items-center gap-2.5">
                         <CheckCircle2 className="w-4 h-4 text-[rgb(52,138,46)] shrink-0" />
-                        <span>{t('Migración fluida desde tu viejo ERP en menos de 24 horas', 'Frictionless migration from legacy ERPs in under 24 hours')}</span>
+                        <span>{t('Puesta en marcha ágil con soporte en vivo especializado en España', 'Agile deployment with specialized live support in Spain')}</span>
                       </li>
                     </ul>
                   </div>
@@ -624,8 +624,8 @@ export const VeriFactuPage = () => {
             </h2>
             <p className="text-sm sm:text-base text-[rgba(10,12,11,0.75)] dark:text-white/75 leading-relaxed font-normal">
               {t(
-                'No cambies el caos de Excel por la lentitud, el soporte automatizado por bots y los costes ocultos de los ERPs generalistas anticuados. Descubre la diferencia de facturar con una plataforma moderna de nueva generación.',
-                'Do not trade Excel spreadsheet chaos for the slowness, automated bot support, and hidden fee traps of outdated generalist ERPs. See why scaling teams are migrating to next-generation software.'
+                'No cambies el caos de las hojas de cálculo manuales por la lentitud y los costes ocultos de los ERPs anticuados. Descubre la diferencia de facturar con una plataforma de nueva generación.',
+                'Do not trade manual spreadsheet chaos for the slowness, automated bot support, and hidden fee traps of outdated ERPs. See why scaling teams choose next-generation invoicing.'
               )}
             </p>
           </div>

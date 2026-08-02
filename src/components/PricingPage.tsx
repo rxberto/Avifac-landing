@@ -115,7 +115,7 @@ export const PricingPage = () => {
         { text: t('Marca blanca con el logotipo de tu gestoría', 'White-labeling with your agency/firm logo'), included: true },
         { text: t('Exportación avanzada y conectores contables', 'Advanced export & ERP accounting connectors'), included: true },
         { text: t('Soporte directo inmediato (SLA < 4h)', 'Direct immediate support (SLA < 4 hours)'), included: true },
-        { text: t('Asistencia para importación masiva sin datos perdidos', 'Assistance for mass migration with zero data loss'), included: true },
+        { text: t('Puesta en marcha ágil con configuración guiada', 'Agile deployment and guided initial setup'), included: true },
         { text: t('Gestor de cuenta y onboarding personalizado', 'Account manager and custom onboarding'), included: true },
       ],
     },
@@ -380,10 +380,10 @@ export const PricingPage = () => {
           multiempresa: t('Directo < 4h', 'Direct < 4h'),
         },
         {
-          nameEs: 'Onboarding y migración guiada sin pérdida de datos',
-          nameEn: 'Assisted onboarding & zero-data-loss migration',
-          esencial: t('Guías & CSV', 'Guides & CSV'),
-          completo: t('Asistente automatizado', 'Automated Wizard'),
+          nameEs: 'Onboarding y configuración inicial guiada',
+          nameEn: 'Assisted onboarding & guided initial setup',
+          esencial: t('Guías intuitivas', 'Intuitive guides'),
+          completo: t('Soporte en vivo', 'Live chat support'),
           multiempresa: t('Especialista dedicado', 'Dedicated Specialist'),
         },
       ],
@@ -417,10 +417,10 @@ export const PricingPage = () => {
     },
     {
       icon: RefreshCw,
-      title: t('Migración rápida e intuitiva', 'Fast and intuitive data migration'),
+      title: t('Puesta en marcha en menos de 5 minutos', 'Go live in under 5 minutes'),
       desc: t(
-        '¿Vienes de hojas de cálculo o de un programa contable heredado? Nuestro importador automatizado traslada tus catálogos de clientes, artículos e histórico de facturas en pocos minutos, preservando la integridad documental.',
-        'Coming from spreadsheets or legacy software? Our automated importer migrates your contact directories, product items, and past billing history in minutes, preserving strict document integrity.'
+        'Olvídate de procesos complejos de instalación o configuraciones engorrosas. Avialo está listo desde el primer instante para emitir facturas legales VeriFactu, conectar tu Datáfono Virtual o Stripe y gestionar tus cobros al momento.',
+        'Forget complex installations or cumbersome setups. Avialo is ready immediately to issue legal VeriFactu e-invoices, connect your Virtual POS or Stripe, and manage your billing operations seamlessly.'
       ),
     },
     {

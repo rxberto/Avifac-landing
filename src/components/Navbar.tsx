@@ -82,6 +82,7 @@ export const Navbar = () => {
           title: t('Escáner OCR Gastos', 'OCR Expense Scanner'),
           desc: t('Sube tickets y extrae impuestos con IA.', 'Scan receipts & extract tax details with AI.'),
           icon: PieChart,
+          href: '/control-gastos',
         },
         {
           title: t('Portal de Clientes', 'Client Portal'),

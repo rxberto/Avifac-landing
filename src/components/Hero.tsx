@@ -291,11 +291,20 @@ export const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {
-        // Autoplay policy fallback handled silently on mobile
-      });
-    }
+    const tryPlay = () => {
+      if (videoRef.current && videoRef.current.paused) {
+        videoRef.current.play().catch(() => {
+          // Silent catch for stricter autoplay policies
+        });
+      }
+    };
+    tryPlay();
+    document.addEventListener('touchstart', tryPlay, { passive: true });
+    document.addEventListener('pointerdown', tryPlay, { passive: true });
+    return () => {
+      document.removeEventListener('touchstart', tryPlay);
+      document.removeEventListener('pointerdown', tryPlay);
+    };
   }, []);
 
   return (
@@ -303,8 +312,8 @@ export const Hero = () => {
       ref={heroContainerRef}
       className="relative w-full bg-[#FCFCFB] dark:bg-[#080a09] text-[#0A0C0B] dark:text-white overflow-hidden flex flex-col justify-start pt-20 sm:pt-28 pb-10 sm:pb-14 transition-colors duration-300"
     >
-      {/* Dots Texture */}
-      <div className="absolute top-0 left-0 w-full sm:w-[920px] h-[780px] bg-dot-texture animate-dot-pulse pointer-events-none opacity-25 z-0" />
+      {/* Dots Texture - Animación pausada en móvil para máximo rendimiento de GPU */}
+      <div className="absolute top-0 left-0 w-full sm:w-[920px] h-[780px] bg-dot-texture sm:animate-dot-pulse pointer-events-none opacity-20 sm:opacity-25 z-0" />
 
       {/* Background Video */}
       <video
@@ -313,8 +322,9 @@ export const Hero = () => {
         loop
         muted
         playsInline
+        webkit-playsinline="true"
         preload="auto"
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-20 sm:opacity-25 dark:opacity-65 pointer-events-none filter brightness-110 contrast-105 dark:brightness-120 dark:contrast-110 transition-opacity duration-300 transform-gpu"
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-20 sm:opacity-25 dark:opacity-65 pointer-events-none filter brightness-110 contrast-105 dark:brightness-120 dark:contrast-110 transition-opacity duration-300 transform-gpu will-change-transform"
       >
         <source
           src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_105406_16f4600d-7a92-4292-b96e-b19156c7830a.mp4"

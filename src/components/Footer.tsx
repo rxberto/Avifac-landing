@@ -209,7 +209,7 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
               <li><FooterLink href="/portal-clientes">{t('Portal de Clientes', 'Client Portal')}</FooterLink></li>
               <li><FooterLink href="/integraciones/api">{t('API & Webhooks para Devs', 'Developer API & Webhooks')}</FooterLink></li>
               <li><FooterLink href="/integraciones/pagos">{t('Pasarelas de Pago & Bancos', 'Payment Gateways & Banks')}</FooterLink></li>
-              <li><FooterLink href="#features">{t('Control de Gastos', 'Expense Management')}</FooterLink></li>
+              <li><FooterLink href="/control-gastos">{t('Control de Gastos', 'Expense Management')}</FooterLink></li>
             </ul>
           </div>
 
