@@ -85,12 +85,16 @@ interface FooterLinkProps {
   children: React.ReactNode;
   highlight?: boolean;
   external?: boolean;
+  target?: string;
+  rel?: string;
 }
 
-const FooterLink = ({ href, children, highlight, external }: FooterLinkProps) => {
+const FooterLink = ({ href, children, highlight, external, target, rel }: FooterLinkProps) => {
   return (
     <a
       href={href}
+      target={target}
+      rel={rel}
       className={`inline-flex items-center gap-1 text-xs transition-all duration-200 hover:translate-x-0.5 ${
         highlight
           ? 'text-violet-600 dark:text-violet-400 font-semibold hover:text-violet-700 dark:hover:text-violet-300'
@@ -192,7 +196,7 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
               <li><FooterLink href={APP_URLS.register} external>{t('Crea una cuenta gratis', 'Create free account')}</FooterLink></li>
               <li><FooterLink href={APP_URLS.login} external>{t('Iniciar sesión', 'Log in')}</FooterLink></li>
               <li><FooterLink href="/precios">{t('Precios y Planes', 'Pricing & Plans')}</FooterLink></li>
-              <li><FooterLink href="#">{t('Estado del sistema', 'System status')}</FooterLink></li>
+              <li><FooterLink href="https://avialo.statuspage.io/" external target="_blank" rel="noopener noreferrer">{t('Estado del sistema', 'System status')}</FooterLink></li>
             </ul>
           </div>
 
@@ -202,6 +206,7 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
             <ul className="space-y-2.5">
               <li><FooterLink href="/verifactu">{t('Facturación VeriFactu', 'VeriFactu Invoicing')}</FooterLink></li>
               <li><FooterLink href="/cobros-recurrentes">{t('Cobros Recurrentes', 'Recurring Billing')}</FooterLink></li>
+              <li><FooterLink href="/portal-clientes">{t('Portal de Clientes', 'Client Portal')}</FooterLink></li>
               <li><FooterLink href="#features">{t('Tickets Simplificados', 'Receipts & Tickets')}</FooterLink></li>
               <li><FooterLink href="#features">{t('Presupuestos y Albaranes', 'Quotes & Delivery Notes')}</FooterLink></li>
               <li><FooterLink href="#features">{t('Control de Gastos', 'Expense Management')}</FooterLink></li>

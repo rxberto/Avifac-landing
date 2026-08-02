@@ -5,32 +5,43 @@ import {
   CreditCard, 
   RefreshCw, 
   ShieldCheck, 
-  ChevronDown, 
+  ArrowRight, 
   CheckCircle2, 
   XCircle, 
   Clock, 
   Building2, 
   TrendingUp, 
-  ArrowRight
+  Percent, 
+  Activity, 
+  Database, 
+  Sliders, 
+  Shield, 
+  Award 
 } from 'lucide-react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { ShinyText } from './ShinyText';
 import { APP_URLS } from '../config/urls';
 
-interface FAQItem {
+interface FAQInsight {
   id: number;
-  q: string;
-  a: string;
+  icon: React.FC<{ className?: string }>;
+  qEs: string;
+  qEn: string;
+  aEs: string;
+  aEn: string;
+  highlightEs: string;
+  highlightEn: string;
 }
 
 export const CobrosRecurrentesPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'cards' | 'sepa'>('cards');
   const [simulatedStep, setSimulatedStep] = useState<number>(3);
-  const [openFaq, setOpenFaq] = useState<number | null>(1);
+  const [selectedFaq, setSelectedFaq] = useState<number>(1);
+  const [monthlyVolume, setMonthlyVolume] = useState<number>(15000);
   const [lang, setLang] = useState<'es' | 'en'>('es');
 
-  // Detect basic bilingual toggle from document or localStorage if needed
+  // Detect basic bilingual toggle
   React.useEffect(() => {
     const checkLang = () => {
       if (window.location.pathname.startsWith('/en')) {
@@ -53,48 +64,66 @@ export const CobrosRecurrentesPage: React.FC = () => {
     setTimeout(() => setSimulatedStep(3), 2200);
   };
 
-  const faqs: FAQItem[] = [
+  // Cálculo para el Simulador de Ahorro (Competencia media cobra ~1.5% sobre volumen + cuotas)
+  const annualBilling = monthlyVolume * 12;
+  const competitorAnnualFees = Math.round(annualBilling * 0.015);
+  const avialoAnnualFees = 0; // 0% comisiones por transacción
+  const annualSavings = competitorAnnualFees - avialoAnnualFees;
+
+  const faqInsights: FAQInsight[] = [
     {
       id: 1,
-      q: t('¿Avialo cobra alguna comisión por transacción o porcentaje sobre mis cobros recurrentes?', 'Does Avialo charge transaction fees or a percentage on recurring collections?'),
-      a: t(
-        'No. Cero por ciento (0%). A diferencia de herramientas de suscripción tradicionales y otros ERPs que imponen un recargo de software (del 0,5% al 2%) además de tu pasarela bancaria, en Avialo operamos bajo una filosofía honesta de tarifa plana pura. Con tu plan suscrito cobras ilimitadas facturas recurrentes y solo asumes las tasas en bruto de tu pasarela bancaria (Stripe, Redsys o tu banco SEPA), sin recargos opacos ni comisiones intermedias.',
-        'No. Zero percent (0%). Unlike traditional subscription billing platforms and ERPs that levy software markup fees (from 0.5% up to 2%) on top of bank gateway costs, Avialo strictly enforces a pure flat-rate model. You can charge unlimited recurring invoices under your subscription and only pay the clean direct gateway rates (Stripe, Redsys, or SEPA banks) with zero middleman charges or volume penalties.'
-      )
+      icon: Percent,
+      qEs: '¿Avialo cobra comisiones por transacción o porcentaje sobre mis cobros recurrentes?',
+      qEn: 'Does Avialo charge transaction fees or a percentage on my recurring revenue?',
+      aEs: 'No. Cero por ciento (0%). A diferencia de herramientas de suscripción tradicionales y otros ERPs que imponen un recargo de software (del 0,5% al 2%) además de la pasarela bancaria, en Avialo operamos bajo una filosofía honesta de tarifa plana pura. Con tu plan suscrito cobras ilimitadas facturas recurrentes y solo asumes las tasas en bruto de tu pasarela bancaria (Stripe, Redsys o tu banco SEPA), sin recargos opacos ni comisiones intermedias.',
+      aEn: 'No. Zero percent (0%). Unlike traditional subscription platforms and ERPs that levy software markup fees (0.5% to 2%) on top of bank gateway processing, Avialo strictly enforces a pure flat-rate model. Charge unlimited recurring invoices and only pay direct clean gateway rates (Stripe, Redsys, or SEPA banks) with zero middleman charges.',
+      highlightEs: 'Punto Clave: Tarifa plana honesta sin impuestos ocultos por volumen',
+      highlightEn: 'Key Takeaway: Honest flat rate with zero volume tax penalties'
     },
     {
       id: 2,
-      q: t('¿Cómo se integra la facturación legal VeriFactu 2027 en los cobros automáticos?', 'How does official VeriFactu 2027 compliance work with automatic charges?'),
-      a: t(
-        'De forma completamente imperceptible para ti y instantánea para el cliente. En el milisegundo exacto en que nuestra pasarela confirma el cobro exitoso (por tarjeta o confirmación de remesa SEPA), el motor de Avialo genera la factura electrónica normativa con su huella criptográfica SHA-256 encadenada, inserta el código QR oficial de la Agencia Tributaria y remite automáticamente el PDF al cliente en un plazo inferior a 0,2 segundos.',
-        'Seamlessly in the background and instantaneously for your client. In the exact millisecond our gateway verifies a successful payment (via card or SEPA batch settlement), Avialo calculates and signs an official e-invoice containing the immutable SHA-256 cryptographic chaining hash, inserts the Tax Agency official QR stamp, and distributes the legally compliant PDF to your customer in under 0.2 seconds.'
-      )
+      icon: Shield,
+      qEs: '¿Cómo se integra la facturación legal VeriFactu 2027 en los cobros automáticos?',
+      qEn: 'How does official VeriFactu 2027 compliance work with automatic charges?',
+      aEs: 'De forma completamente imperceptible para ti e instantánea para el cliente. En el milisegundo exacto en que nuestra pasarela confirma el cobro exitoso (por tarjeta o confirmación de remesa SEPA), el motor de Avialo genera la factura electrónica normativa con su huella criptográfica SHA-256 encadenada, inserta el código QR oficial de la Agencia Tributaria y remite automáticamente el PDF al cliente en un plazo inferior a 0,2 segundos.',
+      aEn: 'Seamlessly in the background and instantaneously for your client. In the exact millisecond our gateway verifies a successful payment (via card or SEPA batch settlement), Avialo calculates and signs an official e-invoice containing the immutable SHA-256 cryptographic chaining hash, inserts the Tax Agency official QR stamp, and distributes the legally compliant PDF to your customer in under 0.2 seconds.',
+      highlightEs: 'Punto Clave: Emisión SIF certificada e instantánea al segundo del cobro',
+      highlightEn: 'Key Takeaway: Instant certified SIF invoice generated the exact second of payment'
     },
     {
       id: 3,
-      q: t('¿Qué sucede si el cobro falla porque una tarjeta ha caducado o no tiene saldo (Smart Dunning)?', 'What happens if a charge fails due to expired cards or insufficient bank funds (Smart Dunning)?'),
-      a: t(
-        'Aquí reside una de nuestras mayores ventajas comerciales frente al cobro manual o ERPs rígidos. Nuestro módulo Smart Dunning con IA no bloquea al cliente ni te obliga a llamar por teléfono. El sistema analiza las ventanas de liquidez habituales y reprograma reintentos inteligentes de forma automática. Al mismo tiempo, envía al cliente correos electrónicos cortesiada y personalizados con un enlace de pago seguro en 1 clic para actualizar su tarjeta, recuperando hasta el 68% de los cobros fallidos sin tu intervención en 72 horas.',
-        'This is one of our biggest commercial victories over manual banking or rigid legacy ERPs. Our AI Smart Dunning engine will not abruptly lock your client or force you into awkward recovery phone calls. The algorithm analyses optimal customer liquidity timing windows to schedule intelligent re-attempts automatically. Concurrently, it sends courteous, automated email notices containing a secure 1-click update card link, successfully rescuing up to 68% of failed collections within 72 hours with zero manual effort.'
-      )
+      icon: Activity,
+      qEs: '¿Qué sucede si un cobro falla por tarjeta caducada o sin saldo (Smart Dunning)?',
+      qEn: 'What happens if a charge fails due to expired cards or low funds (Smart Dunning)?',
+      aEs: 'Aquí reside una de nuestras mayores ventajas comerciales frente al cobro manual o ERPs rígidos. Nuestro módulo Smart Dunning con IA no bloquea al cliente ni te obliga a llamar por teléfono para reclamar. El sistema analiza las ventanas de liquidez habituales (por ejemplo, tras cobro de nóminas) y reprograma reintentos inteligentes de forma automática. Al mismo tiempo, envía correos amables con un enlace seguro en 1 clic para actualizar la tarjeta, recuperando hasta el 68% de los cobros fallidos en las primeras 72 horas sin tu intervención.',
+      aEn: 'This is one of our biggest commercial victories over manual banking or rigid legacy ERPs. Our AI Smart Dunning engine will not abruptly lock your client or force you into awkward recovery phone calls. The algorithm analyses optimal customer liquidity timing windows to schedule intelligent re-attempts automatically. Concurrently, it sends courteous, automated email notices containing a secure 1-click update card link, successfully rescuing up to 68% of failed collections within 72 hours with zero manual effort.',
+      highlightEs: 'Punto Clave: Recuperación automática del 68% de impagos sin roer la relación comercial',
+      highlightEn: 'Key Takeaway: Auto-rescues 68% of bounced payments without harming business relationships'
     },
     {
       id: 4,
-      q: t('¿Puedo gestionar tanto cobros con tarjeta como domiciliaciones bancarias SEPA B2B?', 'Can I handle both card billing and B2B SEPA direct debit transfers?'),
-      a: t(
-        'Sí, combinados en un mismo panel y adaptados a tu cartera de clientes. Para consumidores o suscripciones SaaS puedes utilizar cobros recurrentes con tarjeta bancaria (Visa, Mastercard, Amex via Stripe/Redsys). Para clientes empresariales, pymes, colegios profesionales, alquileres o mantenimiento B2B, puedes generar mandatos SEPA digitales (Core y B2B) y exportar tus remesas automáticas en formato normalizado XML ISO 20022 conciliables con cualquier entidad bancaria en España y la Unión Europea.',
-        'Yes, combined inside one unified workspace and tailored to your client spectrum. For consumers or digital subscriptions, utilize automatic credit card billing (Visa, Mastercard, Amex via Stripe/Redsys). For corporate retainers, B2B maintenance, professional service fees, or real estate leasing, manage digital SEPA mandates (Core & B2B) and generate standardized SEPA XML ISO 20022 billing batches instantly recognizable by all banks across Spain and Europe.'
-      )
+      icon: Building2,
+      qEs: '¿Puedo gestionar cobros por tarjeta (Stripe/Redsys) y domiciliaciones SEPA B2B?',
+      qEn: 'Can I handle both card billing (Stripe/Redsys) and B2B SEPA direct debit transfers?',
+      aEs: 'Sí, integrados en un mismo workspace y adaptados a tu cartera de clientes. Para consumidores o suscripciones SaaS puedes utilizar cobros recurrentes con tarjeta bancaria. Para clientes empresariales, pymes, alquileres o mantenimiento B2B, puedes generar mandatos SEPA digitales (Core y B2B) y exportar tus remesas automáticas en formato normalizado XML ISO 20022 conciliables con cualquier entidad bancaria en España y la Unión Europea.',
+      aEn: 'Yes, unified inside one intuitive workspace and tailored to your client spectrum. For consumers or SaaS subscriptions, utilize automatic credit card billing. For corporate retainers, B2B maintenance, or real estate leases, manage digital SEPA mandates (Core & B2B) and generate standardized SEPA XML ISO 20022 billing batches instantly recognizable by all banks across Spain and Europe.',
+      highlightEs: 'Punto Clave: Multicanal real adaptado tanto a consumo B2C como a banca empresarial B2B',
+      highlightEn: 'Key Takeaway: True omni-channel support for both B2C credit cards and B2B corporate banking'
     },
     {
       id: 5,
-      q: t('¿Es fácil migrar mis suscripciones actuales desde Excel, Holded u otro sistema?', 'Is it easy to migrate my active subscriptions from Excel or legacy accounting apps?'),
-      a: t(
-        'Extremadamente ágil. Dispones de un importador masivo inteligente que te permite cargar en minutos tus listas de clientes, cuotas mensuales, trimestrales o anuales y mandatos bancarios. Nuestro equipo de soporte técnico humano en España te acompaña en todo el proceso de transición para que no experimentes ni una sola hora de interrupción ni pierdas el ciclo contable en curso.',
-        'Extremely fast. You have access to our smart bulk onboarding importer designed to ingest your client rolls, recurring monthly/quarterly fee structures, and banking details in minutes. Furthermore, our specialized human technical support team in Spain guides your whole migration journey to ensure zero downtime or billing disruptions across your active fiscal cycles.'
-      )
+      icon: Database,
+      qEs: '¿Es fácil migrar mis suscripciones actuales desde Excel u otras herramientas?',
+      qEn: 'Is it simple to migrate my active subscriptions from Excel or legacy tools?',
+      aEs: 'Extremadamente ágil y sin cortes de servicio. Dispones de un importador masivo inteligente que te permite cargar en minutos tus listas de clientes, cuotas periódicas y mandatos bancarios. Además, nuestro equipo de soporte técnico humano en España te acompaña en todo el proceso de transición para que no experimentes ni una sola hora de interrupción ni pierdas el ciclo contable en curso.',
+      aEn: 'Extremely fast with zero downtime. You have access to our smart bulk onboarding importer designed to ingest your client rolls, recurring fee structures, and banking details in minutes. Furthermore, our specialized human technical support team in Spain guides your whole migration journey to ensure zero downtime or billing disruptions across your active fiscal cycles.',
+      highlightEs: 'Punto Clave: Migración guiada en menos de 24h con soporte técnico humano español',
+      highlightEn: 'Key Takeaway: Guided 24h migration with expert human technical support located in Spain'
     }
   ];
+
+  const currentInsight = faqInsights.find((f) => f.id === selectedFaq) || faqInsights[0];
 
   return (
     <div className="min-h-screen bg-[#FCFCFB] dark:bg-[#080a09] text-[#0A0C0B] dark:text-white w-full overflow-x-hidden antialiased transition-colors duration-300 flex flex-col">
@@ -102,7 +131,7 @@ export const CobrosRecurrentesPage: React.FC = () => {
 
       <main className="flex-1 w-full max-w-[1240px] mx-auto px-4 sm:px-6 md:px-8 pt-12 sm:pt-16 md:pt-24 pb-20 sm:pb-28 space-y-24 sm:space-y-36">
         
-        {/* SECCIÓN 1: ASYMMETRIC HERO DE COBROS RECURRENTES (SIN TAGS, ESTILO ARQUITECTÓNICO & MOCKUP VIVO) */}
+        {/* SECCIÓN 1: HERO ASIMÉTRICO DE COBROS RECURRENTES (ESTILO ARQUITECTÓNICO & BORDER RADIUS AJUSTADO) */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center pt-4 sm:pt-8">
           
           {/* Columna Izquierda: Titular potente y copy de alta conversión */}
@@ -122,13 +151,13 @@ export const CobrosRecurrentesPage: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
               <a
                 href={APP_URLS.register}
-                className="w-full sm:w-auto text-center px-7 py-4 rounded-[12px] bg-[#0A0C0B] dark:bg-white text-white dark:text-[#0A0C0B] font-bold text-base shadow-lg hover:opacity-90 active:scale-[0.99] transition-all duration-200"
+                className="w-full sm:w-auto text-center px-7 py-4 rounded-[6px] bg-[#0A0C0B] dark:bg-white text-white dark:text-[#0A0C0B] font-bold text-base shadow-lg hover:opacity-90 active:scale-[0.99] transition-all duration-200"
               >
                 {t('Empezar prueba de 14 días', 'Start 14-Day Free Trial')}
               </a>
               <a
                 href="#flujo-cobros"
-                className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-2 px-6 py-4 rounded-[12px] border border-[#D2D2CE] dark:border-[#303131] bg-[#F2F2F0] dark:bg-[#131517] text-[#0A0C0B] dark:text-white font-semibold text-sm hover:border-[#0A0C0B]/40 dark:hover:border-white/40 transition-all duration-200"
+                className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-2 px-6 py-4 rounded-[6px] border border-[#D2D2CE] dark:border-[#303131] bg-[#F2F2F0] dark:bg-[#131517] text-[#0A0C0B] dark:text-white font-semibold text-sm hover:border-[#0A0C0B]/40 dark:hover:border-white/40 transition-all duration-200"
               >
                 <span>{t('Explorar motor de cobros', 'Explore billing engine')}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -153,7 +182,7 @@ export const CobrosRecurrentesPage: React.FC = () => {
 
           {/* Columna Derecha: Mockup Interactivo de Motor de Cobros y Smart Dunning */}
           <div className="lg:col-span-6 w-full">
-            <div className="w-full rounded-[20px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-5 sm:p-6 shadow-2xl space-y-5 relative overflow-hidden">
+            <div className="w-full rounded-[8px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-5 sm:p-6 shadow-2xl space-y-5 relative overflow-hidden">
               <div className="flex items-center justify-between border-b border-[#D2D2CE] dark:border-[#303131] pb-4">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-[rgb(219,68,55)]" />
@@ -165,7 +194,7 @@ export const CobrosRecurrentesPage: React.FC = () => {
                 </div>
                 <button 
                   onClick={triggerSimulation} 
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[6px] bg-[#0A0C0B] dark:bg-white text-white dark:text-[#0A0C0B] font-mono text-[11px] font-bold hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[4px] bg-[#0A0C0B] dark:bg-white text-white dark:text-[#0A0C0B] font-mono text-[11px] font-bold hover:opacity-90 transition-opacity"
                   title="Simular ejecución de ciclo de cobro"
                 >
                   <RefreshCw className="w-3 h-3 animate-spin text-[rgb(158,250,255)] dark:text-[rgb(20,122,132)]" />
@@ -174,10 +203,10 @@ export const CobrosRecurrentesPage: React.FC = () => {
               </div>
 
               {/* Selector de canal de cobro en tiempo real */}
-              <div className="flex items-center gap-2 p-1.5 rounded-[12px] bg-[#FCFCFB] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131]">
+              <div className="flex items-center gap-2 p-1.5 rounded-[6px] bg-[#FCFCFB] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131]">
                 <button
                   onClick={() => setActiveTab('cards')}
-                  className={`flex-1 py-2 px-3 rounded-[9px] text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all ${
+                  className={`flex-1 py-2 px-3 rounded-[4px] text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all ${
                     activeTab === 'cards'
                       ? 'bg-[#0A0C0B] text-white dark:bg-white dark:text-[#0A0C0B] shadow-sm'
                       : 'text-[rgba(10,12,11,0.65)] dark:text-white/65 hover:text-[#0A0C0B] dark:hover:text-white'
@@ -188,7 +217,7 @@ export const CobrosRecurrentesPage: React.FC = () => {
                 </button>
                 <button
                   onClick={() => setActiveTab('sepa')}
-                  className={`flex-1 py-2 px-3 rounded-[9px] text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all ${
+                  className={`flex-1 py-2 px-3 rounded-[4px] text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all ${
                     activeTab === 'sepa'
                       ? 'bg-[#0A0C0B] text-white dark:bg-white dark:text-[#0A0C0B] shadow-sm'
                       : 'text-[rgba(10,12,11,0.65)] dark:text-white/65 hover:text-[#0A0C0B] dark:hover:text-white'
@@ -208,11 +237,11 @@ export const CobrosRecurrentesPage: React.FC = () => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 10 }}
                     transition={{ duration: 0.2 }}
-                    className="p-4 sm:p-5 rounded-[14px] bg-[#FCFCFB] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131] space-y-4 shadow-inner"
+                    className="p-4 sm:p-5 rounded-[6px] bg-[#FCFCFB] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131] space-y-4 shadow-inner"
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[4px] bg-[rgba(52,138,46,0.12)] text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] font-mono text-[10px] font-bold uppercase">
+                        <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[3px] bg-[rgba(52,138,46,0.12)] text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] font-mono text-[10px] font-bold uppercase">
                           {t('Suscripción Activa', 'Active Subscription')}
                         </div>
                         <h3 className="text-base font-bold text-[#0A0C0B] dark:text-white mt-1.5">
@@ -229,14 +258,14 @@ export const CobrosRecurrentesPage: React.FC = () => {
                     </div>
 
                     <div className="grid grid-cols-2 gap-3 pt-2 text-xs font-mono border-t border-[#D2D2CE] dark:border-[#303131]">
-                      <div className="p-2.5 rounded-[8px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">
+                      <div className="p-2.5 rounded-[4px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">
                         <span className="text-[10px] text-[rgba(10,12,11,0.6)] dark:text-white/60 block">{t('MÉTODO DE COBRO', 'BILLING METHOD')}</span>
                         <span className="font-bold flex items-center gap-1 mt-1 text-[#0A0C0B] dark:text-white">
                           <CreditCard className="w-3.5 h-3.5 text-[rgb(20,122,132)] dark:text-[rgb(158,250,255)]" />
                           Visa •••• 4242
                         </span>
                       </div>
-                      <div className="p-2.5 rounded-[8px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">
+                      <div className="p-2.5 rounded-[4px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">
                         <span className="text-[10px] text-[rgba(10,12,11,0.6)] dark:text-white/60 block">{t('PRÓXIMA EJECUCIÓN', 'NEXT EXECUTION')}</span>
                         <span className="font-bold flex items-center gap-1 mt-1 text-[rgb(52,138,46)] dark:text-[rgb(124,224,108)]">
                           <Clock className="w-3.5 h-3.5" />
@@ -252,11 +281,11 @@ export const CobrosRecurrentesPage: React.FC = () => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 10 }}
                     transition={{ duration: 0.2 }}
-                    className="p-4 sm:p-5 rounded-[14px] bg-[#FCFCFB] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131] space-y-4 shadow-inner"
+                    className="p-4 sm:p-5 rounded-[6px] bg-[#FCFCFB] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131] space-y-4 shadow-inner"
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[4px] bg-[rgba(20,122,132,0.12)] text-[rgb(20,122,132)] dark:text-[rgb(158,250,255)] font-mono text-[10px] font-bold uppercase">
+                        <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[3px] bg-[rgba(20,122,132,0.12)] text-[rgb(20,122,132)] dark:text-[rgb(158,250,255)] font-mono text-[10px] font-bold uppercase">
                           {t('Mandato SEPA B2B Firmado', 'Signed SEPA B2B Mandate')}
                         </div>
                         <h3 className="text-base font-bold text-[#0A0C0B] dark:text-white mt-1.5">
@@ -273,14 +302,14 @@ export const CobrosRecurrentesPage: React.FC = () => {
                     </div>
 
                     <div className="grid grid-cols-2 gap-3 pt-2 text-xs font-mono border-t border-[#D2D2CE] dark:border-[#303131]">
-                      <div className="p-2.5 rounded-[8px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">
+                      <div className="p-2.5 rounded-[4px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">
                         <span className="text-[10px] text-[rgba(10,12,11,0.6)] dark:text-white/60 block">{t('CUENTA CLIENTE (IBAN)', 'CLIENT ACCOUNT (IBAN)')}</span>
                         <span className="font-bold flex items-center gap-1 mt-1 text-[#0A0C0B] dark:text-white">
                           <Building2 className="w-3.5 h-3.5 text-[rgb(20,122,132)] dark:text-[rgb(158,250,255)]" />
                           ES21 •••• •••• 8841
                         </span>
                       </div>
-                      <div className="p-2.5 rounded-[8px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">
+                      <div className="p-2.5 rounded-[4px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131]">
                         <span className="text-[10px] text-[rgba(10,12,11,0.6)] dark:text-white/60 block">{t('NORMATIVA REMESA', 'BANKING BATCH NORM')}</span>
                         <span className="font-bold flex items-center gap-1 mt-1 text-[rgb(52,138,46)] dark:text-[rgb(124,224,108)]">
                           <CheckCircle2 className="w-3.5 h-3.5" />
@@ -301,7 +330,7 @@ export const CobrosRecurrentesPage: React.FC = () => {
                     ONLINE
                   </span>
                 </div>
-                <div className="p-3.5 rounded-[12px] bg-[#FCFCFB] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131] font-mono text-[11px] space-y-2">
+                <div className="p-3.5 rounded-[6px] bg-[#FCFCFB] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131] font-mono text-[11px] space-y-2">
                   <div className={`flex items-center gap-2 transition-opacity duration-300 ${simulatedStep >= 0 ? 'opacity-100' : 'opacity-30'}`}>
                     <CheckCircle2 className="w-3.5 h-3.5 text-[rgb(52,138,46)] shrink-0" />
                     <span className="text-[#0A0C0B] dark:text-white">{t('[00:00.0] Cobro programado detectado en calendario', '[00:00.0] Scheduled billing event triggered')}</span>
@@ -330,7 +359,7 @@ export const CobrosRecurrentesPage: React.FC = () => {
 
         </section>
 
-        {/* SECCIÓN 2: EL FLUJO DE COBROS AUTOMATIZADO EN 3 PASOS (ESTILO EDITORIAL ASIMÉTRICO CON NUEVAS FOTografías) */}
+        {/* SECCIÓN 2: EL FLUJO DE COBROS AUTOMATIZADO EN 3 PASOS (ESTILO ARQUITECTÓNICO Y BORDER RADIUS MENOR) */}
         <section id="flujo-cobros" className="space-y-16 pt-10 border-t border-[#D2D2CE] dark:border-[#303131]">
           <div className="text-center sm:text-left max-w-3xl space-y-3">
             <h2 className="text-2xl sm:text-4xl font-bold tracking-[-0.03em] text-[#0A0C0B] dark:text-white">
@@ -338,7 +367,7 @@ export const CobrosRecurrentesPage: React.FC = () => {
             </h2>
             <p className="text-sm sm:text-base text-[rgba(10,12,11,0.75)] dark:text-white/75 leading-relaxed font-normal">
               {t(
-                'Olvídate de redactar facturas manualmente cada mes y esperar semanas a que tu cliente ordene la transferencia. Con Avialo tomas el control de tu flujo de caja.',
+                'Olvídate de redactar facturas manually cada mes y esperar semanas a que tu cliente ordene la transferencia. Con Avialo tomas el control de tu flujo de caja.',
                 'Say goodbye to typing monthly invoice drafts and waiting weeks for client bank transfers. With Avialo, take absolute command over your cash flow architecture.'
               )}
             </p>
@@ -347,10 +376,10 @@ export const CobrosRecurrentesPage: React.FC = () => {
           <div className="space-y-12 sm:space-y-16">
             
             {/* Paso 1: Configuración en 25 segundos */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center rounded-[20px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-6 sm:p-10 overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center rounded-[8px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-6 sm:p-10 overflow-hidden">
               <div className="md:col-span-6 space-y-4">
                 <div className="inline-flex items-center gap-2 font-mono font-bold text-xs sm:text-sm text-[rgb(20,122,132)] dark:text-[rgb(158,250,255)] uppercase">
-                  <span>01 // {t('CONFIGURACIÓN AGIL', 'FAST SETUP')}</span>
+                  <span>01 // {t('CONFIGURACIÓN ÁGIL', 'FAST SETUP')}</span>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0A0C0B] dark:text-white leading-tight">
                   {t('Define tu suscripción y calendario de cobro en 25 segundos', 'Define your billing terms & schedule in 25 seconds')}
@@ -372,27 +401,27 @@ export const CobrosRecurrentesPage: React.FC = () => {
                   </li>
                 </ul>
               </div>
-              <div className="md:col-span-6 w-full h-full min-h-[280px] rounded-[14px] overflow-hidden relative border border-[#D2D2CE] dark:border-[#303131] shadow-md">
+              <div className="md:col-span-6 w-full h-full min-h-[280px] rounded-[6px] overflow-hidden relative border border-[#D2D2CE] dark:border-[#303131] shadow-md">
                 <img
-                  src="https://images.unsplash.com/photo-1556742049-0a67d55febc2?w=800&auto=format&fit=crop&q=80"
-                  alt="Terminal de pago digital y configuración ágil de suscripciones"
+                  src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&auto=format&fit=crop&q=80"
+                  alt="Terminal digital e interfaz bancaria de cobro recurrente"
                   className="w-full h-full object-cover min-h-[280px] filter saturate-[1.05] contrast-[1.05] hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-4 right-4 bg-[#0A0C0B]/90 backdrop-blur-md px-3 py-1 rounded-[6px] border border-white/20 text-[11px] font-mono text-[#00FF66] font-bold">
+                <div className="absolute top-4 right-4 bg-[#0A0C0B]/90 backdrop-blur-md px-3 py-1 rounded-[3px] border border-white/20 text-[11px] font-mono text-[#00FF66] font-bold">
                   {t('TIEMPO DE CREACIÓN: 25s', 'CREATION TIME: 25s')}
                 </div>
               </div>
             </div>
 
             {/* Paso 2: Ejecución multicanal sin comisiones */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center rounded-[20px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-6 sm:p-10 overflow-hidden">
-              <div className="md:col-span-6 order-2 md:order-1 w-full h-full min-h-[280px] rounded-[14px] overflow-hidden relative border border-[#D2D2CE] dark:border-[#303131] shadow-md">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center rounded-[8px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-6 sm:p-10 overflow-hidden">
+              <div className="md:col-span-6 order-2 md:order-1 w-full h-full min-h-[280px] rounded-[6px] overflow-hidden relative border border-[#D2D2CE] dark:border-[#303131] shadow-md">
                 <img
                   src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=800&auto=format&fit=crop&q=80"
                   alt="Analítica de cobros recurrentes y transacciones SEPA en tiempo real"
                   className="w-full h-full object-cover min-h-[280px] filter saturate-[1.05] contrast-[1.05] hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-4 left-4 bg-[#0A0C0B]/90 backdrop-blur-md px-3 py-1 rounded-[6px] border border-white/20 text-[11px] font-mono text-[rgb(158,250,255)] font-bold">
+                <div className="absolute top-4 left-4 bg-[#0A0C0B]/90 backdrop-blur-md px-3 py-1 rounded-[3px] border border-white/20 text-[11px] font-mono text-[rgb(158,250,255)] font-bold">
                   {t('COMISIÓN DE AVIALO: 0%', 'AVIALO TRANSACTION FEE: 0%')}
                 </div>
               </div>
@@ -423,7 +452,7 @@ export const CobrosRecurrentesPage: React.FC = () => {
             </div>
 
             {/* Paso 3: Emisión legal VeriFactu 2027 y conciliación */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center rounded-[20px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-6 sm:p-10 overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center rounded-[8px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-6 sm:p-10 overflow-hidden">
               <div className="md:col-span-6 space-y-4">
                 <div className="inline-flex items-center gap-2 font-mono font-bold text-xs sm:text-sm text-[rgb(20,122,132)] dark:text-[rgb(158,250,255)] uppercase">
                   <span>03 // {t('LEGALIDAD Y CONCILIACIÓN', 'LEGAL & LEDGER RECONCILIATION')}</span>
@@ -448,13 +477,13 @@ export const CobrosRecurrentesPage: React.FC = () => {
                   </li>
                 </ul>
               </div>
-              <div className="md:col-span-6 w-full h-full min-h-[280px] rounded-[14px] overflow-hidden relative border border-[#D2D2CE] dark:border-[#303131] shadow-md">
+              <div className="md:col-span-6 w-full h-full min-h-[280px] rounded-[6px] overflow-hidden relative border border-[#D2D2CE] dark:border-[#303131] shadow-md">
                 <img
                   src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop&q=80"
                   alt="Auditoría fiscal y contabilidad conciliada con VeriFactu 2027"
                   className="w-full h-full object-cover min-h-[280px] filter saturate-[1.05] contrast-[1.05] hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-4 right-4 bg-[#0A0C0B]/90 backdrop-blur-md px-3 py-1 rounded-[6px] border border-white/20 text-[11px] font-mono text-[#00FF66] font-bold">
+                <div className="absolute top-4 right-4 bg-[#0A0C0B]/90 backdrop-blur-md px-3 py-1 rounded-[3px] border border-white/20 text-[11px] font-mono text-[#00FF66] font-bold">
                   {t('100% HOMOLOGADO AEAT', '100% TAX AGENCY CERTIFIED')}
                 </div>
               </div>
@@ -478,11 +507,9 @@ export const CobrosRecurrentesPage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-            
-            {/* Tarjeta 1: Algoritmo de reintento por ventana de liquidez */}
-            <div className="rounded-[16px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-6 sm:p-8 flex flex-col justify-between gap-6 hover:border-[#0A0C0B]/40 dark:hover:border-white/40 transition-all">
+            <div className="rounded-[8px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-6 sm:p-8 flex flex-col justify-between gap-6 hover:border-[#0A0C0B]/40 dark:hover:border-white/40 transition-all">
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-[12px] bg-[#0A0C0B] dark:bg-white text-white dark:text-[#0A0C0B] flex items-center justify-center font-bold text-xl shadow-md">
+                <div className="w-12 h-12 rounded-[6px] bg-[#0A0C0B] dark:bg-white text-white dark:text-[#0A0C0B] flex items-center justify-center font-bold text-xl shadow-md">
                   <TrendingUp className="w-6 h-6 text-[rgb(158,250,255)] dark:text-[rgb(20,122,132)]" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-extrabold text-[#0A0C0B] dark:text-white">
@@ -500,10 +527,9 @@ export const CobrosRecurrentesPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Tarjeta 2: Notificaciones de tarjeta próxima a caducar */}
-            <div className="rounded-[16px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-6 sm:p-8 flex flex-col justify-between gap-6 hover:border-[#0A0C0B]/40 dark:hover:border-white/40 transition-all">
+            <div className="rounded-[8px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-6 sm:p-8 flex flex-col justify-between gap-6 hover:border-[#0A0C0B]/40 dark:hover:border-white/40 transition-all">
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-[12px] bg-[#0A0C0B] dark:bg-white text-white dark:text-[#0A0C0B] flex items-center justify-center font-bold text-xl shadow-md">
+                <div className="w-12 h-12 rounded-[6px] bg-[#0A0C0B] dark:bg-white text-white dark:text-[#0A0C0B] flex items-center justify-center font-bold text-xl shadow-md">
                   <RefreshCw className="w-6 h-6 text-[rgb(124,224,108)] dark:text-[rgb(43,115,38)]" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-extrabold text-[#0A0C0B] dark:text-white">
@@ -521,10 +547,9 @@ export const CobrosRecurrentesPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Tarjeta 3: Gestión cortés sin cortar servicios brutalmente */}
-            <div className="rounded-[16px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-6 sm:p-8 flex flex-col justify-between gap-6 hover:border-[#0A0C0B]/40 dark:hover:border-white/40 transition-all">
+            <div className="rounded-[8px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] p-6 sm:p-8 flex flex-col justify-between gap-6 hover:border-[#0A0C0B]/40 dark:hover:border-white/40 transition-all">
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-[12px] bg-[#0A0C0B] dark:bg-white text-white dark:text-[#0A0C0B] flex items-center justify-center font-bold text-xl shadow-md">
+                <div className="w-12 h-12 rounded-[6px] bg-[#0A0C0B] dark:bg-white text-white dark:text-[#0A0C0B] flex items-center justify-center font-bold text-xl shadow-md">
                   <ShieldCheck className="w-6 h-6 text-[rgb(158,250,255)] dark:text-[rgb(20,122,132)]" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-extrabold text-[#0A0C0B] dark:text-white">
@@ -541,188 +566,247 @@ export const CobrosRecurrentesPage: React.FC = () => {
                 <span>{t('CERO FRICCIÓN PERSONAL CON CLIENTES', 'ZERO AWKWARD RECOVERY CALLS')}</span>
               </div>
             </div>
-
           </div>
         </section>
 
-        {/* SECCIÓN 4: MATRIZ DE MERCADO: COBRO MANUAL VS ERPS ABUSIVOS VS AVIALO COBROS CERTIFICADOS */}
-        <section className="space-y-8 pt-10 border-t border-[#D2D2CE] dark:border-[#303131]">
+        {/* SECCIÓN 4: SIMULADOR DE AHORRO INTERACTIVO & PILARES DE VENTAJAS */}
+        <section className="space-y-12 pt-10 border-t border-[#D2D2CE] dark:border-[#303131]">
+          <div className="text-center sm:text-left max-w-3xl space-y-3">
+            <h2 className="text-2xl sm:text-4xl font-bold tracking-[-0.03em] text-[#0A0C0B] dark:text-white">
+              {t('Por qué ganamos: Tarifa Plana pura vs. El peaje de los comisionistas', 'Why we triumph: Pure flat rate vs. The middleman software fee tax')}
+            </h2>
+            <p className="text-sm sm:text-base text-[rgba(10,12,11,0.75)] dark:text-white/75 leading-relaxed font-normal">
+              {t(
+                'Otros softwares contables te cobran una cuota mensual y ADEMÁS se quedan entre un 1% y un 2% de tu volumen facturado por procesar tus cobros. Utiliza este simulador para ver cuánto dinero regalas al año y por qué Avialo es imbatible.',
+                'Other accounting apps charge a monthly fee AND take a 1% to 2% percentage slice of your processed revenue. Use this live calculator to see how much money you waste annually and why Avialo is unbeatable.'
+              )}
+            </p>
+          </div>
+
+          {/* SIMULADOR INTERACTIVO DE COMISIONES */}
+          <div className="p-6 sm:p-10 rounded-[8px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] shadow-xl space-y-8">
+            <div className="space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <label htmlFor="volume-slider" className="text-sm sm:text-base font-extrabold text-[#0A0C0B] dark:text-white flex items-center gap-2">
+                  <Sliders className="w-5 h-5 text-[rgb(20,122,132)] dark:text-[rgb(158,250,255)] shrink-0" />
+                  <span>{t('Tu volumen mensual de cobros recurrentes:', 'Your monthly recurring billing volume:')}</span>
+                </label>
+                <span className="text-2xl sm:text-3xl font-mono font-extrabold text-[#0A0C0B] dark:text-white">
+                  {monthlyVolume.toLocaleString('es-ES')} € {t('/ mes', '/ month')}
+                </span>
+              </div>
+              <input
+                id="volume-slider"
+                type="range"
+                min="1000"
+                max="100000"
+                step="1000"
+                value={monthlyVolume}
+                onChange={(e) => setMonthlyVolume(Number(e.target.value))}
+                className="w-full h-3 bg-[#D2D2CE] dark:bg-[#303131] rounded-[4px] appearance-none cursor-pointer accent-[#0A0C0B] dark:accent-white"
+              />
+              <div className="flex justify-between text-[11px] font-mono text-[rgba(10,12,11,0.6)] dark:text-white/60 font-semibold">
+                <span>1.000 €/mes</span>
+                <span>25.000 €/mes</span>
+                <span>50.000 €/mes</span>
+                <span>100.000 €/mes</span>
+              </div>
+            </div>
+
+            {/* Comparativa de Resultados Reales */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
+              <div className="p-5 sm:p-6 rounded-[6px] bg-[#FCFCFB] dark:bg-[#080a09] border border-[rgba(219,68,55,0.3)] dark:border-[rgba(255,107,91,0.3)] flex flex-col justify-between space-y-4">
+                <div>
+                  <span className="text-xs font-mono font-bold text-[rgb(219,68,55)] dark:text-[rgb(255,107,91)] uppercase block mb-1">
+                    {t('OTROS ERPs & SOFTWARE CON COMISIONES (~1,5%)', 'OTHER ERPs & PLATFORM MARKUP FEES (~1.5%)')}
+                  </span>
+                  <p className="text-xs text-[rgba(10,12,11,0.7)] dark:text-white/70">
+                    {t('Comisiones de software que te cobran AL AÑO solo por procesar tus cobros recurrentes (a mayores de tu cuota):', 'Software middleman fees charged ANNUALLY just for processing billing (on top of subscription):')}
+                  </p>
+                </div>
+                <div className="text-right pt-2 border-t border-[#D2D2CE]/50 dark:border-[#303131]/50">
+                  <span className="text-2xl sm:text-3xl font-extrabold text-[rgb(219,68,55)] dark:text-[rgb(255,107,91)] font-mono block">
+                    -{competitorAnnualFees.toLocaleString('es-ES')} € {t('/ año perdidos', '/ year lost')}
+                  </span>
+                  <span className="text-[10px] font-mono text-[rgba(10,12,11,0.6)] dark:text-white/60">
+                    {t('Dinero evaporado sin aportar valor añadido', 'Evaporated cash without added tax value')}
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-5 sm:p-6 rounded-[6px] bg-[#FCFCFB] dark:bg-[#080a09] border-2 border-[rgb(43,115,38)] dark:border-[rgb(124,224,108)] flex flex-col justify-between space-y-4 relative shadow-md">
+                <div className="absolute -top-3 right-6 bg-[rgb(52,138,46)] dark:bg-[rgb(124,224,108)] text-white dark:text-[#0A0C0B] px-3 py-0.5 rounded-[4px] font-mono text-[10px] font-extrabold uppercase shadow">
+                  {t('VENTAJA AVIALO', 'AVIALO ADVANTAGE')}
+                </div>
+                <div>
+                  <span className="text-xs font-mono font-bold text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] uppercase block mb-1">
+                    {t('AVIALO COBROS CERTIFICADOS (0% COMISIÓN)', 'AVIALO CERTIFIED BILLING (0% FEE)')}
+                  </span>
+                  <p className="text-xs text-[rgba(10,12,11,0.7)] dark:text-white/70">
+                    {t('Comisiones de software que pagas con Avialo por facturar e integrar tus cobros de forma ilimitada:', 'Software markup fees charged with Avialo for limitless automated billing and tax filing:')}
+                  </p>
+                </div>
+                <div className="text-right pt-2 border-t border-[#D2D2CE]/50 dark:border-[#303131]/50">
+                  <span className="text-2xl sm:text-3xl font-extrabold text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] font-mono block">
+                    0,00 € {t('en comisiones', 'in software fees')}
+                  </span>
+                  <span className="text-xs font-mono font-bold text-[#0A0C0B] dark:text-white">
+                    👉 {t('AHORRO ANUAL CON AVIALO:', 'ANNUAL SAVINGS WITH AVIALO:')}{' '}
+                    <span className="text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] text-sm sm:text-base font-extrabold">
+                      +{annualSavings.toLocaleString('es-ES')} € / año
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Tres Pilares Arquitectónicos en lugar de Tabla */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
+            <div className="p-6 rounded-[6px] border border-[#D2D2CE] dark:border-[#303131] bg-[#FCFCFB] dark:bg-[#080a09] space-y-4">
+              <div className="text-xs font-mono font-bold text-[rgb(219,68,55)] dark:text-[rgb(255,107,91)] uppercase flex items-center gap-2">
+                <XCircle className="w-4 h-4 shrink-0" />
+                <span>{t('COBRO MANUAL POR EXCEL', 'MANUAL EXCEL BILLING')}</span>
+              </div>
+              <h4 className="text-lg font-bold text-[#0A0C0B] dark:text-white">
+                {t('Tedioso, lento y expuesto a multas', 'Tedious, slow & regulatory exposure')}
+              </h4>
+              <p className="text-xs text-[rgba(10,12,11,0.75)] dark:text-white/75 leading-relaxed">
+                {t(
+                  'Improvisar recibos en Word o Excel y perseguir transferencias manually genera altas pérdidas contables por morosidad y te expone a sanciones de 50.000 € al no cumplir con el hash inmutable de VeriFactu 2027.',
+                  'Improvising invoices on spreadsheets and chasing manual bank transfers breeds high customer churn and exposes your company to €50,000 regulatory fines in 2027 for lacking VeriFactu immutable hashing.'
+                )}
+              </p>
+            </div>
+
+            <div className="p-6 rounded-[6px] border border-[#D2D2CE] dark:border-[#303131] bg-[#FCFCFB] dark:bg-[#080a09] space-y-4">
+              <div className="text-xs font-mono font-bold text-[rgb(205,125,20)] dark:text-[rgb(255,175,70)] uppercase flex items-center gap-2">
+                <Clock className="w-4 h-4 shrink-0" />
+                <span>{t('ERPS COMPLEJOS Y CON COMISIONES', 'COMPLEX ERPS & FEE MARKUPS')}</span>
+              </div>
+              <h4 className="text-lg font-bold text-[#0A0C0B] dark:text-white">
+                {t('Peajes ocultos y soporte robotizado', 'Hidden software tolls & automated bots')}
+              </h4>
+              <p className="text-xs text-[rgba(10,12,11,0.75)] dark:text-white/75 leading-relaxed">
+                {t(
+                  'Plataformas externas y ERPs recargan tu crecimiento cobrando una tasa porcentual en cada factura cobrada, ofrecen atención al cliente mediante bots o tickets lentos en inglés y no resuelven mandatos SEPA B2B nativos.',
+                  'Legacy apps penalize your company growth by taking a percentage fee on every billed invoice, force you to deal with automated chatbots in support crises, and lack native Spanish European SEPA B2B bank tools.'
+                )}
+              </p>
+            </div>
+
+            <div className="p-6 rounded-[6px] border border-[#D2D2CE] dark:border-[#303131] bg-[#F2F2F0] dark:bg-[#131517] space-y-4 shadow-sm border-l-4 border-l-[rgb(43,115,38)] dark:border-l-[rgb(124,224,108)]">
+              <div className="text-xs font-mono font-bold text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] uppercase flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span>{t('EL ESTÁNDAR AVIALO 2027', 'THE 2027 AVIALO STANDARD')}</span>
+              </div>
+              <h4 className="text-lg font-bold text-[#0A0C0B] dark:text-white">
+                {t('Tarifa plana, Smart Dunning y soporte real', 'Flat pricing, Smart Dunning & human team')}
+              </h4>
+              <p className="text-xs text-[rgba(10,12,11,0.75)] dark:text-white/75 leading-relaxed">
+                {t(
+                  'Un modelo honesto sin comisiones intermedias. Cobras ilimitadamente por Stripe, Redsys o remesas SEPA con reintentos IA, conciliación bancaria instantánea en 1 clic y soporte técnico por humanos en España en minutos.',
+                  'An honest model with zero middleman commissions. Process limitless card payments or SEPA runs with AI dunning retries, instantaneous 1-click ledger reconciliation, and human Spanish support in minutes.'
+                )}
+              </p>
+            </div>
+          </div>
+
+        </section>
+
+        {/* SECCIÓN 5: CENTRO DE RESOLUCIÓN Y PREGUNTAS CLAVE (PANEL INTERACTIVO MASTER-DETAIL CON BORDER RADIUS REFINADO) */}
+        <section className="space-y-10 pt-10 border-t border-[#D2D2CE] dark:border-[#303131]">
           <div className="text-center sm:text-left space-y-2 max-w-4xl">
             <h2 className="text-2xl sm:text-4xl font-bold tracking-[-0.03em] text-[#0A0C0B] dark:text-white">
-              {t('Por qué Avialo es superior a la gestión manual y a las plataformas con comisiones', 'Why Avialo beats manual processing and platforms charging unfair payment fees')}
+              {t('Centro de resolución sobre Cobros Recurrentes y VeriFactu', 'Resolution center on Recurring Billing & VeriFactu')}
             </h2>
             <p className="text-sm sm:text-base text-[rgba(10,12,11,0.75)] dark:text-white/75 leading-relaxed font-normal">
               {t(
-                'Comprueba cómo ganamos en transparencia de costes (0% de comisión de software), simplicidad en conciliación de remesas y soporte técnico humano en España frente a otras alternativas.',
-                'Examine how we triumph in zero cost markup transparency (0% software transaction fees), effortless SEPA reconciliation, and real Spanish human support compared to market alternatives.'
+                'Hemos sustituido las típicas preguntas cortas por un panel de consulta técnica en profundidad. Selecciona un tema para explorar los detalles operativos de nuestra arquitectura.',
+                'We replaced basic FAQs with an interactive technical inquiry dashboard. Select a topic to inspect our operational architecture details.'
               )}
             </p>
           </div>
 
-          <div className="block lg:hidden text-center text-xs font-semibold text-[rgba(10,12,11,0.65)] dark:text-white/65 mb-2 animate-pulse">
-            {t('← Desliza horizontalmente para comparar todas las opciones →', '← Swipe horizontally to view full recurring billing comparison →')}
-          </div>
-
-          <div className="w-full overflow-x-auto rounded-[16px] border border-[#D2D2CE] dark:border-[#303131] bg-[#F2F2F0] dark:bg-[#131517] [scrollbar-width:thin]">
-            <table className="w-full text-left border-collapse min-w-[940px]">
-              <thead className="bg-[#FCFCFB] dark:bg-[#080a09] border-b border-[#D2D2CE] dark:border-[#303131]">
-                <tr>
-                  <th className="py-5 px-5 text-xs sm:text-sm font-bold text-[#0A0C0B] dark:text-white w-[22%]">
-                    {t('Criterio de Evaluación', 'Evaluation Criterion')}
-                  </th>
-                  <th className="py-5 px-5 text-xs sm:text-sm font-bold text-[rgb(219,68,55)] dark:text-[rgb(255,107,91)] w-[25%] border-l border-[#D2D2CE] dark:border-[#303131] bg-[rgba(219,68,55,0.02)]">
-                    <div className="flex items-center gap-2">
-                      <XCircle className="w-4 h-4 shrink-0 text-[rgb(219,68,55)] dark:text-[rgb(255,107,91)]" />
-                      <span>{t('Transferencias manuales y Excel', 'Manual Bank Transfers & Excel')}</span>
-                    </div>
-                  </th>
-                  <th className="py-5 px-5 text-xs sm:text-sm font-bold text-[rgb(205,125,20)] dark:text-[rgb(255,175,70)] w-[27%] border-l border-[#D2D2CE] dark:border-[#303131] bg-[rgba(205,125,20,0.02)]">
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 shrink-0 text-[rgb(205,125,20)] dark:text-[rgb(255,175,70)]" />
-                      <span>{t('Herramientas de cobro y ERPs pesados', 'Complex ERPs & Subscription Apps')}</span>
-                    </div>
-                  </th>
-                  <th className="py-5 px-5 text-xs sm:text-sm font-bold text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] w-[26%] border-l border-[#D2D2CE] dark:border-[#303131] bg-[rgba(52,138,46,0.04)]">
-                    <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-5 h-5 text-[rgb(52,138,46)] shrink-0" />
-                      <span className="text-base font-bold">{t('Avialo Cobros Certificados', 'Avialo Certified Billing')}</span>
-                    </div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#D2D2CE] dark:divide-[#303131] text-xs sm:text-sm">
-                <tr>
-                  <td className="py-4 px-5 font-bold text-[#0A0C0B] dark:text-white">
-                    {t('Comisiones por transacción cobrada', 'Software Transaction Fee Cut')}
-                  </td>
-                  <td className="py-4 px-5 text-[rgba(10,12,11,0.75)] dark:text-white/80 border-l border-[#D2D2CE] dark:border-[#303131]">
-                    {t('Sin comisiones, pero asumiendo decenas de horas mensuales perdidas persiguiendo transferencias bancarias retrasadas.', '0% fee, at the expense of dozens of wasted monthly hours manually chasing late bank account transfers.')}
-                  </td>
-                  <td className="py-4 px-5 text-[rgba(10,12,11,0.8)] dark:text-white/85 border-l border-[#D2D2CE] dark:border-[#303131] text-[rgb(200,50,40)] dark:text-[rgb(255,90,75)] font-semibold">
-                    {t('Cobran una cuota mensual elevada Y ADEMÁS se quedan entre el 0,5% y el 2% del importe de cada factura que cobras.', 'Charges high monthly subscriptions AND takes an extra software tax between 0.5% and 2% on every dollar you process.')}
-                  </td>
-                  <td className="py-4 px-5 text-[#0A0C0B] dark:text-white border-l border-[#D2D2CE] dark:border-[#303131] font-bold text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] bg-[rgba(52,138,46,0.02)]">
-                    {t('0% de comisión por parte de Avialo. Tarifa plana pura. Solo pagas la tasa en bruto del banco o pasarela sin sobrecoste alguno.', '0% software transaction fees. Pure flat pricing. You only pay clean direct bank/gateway processing tolls with zero markup.')}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-5 font-bold text-[#0A0C0B] dark:text-white">
-                    {t('Gestión de impagos y tarjetas caducadas', 'Unpaid Accounts & Expired Cards')}
-                  </td>
-                  <td className="py-4 px-5 text-[rgba(10,12,11,0.75)] dark:text-white/80 border-l border-[#D2D2CE] dark:border-[#303131]">
-                    {t('Reclamaciones telefónicas incómodas al cliente y alta tasa de morosidad involuntaria al finalizar el trimestre.', 'Awkward phone recovery calls and high involuntary quarterly default rates due to human billing delay.')}
-                  </td>
-                  <td className="py-4 px-5 text-[rgba(10,12,11,0.8)] dark:text-white/85 border-l border-[#D2D2CE] dark:border-[#303131]">
-                    {t('Reintentos rígidos que bloquean las tarjetas o exigen contratar costosos módulos externos de recuperación de cobros.', 'Rigid consecutive retry routines that get blocked by banks or require paying for third-party billing recovery add-on apps.')}
-                  </td>
-                  <td className="py-4 px-5 text-[#0A0C0B] dark:text-white border-l border-[#D2D2CE] dark:border-[#303131] font-semibold bg-[rgba(52,138,46,0.02)]">
-                    {t('Motor inteligente Smart Dunning IA: reintentos en horas de máxima liquidez y correos amables que recuperan el 68% de cobros.', 'AI Smart Dunning engine: targeted liquidity window retries and polite automated notices rescuing 68% of failed collections.')}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-5 font-bold text-[#0A0C0B] dark:text-white">
-                    {t('Conexión con Normativa VeriFactu 2027', '2027 VeriFactu Tax Compliance')}
-                  </td>
-                  <td className="py-4 px-5 text-[rgba(10,12,11,0.75)] dark:text-white/80 border-l border-[#D2D2CE] dark:border-[#303131] font-medium text-[rgb(200,50,40)] dark:text-[rgb(255,90,75)]">
-                    {t('Ilegal si se apoya en plantillas de Word o Excel. Multas tributarias de hasta 50.000 € por usuario en 2027.', 'Illegal if operating on spreadsheets. Exposes business owners to €50,000 regulatory fines in 2027.')}
-                  </td>
-                  <td className="py-4 px-5 text-[rgba(10,12,11,0.8)] dark:text-white/85 border-l border-[#D2D2CE] dark:border-[#303131]">
-                    {t('Muchas plataformas de cobros extranjeras generan recibos que NO cumplen el formato legal ni envían hash SHA-256 a la AEAT.', 'Many generic subscription tools issue non-compliant receipts lacking required SHA-256 hash chains and Spanish tax formats.')}
-                  </td>
-                  <td className="py-4 px-5 text-[#0A0C0B] dark:text-white border-l border-[#D2D2CE] dark:border-[#303131] font-bold text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] bg-[rgba(52,138,46,0.02)]">
-                    {t('Emisión SIF nativa en el segundo exacto del cobro. Insertado automático de código QR fiscal y Declaración SIF Garante 2027.', 'Instant native SIF execution at the precise second of payment. Automatic QR stamping & binding 2027 Tax Guaranteed statement.')}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-5 font-bold text-[#0A0C0B] dark:text-white">
-                    {t('Soporte Técnico en Incidencias de Cobro', 'Payment Support & Issue Resolution')}
-                  </td>
-                  <td className="py-4 px-5 text-[rgba(10,12,11,0.75)] dark:text-white/80 border-l border-[#D2D2CE] dark:border-[#303131]">
-                    {t('Estás solo ante tu oficina bancaria para solucionar devoluciones o problemas de remesas.', 'You are completely on your own dealing with physical bank branch clerks to troubleshoot rejected SEPA runs.')}
-                  </td>
-                  <td className="py-4 px-5 text-[rgba(10,12,11,0.8)] dark:text-white/85 border-l border-[#D2D2CE] dark:border-[#303131]">
-                    {t('Bots automatizados o tickets de soporte con respuestas genéricas que tardan días en solucionar un bloqueo de remesa.', 'Automated chatbots or slow ticket queues that delay resolving urgent subscription pipeline blockages by several days.')}
-                  </td>
-                  <td className="py-4 px-5 text-[#0A0C0B] dark:text-white border-l border-[#D2D2CE] dark:border-[#303131] font-semibold bg-[rgba(52,138,46,0.02)]">
-                    {t('Soporte humano real por expertos financieros en España. Atención rápida en minutos/horas sin barreras automatizadas.', 'Real human technical and banking specialists located in Spain. Rapid personal assistance in hours without chatbot hurdles.')}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-5 font-bold text-[#0A0C0B] dark:text-white">
-                    {t('Conciliación y Remesas SEPA B2B', 'SEPA Mandates & Ledger Reconciliation')}
-                  </td>
-                  <td className="py-4 px-5 text-[rgba(10,12,11,0.75)] dark:text-white/80 border-l border-[#D2D2CE] dark:border-[#303131]">
-                    {t('Punteo manual tedioso factura por factura comparando con extractos PDF del banco a final de mes.', 'Tedious manual checking line by line against bank account PDF statements at month end.')}
-                  </td>
-                  <td className="py-4 px-5 text-[rgba(10,12,11,0.8)] dark:text-white/85 border-l border-[#D2D2CE] dark:border-[#303131]">
-                    {t('Menús abrumadores y falta de adaptación nativa para mandatos bancarios españoles SEPA Core y B2B.', 'Overcomplicated accounting screens lacking intuitive support for Spanish European SEPA Core & B2B mandate mandates.')}
-                  </td>
-                  <td className="py-4 px-5 text-[#0A0C0B] dark:text-white border-l border-[#D2D2CE] dark:border-[#303131] font-semibold bg-[rgba(52,138,46,0.02)]">
-                    {t('Generación instantánea de remesas XML ISO 20022 conciliadas en 1 clic. Repositorio seguro de mandatos bancarios.', 'Instant automated creation of SEPA XML ISO 20022 bank runs reconciled in 1 click. Secure vault for all digital mandates.')}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* SECCIÓN 5: PREGUNTAS FRECUENTES SOBRE COBROS RECURRENTES & VERIFACTU 2027 */}
-        <section className="space-y-8 pt-10 border-t border-[#D2D2CE] dark:border-[#303131] max-w-4xl mx-auto w-full">
-          <div className="text-center sm:text-left space-y-2">
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-[-0.03em] text-[#0A0C0B] dark:text-white">
-              {t('Preguntas Frecuentes sobre Cobros Recurrentes y SEPA', 'Frequently Asked Questions on Recurring Billing & SEPA')}
-            </h2>
-            <p className="text-sm sm:text-base text-[rgba(10,12,11,0.75)] dark:text-white/75 leading-relaxed font-normal">
-              {t(
-                'Resolvemos tus dudas sobre cómo Avialo automatiza tus suscripciones, elimina comisiones intermedias y asegura la legalidad fiscal.',
-                'We clarify all your questions regarding subscription automation, zero software fee advantages, and 2027 tax compliance.'
-              )}
-            </p>
-          </div>
-
-          <div className="space-y-3.5">
-            {faqs.map((faq) => {
-              const isOpen = openFaq === faq.id;
-              return (
-                <div
-                  key={faq.id}
-                  className="rounded-[12px] border border-[#D2D2CE] dark:border-[#303131] bg-[#FCFCFB] dark:bg-[#080a09] overflow-hidden transition-all duration-200"
-                >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            {/* Columna Izquierda: Lista de Puntos Tecnológicos */}
+            <div className="lg:col-span-5 flex flex-col gap-2.5">
+              {faqInsights.map((insight) => {
+                const isSelected = insight.id === selectedFaq;
+                const IconComponent = insight.icon;
+                return (
                   <button
-                    onClick={() => setOpenFaq(isOpen ? null : faq.id)}
-                    className="w-full text-left py-4 sm:py-5 px-5 sm:px-6 flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-[#0A0C0B] dark:text-white hover:text-[rgb(20,122,132)] dark:hover:text-[rgb(158,250,255)] transition-colors"
+                    key={insight.id}
+                    onClick={() => setSelectedFaq(insight.id)}
+                    className={`text-left p-4 rounded-[6px] border transition-all duration-200 flex items-center gap-3.5 ${
+                      isSelected
+                        ? 'bg-[#0A0C0B] text-white dark:bg-white dark:text-[#0A0C0B] border-transparent shadow-lg scale-[1.01]'
+                        : 'bg-[#FCFCFB] dark:bg-[#131517] text-[#0A0C0B] dark:text-white border-[#D2D2CE] dark:border-[#303131] hover:border-[#0A0C0B]/40 dark:hover:border-white/40'
+                    }`}
                   >
-                    <span>{faq.q}</span>
-                    <div className={`w-7 h-7 rounded-full flex items-center justify-center border border-[#D2D2CE] dark:border-[#303131] shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 bg-[#F2F2F0] dark:bg-[#131517]' : ''}`}>
-                      <ChevronDown className="w-4 h-4 text-[rgba(10,12,11,0.7)] dark:text-white/70" />
+                    <div className={`p-2.5 rounded-[4px] shrink-0 ${isSelected ? 'bg-white/15 dark:bg-[#0A0C0B]/10 text-white dark:text-[#0A0C0B]' : 'bg-[#F2F2F0] dark:bg-[#080a09] text-[rgb(20,122,132)] dark:text-[rgb(158,250,255)]'}`}>
+                      <IconComponent className="w-5 h-5" />
                     </div>
+                    <span className="text-xs sm:text-sm font-bold leading-tight line-clamp-2">
+                      {t(insight.qEs, insight.qEn)}
+                    </span>
+                    <ArrowRight className={`w-4 h-4 shrink-0 ml-auto transition-transform ${isSelected ? 'translate-x-1 opacity-100' : 'opacity-30'}`} />
                   </button>
-                  
-                  <AnimatePresence>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25 }}
-                      >
-                        <div className="px-5 sm:px-6 pb-5 pt-1 text-xs sm:text-sm text-[rgba(10,12,11,0.75)] dark:text-white/75 leading-relaxed font-normal border-t border-[#D2D2CE]/40 dark:border-[#303131]/40">
-                          {faq.a}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                );
+              })}
+            </div>
+
+            {/* Columna Derecha: Panel de Lectura Profunda */}
+            <div className="lg:col-span-7 w-full">
+              <div className="p-6 sm:p-10 rounded-[8px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] shadow-xl min-h-[340px] flex flex-col justify-between space-y-6 relative">
+                
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentInsight.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="space-y-6"
+                  >
+                    <div className="flex items-center gap-3 border-b border-[#D2D2CE] dark:border-[#303131] pb-4">
+                      <div className="w-9 h-9 rounded-[4px] bg-[#0A0C0B] dark:bg-white text-white dark:text-[#0A0C0B] flex items-center justify-center font-bold text-sm shrink-0 font-mono">
+                        0{currentInsight.id}
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-extrabold text-[#0A0C0B] dark:text-white leading-snug">
+                        {t(currentInsight.qEs, currentInsight.qEn)}
+                      </h3>
+                    </div>
+
+                    <div className="text-sm sm:text-base text-[rgba(10,12,11,0.8)] dark:text-white/80 leading-relaxed font-normal space-y-4">
+                      <p>{t(currentInsight.aEs, currentInsight.aEn)}</p>
+                    </div>
+
+                    <div className="pt-4 border-t border-[#D2D2CE] dark:border-[#303131]">
+                      <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-[4px] bg-[#FCFCFB] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131] text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] font-mono text-xs font-bold shadow-sm">
+                        <Award className="w-4 h-4 shrink-0" />
+                        <span>{t(currentInsight.highlightEs, currentInsight.highlightEn)}</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+
+                <div className="pt-6 border-t border-[#D2D2CE]/40 dark:border-[#303131]/40 flex items-center justify-between text-[11px] font-mono text-[rgba(10,12,11,0.5)] dark:text-white/50">
+                  <span>{t('DOCUMENTACIÓN TÉCNICA Y LEGAL', 'TECHNICAL & LEGAL DOCUMENTATION')}</span>
+                  <span>AVIALO SOLUCIONES S.L.</span>
                 </div>
-              );
-            })}
+
+              </div>
+            </div>
+
           </div>
         </section>
 
         {/* SECCIÓN 6: CTA FINAL DE ALTA CONVERSIÓN */}
         <section className="pt-10 border-t border-[#D2D2CE] dark:border-[#303131]">
-          <div className="rounded-[24px] bg-[#0A0C0B] dark:bg-[#131517] text-white p-8 sm:p-14 md:p-16 text-center space-y-6 shadow-2xl relative overflow-hidden border border-white/10">
+          <div className="rounded-[8px] bg-[#0A0C0B] dark:bg-[#131517] text-white p-8 sm:p-14 md:p-16 text-center space-y-6 shadow-2xl relative overflow-hidden border border-white/10">
             
-            {/* Fondo decorativo subtle */}
             <div className="absolute top-0 right-0 w-[450px] h-[450px] bg-gradient-to-br from-[rgba(20,122,132,0.15)] via-transparent to-transparent rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[450px] h-[450px] bg-gradient-to-tr from-[rgba(52,138,46,0.12)] via-transparent to-transparent rounded-full blur-3xl pointer-events-none" />
 
@@ -740,13 +824,13 @@ export const CobrosRecurrentesPage: React.FC = () => {
               <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a
                   href={APP_URLS.register}
-                  className="w-full sm:w-auto text-center px-8 py-4 rounded-[12px] bg-white text-[#0A0C0B] font-extrabold text-base shadow-lg hover:opacity-90 active:scale-[0.99] transition-all duration-200"
+                  className="w-full sm:w-auto text-center px-8 py-4 rounded-[6px] bg-white text-[#0A0C0B] font-extrabold text-base shadow-lg hover:opacity-90 active:scale-[0.99] transition-all duration-200"
                 >
                   {t('Empieza hoy — Gratis 14 días', 'Start Today — 14 Days Free')}
                 </a>
                 <a
                   href="/precios"
-                  className="w-full sm:w-auto text-center px-7 py-4 rounded-[12px] border border-white/30 bg-transparent text-white font-bold text-base hover:bg-white/10 transition-all duration-200"
+                  className="w-full sm:w-auto text-center px-7 py-4 rounded-[6px] border border-white/30 bg-transparent text-white font-bold text-base hover:bg-white/10 transition-all duration-200"
                 >
                   {t('Ver todos los planes', 'View all pricing plans')}
                 </a>

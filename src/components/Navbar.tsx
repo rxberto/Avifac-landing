@@ -15,6 +15,7 @@ import {
   Store,
   Sun,
   Moon,
+  Tag,
 } from 'lucide-react';
 import { Button } from './Button';
 import { useTheme } from '../context/ThemeContext';
@@ -76,6 +77,7 @@ export const Navbar = () => {
           title: t('Portal de Clientes', 'Client Portal'),
           desc: t('Descarga facturas y paga en 1 clic.', 'Download invoices & pay in one click.'),
           icon: Building2,
+          href: '/portal-clientes',
         },
       ],
       featured: {
@@ -373,9 +375,9 @@ export const Navbar = () => {
                             key={item.title}
                             href={item.href || "#features"}
                             onClick={() => setMobileMenuOpen(false)}
-                            className="flex items-start gap-3.5 p-3 rounded-2xl bg-[#FCFCFB] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] active:scale-[0.98] transition-transform"
+                            className="flex items-start gap-3.5 p-3.5 rounded-[8px] bg-[#FCFCFB] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] active:scale-[0.98] transition-transform shadow-2xs"
                           >
-                            <div className="p-2.5 rounded-xl bg-[#E6E6E3] dark:bg-[#232326] text-[#0A0C0B] dark:text-white shrink-0">
+                            <div className="p-2.5 rounded-[6px] bg-[#E6E6E3] dark:bg-[#232326] text-[#0A0C0B] dark:text-white shrink-0">
                               <Icon className="w-5 h-5" />
                             </div>
                             <div className="flex-1 min-w-0">
@@ -384,7 +386,7 @@ export const Navbar = () => {
                                   {item.title}
                                 </span>
                                 {item.badge && (
-                                  <span className="text-[9px] font-bold text-white bg-[#0A0C0B] dark:bg-white dark:text-black px-1.5 py-0.5 rounded uppercase font-mono tracking-wider">
+                                  <span className="text-[9px] font-bold text-white bg-[#0A0C0B] dark:bg-white dark:text-black px-1.5 py-0.5 rounded-[3px] uppercase font-mono tracking-wider">
                                     {item.badge}
                                   </span>
                                 )}
@@ -400,7 +402,7 @@ export const Navbar = () => {
 
                     {/* Featured CTA for Mobile */}
                     {megaMenus[key].featured && (
-                      <div className="mt-4 p-4 rounded-2xl bg-gradient-to-br from-[#E6E6E3] to-[#FCFCFB] dark:from-[#232326] dark:to-[#131517] border border-[#D2D2CE] dark:border-[#303131]">
+                      <div className="mt-4 p-4 rounded-[8px] bg-gradient-to-br from-[#E6E6E3] to-[#FCFCFB] dark:from-[#232326] dark:to-[#131517] border border-[#D2D2CE] dark:border-[#303131]">
                         <h4 className="text-[#0A0C0B] dark:text-white font-bold text-sm mb-1">
                           {megaMenus[key].featured.title}
                         </h4>
@@ -418,6 +420,38 @@ export const Navbar = () => {
                     )}
                   </div>
                 ))}
+
+                {/* Sección de Precios Dedicada en el Menú Móvil */}
+                <div className="space-y-4">
+                  <h3 className="text-[#0A0C0B] dark:text-white font-bold text-lg mb-2 border-b border-[#D2D2CE] dark:border-[#303131] pb-2">
+                    {t('Planes y Tarifas', 'Pricing & Plans')}
+                  </h3>
+                  <a
+                    href="/precios"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-start gap-3.5 p-4 rounded-[8px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#0A0C0B]/30 dark:border-white/30 active:scale-[0.98] transition-transform shadow-sm"
+                  >
+                    <div className="p-2.5 rounded-[6px] bg-[#0A0C0B] text-white dark:bg-white dark:text-[#0A0C0B] shrink-0">
+                      <Tag className="w-5 h-5" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-extrabold text-base text-[#0A0C0B] dark:text-white leading-tight">
+                          {t('Ver Precios y Planes', 'View Pricing Plans')}
+                        </span>
+                        <span className="text-[9px] font-bold text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] bg-[rgba(52,138,46,0.15)] px-2 py-0.5 rounded-[3px] uppercase font-mono tracking-wider">
+                          {t('14 Días Gratis', '14 Days Free')}
+                        </span>
+                      </div>
+                      <p className="text-xs text-[rgba(10,12,11,0.75)] dark:text-white/75 mt-1.5 leading-snug">
+                        {t(
+                          'Precios transparentes sin sorpresas ni costes ocultos. Licencia todo incluido con 0% comisiones bancarias en tu facturación.',
+                          'Transparent all-inclusive pricing with zero hidden costs and 0% banking platform transaction fees.'
+                        )}
+                      </p>
+                    </div>
+                  </a>
+                </div>
               </div>
                 
               {/* Sticky Fixed Bottom Action Bar with Safe Area Padding */}

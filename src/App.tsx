@@ -25,9 +25,10 @@ const TermsPage = lazy(() => import('./components/TermsPage').then(m => ({ defau
 const PricingPage = lazy(() => import('./components/PricingPage').then(m => ({ default: m.PricingPage })));
 const VeriFactuPage = lazy(() => import('./components/VeriFactuPage').then(m => ({ default: m.VeriFactuPage })));
 const CobrosRecurrentesPage = lazy(() => import('./components/CobrosRecurrentesPage').then(m => ({ default: m.CobrosRecurrentesPage })));
+const PortalClientesPage = lazy(() => import('./components/PortalClientesPage').then(m => ({ default: m.PortalClientesPage })));
 
 export function App() {
-  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | 'data-protection' | 'terms' | 'pricing' | 'verifactu' | 'cobros' | '404'>('home');
+  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | 'data-protection' | 'terms' | 'pricing' | 'verifactu' | 'cobros' | 'portal' | '404'>('home');
 
   useEffect(() => {
     const checkPath = () => {
@@ -82,6 +83,16 @@ export function App() {
         hash === '#cobros-recurrentes' ||
         hash === '#cobros';
 
+      const isPortalRoute =
+        pathname === '/portal-clientes' ||
+        pathname === '/portal-clientes/' ||
+        pathname === '/portal' ||
+        pathname === '/portal/' ||
+        pathname === '/client-portal' ||
+        pathname === '/client-portal/' ||
+        hash === '#portal-clientes' ||
+        hash === '#portal';
+
       const validLandingPaths = ['/', '/index.html', '/en', '/en/', '/es', '/es/'];
       const isExplicit404 = pathname === '/404' || pathname === '/404/' || hash === '#404';
       const isValidLanding = validLandingPaths.includes(pathname) || hash.startsWith('#');
@@ -98,6 +109,8 @@ export function App() {
         setCurrentRoute('verifactu');
       } else if (isCobrosRoute) {
         setCurrentRoute('cobros');
+      } else if (isPortalRoute) {
+        setCurrentRoute('portal');
       } else if (isExplicit404 || !isValidLanding) {
         setCurrentRoute('404');
       } else {
@@ -132,6 +145,8 @@ export function App() {
             <VeriFactuPage />
           ) : currentRoute === 'cobros' ? (
             <CobrosRecurrentesPage />
+          ) : currentRoute === 'portal' ? (
+            <PortalClientesPage />
           ) : (
             <main className="min-h-screen bg-[#FCFCFB] dark:bg-[#080a09] w-full overflow-x-hidden antialiased text-[#0A0C0B] dark:text-white transition-colors duration-300">
               {/* Above the fold (carga inmediata) */}
