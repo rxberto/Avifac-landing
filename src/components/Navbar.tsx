@@ -366,24 +366,52 @@ export const Navbar = () => {
 
         </div>
 
-        {/* Mobile Animated Dropdown Drawer */}
+        {/* Mobile Animated Dropdown Drawer - Optimizado con 100dvh y CTAs en la cabecera superior */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'calc(100vh - 65px)' }}
+              animate={{ opacity: 1, height: 'calc(100dvh - 65px)' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.25, ease: 'easeInOut' }}
-              className="lg:hidden bg-[#FCFCFB] dark:bg-[#080a09] border-t border-[#D2D2CE] dark:border-[#303131] fixed top-[65px] left-0 right-0 bottom-0 z-40 flex flex-col overscroll-contain touch-pan-y max-h-[calc(100vh-65px)]"
+              className="lg:hidden bg-[#FCFCFB] dark:bg-[#080a09] border-t border-[#D2D2CE] dark:border-[#303131] fixed top-[65px] left-0 right-0 bottom-0 z-50 flex flex-col overscroll-contain touch-pan-y max-h-[calc(100dvh-65px)] h-[calc(100dvh-65px)]"
+              style={{ height: 'calc(100dvh - 65px)', maxHeight: 'calc(100dvh - 65px)' }}
             >
-              {/* Scrollable Links Container */}
-              <div className="flex-1 overflow-y-auto px-6 pt-6 pb-8 space-y-8 overscroll-contain touch-pan-y">
+              {/* CABECERA SUPERIOR FIJA DE ACCIÓN RÁPIDA (Nunca desaparece ni baja de la pantalla) */}
+              <div className="shrink-0 p-4 bg-[#FCFCFB] dark:bg-[#080a09] border-b border-[#D2D2CE] dark:border-[#303131] shadow-xs flex flex-col gap-3 z-20">
+                <div className="grid grid-cols-2 gap-2.5">
+                  <a
+                    href={APP_URLS.login}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-center gap-1.5 px-3.5 py-3 rounded-[8px] bg-[#E6E6E3] dark:bg-[#232326] text-[#0A0C0B] dark:text-white font-bold text-xs hover:bg-[#D2D2CE] dark:hover:bg-[#303131] transition-colors border border-[#D2D2CE] dark:border-[#303131] text-center"
+                  >
+                    <span>{t('Iniciar Sesión', 'Log In')}</span>
+                  </a>
+                  <Button
+                    variant="primary"
+                    href={APP_URLS.register}
+                    className="w-full py-3 justify-center text-xs font-black shadow-sm px-2 text-center"
+                  >
+                    <span>{t('14 Días Gratis', '14-Day Free Trial')}</span>
+                  </Button>
+                </div>
+                <div className="flex items-center justify-between text-[11px] text-[rgba(10,12,11,0.65)] dark:text-white/65 px-1">
+                  <span className="flex items-center gap-1 font-medium">
+                    <span className="size-2 rounded-full bg-[rgb(52,138,46)] dark:bg-[rgb(104,204,88)] inline-block animate-pulse" />
+                    {t('Sin tarjeta • Activación al instante', 'No credit card needed • Instant activation')}
+                  </span>
+                </div>
+              </div>
+
+              {/* Contenedor con Scroll de Enlaces */}
+              <div className="flex-1 overflow-y-auto px-5 pt-5 pb-16 space-y-7 overscroll-contain touch-pan-y">
                 {Object.keys(megaMenus).map((key) => (
-                  <div key={key} className="space-y-4">
-                    <h3 className="text-[#0A0C0B] dark:text-white font-bold text-lg mb-2 border-b border-[#D2D2CE] dark:border-[#303131] pb-2">
-                      {key}
+                  <div key={key} className="space-y-3">
+                    <h3 className="text-[#0A0C0B] dark:text-white font-extrabold text-base tracking-tight mb-2 border-b border-[#D2D2CE] dark:border-[#303131] pb-2 text-left flex items-center justify-between">
+                      <span>{key}</span>
+                      <ChevronDown className="size-4 opacity-40" />
                     </h3>
-                    <div className="grid grid-cols-1 gap-3">
+                    <div className="grid grid-cols-1 gap-2.5">
                       {megaMenus[key].items.map((item) => {
                         const Icon = item.icon;
                         return (
@@ -391,18 +419,18 @@ export const Navbar = () => {
                             key={item.title}
                             href={item.href || "#features"}
                             onClick={() => setMobileMenuOpen(false)}
-                            className="flex items-start gap-3.5 p-3.5 rounded-[8px] bg-[#FCFCFB] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] active:scale-[0.98] transition-transform shadow-2xs"
+                            className="flex items-start gap-3.5 p-3.5 rounded-[10px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] active:scale-[0.98] transition-transform shadow-2xs text-left"
                           >
-                            <div className="p-2.5 rounded-[6px] bg-[#E6E6E3] dark:bg-[#232326] text-[#0A0C0B] dark:text-white shrink-0">
-                              <Icon className="w-5 h-5" />
+                            <div className="p-2.5 rounded-[8px] bg-[#E6E6E3] dark:bg-[#232326] text-[#0A0C0B] dark:text-white shrink-0">
+                              <Icon className="w-5 h-5 text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)]" />
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2 flex-wrap">
-                                <span className="font-semibold text-sm text-[#0A0C0B] dark:text-white leading-tight">
+                                <span className="font-bold text-sm text-[#0A0C0B] dark:text-white truncate">
                                   {item.title}
                                 </span>
                                 {item.badge && (
-                                  <span className="text-[9px] font-bold text-white bg-[#0A0C0B] dark:bg-white dark:text-black px-1.5 py-0.5 rounded-[3px] uppercase font-mono tracking-wider">
+                                  <span className="text-[10px] font-mono uppercase bg-[#0A0C0B] text-white dark:bg-white dark:text-[#0A0C0B] px-1.5 py-0.5 rounded font-black">
                                     {item.badge}
                                   </span>
                                 )}
@@ -418,7 +446,7 @@ export const Navbar = () => {
 
                     {/* Featured CTA for Mobile */}
                     {megaMenus[key].featured && (
-                      <div className="mt-4 p-4 rounded-[8px] bg-gradient-to-br from-[#E6E6E3] to-[#FCFCFB] dark:from-[#232326] dark:to-[#131517] border border-[#D2D2CE] dark:border-[#303131]">
+                      <div className="mt-3 p-4 rounded-[10px] bg-gradient-to-br from-[#E6E6E3] to-[#FCFCFB] dark:from-[#232326] dark:to-[#131517] border border-[#D2D2CE] dark:border-[#303131] text-left">
                         <h4 className="text-[#0A0C0B] dark:text-white font-bold text-sm mb-1">
                           {megaMenus[key].featured.title}
                         </h4>
@@ -428,7 +456,7 @@ export const Navbar = () => {
                         <a
                           href={megaMenus[key].featured.href || "#features"}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0A0C0B] dark:text-white"
+                          className="inline-flex items-center gap-1.5 text-xs font-bold text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)]"
                         >
                           {megaMenus[key].featured.cta} <ArrowRight className="w-3.5 h-3.5" />
                         </a>
@@ -438,16 +466,16 @@ export const Navbar = () => {
                 ))}
 
                 {/* Sección de Precios Dedicada en el Menú Móvil */}
-                <div className="space-y-4">
-                  <h3 className="text-[#0A0C0B] dark:text-white font-bold text-lg mb-2 border-b border-[#D2D2CE] dark:border-[#303131] pb-2">
+                <div className="space-y-3 pt-2">
+                  <h3 className="text-[#0A0C0B] dark:text-white font-extrabold text-base mb-2 border-b border-[#D2D2CE] dark:border-[#303131] pb-2 text-left">
                     {t('Planes y Tarifas', 'Pricing & Plans')}
                   </h3>
                   <a
                     href="/precios"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-start gap-3.5 p-4 rounded-[8px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#0A0C0B]/30 dark:border-white/30 active:scale-[0.98] transition-transform shadow-sm"
+                    className="flex items-start gap-3.5 p-4 rounded-[10px] bg-gradient-to-br from-[#E6E6E3] to-[#FCFCFB] dark:from-[#232326] dark:to-[#131517] border-2 border-[rgb(52,138,46)]/50 dark:border-[rgb(104,204,88)]/50 active:scale-[0.98] transition-transform shadow-sm text-left"
                   >
-                    <div className="p-2.5 rounded-[6px] bg-[#0A0C0B] text-white dark:bg-white dark:text-[#0A0C0B] shrink-0">
+                    <div className="p-2.5 rounded-[8px] bg-[rgb(52,138,46)] dark:bg-[rgb(104,204,88)] text-white dark:text-[#0A0C0B] shrink-0">
                       <Tag className="w-5 h-5" />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -455,7 +483,7 @@ export const Navbar = () => {
                         <span className="font-extrabold text-base text-[#0A0C0B] dark:text-white leading-tight">
                           {t('Ver Precios y Planes', 'View Pricing Plans')}
                         </span>
-                        <span className="text-[9px] font-bold text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] bg-[rgba(52,138,46,0.15)] px-2 py-0.5 rounded-[3px] uppercase font-mono tracking-wider">
+                        <span className="text-[10px] font-bold text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] bg-[rgba(52,138,46,0.15)] px-2 py-0.5 rounded-[4px] uppercase font-mono tracking-wider">
                           {t('14 Días Gratis', '14 Days Free')}
                         </span>
                       </div>
@@ -469,22 +497,7 @@ export const Navbar = () => {
                   </a>
                 </div>
               </div>
-                
-              {/* Sticky Fixed Bottom Action Bar with Safe Area Padding */}
-              <div className="shrink-0 p-4 pb-12 pt-3 bg-[#FCFCFB]/95 dark:bg-[#080a09]/95 backdrop-blur-md border-t border-[#D2D2CE] dark:border-[#303131] flex flex-col gap-2.5 z-50">
-                <Button variant="primary" href={APP_URLS.register} className="w-full py-3.5 justify-center text-sm shadow-md">
-                  {t('Prueba 14 días gratis', 'Start 14-Day Free Trial')}
-                </Button>
-                <a
-                  href={APP_URLS.login}
-                  className="w-full text-center text-xs text-[rgba(10,12,11,0.72)] dark:text-white/80 hover:text-[#0A0C0B] dark:hover:text-white font-medium py-2 transition-colors"
-                >
-                  {t('¿Ya tienes cuenta?', 'Already have an account?')}{' '}
-                  <span className="underline font-bold text-[#0A0C0B] dark:text-white">
-                    {t('Iniciar Sesión', 'Log In')}
-                  </span>
-                </a>
-              </div>
+
             </motion.div>
           )}
         </AnimatePresence>
