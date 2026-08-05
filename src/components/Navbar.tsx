@@ -15,7 +15,6 @@ import {
   Tag,
   Code2,
   Landmark,
-  Cpu,
 } from 'lucide-react';
 import { Button } from './Button';
 import { useTheme } from '../context/ThemeContext';
@@ -60,6 +59,7 @@ export const Navbar = () => {
       title: string;
       items: { title: string; desc: string; icon: any; badge?: string; href?: string }[];
       featured?: { title: string; desc: string; cta: string; href?: string };
+      featuredCards?: { title: string; desc: string; cta: string; href?: string; badge?: string; external?: boolean }[];
     }
   > = {
     [t('Producto', 'Product')]: {
@@ -151,20 +151,24 @@ export const Navbar = () => {
           icon: Building2,
           href: '/soluciones/gestorias',
         },
+      ],
+      featuredCards: [
         {
-          title: t('Transformación Digital & Desarrollo a Medida ↗', 'Digital Transformation & Custom Dev ↗'),
-          desc: t('Desarrollo de software a medida, automatizaciones e integración para escalar tu negocio.', 'Custom software engineering, legacy integration & automation to scale your enterprise.'),
-          icon: Cpu,
-          badge: t('A Medida', 'Custom'),
+          title: t('Ver Todas las Soluciones', 'Explore All Solutions'),
+          desc: t('Descubre cómo Avialo supera a los ERPs tradicionales según tu perfil profesional.', 'Compare how Avialo outperforms legacy ERPs tailored for your business type.'),
+          cta: t('Ver Soluciones', 'View Solutions'),
+          href: '/soluciones',
+          badge: t('SaaS Principal', 'Main SaaS'),
+        },
+        {
+          title: t('Transformación Digital & Desarrollo ↗', 'Digital Transformation & Custom Dev ↗'),
+          desc: t('Software a medida, integraciones de sistemas complejas y arquitectura para escalar tu negocio.', 'Custom software engineering, legacy integration & cloud architecture to scale your enterprise.'),
+          cta: t('Ir al Subdominio ↗', 'Go to Subdomain ↗'),
           href: 'https://digital.avialo.tech',
+          badge: t('A Medida', 'Custom'),
+          external: true,
         },
       ],
-      featured: {
-        title: t('Transformación Digital & Software a Medida', 'Digital Transformation & Custom Software'),
-        desc: t('Impulsa y escala tu empresa con desarrollo propietario, arquitectura cloud e integración de sistemas.', 'Scale your business with enterprise software engineering, cloud architecture, and custom system integration.'),
-        cta: t('Ver Proyectos a Medida ↗', 'Explore Custom Projects ↗'),
-        href: 'https://digital.avialo.tech',
-      },
     },
   };
 
@@ -245,10 +249,10 @@ export const Navbar = () => {
                   transition={{ duration: 0.18, ease: 'easeOut' }}
                   onMouseEnter={() => handleMouseEnter(activeDropdown)}
                   onMouseLeave={handleMouseLeave}
-                  className="absolute top-full mt-3 left-1/2 -translate-x-1/2 w-[720px] max-w-[calc(100vw-48px)] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] rounded-3xl p-6 shadow-2xl text-sm z-50 grid grid-cols-12 gap-5 overflow-hidden"
+                  className={`absolute top-full mt-3 left-1/2 -translate-x-1/2 ${megaMenus[activeDropdown].featuredCards ? 'w-[860px]' : 'w-[720px]'} max-w-[calc(100vw-48px)] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] rounded-3xl p-6 shadow-2xl text-sm z-50 grid grid-cols-12 gap-5 overflow-hidden`}
                 >
                   {/* Items Grid */}
-                  <div className={`${megaMenus[activeDropdown].featured ? 'col-span-8' : 'col-span-12'} grid ${megaMenus[activeDropdown].items.length <= 2 ? 'grid-cols-1' : 'grid-cols-2'} gap-3.5`}>
+                  <div className={`${(megaMenus[activeDropdown].featured || megaMenus[activeDropdown].featuredCards) ? (megaMenus[activeDropdown].featuredCards ? 'col-span-6' : 'col-span-8') : 'col-span-12'} grid ${megaMenus[activeDropdown].items.length <= 2 ? 'grid-cols-1' : 'grid-cols-2'} gap-3.5`}>
                     {megaMenus[activeDropdown].items.map((item) => {
                       const Icon = item.icon;
                       return (
@@ -280,8 +284,36 @@ export const Navbar = () => {
                     })}
                   </div>
 
-                  {/* Featured Sidebar Card */}
-                  {megaMenus[activeDropdown].featured && (
+                  {/* Dual Featured Cards Section */}
+                  {megaMenus[activeDropdown].featuredCards ? (
+                    <div className="col-span-6 grid grid-cols-2 gap-3.5">
+                      {megaMenus[activeDropdown].featuredCards.map((card, idx) => (
+                        <div key={idx} className="bg-[#FCFCFB] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131] rounded-2xl p-4 flex flex-col justify-between hover:border-[rgb(52,138,46)]/50 transition-colors">
+                          <div>
+                            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#0A0C0B]/10 dark:bg-white/10 text-[#0A0C0B] dark:text-white text-[10px] font-bold mb-2">
+                              <Sparkles className="w-3 h-3 text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)]" />
+                              {card.badge || t('Destacado', 'Featured')}
+                            </div>
+                            <h4 className="text-[#0A0C0B] dark:text-white font-bold text-xs mb-1 leading-snug">
+                              {card.title}
+                            </h4>
+                            <p className="text-[10.5px] text-[rgba(10,12,11,0.72)] dark:text-white/70 leading-snug">
+                              {card.desc}
+                            </p>
+                          </div>
+                          <a
+                            href={card.href || "#features"}
+                            target={card.external ? "_blank" : undefined}
+                            rel={card.external ? "noopener noreferrer" : undefined}
+                            className="mt-3 flex items-center justify-center gap-1 bg-[#0A0C0B] dark:bg-white text-white dark:text-black text-[11px] font-bold py-2 px-2.5 rounded-xl hover:bg-[#0A0C0B]/80 dark:hover:bg-white/90 transition-colors text-center"
+                          >
+                            <span>{card.cta}</span>
+                            <ArrowRight className="w-3 h-3 shrink-0" />
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  ) : megaMenus[activeDropdown].featured ? (
                     <div className="col-span-4 bg-[#FCFCFB] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131] rounded-2xl p-5 flex flex-col justify-between">
                       <div>
                         <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#0A0C0B]/10 dark:bg-white/10 text-[#0A0C0B] dark:text-white text-[10px] font-bold mb-2.5">
@@ -303,7 +335,7 @@ export const Navbar = () => {
                         <ArrowRight className="w-3.5 h-3.5" />
                       </a>
                     </div>
-                  )}
+                  ) : null}
                 </motion.div>
               )}
             </AnimatePresence>
