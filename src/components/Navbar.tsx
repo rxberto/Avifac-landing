@@ -15,6 +15,7 @@ import {
   Tag,
   Code2,
   Landmark,
+  Cpu,
 } from 'lucide-react';
 import { Button } from './Button';
 import { useTheme } from '../context/ThemeContext';
@@ -150,12 +151,19 @@ export const Navbar = () => {
           icon: Building2,
           href: '/soluciones/gestorias',
         },
+        {
+          title: t('Transformación Digital & Desarrollo a Medida', 'Digital Transformation & Custom Dev'),
+          desc: t('Desarrollo de software a medida, automatizaciones e integración para escalar tu negocio.', 'Custom software engineering, legacy integration & automation to scale your enterprise.'),
+          icon: Cpu,
+          badge: t('A Medida', 'Custom'),
+          href: '/soluciones/transformacion-digital',
+        },
       ],
       featured: {
-        title: t('Encuentra tu Solución', 'Explore All Solutions'),
-        desc: t('Compara por qué Avialo es superador frente a los ERPs tradicionales.', 'Compare why Avialo decisively outperforms outdated legacy ERPs.'),
-        cta: t('Ver Todas las Soluciones', 'View All Solutions'),
-        href: '/soluciones',
+        title: t('Transformación Digital & Software a Medida', 'Digital Transformation & Custom Software'),
+        desc: t('Impulsa y escala tu empresa con desarrollo propietario, arquitectura cloud e integración de sistemas.', 'Scale your business with enterprise software engineering, cloud architecture, and custom system integration.'),
+        cta: t('Ver Proyectos a Medida', 'Explore Custom Projects'),
+        href: '/soluciones/transformacion-digital',
       },
     },
   };

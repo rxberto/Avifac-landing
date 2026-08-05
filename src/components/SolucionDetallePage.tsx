@@ -29,7 +29,7 @@ import { Footer } from './Footer';
 import { APP_URLS } from '../config/urls';
 
 interface SolucionDetalleProps {
-  type: 'autonomos' | 'agencias' | 'startups' | 'gestorias';
+  type: 'autonomos' | 'agencias' | 'startups' | 'gestorias' | 'transformacion-digital';
 }
 
 export const SolucionDetallePage: React.FC<SolucionDetalleProps> = ({ type }) => {
@@ -453,6 +453,94 @@ export const SolucionDetallePage: React.FC<SolucionDetalleProps> = ({ type }) =>
           qEn: 'Do you offer a Partnership program or volume agreements if we prescribe Avialo across our client portfolio?',
           aEs: 'Por supuesto. Disponemos de un programa de Partners y Alianzas Profesionales con condiciones preferentes para vuestros clientes, webinars de formación continua en normativa VeriFactu 2027 y soporte directo prioritario para vuestro equipo fiscalista.',
           aEn: 'Certainly. We run a dedicated Professional Advisory Partnership program providing preferred terms for your client portfolio, ongoing regulatory webinars, and priority fiscalist team support.'
+        }
+      ]
+    },
+    'transformacion-digital': {
+      profileNameEs: 'Transformación Digital & Desarrollo a Medida',
+      profileNameEn: 'Digital Transformation & Custom Software',
+      heroTitleEs: 'Escala tu negocio con software propietario a medida, automatizaciones complejas e integración de sistemas empresarial',
+      heroTitleEn: 'Scale your enterprise with custom software engineering, complex automation, and cloud system architecture',
+      heroSubEs: 'Más allá de nuestro producto principal de facturación, Avialo actúa como tu socio tecnológico integral en España: diseñamos y desarrollamos software propietario a medida, conectamos ERPs y pasarelas complejas, y refactorizamos procesos operativos para impulsar la escala de tu empresa.',
+      heroSubEn: 'Beyond our core e-invoicing platform, Avialo serves as your dedicated tech partner in Spain: building custom enterprise software, integrating legacy ERPs and checkout flows, and automating business operations for hyper-scaling.',
+      badgeDateEs: 'SOFTWARE PROPIETARIO & TRANSFORMACIÓN DIGITAL A MEDIDA',
+      badgeDateEn: 'PROPRIETARY SOFTWARE & CUSTOM DIGITAL TRANSFORMATION',
+      statEs: 'Digitaliza el 100% de tus operaciones con ingeniería a medida y soporte técnico en España',
+      statEn: 'Digitize 100% of operations with custom engineering and live Spain-based tech support',
+      metricVal: '100%',
+      metricLabelEs: 'Adaptación técnica a la lógica de negocio y arquitectura de tu empresa',
+      metricLabelEn: 'Custom technical alignment with your company operational workflow & stack',
+      icon: Cpu,
+      whyBetter: [
+        {
+          titleEs: 'Desarrollo de Software a Medida vs. Soluciones Rígidas',
+          titleEn: 'Custom Software Engineering vs. Rigid Off-The-Shelf Tools',
+          descEs: 'Los programas estándar imponen límites a la forma en que opera tu empresa. En Avialo diseñamos arquitectura de software exclusiva adaptada al 100% a tus flujos de trabajo, automatizaciones de negocio e infraestructura.',
+          descEn: 'Off-the-shelf SaaS forces your operations into rigid boxes. Avialo engineers custom software tailored 100% to your workflows and infrastructure.',
+          highlightEs: 'DESARROLLO A MEDIDA EXCLUSIVO',
+          highlightEn: 'EXCLUSIVE CUSTOM DEV',
+          icon: Cpu
+        },
+        {
+          titleEs: 'Integración Completa de Sistemas Legacy & Cloud',
+          titleEn: 'Full Integration of Legacy & Cloud Systems',
+          descEs: 'Conectamos tus bases de datos, ERPs antiguos, CRMs y sistemas de cobranza mediante conectores REST y Webhooks ultra estables con redundancia.',
+          descEn: 'Bridge legacy databases, old ERPs, CRMs, and payment gateways through ultra-reliable REST webhooks with built-in redundancy.',
+          highlightEs: 'CONECTIVIDAD SIN FISURAS',
+          highlightEn: 'SEAMLESS CONNECTIVITY',
+          icon: Layers
+        },
+        {
+          titleEs: 'Acompañamiento Técnico Directo en España',
+          titleEn: 'Direct Live Tech Partnership in Spain',
+          descEs: 'Sin chatbots inservibles ni tickets sin respuesta durante semanas. Cuentas con un equipo de ingenieros de software sénior dedicados en España para respaldar la aceleración y escala de tu negocio.',
+          descEn: 'No useless AI chatbots or unresolved support tickets. You get dedicated senior software engineers in Spain backing your company growth.',
+          highlightEs: 'INGENIERÍA Y SOPORTE EN ESPAÑA',
+          highlightEn: 'SENIOR SPAIN-BASED SUPPORT',
+          icon: Headphones
+        }
+      ],
+      features: [
+        {
+          titleEs: 'Plataformas Web & Portales a Medida',
+          titleEn: 'Custom Web Platforms & Portals',
+          descEs: 'Desarrollo de portales para clientes, dashboards internos y herramientas operativas construidas con la tecnología más moderna y segura del mercado.',
+          descEn: 'Bespoke client portals, internal executive dashboards, and operational tools built on modern stacks.',
+          icon: Briefcase
+        },
+        {
+          titleEs: 'Automatización de Procesos de Negocio',
+          titleEn: 'Enterprise Business Automation',
+          descEs: 'Elimina tareas repetitivas y cuellos de botella conectando flujos de datos automáticos entre tus ventas, facturación, almacén y finanzas.',
+          descEn: 'Eliminate manual bottlenecks by orchestrating automated data flows across sales, invoicing, and finance.',
+          icon: Zap
+        },
+        {
+          titleEs: 'Infraestructura Cloud & Alta Disponibilidad',
+          titleEn: 'Cloud Infrastructure & High Availability',
+          descEs: 'Diseño de arquitectura en la nube escalable, segura y optimizada para procesar millones de datos sin caídas ni tiempos de inactividad.',
+          descEn: 'Scalable cloud architecture engineered to process heavy data volumes with zero downtime.',
+          icon: ShieldCheck
+        }
+      ],
+      faqs: [
+        {
+          qEs: '¿Qué abarca el servicio de Transformación Digital y Desarrollo a Medida de Avialo?',
+          qEn: 'What does Avialo Digital Transformation and Custom Engineering cover?',
+          aEs: 'Abarca desde la auditoría técnica de tus procesos hasta el desarrollo completo de software a medida (portales, plataformas internas, integraciones complejas de API, conectores con ERPs y automatización de flujos operativos) respaldado por nuestro equipo de ingenieros en España.',
+          aEn: 'It spans technical process audits to full custom software development (portals, internal tools, complex API connectors, ERP integrations, and workflow automation) backed by our Spain-based engineering team.'
+        },
+        {
+          qEs: '¿Cómo se diferencia del software de facturación estándar de Avialo?',
+          qEn: 'How does it differ from Avialo core invoicing software?',
+          aEs: 'Avialo Facturación es nuestro producto SaaS estándar inmediato. La línea de Transformación Digital está orientada a empresas que necesitan funcionalidades exclusivas, desarrollo de software propietario a medida o integración profunda con sus sistemas internos existentes.',
+          aEn: 'Avialo Invoicing is our ready-to-use SaaS product. The Digital Transformation division is built for companies requiring custom proprietary software, custom feature builds, or deep internal systems integration.'
+        },
+        {
+          qEs: '¿Cómo iniciamos un proyecto de desarrollo o transformación digital con Avialo?',
+          qEn: 'How do we kick off a custom software project with Avialo?',
+          aEs: 'Puedes agendar una sesión inicial con nuestro equipo de arquitectura. Analizamos las necesidades de tu empresa, definimos el alcance y hoja de ruta, y asignamos un equipo de desarrollo dedicado en España.',
+          aEn: 'Schedule an initial session with our engineering leads. We analyze your requirements, outline the project roadmap, and assign a dedicated Spain-based engineering team.'
         }
       ]
     }

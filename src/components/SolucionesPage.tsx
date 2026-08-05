@@ -4,7 +4,8 @@ import {
   User, 
   Users, 
   ShoppingBag, 
-  Briefcase
+  Briefcase,
+  Cpu
 } from 'lucide-react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
@@ -75,6 +76,18 @@ export const SolucionesPage: React.FC = () => {
       icon: Briefcase,
       image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=70',
       href: '/soluciones/gestorias'
+    },
+    {
+      id: 'transformacion-digital',
+      titleEs: 'Transformación Digital & Software a Medida',
+      titleEn: 'Digital Transformation & Custom Software',
+      subtitleEs: 'Desarrollo de software propietario a medida, automatizaciones complejas e integración de sistemas para escalar tu empresa.',
+      subtitleEn: 'Custom proprietary software engineering, complex automations, and enterprise system integration to scale.',
+      badgeEs: 'Escalar negocio & Desarrollo',
+      badgeEn: 'Custom dev & Scale up',
+      icon: Cpu,
+      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=70',
+      href: '/soluciones/transformacion-digital'
     }
   ];
 
