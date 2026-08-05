@@ -156,16 +156,14 @@ export const Navbar = () => {
         {
           title: t('Ver Todas las Soluciones', 'Explore All Solutions'),
           desc: t('Descubre cómo Avialo supera a los ERPs tradicionales según tu perfil profesional.', 'Compare how Avialo outperforms legacy ERPs tailored for your business type.'),
-          cta: t('Ver Soluciones', 'View Solutions'),
+          cta: t('Explorar Soluciones', 'Explore Solutions'),
           href: '/soluciones',
-          badge: t('SaaS Principal', 'Main SaaS'),
         },
         {
           title: t('Transformación Digital & Desarrollo ↗', 'Digital Transformation & Custom Dev ↗'),
           desc: t('Software a medida, integraciones de sistemas complejas y arquitectura para escalar tu negocio.', 'Custom software engineering, legacy integration & cloud architecture to scale your enterprise.'),
-          cta: t('Ir al Subdominio ↗', 'Go to Subdomain ↗'),
+          cta: t('Explorar Proyectos ↗', 'Explore Projects ↗'),
           href: 'https://digital.avialo.tech',
-          badge: t('A Medida', 'Custom'),
           external: true,
         },
       ],
