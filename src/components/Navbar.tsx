@@ -156,13 +156,13 @@ export const Navbar = () => {
         {
           title: t('Ver Todas las Soluciones', 'Explore All Solutions'),
           desc: t('Descubre cómo Avialo supera a los ERPs tradicionales según tu perfil profesional.', 'Compare how Avialo outperforms legacy ERPs tailored for your business type.'),
-          cta: t('Explorar Soluciones', 'Explore Solutions'),
+          cta: t('Ver más', 'Learn more'),
           href: '/soluciones',
         },
         {
           title: t('Transformación Digital & Desarrollo ↗', 'Digital Transformation & Custom Dev ↗'),
           desc: t('Software a medida, integraciones de sistemas complejas y arquitectura para escalar tu negocio.', 'Custom software engineering, legacy integration & cloud architecture to scale your enterprise.'),
-          cta: t('Explorar Proyectos ↗', 'Explore Projects ↗'),
+          cta: t('Ver más ↗', 'Learn more ↗'),
           href: 'https://digital.avialo.tech',
           external: true,
         },
@@ -288,11 +288,7 @@ export const Navbar = () => {
                       {megaMenus[activeDropdown].featuredCards.map((card, idx) => (
                         <div key={idx} className="bg-[#FCFCFB] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131] rounded-2xl p-4 flex flex-col justify-between hover:border-[rgb(52,138,46)]/50 transition-colors">
                           <div>
-                            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#0A0C0B]/10 dark:bg-white/10 text-[#0A0C0B] dark:text-white text-[10px] font-bold mb-2">
-                              <Sparkles className="w-3 h-3 text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)]" />
-                              {card.badge || t('Destacado', 'Featured')}
-                            </div>
-                            <h4 className="text-[#0A0C0B] dark:text-white font-bold text-xs mb-1 leading-snug">
+                            <h4 className="text-[#0A0C0B] dark:text-white font-bold text-xs mb-1.5 leading-snug">
                               {card.title}
                             </h4>
                             <p className="text-[10.5px] text-[rgba(10,12,11,0.72)] dark:text-white/70 leading-snug">
