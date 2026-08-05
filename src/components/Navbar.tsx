@@ -163,7 +163,7 @@ export const Navbar = () => {
           title: t('Transformación Digital & Desarrollo', 'Digital Transformation & Custom Dev'),
           desc: t('Software a medida, integraciones de sistemas complejas y arquitectura para escalar tu negocio.', 'Custom software engineering, legacy integration & cloud architecture to scale your enterprise.'),
           cta: t('Ver más', 'Learn more'),
-          href: 'https://digital.avialo.es',
+          href: 'https://avialo.tech',
           external: true,
         },
       ],

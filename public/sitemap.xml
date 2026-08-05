@@ -101,10 +101,10 @@
     <priority>0.85</priority>
   </url>
 
-  <!-- Subdominio Transformación Digital -->
+  <!-- Dominio Transformación Digital -->
   <url>
-    <loc>https://digital.avialo.es</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://avialo.tech</loc>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
