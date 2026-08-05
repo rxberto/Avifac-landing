@@ -870,7 +870,7 @@ export const PricingPage = () => {
             </div>
             <Button
               variant="secondary"
-              href="https://www.avialo.tech/ACUERDO_AVIALO_SOLUCIONES_SL.pdf"
+              href="https://www.avialo.es/ACUERDO_AVIALO_SOLUCIONES_SL.pdf"
               external
               className="w-full sm:w-auto shrink-0 whitespace-normal sm:whitespace-nowrap px-5 py-3 text-xs font-bold justify-center text-center"
             >

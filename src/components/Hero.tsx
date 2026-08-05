@@ -217,7 +217,7 @@ const VerifactuSeal = () => {
                 </ul>
 
                 <a
-                  href="https://www.avialo.tech/ACUERDO_AVIALO_SOLUCIONES_SL.pdf"
+                  href="https://www.avialo.es/ACUERDO_AVIALO_SOLUCIONES_SL.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full mt-2 py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-md text-center block"
@@ -388,7 +388,7 @@ export const Hero = () => {
                 <span className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-amber-500/80" />
                 <span className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-emerald-500/80" />
                 <span className="ml-2 sm:ml-3 text-[10px] sm:text-xs font-mono text-neutral-500 dark:text-neutral-400 truncate max-w-[140px] sm:max-w-none">
-                  app.avialo.tech/{activeTab}
+                  app.avialo.es/{activeTab}
                 </span>
               </div>
               <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 dark:bg-emerald-400/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-[10px] sm:text-xs font-bold">

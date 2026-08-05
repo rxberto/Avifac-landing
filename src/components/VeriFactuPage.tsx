@@ -137,7 +137,7 @@ export const VeriFactuPage = () => {
             </Button>
             <Button
               variant="secondary"
-              href="https://www.avialo.tech/ACUERDO_AVIALO_SOLUCIONES_SL.pdf"
+              href="https://www.avialo.es/ACUERDO_AVIALO_SOLUCIONES_SL.pdf"
               external
               className="w-full sm:w-auto whitespace-normal sm:whitespace-nowrap px-6 py-4 text-sm font-semibold justify-center text-center"
             >

@@ -5,17 +5,17 @@
   
   <!-- Portada Principal -->
   <url>
-    <loc>https://avialo.tech/</loc>
+    <loc>https://avialo.es/</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://avialo.tech/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://avialo.tech/en/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://avialo.es/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://avialo.es/en/" />
   </url>
 
   <!-- VeriFactu & AEAT Compliance -->
   <url>
-    <loc>https://avialo.tech/verifactu</loc>
+    <loc>https://avialo.es/verifactu</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
@@ -23,7 +23,7 @@
 
   <!-- Precios y Planes -->
   <url>
-    <loc>https://avialo.tech/precios</loc>
+    <loc>https://avialo.es/precios</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
@@ -31,7 +31,7 @@
 
   <!-- Cobros Recurrentes & Dunning -->
   <url>
-    <loc>https://avialo.tech/cobros-recurrentes</loc>
+    <loc>https://avialo.es/cobros-recurrentes</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -39,7 +39,7 @@
 
   <!-- Control de Gastos & Escáner OCR IA -->
   <url>
-    <loc>https://avialo.tech/control-gastos</loc>
+    <loc>https://avialo.es/control-gastos</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -47,7 +47,7 @@
 
   <!-- Portal de Clientes -->
   <url>
-    <loc>https://avialo.tech/portal-clientes</loc>
+    <loc>https://avialo.es/portal-clientes</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -55,7 +55,7 @@
 
   <!-- Integraciones API REST & Webhooks -->
   <url>
-    <loc>https://avialo.tech/integraciones/api</loc>
+    <loc>https://avialo.es/integraciones/api</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -63,7 +63,7 @@
 
   <!-- Pasarelas de Pago & Bancos -->
   <url>
-    <loc>https://avialo.tech/integraciones/pagos</loc>
+    <loc>https://avialo.es/integraciones/pagos</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -71,31 +71,31 @@
 
   <!-- Soluciones por Sector -->
   <url>
-    <loc>https://avialo.tech/soluciones</loc>
+    <loc>https://avialo.es/soluciones</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://avialo.tech/soluciones/autonomos</loc>
+    <loc>https://avialo.es/soluciones/autonomos</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://avialo.tech/soluciones/agencias</loc>
+    <loc>https://avialo.es/soluciones/agencias</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://avialo.tech/soluciones/startups</loc>
+    <loc>https://avialo.es/soluciones/startups</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://avialo.tech/soluciones/gestorias</loc>
+    <loc>https://avialo.es/soluciones/gestorias</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -111,19 +111,19 @@
 
   <!-- Legales -->
   <url>
-    <loc>https://avialo.tech/privacidad</loc>
+    <loc>https://avialo.es/privacidad</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.30</priority>
   </url>
   <url>
-    <loc>https://avialo.tech/proteccion-datos</loc>
+    <loc>https://avialo.es/proteccion-datos</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.30</priority>
   </url>
   <url>
-    <loc>https://avialo.tech/terminos</loc>
+    <loc>https://avialo.es/terminos</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.30</priority>

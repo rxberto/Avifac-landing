@@ -233,7 +233,7 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
             <ul className="space-y-2.5">
               <li><FooterLink href="#faq">{t('Ley Verifactu (AEAT)', 'VeriFactu Regulation')}</FooterLink></li>
               <li><FooterLink href="#faq">{t('FACe & FacturaE B2B', 'FACe Public Invoicing')}</FooterLink></li>
-              <li><FooterLink href="https://www.avialo.tech/ACUERDO_AVIALO_SOLUCIONES_SL.pdf" highlight={true} external>{t('Declaración SIF Garante', 'Guaranteed SIF Statement')}</FooterLink></li>
+              <li><FooterLink href="https://www.avialo.es/ACUERDO_AVIALO_SOLUCIONES_SL.pdf" highlight={true} external>{t('Declaración SIF Garante', 'Guaranteed SIF Statement')}</FooterLink></li>
               <li><FooterLink href="/privacidad">{t('Política de Privacidad', 'Privacy Policy')}</FooterLink></li>
               <li><FooterLink href="/proteccion-datos">{t('Protección de Datos SIF', 'Tax Data Protection')}</FooterLink></li>
               <li><FooterLink href="/terminos">{t('Términos y Condiciones', 'Terms & Conditions')}</FooterLink></li>

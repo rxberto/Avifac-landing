@@ -10,4 +10,4 @@ User-agent: MJ12bot
 Crawl-delay: 10
 
 # Sitemap principal oficial
-Sitemap: https://avialo.tech/sitemap.xml
+Sitemap: https://avialo.es/sitemap.xml

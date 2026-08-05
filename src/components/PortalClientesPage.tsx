@@ -268,7 +268,7 @@ export const PortalClientesPage: React.FC = () => {
                   <div className="flex items-center gap-2">
                     <Lock className="w-3.5 h-3.5 text-[rgb(124,224,108)]" />
                     <span className="font-bold text-[11px] truncate text-white/90">
-                      https://portal.avialo.tech/client/token-auth_s82a9...
+                      https://portal.avialo.es/client/token-auth_s82a9...
                     </span>
                   </div>
                   <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[3px] bg-[rgba(124,224,108,0.15)] text-[rgb(124,224,108)] text-[10px] font-bold uppercase">

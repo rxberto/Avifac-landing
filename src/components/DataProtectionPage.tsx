@@ -585,7 +585,7 @@ export const DataProtectionPage = () => {
                 <p><strong>AVIALO SOLUCIONES SL</strong> • CIF B26802249</p>
                 <p>Domicilio: Calle Honduras 20, Puerta B, Planta 4. 28822, Coslada (Madrid), España</p>
                 <p>Correo de atención legal: <a href="mailto:hola@avialo.es" className="text-emerald-600 dark:text-emerald-400 font-bold underline underline-offset-4">hola@avialo.es</a></p>
-                <p>Web oficial: <a href="https://avialo.tech" className="text-emerald-600 dark:text-emerald-400 font-bold underline underline-offset-4">https://avialo.tech</a></p>
+                <p>Web oficial: <a href="https://avialo.es" className="text-emerald-600 dark:text-emerald-400 font-bold underline underline-offset-4">https://avialo.es</a></p>
               </div>
             </div>
           </section>

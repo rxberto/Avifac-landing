@@ -33,7 +33,7 @@ export const IntegracionApiPage: React.FC = () => {
   const codeSnippets = {
     invoice: {
       ts: `// Emisión y certificación VeriFactu utilizando fetch estándar nativo en TypeScript/Node.js
-const url = 'https://api.avialo.tech/v1/invoices/certify';
+const url = 'https://api.avialo.es/v1/invoices/certify';
 const apiKey = 'sk_test_avialo_719A29F...'; // Clave de entorno Sandbox
 
 async function createAndCertifyInvoice() {
@@ -64,7 +64,7 @@ createAndCertifyInvoice();`,
       python: `# Emisión de factura con verificación VeriFactu utilizando la librería estándar 'requests' de Python
 import requests
 
-url = "https://api.avialo.tech/v1/invoices/certify"
+url = "https://api.avialo.es/v1/invoices/certify"
 api_key = "sk_test_avialo_719A29F..." # Clave del entorno Sandbox de pruebas
 
 payload = {
@@ -93,7 +93,7 @@ print(f"Estado HTTP: {response.status_code}")
 print(f"Factura Certificada: {data['invoiceNumber']}")
 print(f"URL Código QR AEAT: {data['verifactu']['qrUrl']}")
 print(f"Hash Criptográfico SHA-256: {data['verifactu']['currentHash']}")`,
-      curl: `curl -X POST https://api.avialo.tech/v1/invoices/certify \\
+      curl: `curl -X POST https://api.avialo.es/v1/invoices/certify \\
   -H "Authorization: Bearer sk_test_avialo_719A29F..." \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -111,7 +111,7 @@ print(f"Hash Criptográfico SHA-256: {data['verifactu']['currentHash']}")`,
   }'`,
       php: `<?php
 // Emisión VeriFactu mediante cURL nativo en PHP
-$url = "https://api.avialo.tech/v1/invoices/certify";
+$url = "https://api.avialo.es/v1/invoices/certify";
 $apiKey = "sk_test_avialo_719A29F...";
 
 $payload = json_encode([
@@ -276,7 +276,7 @@ echo json_encode(['status' => 'received']);
     },
     customer: {
       ts: `// Creación o actualización (Upsert) de cliente por NIF/CIF por REST nativo
-const url = 'https://api.avialo.tech/v1/customers/upsert';
+const url = 'https://api.avialo.es/v1/customers/upsert';
 const apiKey = 'sk_test_avialo_719A29F...';
 
 async function syncCustomer() {
@@ -309,7 +309,7 @@ syncCustomer();`,
       python: `# Creación / Sincronización de cliente por NIF en Python
 import requests
 
-url = "https://api.avialo.tech/v1/customers/upsert"
+url = "https://api.avialo.es/v1/customers/upsert"
 
 payload = {
     "taxId": "B88192019", # Si ya existe se actualizan los campos modificados
@@ -326,7 +326,7 @@ headers = {
 response = requests.post(url, json=payload, headers=headers)
 print("Estado:", response.status_code)
 print("Datos del cliente:", response.json())`,
-      curl: `curl -X POST https://api.avialo.tech/v1/customers/upsert \\
+      curl: `curl -X POST https://api.avialo.es/v1/customers/upsert \\
   -H "Authorization: Bearer sk_test_avialo_719A29F..." \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -337,7 +337,7 @@ print("Datos del cliente:", response.json())`,
   }'`,
       php: `<?php
 // Sincronización de cliente en PHP vía cURL
-$url = "https://api.avialo.tech/v1/customers/upsert";
+$url = "https://api.avialo.es/v1/customers/upsert";
 $payload = json_encode([
     "taxId" => "B88192019",
     "legalName" => "Innovaciones Tecnológicas S.L.",

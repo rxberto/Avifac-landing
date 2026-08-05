@@ -296,7 +296,7 @@ export const TermsPage = () => {
             </h2>
             <div className={fontClasses[fontSize]}>
               <p className="mb-3">
-                Las presentes Condiciones Generales de Contratación y Uso (en adelante, «Condiciones» o «Términos») regulan la relación contractual entre el usuario (en adelante, «Usuario» o «Cliente») y AVIALO SOLUCIONES SL (en adelante, «Avialo», «la Empresa» o «el Prestador») para el acceso y utilización de la plataforma SaaS de facturación electrónica, gestión fiscal y cumplimiento tributario Avialo, accesible a través de <a href="https://avialo.tech" className="text-emerald-600 dark:text-emerald-400 font-bold underline underline-offset-4">avialo.tech</a> y sus subdominios, aplicaciones móviles y servicios API asociados.
+                Las presentes Condiciones Generales de Contratación y Uso (en adelante, «Condiciones» o «Términos») regulan la relación contractual entre el usuario (en adelante, «Usuario» o «Cliente») y AVIALO SOLUCIONES SL (en adelante, «Avialo», «la Empresa» o «el Prestador») para el acceso y utilización de la plataforma SaaS de facturación electrónica, gestión fiscal y cumplimiento tributario Avialo, accesible a través de <a href="https://avialo.es" className="text-emerald-600 dark:text-emerald-400 font-bold underline underline-offset-4">avialo.es</a> y sus subdominios, aplicaciones móviles y servicios API asociados.
               </p>
               <p className="mb-3">
                 Estas Condiciones se redactan de conformidad con la <strong>Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE)</strong>, el <strong>Real Decreto Legislativo 1/2007, de 16 de noviembre, por el que se aprueba el Texto Refundido de la Ley General para la Defensa de los Consumidores y Usuarios</strong>, el <strong>Código Civil español (artículos 1254 y siguientes)</strong>, el <strong>Reglamento (UE) 2016/679 (RGPD)</strong> y la normativa tributaria de facturación electrónica (Ley 11/2021 y RD 1007/2023).
@@ -446,7 +446,7 @@ export const TermsPage = () => {
             </h2>
             <div className={fontClasses[fontSize]}>
               <p className="mb-3">
-                Avialo ofrece distintos planes de suscripción cuyos precios, características y límites se encuentran detallados en la página de precios de la Plataforma (<a href="/#precios" className="text-emerald-600 dark:text-emerald-400 font-bold underline underline-offset-4">avialo.tech/#precios</a>). Los precios mostrados no incluyen el Impuesto sobre el Valor Añadido (IVA) salvo indicación expresa en contrario.
+                Avialo ofrece distintos planes de suscripción cuyos precios, características y límites se encuentran detallados en la página de precios de la Plataforma (<a href="/#precios" className="text-emerald-600 dark:text-emerald-400 font-bold underline underline-offset-4">avialo.es/#precios</a>). Los precios mostrados no incluyen el Impuesto sobre el Valor Añadido (IVA) salvo indicación expresa en contrario.
               </p>
               <ul className="space-y-2 pl-5 list-disc marker:text-emerald-500">
                 <li><strong>Modalidad de Pago:</strong> Mensual o anual, mediante tarjeta de crédito/débito, domiciliación bancaria o cualquier método habilitado. El pago anual incluye un descuento respecto al pago mensual, según las promociones vigentes.</li>
@@ -705,7 +705,7 @@ export const TermsPage = () => {
                 <p><strong>AVIALO SOLUCIONES SL</strong> • CIF B26802249</p>
                 <p>Domicilio: Calle Honduras 20, Puerta B, Planta 4. 28822, Coslada (Madrid), España</p>
                 <p>Correo electrónico: <a href="mailto:hola@avialo.es" className="text-emerald-600 dark:text-emerald-400 font-bold underline underline-offset-4">hola@avialo.es</a></p>
-                <p>Sitio web: <a href="https://avialo.tech" className="text-emerald-600 dark:text-emerald-400 font-bold underline underline-offset-4">https://avialo.tech</a></p>
+                <p>Sitio web: <a href="https://avialo.es" className="text-emerald-600 dark:text-emerald-400 font-bold underline underline-offset-4">https://avialo.es</a></p>
               </div>
             </div>
           </section>
