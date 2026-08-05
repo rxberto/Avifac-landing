@@ -1,4 +1,13 @@
+# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
 
+# Bloqueo de bots spammers e indexadores irrelevantes
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Crawl-delay: 10
+
+# Sitemap principal oficial
 Sitemap: https://avialo.tech/sitemap.xml
