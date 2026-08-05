@@ -79,15 +79,15 @@ export const SolucionesPage: React.FC = () => {
     },
     {
       id: 'transformacion-digital',
-      titleEs: 'Transformación Digital & Software a Medida',
-      titleEn: 'Digital Transformation & Custom Software',
+      titleEs: 'Transformación Digital & Software a Medida ↗',
+      titleEn: 'Digital Transformation & Custom Software ↗',
       subtitleEs: 'Desarrollo de software propietario a medida, automatizaciones complejas e integración de sistemas para escalar tu empresa.',
       subtitleEn: 'Custom proprietary software engineering, complex automations, and enterprise system integration to scale.',
-      badgeEs: 'Escalar negocio & Desarrollo',
-      badgeEn: 'Custom dev & Scale up',
+      badgeEs: 'Subdominio & Desarrollo',
+      badgeEn: 'Custom dev & Subdomain',
       icon: Cpu,
       image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=70',
-      href: '/soluciones/transformacion-digital'
+      href: 'https://digital.avialo.tech'
     }
   ];
 

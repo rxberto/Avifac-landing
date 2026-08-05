@@ -33,7 +33,7 @@ const IntegracionPagosPage = lazy(() => import('./components/IntegracionPagosPag
 const ControlGastosPage = lazy(() => import('./components/ControlGastosPage').then(m => ({ default: m.ControlGastosPage })));
 
 export function App() {
-  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | 'data-protection' | 'terms' | 'pricing' | 'verifactu' | 'cobros' | 'portal' | 'control-gastos' | 'soluciones' | 'soluciones-autonomos' | 'soluciones-agencias' | 'soluciones-startups' | 'soluciones-gestorias' | 'soluciones-transformacion' | 'api' | 'pagos' | '404'>('home');
+  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | 'data-protection' | 'terms' | 'pricing' | 'verifactu' | 'cobros' | 'portal' | 'control-gastos' | 'soluciones' | 'soluciones-autonomos' | 'soluciones-agencias' | 'soluciones-startups' | 'soluciones-gestorias' | 'api' | 'pagos' | '404'>('home');
 
   useEffect(() => {
     const checkPath = () => {
@@ -112,7 +112,6 @@ export function App() {
       const isAgenciasRoute = pathname.includes('/soluciones/agencias') || pathname.includes('/soluciones-agencias') || hash.includes('#agencias');
       const isStartupsRoute = pathname.includes('/soluciones/startups') || pathname.includes('/soluciones-startups') || hash.includes('#startups');
       const isGestoriasRoute = pathname.includes('/soluciones/gestorias') || pathname.includes('/soluciones-gestorias') || hash.includes('#gestorias');
-      const isTransformacionRoute = pathname.includes('/soluciones/transformacion') || pathname.includes('/soluciones-transformacion') || pathname.includes('/transformacion-digital') || hash.includes('#transformacion');
 
       const isApiRoute = pathname.includes('/integraciones/api') || pathname.includes('/integraciones-api') || hash.includes('#api-webhooks') || hash.includes('#api');
       const isPagosRoute = pathname.includes('/integraciones/pagos') || pathname.includes('/integraciones-pagos') || hash.includes('#pagos') || hash.includes('#pasarelas');
@@ -122,7 +121,6 @@ export function App() {
         !isAgenciasRoute &&
         !isStartupsRoute &&
         !isGestoriasRoute &&
-        !isTransformacionRoute &&
         (pathname === '/soluciones' ||
           pathname === '/soluciones/' ||
           pathname === '/solutions' ||
@@ -158,8 +156,6 @@ export function App() {
         setCurrentRoute('soluciones-startups');
       } else if (isGestoriasRoute) {
         setCurrentRoute('soluciones-gestorias');
-      } else if (isTransformacionRoute) {
-        setCurrentRoute('soluciones-transformacion');
       } else if (isSolucionesRoute) {
         setCurrentRoute('soluciones');
       } else if (isApiRoute) {
@@ -214,8 +210,6 @@ export function App() {
             <SolucionDetallePage type="startups" />
           ) : currentRoute === 'soluciones-gestorias' ? (
             <SolucionDetallePage type="gestorias" />
-          ) : currentRoute === 'soluciones-transformacion' ? (
-            <SolucionDetallePage type="transformacion-digital" />
           ) : currentRoute === 'api' ? (
             <IntegracionApiPage />
           ) : currentRoute === 'pagos' ? (

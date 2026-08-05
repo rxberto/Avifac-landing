@@ -152,18 +152,18 @@ export const Navbar = () => {
           href: '/soluciones/gestorias',
         },
         {
-          title: t('Transformación Digital & Desarrollo a Medida', 'Digital Transformation & Custom Dev'),
+          title: t('Transformación Digital & Desarrollo a Medida ↗', 'Digital Transformation & Custom Dev ↗'),
           desc: t('Desarrollo de software a medida, automatizaciones e integración para escalar tu negocio.', 'Custom software engineering, legacy integration & automation to scale your enterprise.'),
           icon: Cpu,
           badge: t('A Medida', 'Custom'),
-          href: '/soluciones/transformacion-digital',
+          href: 'https://digital.avialo.tech',
         },
       ],
       featured: {
         title: t('Transformación Digital & Software a Medida', 'Digital Transformation & Custom Software'),
         desc: t('Impulsa y escala tu empresa con desarrollo propietario, arquitectura cloud e integración de sistemas.', 'Scale your business with enterprise software engineering, cloud architecture, and custom system integration.'),
-        cta: t('Ver Proyectos a Medida', 'Explore Custom Projects'),
-        href: '/soluciones/transformacion-digital',
+        cta: t('Ver Proyectos a Medida ↗', 'Explore Custom Projects ↗'),
+        href: 'https://digital.avialo.tech',
       },
     },
   };
