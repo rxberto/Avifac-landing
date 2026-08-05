@@ -87,7 +87,7 @@ export const SolucionesPage: React.FC = () => {
       badgeEn: 'Custom dev & Subdomain',
       icon: Cpu,
       image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=70',
-      href: 'https://digital.avialo.tech'
+      href: 'https://digital.avialo.es'
     }
   ];
 

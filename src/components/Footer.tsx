@@ -196,7 +196,7 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
               <li><FooterLink href={APP_URLS.register} external>{t('Crea una cuenta gratis', 'Create free account')}</FooterLink></li>
               <li><FooterLink href={APP_URLS.login} external>{t('Iniciar sesión', 'Log in')}</FooterLink></li>
               <li><FooterLink href="/precios">{t('Precios y Planes', 'Pricing & Plans')}</FooterLink></li>
-              <li><FooterLink href="https://digital.avialo.tech" external target="_blank" rel="noopener noreferrer">{t('Transformación Digital ↗', 'Digital Transformation ↗')}</FooterLink></li>
+              <li><FooterLink href="https://digital.avialo.es" external target="_blank" rel="noopener noreferrer">{t('Transformación Digital ↗', 'Digital Transformation ↗')}</FooterLink></li>
               <li><FooterLink href="https://avialo.statuspage.io/" external target="_blank" rel="noopener noreferrer">{t('Estado del sistema', 'System status')}</FooterLink></li>
             </ul>
           </div>
@@ -222,7 +222,7 @@ export const Footer = ({ locale = 'es' }: FooterProps) => {
               <li><FooterLink href="/soluciones/agencias">{t('Para Pymes, Agencias y Estudios', 'For SMEs & Agencies')}</FooterLink></li>
               <li><FooterLink href="/soluciones/startups">{t('Para Startups SaaS y E-commerce', 'For SaaS & E-commerce Startups')}</FooterLink></li>
               <li><FooterLink href="/soluciones/gestorias">{t('Para Asesorías y Gestores', 'For Accountants & Advisors')}</FooterLink></li>
-              <li><FooterLink href="https://digital.avialo.tech" external target="_blank" rel="noopener noreferrer">{t('Transformación Digital & Desarrollo a Medida ↗', 'Digital Transformation & Custom Dev ↗')}</FooterLink></li>
+              <li><FooterLink href="https://digital.avialo.es" external target="_blank" rel="noopener noreferrer">{t('Transformación Digital & Desarrollo a Medida ↗', 'Digital Transformation & Custom Dev ↗')}</FooterLink></li>
               <li><FooterLink href="/soluciones">{t('Ver Todas las Soluciones', 'Explore All Solutions')}</FooterLink></li>
             </ul>
           </div>
