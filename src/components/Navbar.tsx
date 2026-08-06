@@ -490,6 +490,33 @@ export const Navbar = () => {
                         </a>
                       </div>
                     )}
+
+                    {/* Featured Cards Array for Mobile (e.g. Transformación Digital) */}
+                    {megaMenus[key].featuredCards && (
+                      <div className="grid grid-cols-1 gap-2.5 mt-2.5">
+                        {megaMenus[key].featuredCards.map((card, idx) => (
+                          <div key={idx} className="p-4 rounded-[10px] bg-[#FCFCFB] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131] shadow-sm text-left relative flex flex-col justify-between">
+                            <div>
+                              <h4 className="text-[#0A0C0B] dark:text-white font-bold text-sm mb-1.5">
+                                {card.title}
+                              </h4>
+                              <p className="text-[11.5px] text-[rgba(10,12,11,0.72)] dark:text-white/70 mb-3.5 leading-snug">
+                                {card.desc}
+                              </p>
+                            </div>
+                            <a
+                              href={card.href || "#features"}
+                              target={card.external ? "_blank" : undefined}
+                              rel={card.external ? "noopener noreferrer" : undefined}
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="inline-flex items-center justify-center w-full gap-1.5 bg-[#0A0C0B] dark:bg-white text-white dark:text-black py-2.5 rounded-[8px] text-xs font-bold transition-transform active:scale-[0.98]"
+                            >
+                              <span>{card.cta}</span> <ArrowRight className="w-3.5 h-3.5" />
+                            </a>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ))}
 
