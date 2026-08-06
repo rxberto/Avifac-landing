@@ -146,10 +146,10 @@ export const SolucionDetallePage: React.FC<SolucionDetalleProps> = ({ type }) =>
           aEn: 'Never. Dedicated advisor and accountant logins are 100% free forever in Avialo. You can invite your accounting partner to export structured official ledgers in one click.'
         },
         {
-          qEs: '¿Qué pasa tras los 14 días de prueba gratuita?',
-          qEn: 'What happens when the 14-day free trial expires?',
-          aEs: 'Durante los 14 días disfrutas de todas las funcionalidades sin restricciones y sin necesidad de haber introducido ninguna tarjeta de crédito. Pasado ese periodo, eliges la tarifa todo incluido que mejor se adapte a ti.',
-          aEn: 'During your 14-day evaluation, experience unrestricted feature execution with zero credit card required. Upon trial expiration, pick the transparent flat-rate tier that best matches your activity.'
+          qEs: '¿Qué pasa tras los 30 días de prueba gratuita?',
+          qEn: 'What happens when the 30-day free trial expires?',
+          aEs: 'Durante los 30 días disfrutas de todas las funcionalidades sin restricciones y sin necesidad de haber introducido ninguna tarjeta de crédito. Pasado ese periodo, eliges la tarifa todo incluido que mejor se adapte a ti.',
+          aEn: 'During your 30-day evaluation, experience unrestricted feature execution with zero credit card required. Upon trial expiration, pick the transparent flat-rate tier that best matches your activity.'
         }
       ]
     },
@@ -496,7 +496,7 @@ export const SolucionDetallePage: React.FC<SolucionDetalleProps> = ({ type }) =>
                   href={APP_URLS.register}
                   className="w-full sm:w-auto text-center px-6 sm:px-8 py-3.5 sm:py-4 rounded-[6px] bg-[#0A0C0B] dark:bg-white text-white dark:text-[#0A0C0B] font-extrabold text-sm sm:text-base shadow-lg hover:opacity-90 active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-2"
                 >
-                  <span>{t('Empezar prueba gratis 14 días', 'Start 14-Day Free Trial')}</span>
+                  <span>{t('Empezar prueba gratis 30 días', 'Start 30-Day Free Trial')}</span>
                   <ArrowRight className="w-4 h-4" />
                 </a>
                 <a
@@ -509,7 +509,7 @@ export const SolucionDetallePage: React.FC<SolucionDetalleProps> = ({ type }) =>
 
               <div className="pt-1 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[11px] sm:text-xs font-bold text-[rgba(10,12,11,0.75)] dark:text-white/75">
                 <span className="flex items-center gap-1.5 text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)]">
-                  ✓ {t('14 Días Gratis sin Tarjeta', '14 Days Free — No Card Needed')}
+                  ✓ {t('30 Días Gratis sin Tarjeta', '30 Days Free — No Card Needed')}
                 </span>
                 <span className="flex items-center gap-1.5 text-[rgb(20,122,132)] dark:text-[rgb(158,250,255)]">
                   🔒 {t('0% Comisiones Bancarias', '0% Payment Commission')}
@@ -705,7 +705,7 @@ export const SolucionDetallePage: React.FC<SolucionDetalleProps> = ({ type }) =>
                 // {t('PUESTA EN MARCHA EN 2 MINUTOS', 'DEPLOY NOW IN UNDER 2 MINUTES')}
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[-0.03em] text-white leading-tight">
-                {t('Prueba tu solución especializada 14 días gratis', 'Test drive your specialized workflow for 14 days free')}
+                {t('Prueba tu solución especializada 30 días gratis', 'Test drive your specialized workflow for 30 days free')}
               </h2>
               <p className="text-base sm:text-lg text-white/80 leading-relaxed font-normal">
                 {t(
@@ -719,7 +719,7 @@ export const SolucionDetallePage: React.FC<SolucionDetalleProps> = ({ type }) =>
                   href={APP_URLS.register}
                   className="w-full sm:w-auto text-center px-8 py-4 rounded-[6px] bg-white text-[#0A0C0B] font-extrabold text-base shadow-lg hover:opacity-90 active:scale-[0.99] transition-all duration-200"
                 >
-                  {t('Empezar Ahora — 14 Días Gratis', 'Start Now — 14 Days Free')}
+                  {t('Empezar Ahora — 30 Días Gratis', 'Start Now — 30 Days Free')}
                 </a>
                 <a
                   href="/precios"

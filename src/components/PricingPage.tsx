@@ -59,7 +59,7 @@ export const PricingPage = () => {
       priceMonthly: 15,
       priceYearly: 12,
       target: t('1 Empresa • 1 Usuario + Gestor Gratis', '1 Business • 1 User + Free Accountant'),
-      cta: t('Empezar prueba de 14 días', 'Start 14-Day Free Trial'),
+      cta: t('Empezar prueba de 30 días', 'Start 30-Day Free Trial'),
       keyFeatures: [
         { text: t('Facturas y presupuestos ilimitados', 'Unlimited invoices & estimates'), included: true },
         { text: t('Cumplimiento total VeriFactu 2027 (AEAT)', 'Full VeriFactu 2027 compliance (AEAT)'), included: true },
@@ -82,7 +82,7 @@ export const PricingPage = () => {
       priceMonthly: 29,
       priceYearly: 24,
       target: t('1 Empresa • 3 Usuarios + Gestor Gratis', '1 Business • 3 Users + Free Accountant'),
-      cta: t('Empezar prueba de 14 días', 'Start 14-Day Free Trial'),
+      cta: t('Empezar prueba de 30 días', 'Start 30-Day Free Trial'),
       keyFeatures: [
         { text: t('Todo lo incluido en el Plan Esencial', 'Everything in Essential plan'), included: true },
         { text: t('Facturación recurrente automatizada y cuotas', 'Automated recurring billing & subscriptions'), included: true },
@@ -105,7 +105,7 @@ export const PricingPage = () => {
       priceMonthly: 99,
       priceYearly: 79,
       target: t('10 Empresas • Usuarios ilimitados + Gestores', '10 Businesses • Unlimited Users + Accountants'),
-      cta: t('Empezar prueba de 14 días', 'Start 14-Day Free Trial'),
+      cta: t('Empezar prueba de 30 días', 'Start 30-Day Free Trial'),
       keyFeatures: [
         { text: t('Todo lo incluido en el Plan Completo', 'Everything in Complete plan'), included: true },
         { text: t('Hasta 10 sociedades / NIFs en un solo panel', 'Up to 10 businesses / tax IDs in a unified panel'), included: true },
@@ -443,17 +443,17 @@ export const PricingPage = () => {
 
   const faqs = [
     {
-      q: t('¿Cómo funcionan los 14 días de prueba gratuita sin riesgo?', 'How does the 14-day risk-free free trial work?'),
+      q: t('¿Cómo funcionan los 30 días de prueba gratuita sin riesgo?', 'How does the 30-day risk-free free trial work?'),
       a: t(
-        'Te das de alta en menos de 30 segundos únicamente con tu email y el nombre de tu empresa. Durante 14 días disfrutas de acceso completo a todas las herramientas operativas de la plataforma: emisión de facturas VeriFactu reales o de prueba, lectura OCR de gastos y consultas al Copiloto de IA. No es necesario introducir tarjeta de crédito o datos bancarios al iniciar, eliminando cualquier riesgo de cargo accidental al concluir el periodo de prueba.',
-        'Sign up in under 30 seconds using only your email and company name. For 14 days, you enjoy complete access to all platform tools: issuing real or test VeriFactu invoices, running OCR receipts, and querying the AI Copilot. No credit card is required upon sign-up, removing any possibility of unwanted charges when the trial completes.'
+        'Te das de alta en menos de 30 segundos únicamente con tu email y el nombre de tu empresa. Durante 30 días disfrutas de acceso completo a todas las herramientas operativas de la plataforma: emisión de facturas VeriFactu reales o de prueba, lectura OCR de gastos y consultas al Copiloto de IA. No es necesario introducir tarjeta de crédito o datos bancarios al iniciar, eliminando cualquier riesgo de cargo accidental al concluir el periodo de prueba.',
+        'Sign up in under 30 seconds using only your email and company name. For 30 days, you enjoy complete access to all platform tools: issuing real or test VeriFactu invoices, running OCR receipts, and querying the AI Copilot. No credit card is required upon sign-up, removing any possibility of unwanted charges when the trial completes.'
       ),
     },
     {
-      q: t('¿Qué sucede cuando finaliza mi periodo de prueba de 14 días?', 'What happens when my 14-day trial period ends?'),
+      q: t('¿Qué sucede cuando finaliza mi periodo de prueba de 30 días?', 'What happens when my 30-day trial period ends?'),
       a: t(
-        'Al acercarse el final de los 14 días, el sistema te notificará para que decidas con tranquilidad si deseas suscribir el Plan Esencial, Completo o Multiempresa. Si optas por no continuar, podrás exportar todo tu histórico de facturas, clientes y gastos en formato estándar. En ningún caso realizaremos cobros bancarios ni eliminaremos de golpe tus registros tributarios.',
-        'As the 14-day mark approaches, the platform will calmly notify you to choose between the Essential, Complete, or Multi-Entity tier. If you opt not to proceed, you can cleanly export all your billing history, clients, and receipts in open formats. We never apply unauthorized bank charges or delete tax records abruptly.'
+        'Al acercarse el final de los 30 días, el sistema te notificará para que decidas con tranquilidad si deseas suscribir el Plan Esencial, Completo o Multiempresa. Si optas por no continuar, podrás exportar todo tu histórico de facturas, clientes y gastos en formato estándar. En ningún caso realizaremos cobros bancarios ni eliminaremos de golpe tus registros tributarios.',
+        'As the 30-day mark approaches, the platform will calmly notify you to choose between the Essential, Complete, or Multi-Entity tier. If you opt not to proceed, you can cleanly export all your billing history, clients, and receipts in open formats. We never apply unauthorized bank charges or delete tax records abruptly.'
       ),
     },
     {
@@ -518,8 +518,8 @@ export const PricingPage = () => {
 
           <p className="text-base sm:text-lg text-[rgba(10,12,11,0.72)] dark:text-white/80 max-w-2xl mx-auto leading-[1.5] font-normal">
             {t(
-              'Todo incluido en cada nivel, sin módulos que se pagan aparte ni comisiones sorpresa. Sin permanencia, con 14 días de prueba gratuita sin tarjeta y cumplimiento 100% VeriFactu 2027.',
-              'All-inclusive across every tier, with no extra paid modules or surprise fees. No lock-in contracts, a 14-day free trial without a card, and 100% VeriFactu 2027 compliance.'
+              'Todo incluido en cada nivel, sin módulos que se pagan aparte ni comisiones sorpresa. Sin permanencia, con 30 días de prueba gratuita sin tarjeta y cumplimiento 100% VeriFactu 2027.',
+              'All-inclusive across every tier, with no extra paid modules or surprise fees. No lock-in contracts, a 30-day free trial without a card, and 100% VeriFactu 2027 compliance.'
             )}
           </p>
 
@@ -527,7 +527,7 @@ export const PricingPage = () => {
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 pt-4 text-sm font-medium text-[rgba(10,12,11,0.85)] dark:text-white/85">
             <div className="inline-flex items-center gap-2">
               <Check className="w-4 h-4 text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] shrink-0" />
-              <span>{t('14 días de prueba sin tarjeta', '14-day trial, no credit card')}</span>
+              <span>{t('30 días de prueba sin tarjeta', '30-day trial, no credit card')}</span>
             </div>
             <div className="inline-flex items-center gap-2">
               <Check className="w-4 h-4 text-[rgb(52,138,46)] dark:text-[rgb(104,204,88)] shrink-0" />
@@ -949,7 +949,7 @@ export const PricingPage = () => {
                 href={APP_URLS.register}
                 className="w-full sm:w-auto px-8 py-3.5 text-sm font-bold shadow-sm"
               >
-                <span>{t('Empezar 14 días de prueba gratis', 'Start 14-Day Free Trial')}</span>
+                <span>{t('Empezar 30 días de prueba gratis', 'Start 30-Day Free Trial')}</span>
               </Button>
               <Button
                 variant="secondary"

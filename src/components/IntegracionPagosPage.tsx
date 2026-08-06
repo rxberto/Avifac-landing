@@ -523,8 +523,8 @@ export const IntegracionPagosPage: React.FC = () => {
             </h2>
             <p className="text-xs sm:text-sm lg:text-base text-white/70 leading-relaxed">
               {t(
-                'Activa tu Portal de Clientes y prueba todas las funcionalidades durante 14 días completamente gratis. Sin compromiso de permanencia ni tarjeta de crédito.',
-                'Activate your Client Portal and evaluate all merchant checkout capabilities for 14 days completely free. No binding commitments or credit card required.'
+                'Activa tu Portal de Clientes y prueba todas las funcionalidades durante 30 días completamente gratis. Sin compromiso de permanencia ni tarjeta de crédito.',
+                'Activate your Client Portal and evaluate all merchant checkout capabilities for 30 days completely free. No binding commitments or credit card required.'
               )}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2">
@@ -533,7 +533,7 @@ export const IntegracionPagosPage: React.FC = () => {
                 className="w-full sm:w-auto px-8 py-4 rounded-[6px] bg-[rgb(104,204,88)] text-[#0A0C0B] font-extrabold text-sm sm:text-base hover:opacity-95 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg"
               >
                 <Zap className="size-5 fill-current shrink-0" />
-                <span>{t('Activar Portal y Cobros (14 días gratis)', 'Activate Portal & Payments (14 days free)')}</span>
+                <span>{t('Activar Portal y Cobros (30 días gratis)', 'Activate Portal & Payments (30 days free)')}</span>
                 <ArrowRight className="size-4" />
               </a>
               <a

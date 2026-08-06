@@ -819,8 +819,8 @@ export const VeriFactuPage = () => {
             </h2>
             <p className="text-sm sm:text-base text-[rgba(10,12,11,0.75)] dark:text-white/75 max-w-xl mx-auto leading-relaxed font-normal relative z-10">
               {t(
-                'Cumple al 100% con la normativa VeriFactu y Antifraude con un software homologado ante la AEAT. Sin esperas de activación, sin permanencia y con 14 días gratis sin tarjeta.',
-                'Comply 100% with VeriFactu and Anti-Fraud rules using Tax Agency certified software. Zero activation delays, zero lock-in contracts, and a 14-day free trial without credit card.'
+                'Cumple al 100% con la normativa VeriFactu y Antifraude con un software homologado ante la AEAT. Sin esperas de activación, sin permanencia y con 30 días gratis sin tarjeta.',
+                'Comply 100% with VeriFactu and Anti-Fraud rules using Tax Agency certified software. Zero activation delays, zero lock-in contracts, and a 30-day free trial without credit card.'
               )}
             </p>
             <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 w-full sm:w-auto relative z-10">
@@ -829,7 +829,7 @@ export const VeriFactuPage = () => {
                 href={APP_URLS.register}
                 className="w-full sm:w-auto px-9 py-4 text-base font-bold shadow-md justify-center text-center"
               >
-                <span>{t('Empezar 14 días de prueba gratis', 'Start 14-Day Free Trial')}</span>
+                <span>{t('Empezar 30 días de prueba gratis', 'Start 30-Day Free Trial')}</span>
               </Button>
               <Button
                 variant="secondary"

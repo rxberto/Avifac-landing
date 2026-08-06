@@ -358,7 +358,7 @@ export const Navbar = () => {
               {t('Iniciar Sesión', 'Log In')}
             </a>
             <Button variant="primary" href={APP_URLS.register}>
-              {t('Prueba 14 días gratis', 'Start 14-Day Free Trial')}
+              {t('Prueba 30 días gratis', 'Start 30-Day Free Trial')}
             </Button>
           </div>
 
@@ -426,7 +426,7 @@ export const Navbar = () => {
                     href={APP_URLS.register}
                     className="w-full py-3 justify-center text-xs font-black shadow-sm px-2 text-center"
                   >
-                    <span>{t('14 Días Gratis', '14-Day Free Trial')}</span>
+                    <span>{t('30 Días Gratis', '30-Day Free Trial')}</span>
                   </Button>
                 </div>
               </div>
@@ -512,7 +512,7 @@ export const Navbar = () => {
                           {t('Ver Precios y Planes', 'View Pricing Plans')}
                         </span>
                         <span className="text-[10px] font-bold text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] bg-[rgba(52,138,46,0.15)] px-2 py-0.5 rounded-[4px] uppercase font-mono tracking-wider">
-                          {t('14 Días Gratis', '14 Days Free')}
+                          {t('30 Días Gratis', '30 Days Free')}
                         </span>
                       </div>
                       <p className="text-xs text-[rgba(10,12,11,0.75)] dark:text-white/75 mt-1.5 leading-snug">

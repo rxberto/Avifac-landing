@@ -182,7 +182,7 @@ export const PortalClientesPage: React.FC = () => {
               href={APP_URLS.register}
               className="w-full sm:w-auto text-center px-8 py-4 rounded-[6px] bg-[#0A0C0B] dark:bg-white text-white dark:text-[#0A0C0B] font-bold text-base shadow-lg hover:opacity-90 active:scale-[0.99] transition-all duration-200"
             >
-              {t('Probar Portal de Clientes — Gratis 14 días', 'Try Client Portal — 14 Days Free')}
+              {t('Probar Portal de Clientes — Gratis 30 días', 'Try Client Portal — 30 Days Free')}
             </a>
             <a
               href="#portal-scroll-experience"
@@ -760,7 +760,7 @@ export const PortalClientesPage: React.FC = () => {
                   href={APP_URLS.register}
                   className="w-full sm:w-auto text-center px-8 py-4 rounded-[6px] bg-white text-[#0A0C0B] font-extrabold text-base shadow-lg hover:opacity-90 active:scale-[0.99] transition-all duration-200"
                 >
-                  {t('Empieza hoy — Gratis 14 días', 'Start Today — 14 Days Free')}
+                  {t('Empieza hoy — Gratis 30 días', 'Start Today — 30 Days Free')}
                 </a>
                 <a
                   href="/precios"

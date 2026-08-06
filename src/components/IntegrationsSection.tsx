@@ -101,7 +101,7 @@ export const IntegrationsSection = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             <Button variant="primary" href="#pricing">
-              {t('Empieza ahora gratis', 'Start 14-day free trial')}
+              {t('Empieza ahora gratis', 'Start 30-day free trial')}
             </Button>
           </motion.div>
         </div>

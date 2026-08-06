@@ -154,7 +154,7 @@ export const CobrosRecurrentesPage: React.FC = () => {
                 href={APP_URLS.register}
                 className="w-full sm:w-auto text-center px-7 py-4 rounded-[6px] bg-[#0A0C0B] dark:bg-white text-white dark:text-[#0A0C0B] font-bold text-base shadow-lg hover:opacity-90 active:scale-[0.99] transition-all duration-200"
               >
-                {t('Empezar prueba de 14 días', 'Start 14-Day Free Trial')}
+                {t('Empezar prueba de 30 días', 'Start 30-Day Free Trial')}
               </a>
               <a
                 href="#flujo-cobros"
@@ -827,7 +827,7 @@ export const CobrosRecurrentesPage: React.FC = () => {
                   href={APP_URLS.register}
                   className="w-full sm:w-auto text-center px-8 py-4 rounded-[6px] bg-white text-[#0A0C0B] font-extrabold text-base shadow-lg hover:opacity-90 active:scale-[0.99] transition-all duration-200"
                 >
-                  {t('Empieza hoy — Gratis 14 días', 'Start Today — 14 Days Free')}
+                  {t('Empieza hoy — Gratis 30 días', 'Start Today — 30 Days Free')}
                 </a>
                 <a
                   href="/precios"

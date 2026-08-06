@@ -39,7 +39,7 @@ export const FinalCTASection = () => {
           {/* Right Action Button Block */}
           <div className="shrink-0 flex items-center justify-center w-full lg:w-auto">
             <Button variant="primary" href={APP_URLS.register} className="w-full sm:w-auto text-base px-9 py-4 justify-center shadow-lg hover:scale-[1.02] transition-transform duration-200">
-              {t('Prueba 14 días gratis', 'Start 14-day free trial')}
+              {t('Prueba 30 días gratis', 'Start 30-day free trial')}
             </Button>
           </div>
         </motion.div>

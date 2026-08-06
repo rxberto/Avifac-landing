@@ -359,7 +359,7 @@ export const Hero = () => {
         {/* CTA Button */}
         <div className="mt-5 sm:mt-8 w-full sm:w-auto px-4 sm:px-0">
           <Button variant="primary" href={APP_URLS.register} className="w-full sm:w-auto text-base px-8 py-3.5 justify-center">
-            {t('Pruébanos 14 días gratis', 'Start 14-day free trial')}
+            {t('Pruébanos 30 días gratis', 'Start 30-day free trial')}
           </Button>
         </div>
 
