@@ -13,7 +13,10 @@ export const Pricing = () => {
   const plans = [
     {
       name: 'Esencial',
-      desc: t('Facturación impecable y sin complicaciones. Diseñado a medida para autónomos y freelancers.', 'Spotless invoicing without complexity. Tailored for solo pros and freelancers.'),
+      desc: t(
+        'Facturación impecable y sin complicaciones. Diseñado a medida para <strong>autónomos y freelancers</strong>.', 
+        'Spotless invoicing without complexity. Tailored for <strong>solo pros and freelancers</strong>.'
+      ),
       priceMonthly: 15,
       priceYearly: 12,
       cta: t('Contratar Esencial', 'Choose Essential'),
@@ -37,7 +40,10 @@ export const Pricing = () => {
     },
     {
       name: 'Completo',
-      desc: t('El motor operativo definitivo. Creado para pymes, startups y empresas en pleno crecimiento.', 'The definitive operational engine. Built for growing SMEs, startups and companies.'),
+      desc: t(
+        'El motor operativo definitivo. Creado para <strong>pymes, startups y empresas</strong> en pleno crecimiento.', 
+        'The definitive operational engine. Built for <strong>growing SMEs, startups and companies</strong>.'
+      ),
       priceMonthly: 29,
       priceYearly: 24,
       cta: t('Contratar Completo', 'Choose Complete'),
@@ -61,7 +67,10 @@ export const Pricing = () => {
     },
     {
       name: 'Multiempresa',
-      desc: t('Control total bajo un mismo panel. La herramienta perfecta para gestorías, asesorías y holdings.', 'Total control in a unified console. The perfect tool for accounting firms, advisors and holdings.'),
+      desc: t(
+        'Control total bajo un mismo panel. La herramienta perfecta para <strong>gestorías, asesorías y holdings</strong>.', 
+        'Total control in a unified console. The perfect tool for <strong>accounting firms, advisors and holdings</strong>.'
+      ),
       priceMonthly: 99,
       priceYearly: 79,
       cta: t('Contratar Multiempresa', 'Choose Multi-Entity'),
@@ -187,9 +196,10 @@ export const Pricing = () => {
                       <h3 className="text-2xl font-bold leading-[1.1] tracking-[-0.03em] text-[#0A0C0B] dark:text-white mb-2">
                         {plan.name}
                       </h3>
-                      <p className="text-xs sm:text-sm font-normal leading-[1.5] text-[rgba(10,12,11,0.72)] dark:text-white/80 min-h-[42px]">
-                        {plan.desc}
-                      </p>
+                      <p 
+                        className="text-xs sm:text-sm font-normal leading-[1.5] text-[rgba(10,12,11,0.72)] dark:text-white/80 min-h-[42px]"
+                        dangerouslySetInnerHTML={{ __html: plan.desc }}
+                      />
                     </div>
 
                     <div className="flex flex-col py-5 border-y border-[#E6E6E3] dark:border-[#232326] justify-center">

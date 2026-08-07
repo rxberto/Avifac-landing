@@ -53,8 +53,8 @@ export const PricingPage = () => {
     {
       name: 'Esencial',
       desc: t(
-        'Facturación rápida, impecable y sin complicaciones. Diseñado a medida para profesionales freelance y autónomos que buscan agilidad.',
-        'Fast, spotless invoicing without complexity. Tailored for solo freelancers needing agility and compliance.'
+        'Facturación rápida, impecable y sin complicaciones. Diseñado a medida para <strong>profesionales freelance y autónomos</strong> que buscan agilidad.',
+        'Fast, spotless invoicing without complexity. Tailored for <strong>solo freelancers</strong> needing agility and compliance.'
       ),
       priceMonthly: 15,
       priceYearly: 12,
@@ -76,8 +76,8 @@ export const PricingPage = () => {
     {
       name: 'Completo',
       desc: t(
-        'El motor fiscal y operativo definitivo. Creado para pymes, startups y empresas en pleno crecimiento que necesitan automatizar su facturación.',
-        'The definitive operational and tax engine. Built for growing SMEs, startups and companies needing to automate billing.'
+        'El motor fiscal y operativo definitivo. Creado para <strong>pymes, startups y empresas</strong> en pleno crecimiento que necesitan automatizar su facturación.',
+        'The definitive operational and tax engine. Built for <strong>growing SMEs, startups and companies</strong> needing to automate billing.'
       ),
       priceMonthly: 29,
       priceYearly: 24,
@@ -99,8 +99,8 @@ export const PricingPage = () => {
     {
       name: 'Multiempresa',
       desc: t(
-        'Control integral de múltiples sociedades bajo un solo panel. La herramienta perfecta para gestorías, asesorías, holdings y emprendedores en serie.',
-        'Comprehensive multi-entity control in a single console. The perfect tool for accounting firms, advisors, holdings and serial entrepreneurs.'
+        'Control integral de múltiples sociedades bajo un solo panel. La herramienta perfecta para <strong>gestorías, asesorías, holdings y emprendedores en serie</strong>.',
+        'Comprehensive multi-entity control in a single console. The perfect tool for <strong>accounting firms, advisors, holdings and serial entrepreneurs</strong>.'
       ),
       priceMonthly: 99,
       priceYearly: 79,
@@ -605,9 +605,10 @@ export const PricingPage = () => {
                       <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#0A0C0B] dark:text-white">
                         {plan.name}
                       </h2>
-                      <p className="text-xs sm:text-sm text-[rgba(10,12,11,0.72)] dark:text-white/80 leading-relaxed min-h-[50px]">
-                        {plan.desc}
-                      </p>
+                      <p 
+                        className="text-xs sm:text-sm text-[rgba(10,12,11,0.72)] dark:text-white/80 leading-relaxed min-h-[50px]"
+                        dangerouslySetInnerHTML={{ __html: plan.desc }}
+                      />
                     </div>
 
                     {/* Bloque de Precio Limpio */}
