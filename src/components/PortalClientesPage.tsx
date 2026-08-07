@@ -1,29 +1,23 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { 
-  Check, 
-  ArrowRight, 
-  FileText, 
-  CreditCard, 
-  MessageSquare, 
-  ShieldCheck, 
-  Lock, 
-  Mail, 
-  Download, 
-  CheckCircle2, 
-  Send, 
-  ExternalLink, 
-  Building2, 
-  User, 
-  Search, 
+import {
+  Check,
+  ArrowRight,
+  FileText,
+  CreditCard,
+  MessageSquare,
+  ShieldCheck,
+  Lock,
+  Mail,
+  User,
   Zap,
   Scale
 } from 'lucide-react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { ShinyText } from './ShinyText';
+import { PortalAppMockup } from './PortalAppMockup';
 import { APP_URLS } from '../config/urls';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -42,12 +36,6 @@ interface ScrollStep {
 
 export const PortalClientesPage: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
-  const [isPaid, setIsPaid] = useState<boolean>(false);
-  const [chatInput, setChatInput] = useState<string>('');
-  const [messages, setMessages] = useState<Array<{ sender: 'client' | 'support'; text: string; time: string }>>([
-    { sender: 'client', text: 'Hola equipo, ¿podríamos desglosar la partida de auditoría y servidores para nuestro gestor fiscal?', time: '10:14' },
-    { sender: 'support', text: '¡Por supuesto! Hemos actualizado el concepto fiscal bajo norma VeriFactu 2027. Ya puedes visualizarla y liquidar con tarjeta.', time: '10:18' }
-  ]);
   const [lang, setLang] = useState<'es' | 'en'>('es');
 
   // Referencias para la animación GSAP y ScrollTrigger
@@ -81,6 +69,24 @@ export const PortalClientesPage: React.FC = () => {
           end: 'bottom 45%',
           onEnter: () => setActiveStep(index),
           onEnterBack: () => setActiveStep(index),
+        });
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  // Revelado escalonado con GSAP de las tarjetas narrativas al entrar en viewport
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      sectionRefs.current.forEach((el) => {
+        if (!el) return;
+        gsap.from(el, {
+          opacity: 0,
+          y: 36,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 90%', once: true }
         });
       });
     }, containerRef);
@@ -134,28 +140,6 @@ export const PortalClientesPage: React.FC = () => {
       icon: MessageSquare
     }
   ];
-
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!chatInput.trim()) return;
-    setMessages((prev) => [...prev, { sender: 'client', text: chatInput, time: 'Ahora' }]);
-    setChatInput('');
-    setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        { 
-          sender: 'support', 
-          text: 'Hemos recibido tu consulta sobre la factura #FACT-2027-089. Nuestro departamento contable lo ha revisado y confirmado conforme al registro VeriFactu.', 
-          time: 'Ahora' 
-        }
-      ]);
-    }, 1000);
-  };
-
-  const handleSimulatePayment = () => {
-    setIsPaid(true);
-    setTimeout(() => setIsPaid(false), 8000); // Reset for interactive play
-  };
 
   return (
     <div className="min-h-screen bg-[#FCFCFB] dark:bg-[#080a09] text-[#0A0C0B] dark:text-white w-full overflow-x-hidden antialiased transition-colors duration-300 flex flex-col" ref={containerRef}>
@@ -259,401 +243,43 @@ export const PortalClientesPage: React.FC = () => {
               })}
             </div>
 
-            {/* COLUMNA DERECHA: PANEL INTERACTIVO DEL PORTAL DE CLIENTES (STICKY PINNED MOCKUP WORKSPACE) */}
-            <div className="lg:col-span-7 lg:sticky lg:top-24 w-full pt-4 lg:pt-0">
-              <div className="w-full rounded-[8px] bg-[#0A0C0B] dark:bg-[#131517] border border-[#303131] shadow-2xl overflow-hidden flex flex-col min-h-[520px]">
-                
-                {/* Cabecera del Navegador y Barra de Autenticación de Marca */}
-                <div className="bg-[#1A1C1B] dark:bg-[#1A1D1F] border-b border-[#303131] px-4 py-3 flex items-center justify-between font-mono text-xs text-white">
-                  <div className="flex items-center gap-2">
-                    <Lock className="w-3.5 h-3.5 text-[rgb(124,224,108)]" />
-                    <span className="font-bold text-[11px] truncate text-white/90">
-                      https://portal.avialo.es/client/token-auth_s82a9...
-                    </span>
-                  </div>
-                  <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[3px] bg-[rgba(124,224,108,0.15)] text-[rgb(124,224,108)] text-[10px] font-bold uppercase">
-                    <span>SSL 256-BIT</span>
-                  </div>
-                </div>
+            {/* COLUMNA DERECHA: RÉPLICA REAL DEL PORTAL DEL CLIENTE (STICKY + ANIMACIONES GSAP) */}
+            <div className="lg:col-span-7 lg:sticky lg:top-24 w-full pt-4 lg:pt-0 space-y-3">
 
-                {/* Subcabecera Corporativa del Portal del Cliente */}
-                <div className="bg-[#F2F2F0] dark:bg-[#0E1012] border-b border-[#D2D2CE] dark:border-[#303131] px-6 py-4 flex flex-wrap items-center justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-[6px] bg-[#0A0C0B] dark:bg-white text-white dark:text-[#0A0C0B] flex items-center justify-center font-extrabold font-mono text-base shadow-sm">
-                      TS
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-mono font-bold text-[rgba(10,12,11,0.6)] dark:text-white/60 uppercase block">
-                        {t('PORTAL DE FACTURACIÓN DE LA EMPRESA', 'CLIENT BILLING PORTAL OF')}
-                      </span>
-                      <h4 className="text-base font-extrabold text-[#0A0C0B] dark:text-white leading-none mt-0.5">
-                        Tech Solutions Madrid S.L.
-                      </h4>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2 text-xs font-mono bg-[#FCFCFB] dark:bg-[#1A1D1F] px-3 py-1.5 rounded-[4px] border border-[#D2D2CE] dark:border-[#303131]">
-                    <User className="w-3.5 h-3.5 text-[rgb(20,122,132)] dark:text-[rgb(158,250,255)]" />
-                    <span className="font-bold text-[#0A0C0B] dark:text-white">Cliente: Innovaciones Digitales S.L.</span>
-                  </div>
-                </div>
-
-                {/* Selector rápido de vistas del panel (para facilitar navegación móvil y testing al usuario) */}
-                <div className="bg-[#FCFCFB] dark:bg-[#080a09] px-4 py-2 border-b border-[#D2D2CE] dark:border-[#303131] flex overflow-x-auto gap-2 text-xs font-mono [scrollbar-width:none]">
-                  <button
-                    onClick={() => setActiveStep(0)}
-                    className={`px-3 py-1.5 rounded-[4px] font-bold whitespace-nowrap flex items-center gap-1.5 transition-all ${
-                      activeStep === 0 ? 'bg-[#0A0C0B] text-white dark:bg-white dark:text-[#0A0C0B]' : 'text-[rgba(10,12,11,0.6)] dark:text-white/60 hover:text-[#0A0C0B] dark:hover:text-white'
-                    }`}
-                  >
-                    <Mail className="w-3.5 h-3.5" />
-                    <span>01 // {t('Acceso', 'Login')}</span>
-                  </button>
-                  <button
-                    onClick={() => setActiveStep(1)}
-                    className={`px-3 py-1.5 rounded-[4px] font-bold whitespace-nowrap flex items-center gap-1.5 transition-all ${
-                      activeStep === 1 ? 'bg-[#0A0C0B] text-white dark:bg-white dark:text-[#0A0C0B]' : 'text-[rgba(10,12,11,0.6)] dark:text-white/60 hover:text-[#0A0C0B] dark:hover:text-white'
-                    }`}
-                  >
-                    <FileText className="w-3.5 h-3.5" />
-                    <span>02 // {t('Facturas VeriFactu', 'Invoices')}</span>
-                  </button>
-                  <button
-                    onClick={() => setActiveStep(2)}
-                    className={`px-3 py-1.5 rounded-[4px] font-bold whitespace-nowrap flex items-center gap-1.5 transition-all ${
-                      activeStep === 2 ? 'bg-[#0A0C0B] text-white dark:bg-white dark:text-[#0A0C0B]' : 'text-[rgba(10,12,11,0.6)] dark:text-white/60 hover:text-[#0A0C0B] dark:hover:text-white'
-                    }`}
-                  >
-                    <CreditCard className="w-3.5 h-3.5" />
-                    <span>03 // {t('Pago 1-Clic', 'Instant Pay')}</span>
-                  </button>
-                  <button
-                    onClick={() => setActiveStep(3)}
-                    className={`px-3 py-1.5 rounded-[4px] font-bold whitespace-nowrap flex items-center gap-1.5 transition-all ${
-                      activeStep === 3 ? 'bg-[#0A0C0B] text-white dark:bg-white dark:text-[#0A0C0B]' : 'text-[rgba(10,12,11,0.6)] dark:text-white/60 hover:text-[#0A0C0B] dark:hover:text-white'
-                    }`}
-                  >
-                    <MessageSquare className="w-3.5 h-3.5" />
-                    <span>04 // {t('Soporte y Dudas', 'Team Chat')}</span>
-                  </button>
-                </div>
-
-                {/* CUERPO DEL PANEL: VISTAS REALISTAS Y DINÁMICAS QUE RESPONDEN AL SCROLL O CLICS */}
-                <div className="p-6 bg-[#FCFCFB] dark:bg-[#0E1012] flex-1 flex flex-col justify-between relative overflow-hidden text-[#0A0C0B] dark:text-white">
-                  
-                  <AnimatePresence mode="wait">
-                    
-                    {/* VISTA 0: SIMULACIÓN DEL ENLACE AL CORREO Y ENTRADA SIN CONTRASENA */}
-                    {activeStep === 0 && (
-                      <motion.div
-                        key="view-step-0"
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -12 }}
-                        transition={{ duration: 0.2 }}
-                        className="space-y-6"
-                      >
-                        <div className="p-5 rounded-[6px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] space-y-4">
-                          <div className="flex items-center justify-between border-b border-[#D2D2CE] dark:border-[#303131] pb-3 text-xs font-mono">
-                            <span className="text-[rgb(20,122,132)] dark:text-[rgb(158,250,255)] font-bold flex items-center gap-1.5">
-                              <Mail className="w-4 h-4" />
-                              {t('BANDEJA DE CORREO DEL CLIENTE', 'CLIENT INBOX SIMULATION')}
-                            </span>
-                            <span className="text-[rgba(10,12,11,0.5)] dark:text-white/50">10:02 AM</span>
-                          </div>
-
-                          <div className="space-y-3 pt-1">
-                            <div className="text-xs font-mono">
-                              <span className="text-[rgba(10,12,11,0.6)] dark:text-white/60 font-semibold">De: </span>
-                              <span className="font-bold text-[#0A0C0B] dark:text-white">facturacion@techsolutions.es</span>
-                            </div>
-                            <h4 className="text-base sm:text-lg font-extrabold text-[#0A0C0B] dark:text-white">
-                              {t('Nueva Factura #FACT-2027-089 disponible en tu Portal de Clientes', 'New Invoice #FACT-2027-089 available inside your Client Portal')}
-                            </h4>
-                            <p className="text-xs sm:text-sm text-[rgba(10,12,11,0.75)] dark:text-white/75 leading-relaxed font-normal">
-                              {t(
-                                'Hola Innovaciones Digitales S.L., adjuntamos aviso de emisión de la factura mensual por servicios profesionales. Para tu comodidad y máxima seguridad, puedes verla, descargar el PDF VeriFactu o realizar el pago online haciendo clic en el siguiente botón sin necesidad de introducir contraseñas:',
-                                'Hello Innovaciones Digitales S.L., we issue notice of your monthly professional services billing. For maximum security, inspect, download your official VeriFactu PDF, or process online card payment by clicking below with zero passwords required:'
-                              )}
-                            </p>
-
-                            <div className="pt-3">
-                              <button
-                                onClick={() => setActiveStep(1)}
-                                className="w-full sm:w-auto px-6 py-3 rounded-[6px] bg-[rgb(43,115,38)] hover:bg-[rgb(35,95,30)] text-white font-bold text-sm shadow-md flex items-center justify-center gap-2 transition-transform active:scale-95"
-                              >
-                                <span>{t('Acceder al Portal y Ver Factura', 'Enter Portal & View Invoice')}</span>
-                                <ExternalLink className="w-4 h-4" />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="p-4 rounded-[6px] bg-[rgba(52,138,46,0.1)] border border-[rgba(52,138,46,0.25)] flex items-center gap-3 text-xs font-mono text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] font-bold">
-                          <CheckCircle2 className="w-5 h-5 shrink-0" />
-                          <span>{t('Autenticación automática por token temporal de 30 días. Cero barreras de acceso para tu cliente.', 'Auto-authenticated via 30-day token. Zero login friction for your customers.')}</span>
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {/* VISTA 1: LISTADO Y DESCARGA DE FACTURAS VERIFACTU 2027 */}
-                    {activeStep === 1 && (
-                      <motion.div
-                        key="view-step-1"
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -12 }}
-                        transition={{ duration: 0.2 }}
-                        className="space-y-5"
-                      >
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                          <div>
-                            <h4 className="text-base sm:text-lg font-extrabold text-[#0A0C0B] dark:text-white">
-                              {t('Historial de Facturación & Descarga Oficial VeriFactu', 'Invoicing History & Official VeriFactu Vault')}
-                            </h4>
-                            <p className="text-xs text-[rgba(10,12,11,0.6)] dark:text-white/60">
-                              {t('Descarga tus documentos en PDF con QR y huella SHA-256 inmutable de la AEAT', 'Download official PDF docs stamped with immovable Tax Agency SHA-256 hashes')}
-                            </p>
-                          </div>
-                          <div className="relative">
-                            <Search className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
-                            <input
-                              type="text"
-                              readOnly
-                              value={t('Filtrar por año 2027...', 'Filter by fiscal year 2027...')}
-                              className="w-full sm:w-48 pl-9 pr-3 py-1.5 rounded-[4px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] text-xs font-mono text-[#0A0C0B] dark:text-white cursor-pointer"
-                            />
-                          </div>
-                        </div>
-
-                        {/* Tabla de Facturas del Cliente */}
-                        <div className="border border-[#D2D2CE] dark:border-[#303131] rounded-[6px] overflow-hidden font-mono text-xs">
-                          
-                          <div className="bg-[#F2F2F0] dark:bg-[#131517] p-3 font-bold border-b border-[#D2D2CE] dark:border-[#303131] grid grid-cols-12 gap-2 text-[11px] text-[rgba(10,12,11,0.7)] dark:text-white/70">
-                            <span className="col-span-4 sm:col-span-3">{t('Nº FACTURA / HASH', 'INVOICE / HASH')}</span>
-                            <span className="col-span-3 sm:col-span-3">{t('FECHA EMISIÓN', 'DATE')}</span>
-                            <span className="col-span-5 sm:col-span-3 text-right">{t('IMPORTE', 'TOTAL')}</span>
-                            <span className="hidden sm:inline-block sm:col-span-3 text-center">{t('ESTADO & DESCARGA', 'STATUS & PDF')}</span>
-                          </div>
-
-                          <div className="divide-y divide-[#D2D2CE] dark:divide-[#303131] bg-[#FCFCFB] dark:bg-[#080a09]">
-                            
-                            {/* Fila 1: Factura Pendiente */}
-                            <div className="p-3.5 grid grid-cols-12 gap-2 items-center hover:bg-[#F2F2F0]/50 dark:hover:bg-[#131517]/50 transition-colors">
-                              <div className="col-span-4 sm:col-span-3">
-                                <span className="font-extrabold text-[#0A0C0B] dark:text-white block">#FACT-2027-089</span>
-                                <span className="text-[9px] text-[rgb(20,122,132)] dark:text-[rgb(158,250,255)] block truncate">SHA-256: 8f9a2e...</span>
-                              </div>
-                              <span className="col-span-3 sm:col-span-3 text-[rgba(10,12,11,0.7)] dark:text-white/70">15/08/2027</span>
-                              <span className="col-span-5 sm:col-span-3 text-right font-bold text-sm text-[#0A0C0B] dark:text-white">1.250,00 €</span>
-                              <div className="col-span-12 sm:col-span-3 flex items-center justify-end sm:justify-center gap-2 pt-2 sm:pt-0">
-                                <span className="px-2 py-0.5 rounded-[3px] bg-[rgba(244,180,0,0.15)] text-[rgb(205,125,20)] dark:text-[rgb(255,190,50)] text-[10px] font-bold">
-                                  {isPaid ? t('PAGADO ✓', 'PAID ✓') : t('PENDIENTE', 'PENDING')}
-                                </span>
-                                <button
-                                  onClick={() => alert(t('Simulación: Descargando FACT-2027-089 con huella SHA-256...', 'Downloading FACT-2027-089 signed with SHA-256 hash...'))}
-                                  className="p-1.5 rounded-[4px] bg-[#E5E5E2] dark:bg-[#202224] text-[#0A0C0B] dark:text-white hover:opacity-80"
-                                  title="Descargar PDF VeriFactu 2027"
-                                >
-                                  <Download className="w-3.5 h-3.5" />
-                                </button>
-                              </div>
-                            </div>
-
-                            {/* Fila 2: Factura Pagada Anterior */}
-                            <div className="p-3.5 grid grid-cols-12 gap-2 items-center hover:bg-[#F2F2F0]/50 dark:hover:bg-[#131517]/50 transition-colors opacity-80">
-                              <div className="col-span-4 sm:col-span-3">
-                                <span className="font-extrabold text-[#0A0C0B] dark:text-white block">#FACT-2027-042</span>
-                                <span className="text-[9px] text-[rgba(10,12,11,0.5)] dark:text-white/50 block truncate">SHA-256: 3b4c91...</span>
-                              </div>
-                              <span className="col-span-3 sm:col-span-3 text-[rgba(10,12,11,0.7)] dark:text-white/70">15/07/2027</span>
-                              <span className="col-span-5 sm:col-span-3 text-right font-bold text-sm text-[#0A0C0B] dark:text-white">1.250,00 €</span>
-                              <div className="col-span-12 sm:col-span-3 flex items-center justify-end sm:justify-center gap-2 pt-2 sm:pt-0">
-                                <span className="px-2 py-0.5 rounded-[3px] bg-[rgba(52,138,46,0.15)] text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] text-[10px] font-bold">
-                                  {t('PAGADO ✓', 'PAID ✓')}
-                                </span>
-                                <button
-                                  onClick={() => alert(t('Simulación: Descargando FACT-2027-042 con huella SHA-256...', 'Downloading FACT-2027-042 signed with SHA-256 hash...'))}
-                                  className="p-1.5 rounded-[4px] bg-[#E5E5E2] dark:bg-[#202224] text-[#0A0C0B] dark:text-white hover:opacity-80"
-                                  title="Descargar PDF VeriFactu 2027"
-                                >
-                                  <Download className="w-3.5 h-3.5" />
-                                </button>
-                              </div>
-                            </div>
-
-                          </div>
-
-                        </div>
-
-                        <div className="flex justify-end">
-                          <button
-                            onClick={() => setActiveStep(2)}
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-[4px] bg-[#0A0C0B] text-white dark:bg-white dark:text-[#0A0C0B] text-xs font-bold font-mono"
-                          >
-                            <span>{t('Ir a liquidar factura pendiente ▶', 'Go to pay pending bill ▶')}</span>
-                          </button>
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {/* VISTA 2: COBRO DIRECTO AL EMISOR EN 1 CLIC (STRIPE / REDSYS / SEPA) */}
-                    {activeStep === 2 && (
-                      <motion.div
-                        key="view-step-2"
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -12 }}
-                        transition={{ duration: 0.2 }}
-                        className="space-y-6"
-                      >
-                        <div className="flex items-center justify-between border-b border-[#D2D2CE] dark:border-[#303131] pb-3">
-                          <div>
-                            <span className="text-[10px] font-mono font-bold text-[rgb(20,122,132)] dark:text-[rgb(158,250,255)] uppercase block">
-                              {t('PASARELA DE COBRO DIRECTA', 'DIRECT BILLING GATEWAY')}
-                            </span>
-                            <h4 className="text-base sm:text-lg font-extrabold text-[#0A0C0B] dark:text-white">
-                              {t('Liquidación inmediata de la Factura #FACT-2027-089', 'Immediate settlement for Invoice #FACT-2027-089')}
-                            </h4>
-                          </div>
-                          <div className="text-right">
-                            <span className="text-2xl font-extrabold font-mono text-[#0A0C0B] dark:text-white">1.250,00 €</span>
-                            <span className="block text-[10px] font-mono text-[rgba(10,12,11,0.6)] dark:text-white/60">{t('IVA 21% incluido', 'VAT 21% included')}</span>
-                          </div>
-                        </div>
-
-                        {/* Estado del Pago */}
-                        {isPaid ? (
-                          <div className="p-8 rounded-[8px] bg-[rgba(52,138,46,0.1)] border border-[rgba(52,138,46,0.3)] text-center space-y-3 font-mono">
-                            <div className="w-12 h-12 rounded-[6px] bg-[rgb(52,138,46)] text-white mx-auto flex items-center justify-center">
-                              <Check className="w-7 h-7" />
-                            </div>
-                            <h5 className="text-lg font-extrabold text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)]">
-                              {t('¡PAGO COMPLETADO CON ÉXITO!', 'PAYMENT COMPLETED SUCCESSFULLY!')}
-                            </h5>
-                            <p className="text-xs text-[#0A0C0B] dark:text-white max-w-sm mx-auto font-sans font-semibold">
-                              {t('La factura ha sido pagada, conciliada automáticamente y firmada con hash SHA-256 VeriFactu 2027 en la contabilidad del emisor.', 'Invoice settled, auto-reconciled in issuer ledger, and stamped with 2027 VeriFactu SHA-256 hash.')}
-                            </p>
-                            <button
-                              onClick={() => setIsPaid(false)}
-                              className="text-[11px] underline font-mono text-[rgba(10,12,11,0.6)] dark:text-white/60 pt-2"
-                            >
-                              {t('Resetear simulación de pago', 'Reset payment simulation')}
-                            </button>
-                          </div>
-                        ) : (
-                          <div className="space-y-4">
-                            <div className="grid grid-cols-3 gap-2 text-xs font-mono">
-                              <div className="p-3 rounded-[6px] bg-[#0A0C0B] text-white dark:bg-white dark:text-[#0A0C0B] border border-transparent font-bold flex flex-col items-center justify-center gap-1 cursor-pointer">
-                                <CreditCard className="w-4 h-4" />
-                                <span>{t('Tarjeta Bancaria', 'Credit Card')}</span>
-                              </div>
-                              <div className="p-3 rounded-[6px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] text-[rgba(10,12,11,0.7)] dark:text-white/70 font-semibold flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-[#0A0C0B] dark:hover:border-white">
-                                <Zap className="w-4 h-4" />
-                                <span>Bizum / Instant</span>
-                              </div>
-                              <div className="p-3 rounded-[6px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] text-[rgba(10,12,11,0.7)] dark:text-white/70 font-semibold flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-[#0A0C0B] dark:hover:border-white">
-                                <Building2 className="w-4 h-4" />
-                                <span>SEPA B2B</span>
-                              </div>
-                            </div>
-
-                            <div className="p-4 rounded-[6px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] space-y-2 font-mono text-xs">
-                              <div className="flex justify-between text-[11px]">
-                                <span>{t('Número de Tarjeta', 'Card Number')}</span>
-                                <span className="text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] font-bold">{t('Stripe / Redsys Conectado', 'Stripe / Redsys Ready')}</span>
-                              </div>
-                              <div className="p-2.5 rounded-[4px] bg-[#FCFCFB] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131] text-gray-500 tracking-wider flex items-center justify-between">
-                                <span>4242 •••• •••• 4242</span>
-                                <span>12/28 — CVC: 881</span>
-                              </div>
-                            </div>
-
-                            <button
-                              onClick={handleSimulatePayment}
-                              className="w-full py-4 rounded-[6px] bg-[rgb(43,115,38)] hover:bg-[rgb(35,95,30)] text-white font-extrabold text-base shadow-lg transition-transform active:scale-95 flex items-center justify-center gap-2"
-                            >
-                              <ShieldCheck className="w-5 h-5" />
-                              <span>{t('Pagar 1.250,00 € en 1 Clic (0% comisiones añadidas)', 'Pay €1,250.00 with 1 Click (0% added platform fee)')}</span>
-                            </button>
-                          </div>
-                        )}
-                      </motion.div>
-                    )}
-
-                    {/* VISTA 3: CANAL DE COMUNICACIÓN CON EL EMISOR DE LA FACTURA */}
-                    {activeStep === 3 && (
-                      <motion.div
-                        key="view-step-3"
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -12 }}
-                        transition={{ duration: 0.2 }}
-                        className="space-y-4 flex flex-col h-full"
-                      >
-                        <div className="flex items-center justify-between border-b border-[#D2D2CE] dark:border-[#303131] pb-2 text-xs font-mono">
-                          <div>
-                            <span className="font-extrabold text-[#0A0C0B] dark:text-white block">{t('CHAT DE RESOLUCIÓN DIRECTA', 'IN-CONTEXT INVOICE CHAT')}</span>
-                            <span className="text-[10px] text-[rgba(10,12,11,0.6)] dark:text-white/60">{t('Referencia: Factura #FACT-2027-089', 'Ref: Invoice #FACT-2027-089')}</span>
-                          </div>
-                          <span className="inline-flex items-center gap-1 text-[10px] text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] font-bold bg-[rgba(52,138,46,0.1)] px-2 py-1 rounded-[3px]">
-                            ● {t('Equipo Administrativo En Línea', 'Billing Team Online')}
-                          </span>
-                        </div>
-
-                        {/* Mensajes del Chat */}
-                        <div className="space-y-3 p-3 rounded-[6px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] max-h-[260px] overflow-y-auto text-xs font-sans flex-1">
-                          {messages.map((msg, idx) => (
-                            <div
-                              key={idx}
-                              className={`flex flex-col ${msg.sender === 'client' ? 'items-end' : 'items-start'}`}
-                            >
-                              <span className="text-[10px] font-mono text-[rgba(10,12,11,0.5)] dark:text-white/50 mb-1">
-                                {msg.sender === 'client' ? t('Tú (Cliente)', 'You (Client)') : t('Equipo Tech Solutions', 'Tech Solutions Team')} • {msg.time}
-                              </span>
-                              <div
-                                className={`p-3 rounded-[6px] max-w-[85%] font-semibold leading-relaxed ${
-                                  msg.sender === 'client'
-                                    ? 'bg-[#0A0C0B] text-white dark:bg-white dark:text-[#0A0C0B] rounded-br-none'
-                                    : 'bg-[#FCFCFB] dark:bg-[#080a09] text-[#0A0C0B] dark:text-white border border-[#D2D2CE] dark:border-[#303131] rounded-bl-none'
-                                }`}
-                              >
-                                {msg.text}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Formulario de Envío de Dudas */}
-                        <form onSubmit={handleSendMessage} className="flex items-center gap-2 pt-2">
-                          <input
-                            type="text"
-                            value={chatInput}
-                            onChange={(e) => setChatInput(e.target.value)}
-                            placeholder={t('Escribe tu duda o consulta fiscal al emisor...', 'Type your question to the invoice issuer...')}
-                            className="flex-1 px-3.5 py-2.5 rounded-[4px] bg-[#FCFCFB] dark:bg-[#080a09] border border-[#D2D2CE] dark:border-[#303131] text-xs font-mono text-[#0A0C0B] dark:text-white placeholder:text-gray-400 focus:outline-none focus:border-[#0A0C0B] dark:focus:border-white"
-                          />
-                          <button
-                            type="submit"
-                            className="p-2.5 rounded-[4px] bg-[#0A0C0B] dark:bg-white text-white dark:text-[#0A0C0B] font-bold hover:opacity-90 transition-opacity"
-                          >
-                            <Send className="w-4 h-4" />
-                          </button>
-                        </form>
-                      </motion.div>
-                    )}
-
-                  </AnimatePresence>
-
-                  {/* Pie de Garantía Legal VeriFactu 2027 del Panel */}
-                  <div className="pt-4 mt-4 border-t border-[#D2D2CE]/60 dark:border-[#303131]/60 flex items-center justify-between text-[10px] font-mono text-[rgba(10,12,11,0.5)] dark:text-white/50">
-                    <span>{t('PORTAL CERTIFICADO VERIFACTU 2027 // SHA-256', 'CERTIFIED VERIFACTU 2027 PORTAL // SHA-256')}</span>
-                    <span>AVIALO SOLUCIONES S.L.</span>
-                  </div>
-
-                </div>
-
+              {/* Selector rápido de vistas del panel (navegación manual y móvil) */}
+              <div className="flex overflow-x-auto gap-2 text-xs font-mono [scrollbar-width:none]">
+                {[
+                  { icon: Mail, es: 'Acceso', en: 'Login' },
+                  { icon: FileText, es: 'Facturas', en: 'Invoices' },
+                  { icon: CreditCard, es: 'Pago 1-clic', en: 'Instant pay' },
+                  { icon: MessageSquare, es: 'Dudas', en: 'Chat' }
+                ].map((tab, i) => {
+                  const TabIcon = tab.icon;
+                  return (
+                    <button
+                      key={tab.es}
+                      onClick={() => setActiveStep(i)}
+                      className={`px-3 py-1.5 rounded-[4px] font-bold whitespace-nowrap flex items-center gap-1.5 border transition-all ${
+                        activeStep === i
+                          ? 'bg-[#0A0C0B] text-white dark:bg-white dark:text-[#0A0C0B] border-transparent'
+                          : 'border-[#D2D2CE] dark:border-[#303131] text-[rgba(10,12,11,0.6)] dark:text-white/60 hover:text-[#0A0C0B] dark:hover:text-white'
+                      }`}
+                    >
+                      <TabIcon className="w-3.5 h-3.5" />
+                      <span>0{i + 1} // {t(tab.es, tab.en)}</span>
+                    </button>
+                  );
+                })}
               </div>
+
+              <PortalAppMockup view={activeStep} onViewChange={setActiveStep} t={t} />
+
+              <p className="text-[11px] font-mono text-[rgba(10,12,11,0.5)] dark:text-white/40 text-center">
+                {t(
+                  'Interfaz real del portal · datos de demostración · puedes interactuar con el panel',
+                  'Real portal interface · demo data · the panel is interactive'
+                )}
+              </p>
             </div>
 
           </div>
