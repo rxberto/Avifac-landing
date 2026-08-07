@@ -13,7 +13,7 @@ export const Pricing = () => {
   const plans = [
     {
       name: 'Esencial',
-      desc: t('Facturas rápidas e impecables sin complicaciones', 'Fast & simple invoicing for solo pros'),
+      desc: t('Facturación impecable y sin complicaciones. Diseñado a medida para autónomos y freelancers.', 'Spotless invoicing without complexity. Tailored for solo pros and freelancers.'),
       priceMonthly: 15,
       priceYearly: 12,
       cta: t('Contratar Esencial', 'Choose Essential'),
@@ -37,7 +37,7 @@ export const Pricing = () => {
     },
     {
       name: 'Completo',
-      desc: t('El motor operativo definitivo para tu negocio', 'The operational and tax engine for your business'),
+      desc: t('El motor operativo definitivo. Creado para pymes, startups y empresas en pleno crecimiento.', 'The definitive operational engine. Built for growing SMEs, startups and companies.'),
       priceMonthly: 29,
       priceYearly: 24,
       cta: t('Contratar Completo', 'Choose Complete'),
@@ -61,7 +61,7 @@ export const Pricing = () => {
     },
     {
       name: 'Multiempresa',
-      desc: t('Múltiples sociedades bajo un solo panel', 'Multiple legal entities in a unified console'),
+      desc: t('Control total bajo un mismo panel. La herramienta perfecta para gestorías, asesorías y holdings.', 'Total control in a unified console. The perfect tool for accounting firms, advisors and holdings.'),
       priceMonthly: 99,
       priceYearly: 79,
       cta: t('Contratar Multiempresa', 'Choose Multi-Entity'),

@@ -53,8 +53,8 @@ export const PricingPage = () => {
     {
       name: 'Esencial',
       desc: t(
-        'Facturación rápida, impecable y sin complicaciones. Ideal para profesionales freelance y autónomos que quieren cumplir con VeriFactu sin perder tiempo.',
-        'Fast, spotless invoicing without complexity. Ideal for solo freelancers needing effortless VeriFactu compliance.'
+        'Facturación rápida, impecable y sin complicaciones. Diseñado a medida para profesionales freelance y autónomos que buscan agilidad.',
+        'Fast, spotless invoicing without complexity. Tailored for solo freelancers needing agility and compliance.'
       ),
       priceMonthly: 15,
       priceYearly: 12,
@@ -76,8 +76,8 @@ export const PricingPage = () => {
     {
       name: 'Completo',
       desc: t(
-        'El motor fiscal y operativo para tu negocio. Diseñado para pymes en crecimiento que necesitan automatizar cobros, inventario y colaboración.',
-        'The operational and tax engine for your business. Designed for growing SMEs needing payment automation and collaboration.'
+        'El motor fiscal y operativo definitivo. Creado para pymes, startups y empresas en pleno crecimiento que necesitan automatizar su facturación.',
+        'The definitive operational and tax engine. Built for growing SMEs, startups and companies needing to automate billing.'
       ),
       priceMonthly: 29,
       priceYearly: 24,
@@ -99,8 +99,8 @@ export const PricingPage = () => {
     {
       name: 'Multiempresa',
       desc: t(
-        'El control integral para emprendedores en serie, holdings y asesorías con múltiples sociedades. Toda tu contabilidad bajo una misma consola.',
-        'Comprehensive command for serial entrepreneurs, holdings, and accounting firms with multiple legal entities in one console.'
+        'Control integral de múltiples sociedades bajo un solo panel. La herramienta perfecta para gestorías, asesorías, holdings y emprendedores en serie.',
+        'Comprehensive multi-entity control in a single console. The perfect tool for accounting firms, advisors, holdings and serial entrepreneurs.'
       ),
       priceMonthly: 99,
       priceYearly: 79,
