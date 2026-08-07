@@ -14,8 +14,8 @@ export const Pricing = () => {
     {
       name: 'Esencial',
       desc: t(
-        'Facturación impecable y sin complicaciones. Diseñado a medida para <strong>autónomos y freelancers</strong>.', 
-        'Spotless invoicing without complexity. Tailored for <strong>solo pros and freelancers</strong>.'
+        'Facturación impecable y sin complicaciones. Diseñado a medida para <strong class="underline decoration-yellow-400 dark:decoration-yellow-500 decoration-2 underline-offset-[3px]">autónomos y freelancers</strong>.', 
+        'Spotless invoicing without complexity. Tailored for <strong class="underline decoration-yellow-400 dark:decoration-yellow-500 decoration-2 underline-offset-[3px]">solo pros and freelancers</strong>.'
       ),
       priceMonthly: 15,
       priceYearly: 12,
@@ -41,8 +41,8 @@ export const Pricing = () => {
     {
       name: 'Completo',
       desc: t(
-        'El motor operativo definitivo. Creado para <strong>pymes, startups y empresas</strong> en pleno crecimiento.', 
-        'The definitive operational engine. Built for <strong>growing SMEs, startups and companies</strong>.'
+        'El motor operativo definitivo. Creado para <strong class="underline decoration-yellow-400 dark:decoration-yellow-500 decoration-2 underline-offset-[3px]">pymes, startups y empresas</strong> en pleno crecimiento.', 
+        'The definitive operational engine. Built for <strong class="underline decoration-yellow-400 dark:decoration-yellow-500 decoration-2 underline-offset-[3px]">growing SMEs, startups and companies</strong>.'
       ),
       priceMonthly: 29,
       priceYearly: 24,
@@ -68,8 +68,8 @@ export const Pricing = () => {
     {
       name: 'Multiempresa',
       desc: t(
-        'Control total bajo un mismo panel. La herramienta perfecta para <strong>gestorías, asesorías y holdings</strong>.', 
-        'Total control in a unified console. The perfect tool for <strong>accounting firms, advisors and holdings</strong>.'
+        'Control total bajo un mismo panel. La herramienta perfecta para <strong class="underline decoration-yellow-400 dark:decoration-yellow-500 decoration-2 underline-offset-[3px]">gestorías, asesorías y holdings</strong>.', 
+        'Total control in a unified console. The perfect tool for <strong class="underline decoration-yellow-400 dark:decoration-yellow-500 decoration-2 underline-offset-[3px]">accounting firms, advisors and holdings</strong>.'
       ),
       priceMonthly: 99,
       priceYearly: 79,

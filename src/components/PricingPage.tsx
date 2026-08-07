@@ -53,8 +53,8 @@ export const PricingPage = () => {
     {
       name: 'Esencial',
       desc: t(
-        'Facturación rápida, impecable y sin complicaciones. Diseñado a medida para <strong>profesionales freelance y autónomos</strong> que buscan agilidad.',
-        'Fast, spotless invoicing without complexity. Tailored for <strong>solo freelancers</strong> needing agility and compliance.'
+        'Facturación rápida, impecable y sin complicaciones. Diseñado a medida para <strong class="underline decoration-yellow-400 dark:decoration-yellow-500 decoration-2 underline-offset-[3px]">profesionales freelance y autónomos</strong> que buscan agilidad.',
+        'Fast, spotless invoicing without complexity. Tailored for <strong class="underline decoration-yellow-400 dark:decoration-yellow-500 decoration-2 underline-offset-[3px]">solo freelancers</strong> needing agility and compliance.'
       ),
       priceMonthly: 15,
       priceYearly: 12,
@@ -76,8 +76,8 @@ export const PricingPage = () => {
     {
       name: 'Completo',
       desc: t(
-        'El motor fiscal y operativo definitivo. Creado para <strong>pymes, startups y empresas</strong> en pleno crecimiento que necesitan automatizar su facturación.',
-        'The definitive operational and tax engine. Built for <strong>growing SMEs, startups and companies</strong> needing to automate billing.'
+        'El motor fiscal y operativo definitivo. Creado para <strong class="underline decoration-yellow-400 dark:decoration-yellow-500 decoration-2 underline-offset-[3px]">pymes, startups y empresas</strong> en pleno crecimiento que necesitan automatizar su facturación.',
+        'The definitive operational and tax engine. Built for <strong class="underline decoration-yellow-400 dark:decoration-yellow-500 decoration-2 underline-offset-[3px]">growing SMEs, startups and companies</strong> needing to automate billing.'
       ),
       priceMonthly: 29,
       priceYearly: 24,
@@ -99,8 +99,8 @@ export const PricingPage = () => {
     {
       name: 'Multiempresa',
       desc: t(
-        'Control integral de múltiples sociedades bajo un solo panel. La herramienta perfecta para <strong>gestorías, asesorías, holdings y emprendedores en serie</strong>.',
-        'Comprehensive multi-entity control in a single console. The perfect tool for <strong>accounting firms, advisors, holdings and serial entrepreneurs</strong>.'
+        'Control integral de múltiples sociedades bajo un solo panel. La herramienta perfecta para <strong class="underline decoration-yellow-400 dark:decoration-yellow-500 decoration-2 underline-offset-[3px]">gestorías, asesorías, holdings y emprendedores en serie</strong>.',
+        'Comprehensive multi-entity control in a single console. The perfect tool for <strong class="underline decoration-yellow-400 dark:decoration-yellow-500 decoration-2 underline-offset-[3px]">accounting firms, advisors, holdings and serial entrepreneurs</strong>.'
       ),
       priceMonthly: 99,
       priceYearly: 79,
