@@ -25,11 +25,6 @@ export const AboutUsPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider mb-8">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              {t('Nuestra Historia', 'Our Story')}
-            </div>
-            
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-[1.1]">
               Transformación <span className="text-emerald-600 dark:text-emerald-400">Digital</span> Integrada.
             </h1>
