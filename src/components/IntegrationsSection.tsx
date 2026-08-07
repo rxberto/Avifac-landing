@@ -22,14 +22,14 @@ const LOGOS = [
     filterClass: '',
   },
   {
-    name: 'Agencia Tributaria',
-    svg: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Agencia_Tributaria.svg',
+    name: 'AEAT',
+    svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNDAgNDQiPjxyZWN0IHg9IjIiIHk9IjIiIHdpZHRoPSIxMzYiIGhlaWdodD0iNDAiIHJ4PSIyMCIgZmlsbD0iIzBBMEMwQiIgc3Ryb2tlPSIjMzMzMzMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxwYXRoIGQ9Ik0yMiAyMiBsIDUgNSBsIDEwIC0xMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDBGRjY2IiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjx0ZXh0IHg9IjQ4IiB5PSIyOSIgZm9udC1mYW1pbHk9InN5c3RlbS11aSwgLWFwcGxlLXN5c3RlbSwgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjgwMCIgZm9udC1zaXplPSIxOCIgZmlsbD0iI0ZGRkZGRiIgbGV0dGVyLXNwYWNpbmc9IjEuNSI+QUVBVDwvdGV4dD48L3N2Zz4K',
     height: 'h-8 sm:h-9',
     filterClass: '',
   },
   {
-    name: 'Ministerio Digital',
-    svg: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Logotipo_del_Ministerio_para_la_Transformación_Digital_y_de_la_Función_Pública.svg',
+    name: 'FACe',
+    svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MCA0MCI+PHRleHQgeD0iMCIgeT0iMzIiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksIHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI5MDAiIGZvbnQtc2l6ZT0iMzIiPjx0c3BhbiBmaWxsPSIjMGMxZTQwIj5GQUM8L3RzcGFuPjx0c3BhbiBmaWxsPSIjZTY1YzAwIj5lPC90c3Bhbj48L3RleHQ+PC9zdmc+',
     height: 'h-8 sm:h-9',
     filterClass: '',
   },

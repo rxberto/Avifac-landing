@@ -57,28 +57,47 @@ const VerifactuSeal = () => {
   const [showTip, setShowTip] = useState(false);
   const [popoverStyle, setPopoverStyle] = useState<React.CSSProperties>({});
   const containerRef = useRef<HTMLDivElement>(null);
+  
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    handleResize(); // set initially
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const calculatePlacement = () => {
     if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect();
-      const centerY = rect.top + rect.height / 2;
-      const popoverWidth = Math.min(384, window.innerWidth - 32);
+      if (window.innerWidth < 640) {
+        // En móvil, lo centramos en la pantalla
+        setPopoverStyle({
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          zIndex: 9999,
+        });
+      } else {
+        // En escritorio, a la izquierda del sello
+        const rect = containerRef.current.getBoundingClientRect();
+        const centerY = rect.top + rect.height / 2;
+        const popoverWidth = 384; // sm+ w-96 = 384px
 
-      // Preferred right edge is shifted an additional 100px further to the left of seal (rect.left - 164)
-      let rightEdge = rect.left - 164;
-      // Clamp right edge so left edge (rightEdge - popoverWidth) is at least 16px from viewport left edge
-      if (rightEdge - popoverWidth < 16) {
-        rightEdge = 16 + popoverWidth;
+        let rightOffset = window.innerWidth - rect.left + 24;
+        const maxRightOffset = window.innerWidth - popoverWidth - 16;
+        if (rightOffset > maxRightOffset) {
+          rightOffset = maxRightOffset;
+        }
+
+        const safeTop = Math.max(120, centerY);
+
+        setPopoverStyle({
+          position: 'fixed',
+          top: `${safeTop}px`,
+          right: `${rightOffset}px`,
+          zIndex: 9999,
+        });
       }
-
-      setPopoverStyle({
-        position: 'fixed',
-        top: `${Math.max(120, Math.min(window.innerHeight - 200, centerY))}px`,
-        left: `${rightEdge}px`,
-        transform: 'translateX(-100%) translateY(-50%)',
-        zIndex: 9999,
-        maxWidth: 'calc(100vw - 32px)',
-      });
     }
   };
 
@@ -95,10 +114,22 @@ const VerifactuSeal = () => {
   }, [showTip]);
 
   const handleMouseEnter = () => {
-    // Deshabilitar completamente el hover/popover en móviles (< 640px)
-    if (typeof window !== 'undefined' && window.innerWidth >= 640) {
+    if (!isMobile) {
       calculatePlacement();
       setShowTip(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isMobile) {
+      setShowTip(false);
+    }
+  };
+
+  const handleClick = () => {
+    if (isMobile) {
+      if (!showTip) calculatePlacement();
+      setShowTip(!showTip);
     }
   };
 
@@ -107,67 +138,60 @@ const VerifactuSeal = () => {
       ref={containerRef}
       className="relative shrink-0 z-40"
       onMouseEnter={handleMouseEnter}
-      onMouseLeave={() => setShowTip(false)}
+      onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
     >
-      {/* Sello Circular Grande de Homologación AEAT & FACe */}
+      {/* Sello de Homologación Estilo Parche Circular - Homologado AEAT */}
       <motion.div
-        whileHover={{ scale: window.innerWidth >= 640 ? 1.06 : 1 }}
-        whileTap={{ scale: window.innerWidth >= 640 ? 0.95 : 1 }}
+        whileHover={{ scale: !isMobile ? 1.05 : 1 }}
+        whileTap={{ scale: 0.95 }}
         aria-label={t('Software Certificado por la AEAT', 'Software Certified by AEAT')}
-        className="relative w-20 h-20 sm:w-32 sm:h-32 rounded-full bg-[#FCFCFB]/95 dark:bg-[#131517]/95 border-2 border-emerald-500/50 dark:border-emerald-400/50 shadow-2xl shadow-emerald-500/20 backdrop-blur-md flex items-center justify-center cursor-default sm:cursor-pointer group transition-all duration-300 select-none"
+        className="relative flex flex-col items-center justify-center w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-[#0A0C0B] dark:bg-[#131517] border-[3.5px] border-emerald-500/90 shadow-2xl shadow-emerald-500/30 cursor-pointer group transition-all duration-300 select-none overflow-hidden"
       >
-        {/* Anillo exterior con destellos */}
-        <div className="absolute inset-0 rounded-full border border-emerald-500/30 dark:border-emerald-400/30 animate-pulse pointer-events-none" />
+        {/* Inner dashed ring (simulando costura o borde de parche) */}
+        <div className="absolute inset-[5px] sm:inset-[6px] rounded-full border border-dashed border-emerald-500/60 pointer-events-none" />
+        
+        {/* Resplandor hover */}
+        <div className="absolute inset-0 bg-emerald-500/15 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-        {/* Texto Curvo Estático Fijo (Sin Girar) SVG */}
-        <svg
-          viewBox="0 0 100 100"
-          className="absolute inset-0 w-full h-full p-1 pointer-events-none"
-        >
-          <defs>
-            <path id="seal-circle-large" d="M 50,50 m -39,0 a 39,39 0 1,1 78,0 a 39,39 0 1,1 -78,0" />
-          </defs>
-          <circle cx={50} cy={50} r={44} fill="none" strokeWidth={1} strokeDasharray="3 3" className="stroke-emerald-600/50 dark:stroke-emerald-400/50" />
-          <text className="fill-emerald-700 dark:fill-emerald-400 font-extrabold tracking-[0.14em]" style={{ fontSize: 7.6 }}>
-            <textPath href="#seal-circle-large" startOffset="0%">
-              CERTIFICADO AEAT • VERIFACTU • FACe •
-            </textPath>
-          </text>
-        </svg>
-
-        {/* Contenido Central del Sello con Logo Oficial AEAT más pequeño */}
-        <div className="relative z-10 flex flex-col items-center justify-center text-center p-1">
-          <div className="w-6 h-6 sm:w-9 sm:h-9 rounded-full bg-white flex items-center justify-center p-1 shadow-sm border border-emerald-500/30 sm:group-hover:scale-110 transition-transform overflow-hidden">
-            <img
-              src="https://agenciatributaria.carm.es/documents/20632/70329/logo-agencia-tributaria.png/6a19f0b1-99f8-46c7-8d8c-16804daa7f7a?version=1.0&t=1775028705126"
-              alt="Logo Agencia Tributaria AEAT"
-              className="w-full h-full object-contain"
-            />
-          </div>
-          <span className="text-[7.5px] sm:text-[9.5px] font-black uppercase tracking-tighter text-emerald-950 dark:text-emerald-200 leading-none mt-0.5 sm:mt-1">
-            AEAT Nº 17
-          </span>
+        <ShieldCheck className="w-6 h-6 sm:w-7 sm:h-7 text-emerald-400 drop-shadow-md mb-0.5 z-10" />
+        
+        <div className="flex flex-col items-center text-center z-10 px-2 mt-0.5">
+           <span className="text-[8px] sm:text-[9px] font-bold text-white/90 leading-none tracking-widest uppercase mb-0.5">
+             Certificado
+           </span>
+           <span className="text-[18px] sm:text-[22px] font-black text-white leading-none tracking-tight">
+             AEAT
+           </span>
+           <span className="text-[7.5px] sm:text-[8.5px] font-black text-emerald-950 dark:text-emerald-950 mt-1.5 uppercase tracking-widest leading-none bg-emerald-400 px-2 py-0.5 rounded-sm">
+             VeriFactu
+           </span>
         </div>
-
-        {/* Badge flotante "SOFTWARE CERTIFICADO" (Responsive: 2 líneas en móvil, 1 línea en escritorio) */}
-        <span className="absolute -bottom-3 sm:-bottom-2 bg-emerald-600 text-white dark:bg-emerald-400 dark:text-black text-[6.5px] sm:text-[9px] font-black px-1.5 sm:px-2.5 py-0.5 rounded-md sm:rounded-full shadow-md uppercase tracking-wider z-20 text-center leading-none flex flex-col sm:flex-row items-center justify-center gap-0 sm:gap-1 select-none">
-          <span>{t('SOFTWARE', 'SOFTWARE')}</span>
-          <span>{t('CERTIFICADO', 'CERTIFIED')}</span>
-        </span>
       </motion.div>
 
-      {/* Popover Informativo Desplegable a la Izquierda en Portal (Solo Escritorio >= 640px, oculto en móviles) */}
+      {/* Popover Informativo Desplegable en Portal */}
       {typeof document !== 'undefined' &&
         createPortal(
           <AnimatePresence>
+            {showTip && isMobile && (
+              <motion.div
+                 key="backdrop"
+                 initial={{ opacity: 0 }}
+                 animate={{ opacity: 1 }}
+                 exit={{ opacity: 0 }}
+                 className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9998]"
+                 onClick={() => setShowTip(false)}
+              />
+            )}
             {showTip && (
               <motion.div
-                initial={{ opacity: 0, x: 10, scale: 0.92 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: 10, scale: 0.92 }}
-                transition={{ duration: 0.2 }}
+                key="popover"
+                initial={isMobile ? { opacity: 0, x: "-50%", y: "-45%", scale: 0.95 } : { opacity: 0, x: 20, y: "-50%", scale: 0.95 }}
+                animate={isMobile ? { opacity: 1, x: "-50%", y: "-50%", scale: 1 } : { opacity: 1, x: 0, y: "-50%", scale: 1 }}
+                exit={isMobile ? { opacity: 0, x: "-50%", y: "-45%", scale: 0.95 } : { opacity: 0, x: 20, y: "-50%", scale: 0.95 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
                 style={popoverStyle}
-                className="hidden sm:block w-80 sm:w-96 p-4 rounded-2xl bg-white dark:bg-[#181a1d] border-2 border-emerald-500/40 dark:border-emerald-400/40 shadow-2xl text-left space-y-3 pointer-events-auto"
+                className="w-[92vw] sm:w-96 p-4 rounded-2xl bg-white dark:bg-[#181a1d] border-2 border-emerald-500/40 dark:border-emerald-400/40 shadow-2xl text-left space-y-3 pointer-events-auto z-[9999]"
               >
                 <div className="flex items-center justify-between border-b border-emerald-500/20 dark:border-emerald-400/20 pb-2.5">
                   <div className="flex items-center gap-2">
@@ -338,6 +362,11 @@ export const Hero = () => {
       {/* Navbar Component (z-50) */}
       <Navbar />
 
+      {/* Sello flotante top-right en el hero */}
+      <div className="absolute top-24 right-4 sm:top-28 sm:right-8 lg:right-12 z-40 pointer-events-auto">
+        <VerifactuSeal />
+      </div>
+
       {/* Main Content Area */}
       <div className="relative z-10 w-full max-w-[1140px] mx-auto px-4 sm:px-6 flex flex-col items-center justify-start text-center pt-4 sm:pt-10">
 
@@ -377,10 +406,6 @@ export const Hero = () => {
             }}
             className="relative rounded-[8px] sm:rounded-[12px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] shadow-2xl transition-colors duration-300 text-[#0A0C0B] dark:text-white min-h-[420px] sm:min-h-[600px] md:min-h-[680px] flex flex-col"
           >
-            {/* Sello Circular Certificado AEAT pegado a la pantalla (Badge contenido en 3D, Hover Popover 2D plano mediante Portal) */}
-            <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 z-40 pointer-events-auto">
-              <VerifactuSeal />
-            </div>
             {/* Browser Chrome */}
             <div className="flex items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 border-b border-[#D2D2CE] dark:border-[#303131] shrink-0">
               <div className="flex items-center gap-1.5 sm:gap-2">
