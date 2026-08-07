@@ -362,8 +362,8 @@ export const Hero = () => {
       {/* Navbar Component (z-50) */}
       <Navbar />
 
-      {/* Sello flotante top-right en el hero */}
-      <div className="absolute top-24 right-4 sm:top-28 sm:right-8 lg:right-12 z-40 pointer-events-auto">
+      {/* Sello flotante top-right en el hero (Solo Escritorio) */}
+      <div className="absolute top-24 right-4 sm:top-28 sm:right-8 lg:right-12 z-40 pointer-events-auto hidden sm:block">
         <VerifactuSeal />
       </div>
 
@@ -406,6 +406,11 @@ export const Hero = () => {
             }}
             className="relative rounded-[8px] sm:rounded-[12px] bg-[#F2F2F0] dark:bg-[#131517] border border-[#D2D2CE] dark:border-[#303131] shadow-2xl transition-colors duration-300 text-[#0A0C0B] dark:text-white min-h-[420px] sm:min-h-[600px] md:min-h-[680px] flex flex-col"
           >
+            {/* Sello Parche AEAT pegado a la esquina de la pantalla (Solo Móvil) */}
+            <div className="absolute top-0 right-2 -translate-y-1/2 translate-x-1/4 sm:hidden z-40 pointer-events-auto scale-90 origin-center">
+              <VerifactuSeal />
+            </div>
+
             {/* Browser Chrome */}
             <div className="flex items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 border-b border-[#D2D2CE] dark:border-[#303131] shrink-0">
               <div className="flex items-center gap-1.5 sm:gap-2">
