@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { ArrowRight, Code2, Target, Zap } from 'lucide-react';
-import { Button } from './ui/Button';
+import { Button } from './Button';
 
 export const AboutUsPage = () => {
   const { t } = useLanguage();
