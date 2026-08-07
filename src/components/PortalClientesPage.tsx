@@ -41,6 +41,8 @@ export const PortalClientesPage: React.FC = () => {
   // Referencias para la animación GSAP y ScrollTrigger
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const scrollSectionRef = useRef<HTMLElement>(null);
+  const panelWrapRef = useRef<HTMLDivElement>(null);
 
   // Detect language translation helper
   useEffect(() => {
@@ -74,6 +76,35 @@ export const PortalClientesPage: React.FC = () => {
     }, containerRef);
 
     return () => ctx.revert();
+  }, []);
+
+  // El panel acompaña al scroll: además del sticky, GSAP le da un desplazamiento
+  // suave (scrub) a lo largo de toda la sección narrativa
+  useLayoutEffect(() => {
+    const wrap = panelWrapRef.current;
+    const section = scrollSectionRef.current;
+    if (!wrap || !section) return;
+
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
+      const tween = gsap.fromTo(
+        wrap,
+        { y: -20 },
+        {
+          y: 40,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 0.6
+          }
+        }
+      );
+      return () => tween.kill();
+    });
+
+    return () => mm.revert();
   }, []);
 
   // Revelado escalonado con GSAP de las tarjetas narrativas al entrar en viewport
@@ -141,8 +172,9 @@ export const PortalClientesPage: React.FC = () => {
     }
   ];
 
+  // overflow-x-clip (y no hidden) para no crear un contexto de scroll que anule el sticky del panel
   return (
-    <div className="min-h-screen bg-[#FCFCFB] dark:bg-[#080a09] text-[#0A0C0B] dark:text-white w-full overflow-x-hidden antialiased transition-colors duration-300 flex flex-col" ref={containerRef}>
+    <div className="min-h-screen bg-[#FCFCFB] dark:bg-[#080a09] text-[#0A0C0B] dark:text-white w-full overflow-x-clip antialiased transition-colors duration-300 flex flex-col" ref={containerRef}>
       <Navbar />
 
       <main className="flex-1 w-full max-w-[1240px] mx-auto px-4 sm:px-6 md:px-8 pt-12 sm:pt-16 md:pt-20 pb-20 sm:pb-28 space-y-20 sm:space-y-28">
@@ -195,7 +227,11 @@ export const PortalClientesPage: React.FC = () => {
 
         {/* EXPERIENCIA PRINCIPAL DE SCROLL INTERACTIVA PORTAL CLIENTES (GSAP & STICKY PANEL) */}
         {/* Nota de Arquitectura para el usuario: Estas estructuras modulares son representaciones fieles en vivo del panel, optimizadas en HTML/CSS arquitectónico y dispuestas de forma limpia para ser sustituidas o acompañadas de capturas reales de la interfaz de usuario en el futuro cuando estén listas */}
-        <section id="portal-scroll-experience" className="pt-8 border-t border-[#D2D2CE] dark:border-[#303131]">
+        <section
+          id="portal-scroll-experience"
+          ref={scrollSectionRef}
+          className="pt-8 border-t border-[#D2D2CE] dark:border-[#303131]"
+        >
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative">
             
@@ -244,7 +280,7 @@ export const PortalClientesPage: React.FC = () => {
             </div>
 
             {/* COLUMNA DERECHA: RÉPLICA REAL DEL PORTAL DEL CLIENTE (STICKY + ANIMACIONES GSAP) */}
-            <div className="lg:col-span-7 lg:sticky lg:top-24 w-full pt-4 lg:pt-0 space-y-3">
+            <div ref={panelWrapRef} className="lg:col-span-7 lg:sticky lg:top-24 w-full pt-4 lg:pt-0 space-y-3">
 
               {/* Selector rápido de vistas del panel (navegación manual y móvil) */}
               <div className="flex overflow-x-auto gap-2 text-xs font-mono [scrollbar-width:none]">
