@@ -145,6 +145,18 @@ export const VeriFactuPage = () => {
             </Button>
           </div>
 
+          <div className="pt-4 flex justify-center w-full px-4 sm:px-0">
+            <a 
+              href="https://sede.agenciatributaria.gob.es/Sede/colaborar-agencia-tributaria/colaboracion-social-presentacion-declaraciones/relacion-entidades-acuerdo/tipo-17-empresas-sistemas-informaticos-facturacion/madrid.html" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="inline-flex flex-col sm:flex-row items-center justify-center text-center gap-1 sm:gap-2 px-4 py-3 sm:py-2 rounded-[16px] sm:rounded-full bg-[rgba(52,138,46,0.08)] dark:bg-[rgba(104,204,88,0.08)] hover:bg-[rgba(52,138,46,0.12)] dark:hover:bg-[rgba(104,204,88,0.12)] border border-[rgba(52,138,46,0.2)] dark:border-[rgba(104,204,88,0.2)] text-xs sm:text-sm text-[rgb(43,115,38)] dark:text-[rgb(124,224,108)] font-semibold transition-colors duration-200"
+            >
+              <ShieldCheck className="w-5 h-5 sm:w-4 sm:h-4 shrink-0" />
+              <span>{t('Avialo figura como software autorizado en el listado oficial de la AEAT', 'Avialo is listed as an authorized software in the official Tax Agency registry')}</span>
+            </a>
+          </div>
+
           {/* Lista de garantías arquitectónicas (sin cajas estridentes) */}
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 pt-6 text-xs sm:text-sm font-medium text-[rgba(10,12,11,0.85)] dark:text-white/85">
             <div className="inline-flex items-center gap-2">
