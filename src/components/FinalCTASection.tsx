@@ -37,10 +37,13 @@ export const FinalCTASection = () => {
           </div>
 
           {/* Right Action Button Block */}
-          <div className="shrink-0 flex items-center justify-center w-full lg:w-auto">
+          <div className="shrink-0 flex flex-col items-center justify-center w-full lg:w-auto mt-4 lg:mt-0">
             <Button variant="primary" href={APP_URLS.register} className="w-full sm:w-auto text-base px-9 py-4 justify-center shadow-lg hover:scale-[1.02] transition-transform duration-200">
               {t('Prueba 30 días gratis', 'Start 30-day free trial')}
             </Button>
+            <p className="mt-3 text-xs sm:text-sm text-[rgba(10,12,11,0.6)] dark:text-white/60 font-medium tracking-tight">
+              {t('Sin tarjeta de crédito. Sin compromiso.', 'No credit card required. Cancel anytime.')}
+            </p>
           </div>
         </motion.div>
       </div>

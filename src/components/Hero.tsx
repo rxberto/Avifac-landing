@@ -386,10 +386,13 @@ export const Hero = () => {
         </div>
 
         {/* CTA Button */}
-        <div className="mt-5 sm:mt-8 w-full sm:w-auto px-4 sm:px-0">
+        <div className="mt-5 sm:mt-8 w-full sm:w-auto px-4 sm:px-0 flex flex-col items-center">
           <Button variant="primary" href={APP_URLS.register} className="w-full sm:w-auto text-base px-8 py-3.5 justify-center">
             {t('Pruébanos 30 días gratis', 'Start 30-day free trial')}
           </Button>
+          <p className="mt-3 text-xs sm:text-sm text-[rgba(10,12,11,0.6)] dark:text-white/60 font-medium tracking-tight">
+            {t('Sin tarjeta de crédito. Sin compromiso.', 'No credit card required. Cancel anytime.')}
+          </p>
         </div>
 
         {/* Extended 3D Scroll Dashboard Panel — Interfaz real de Avialo, interactiva (Modo Claro y Oscuro) */}
