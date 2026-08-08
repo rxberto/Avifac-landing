@@ -379,8 +379,8 @@ export const Hero = () => {
 
           <p className="mt-5 sm:mt-6 text-lg sm:text-xl md:text-2xl font-normal leading-relaxed tracking-[-0.01em] text-[rgba(10,12,11,0.72)] dark:text-white/80 max-w-[860px] text-center px-2 sm:px-0">
             {t(
-              `Facturación electrónica y cumplimiento fiscal blindado. El software verifactu aeat definitivo adaptado a VeriFactu ${new Date().getFullYear()}. Simplicidad de uso, soporte humano real y sin límites de facturas.`,
-              `Smart e-invoicing and VeriFactu ${new Date().getFullYear()} tax compliance for Spain. Built for speed, real human support, and unlimited invoices.`
+              `Facturación electrónica y cumplimiento fiscal blindado. Software nativo certificado VeriFactu AEAT adaptado a VeriFactu ${new Date().getFullYear()}. Simplicidad de uso, soporte humano real y sin límites de facturas.`,
+              `Smart e-invoicing and native certified VeriFactu ${new Date().getFullYear()} AEAT tax compliance for Spain. Built for speed, real human support, and unlimited invoices.`
             )}
           </p>
         </div>
