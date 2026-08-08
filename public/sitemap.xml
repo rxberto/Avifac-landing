@@ -21,6 +21,22 @@
     <priority>0.95</priority>
   </url>
 
+  <!-- Landing SEO: Programa de Facturación -->
+  <url>
+    <loc>https://avialo.es/programa-de-facturacion</loc>
+    <lastmod>2026-08-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Landing SEO: Facturación Electrónica España -->
+  <url>
+    <loc>https://avialo.es/facturacion-electronica-espana</loc>
+    <lastmod>2026-08-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
   <!-- Precios y Planes -->
   <url>
     <loc>https://avialo.es/precios</loc>
