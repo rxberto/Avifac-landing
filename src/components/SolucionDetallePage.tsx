@@ -55,10 +55,10 @@ export const SolucionDetallePage: React.FC<SolucionDetalleProps> = ({ type }) =>
     autonomos: {
       profileNameEs: 'Autónomos & Freelancers',
       profileNameEn: 'Freelancers & Solo Pros',
-      heroTitleEs: 'El control absoluto de tu facturación e impuestos sin pelearte con Excel ni programas prehistóricos',
+      heroTitleEs: 'El mejor software facturación autónomos: control absoluto de tus impuestos sin pelearte con Excel',
       heroTitleEn: 'Total command over invoicing and withholding taxes without battling spreadsheets or dinosaur software',
-      heroSubEs: 'Diseñado en exclusiva para profesionales independientes que quieren facturar en 10 segundos, escanear gastos con la cámara del móvil y estar 100% blindados ante la Ley VeriFactu (obligatorio para autónomos desde el 1 de julio de 2027).',
-      heroSubEn: 'Engineered specifically for solo specialists who need to generate invoices in 10 seconds, digitize expense slips via smartphone camera, and achieve full readiness for 2027 VeriFactu compliance.',
+      heroSubEs: 'Diseñado en exclusiva para profesionales independientes que quieren facturar en 10 segundos, escanear gastos con la cámara del móvil y estar 100% blindados ante la Ley VeriFactu 2026 / 2027. El software facturación autónomos definitivo.',
+      heroSubEn: 'Engineered specifically for solo specialists who need to generate invoices in 10 seconds, digitize expense slips via smartphone camera, and achieve full readiness for VeriFactu 2026 compliance.',
       badgeDateEs: 'OBLIGATORIEDAD: 1 DE JULIO DE 2027 (AUTÓNOMOS)',
       badgeDateEn: 'MANDATORY ENFORCEMENT: JULY 1, 2027 (SOLO PROS)',
       statEs: 'Ahorra 12 horas al mes en papeleo fiscal y gestión contable',
