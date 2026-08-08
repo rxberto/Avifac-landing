@@ -32,9 +32,11 @@ const IntegracionApiPage = lazy(() => import('./components/IntegracionApiPage').
 const IntegracionPagosPage = lazy(() => import('./components/IntegracionPagosPage').then(m => ({ default: m.IntegracionPagosPage })));
 const ControlGastosPage = lazy(() => import('./components/ControlGastosPage').then(m => ({ default: m.ControlGastosPage })));
 const AboutUsPage = lazy(() => import('./components/AboutUsPage').then(m => ({ default: m.AboutUsPage })));
+const SEOProgramaFacturacionPage = lazy(() => import('./components/SEOProgramaFacturacionPage').then(m => ({ default: m.SEOProgramaFacturacionPage })));
+const SEOFacturacionElectronicaPage = lazy(() => import('./components/SEOFacturacionElectronicaPage').then(m => ({ default: m.SEOFacturacionElectronicaPage })));
 
 export function App() {
-  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | 'data-protection' | 'terms' | 'pricing' | 'verifactu' | 'cobros' | 'portal' | 'control-gastos' | 'sobre-nosotros' | 'soluciones' | 'soluciones-autonomos' | 'soluciones-agencias' | 'soluciones-startups' | 'soluciones-gestorias' | 'api' | 'pagos' | '404'>('home');
+  const [currentRoute, setCurrentRoute] = useState<'home' | 'privacy' | 'data-protection' | 'terms' | 'pricing' | 'verifactu' | 'cobros' | 'portal' | 'control-gastos' | 'sobre-nosotros' | 'soluciones' | 'soluciones-autonomos' | 'soluciones-agencias' | 'soluciones-startups' | 'soluciones-gestorias' | 'api' | 'pagos' | 'programa-facturacion' | 'facturacion-electronica' | '404'>('home');
 
   useEffect(() => {
     const checkPath = () => {
@@ -125,6 +127,18 @@ export function App() {
       const isApiRoute = pathname.includes('/integraciones/api') || pathname.includes('/integraciones-api') || hash.includes('#api-webhooks') || hash.includes('#api');
       const isPagosRoute = pathname.includes('/integraciones/pagos') || pathname.includes('/integraciones-pagos') || hash.includes('#pagos') || hash.includes('#pasarelas');
 
+      const isProgramaFacturacionRoute =
+        pathname === '/programa-de-facturacion' ||
+        pathname === '/programa-de-facturacion/' ||
+        hash === '#programa-de-facturacion';
+
+      const isFacturacionElectronicaRoute =
+        pathname === '/facturacion-electronica' ||
+        pathname === '/facturacion-electronica/' ||
+        pathname === '/facturacion-electronica-espana' ||
+        pathname === '/facturacion-electronica-espana/' ||
+        hash === '#facturacion-electronica-espana';
+
       const isSolucionesRoute =
         !isAutonomosRoute &&
         !isAgenciasRoute &&
@@ -173,6 +187,10 @@ export function App() {
         setCurrentRoute('api');
       } else if (isPagosRoute) {
         setCurrentRoute('pagos');
+      } else if (isProgramaFacturacionRoute) {
+        setCurrentRoute('programa-facturacion');
+      } else if (isFacturacionElectronicaRoute) {
+        setCurrentRoute('facturacion-electronica');
       } else if (isExplicit404 || !isValidLanding) {
         setCurrentRoute('404');
       } else {
@@ -227,6 +245,10 @@ export function App() {
             <IntegracionApiPage />
           ) : currentRoute === 'pagos' ? (
             <IntegracionPagosPage />
+          ) : currentRoute === 'programa-facturacion' ? (
+            <SEOProgramaFacturacionPage />
+          ) : currentRoute === 'facturacion-electronica' ? (
+            <SEOFacturacionElectronicaPage />
           ) : (
             <main className="min-h-screen bg-[#FCFCFB] dark:bg-[#080a09] w-full overflow-x-hidden antialiased text-[#0A0C0B] dark:text-white transition-colors duration-300">
               {/* Above the fold (carga inmediata pura y sin bloqueo) */}
