@@ -4,7 +4,7 @@ import { Footer } from './Footer';
 import { Button } from './Button';
 import { useLanguage } from '../context/LanguageContext';
 import { APP_URLS } from '../config/urls';
-import { CheckCircle2, FileText, Building2, ShieldCheck } from 'lucide-react';
+import { FileText, Building2, ShieldCheck } from 'lucide-react';
 
 export const SEOFacturacionElectronicaPage = () => {
   const { t } = useLanguage();

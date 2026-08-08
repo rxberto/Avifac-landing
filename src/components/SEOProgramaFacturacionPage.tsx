@@ -4,7 +4,7 @@ import { Footer } from './Footer';
 import { Button } from './Button';
 import { useLanguage } from '../context/LanguageContext';
 import { APP_URLS } from '../config/urls';
-import { CheckCircle2, Zap, Shield, TrendingUp } from 'lucide-react';
+import { Zap, Shield, TrendingUp } from 'lucide-react';
 
 export const SEOProgramaFacturacionPage = () => {
   const { t } = useLanguage();
